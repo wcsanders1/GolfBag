@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{480BA65E-075D-4BA6-AA28-50789F935C9C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{77D2CAB3-33C0-4D97-B749-5414422C32EC}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "GolfBag", "src\GolfBag\GolfBag.xproj", "{6BE08A1E-F391-47BF-BA99-FA206543CEFE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6BE08A1E-F391-47BF-BA99-FA206543CEFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BE08A1E-F391-47BF-BA99-FA206543CEFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BE08A1E-F391-47BF-BA99-FA206543CEFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BE08A1E-F391-47BF-BA99-FA206543CEFE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6BE08A1E-F391-47BF-BA99-FA206543CEFE} = {480BA65E-075D-4BA6-AA28-50789F935C9C}
+	EndGlobalSection
+EndGlobal
