@@ -1,15 +1,25 @@
-﻿using System;
+﻿using GolfBag.Models;
+using GolfBag.Services;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace GolfBag.Controllers
 {
-    public class HomeController
+    public class HomeController : Controller
     {
-        public string Index()
+        private IScoreCardData _scoreCardData;
+
+        public HomeController(IScoreCardData scoreCardData)
         {
-            return "Hello, from a controller.";
+            _scoreCardData = scoreCardData;
+        }
+        public ViewResult Index()
+        {
+            var model = _scoreCardData.GetAll();
+            return View(model);
         }
     }
 }

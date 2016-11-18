@@ -1,0 +1,21 @@
+﻿@model IEnumerable<GolfBag.Models.ScoreCard>
+
+<html>
+
+<head>
+    <title>Golf Bag | Home</title>
+</head>
+<body>
+    <h1>Welcome to it!</h1>
+    <table>
+        @foreach (var scoreCard in Model)
+        {
+            <tr>
+                <td>@scoreCard.PlayerName</td>
+                <td>@scoreCard.CourseName</td>
+            </tr>
+        }
+    </table>
+
+</body>
+</html>
