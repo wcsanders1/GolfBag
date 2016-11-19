@@ -1,16 +1,16 @@
-﻿using System;
+﻿using GolfBag.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GolfBag.Models
+namespace GolfBag.ViewModels
 {
-    public class ScoreCard
+    public class ScoreCardEditViewModel
     {
-        //public int[] Score { get; set; }
-        public int Id { get; set; }
         public string PlayerName { get; set; }
-
         public string CourseName { get; set; }
+        public CourseType Course { get; set; }
+
     }
 }

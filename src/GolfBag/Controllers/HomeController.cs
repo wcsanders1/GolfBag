@@ -1,5 +1,6 @@
-﻿using GolfBag.Models;
+﻿using GolfBag.ViewModels;
 using GolfBag.Services;
+using GolfBag.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,15 +11,50 @@ namespace GolfBag.Controllers
 {
     public class HomeController : Controller
     {
+        private IGreeter _greeter;
         private IScoreCardData _scoreCardData;
 
-        public HomeController(IScoreCardData scoreCardData)
+        public HomeController(
+            IScoreCardData scoreCardData,
+            IGreeter greeter)
         {
             _scoreCardData = scoreCardData;
+            _greeter = greeter;
         }
         public ViewResult Index()
         {
-            var model = _scoreCardData.GetAll();
+            var model = new HomePageViewModel();
+            model.ScoreCards = _scoreCardData.GetAll();
+            model.CurrentGreeting = _greeter.GetGreeting();
+            return View(model);
+        }
+
+        [HttpGet]
+        public ViewResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ViewResult Create(ScoreCardEditViewModel model)
+        {
+            var scoreCard = new ScoreCard();
+            scoreCard.PlayerName = model.PlayerName;
+            scoreCard.CourseName = model.CourseName;
+            scoreCard.Course = model.Course;
+
+            _scoreCardData.Add(scoreCard);
+
+            return View("Details", scoreCard);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var model = _scoreCardData.Get(id);
+            if (model == null)
+            {
+                return RedirectToAction("Index");
+            }
             return View(model);
         }
     }

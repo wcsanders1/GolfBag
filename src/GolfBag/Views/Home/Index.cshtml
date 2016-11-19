@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GolfBag.Models.ScoreCard>
+﻿@model GolfBag.ViewModels.HomePageViewModel
 
 <html>
 
@@ -7,11 +7,14 @@
 </head>
 <body>
     <h1>Welcome to it!</h1>
+    <h3>@Model.CurrentGreeting</h3>
     <table>
-        @foreach (var scoreCard in Model)
+        @foreach (var scoreCard in Model.ScoreCards)
         {
             <tr>
-                <td>@scoreCard.PlayerName</td>
+                <td>
+                    @Html.ActionLink(scoreCard.PlayerName, "Details", new { id = scoreCard.Id })
+                </td>
                 <td>@scoreCard.CourseName</td>
             </tr>
         }

@@ -1,0 +1,29 @@
+﻿@using GolfBag.Entities
+@model ScoreCard
+
+<html>
+
+<head>
+    <title>Golf Bag | Create</title>
+</head>
+<body>
+    <h1>Create</h1>
+
+    @using (Html.BeginForm())
+    {
+        <div>
+            @Html.LabelFor(m => m.PlayerName)
+            @Html.TextBoxFor(m => m.PlayerName)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.CourseName)
+            @Html.DropDownListFor(m => m.Course, Html.GetEnumSelectList(typeof (CourseType)))
+        </div>
+        <div>
+            <input type="submit" value="Save" />
+        </div>
+    }
+
+</body>
+
+</html>
