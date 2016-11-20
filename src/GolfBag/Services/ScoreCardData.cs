@@ -12,6 +12,31 @@ namespace GolfBag.Services
         ScoreCard Get(int id);
         void Add(ScoreCard newScoreCard);
     }
+
+    public class SqlScoreCardData : IScoreCardData
+    {
+        private ScoreCardDbContext _context;
+
+        public SqlScoreCardData(ScoreCardDbContext context)
+        {
+            _context = context;
+        }
+        public void Add(ScoreCard newScoreCard)
+        {
+            _context.Add(newScoreCard);
+            _context.SaveChanges();
+        }
+
+        public ScoreCard Get(int id)
+        {
+            return _context.ScoreCards.FirstOrDefault(r => r.Id == id);
+        }
+
+        public IEnumerable<ScoreCard> GetAll()
+        {
+            return _context.ScoreCards.ToList();
+        }
+    }
     public class ScoreCardData : IScoreCardData
     {
         List<ScoreCard> _scoreCards;

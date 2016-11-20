@@ -13,11 +13,13 @@
     {
         <div>
             @Html.LabelFor(m => m.PlayerName)
-            @Html.TextBoxFor(m => m.PlayerName)
+            @Html.EditorFor(m => m.PlayerName)
+            @Html.ValidationMessageFor(m => m.PlayerName)
         </div>
         <div>
             @Html.LabelFor(m => m.CourseName)
             @Html.DropDownListFor(m => m.Course, Html.GetEnumSelectList(typeof (CourseType)))
+            @Html.ValidationMessageFor(m => m.Course)
         </div>
         <div>
             <input type="submit" value="Save" />

@@ -36,16 +36,20 @@ namespace GolfBag.Controllers
         }
 
         [HttpPost]
-        public ViewResult Create(ScoreCardEditViewModel model)
+        public IActionResult Create(ScoreCardEditViewModel model)
         {
-            var scoreCard = new ScoreCard();
-            scoreCard.PlayerName = model.PlayerName;
-            scoreCard.CourseName = model.CourseName;
-            scoreCard.Course = model.Course;
+            if (ModelState.IsValid)
+            {
+                var scoreCard = new ScoreCard();
+                scoreCard.PlayerName = model.PlayerName;
+                scoreCard.CourseName = model.CourseName;
+                scoreCard.Course = model.Course;
 
-            _scoreCardData.Add(scoreCard);
+                _scoreCardData.Add(scoreCard);
 
-            return View("Details", scoreCard);
+                return RedirectToAction("Details", new { id = scoreCard.Id });
+            }
+            return View();
         }
 
         public IActionResult Details(int id)

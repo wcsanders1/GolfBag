@@ -10,6 +10,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using GolfBag.Services;
 using Microsoft.AspNetCore.Routing;
+using GolfBag.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace GolfBag
 {
@@ -33,9 +36,14 @@ namespace GolfBag
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddEntityFramework()
+                .AddDbContext<ScoreCardDbContext>(
+                options => options.UseSqlServer(Configuration["database:connection"]));
+
             services.AddSingleton(provider => Configuration);
             services.AddSingleton<IGreeter, Greeter>();
-            services.AddScoped<IScoreCardData, ScoreCardData>();
+            services.AddScoped<IScoreCardData, SqlScoreCardData>();
         }
 
         // This method gets called by the runtime.
