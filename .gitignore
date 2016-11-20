@@ -250,3 +250,11 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+/src/GolfBag/Migrations/20161120194408_Identity.Designer.cs
+/src/GolfBag/Migrations/20161120194408_Identity.cs
+/src/GolfBag/Migrations/20161120144324_v3.Designer.cs
+/src/GolfBag/Migrations/20161120144324_v3.cs
+/src/GolfBag/Migrations/20161120141338_v2.Designer.cs
+/src/GolfBag/Migrations/20161120141338_v2.cs
+/src/GolfBag/Migrations/20161120140818_v1.Designer.cs
+/src/GolfBag/Migrations/20161120140818_v1.cs

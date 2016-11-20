@@ -11,6 +11,7 @@ namespace GolfBag.Services
         IEnumerable<ScoreCard> GetAll();
         ScoreCard Get(int id);
         void Add(ScoreCard newScoreCard);
+        int Commit();
     }
 
     public class SqlScoreCardData : IScoreCardData
@@ -20,6 +21,11 @@ namespace GolfBag.Services
         public SqlScoreCardData(ScoreCardDbContext context)
         {
             _context = context;
+        }
+
+        public int Commit()
+        {
+            return _context.SaveChanges();
         }
         public void Add(ScoreCard newScoreCard)
         {
@@ -49,9 +55,14 @@ namespace GolfBag.Services
             };
         }
 
+        public int Commit()
+        {
+            return 0;
+        }
+
         public void Add(ScoreCard newScoreCard)
         {
-            newScoreCard.Id = _scoreCards.Max(r => r.Id) + 1;
+            //newScoreCard.Id = _scoreCards.Max(r => r.Id) + 1;
             _scoreCards.Add(newScoreCard);
         }
 

@@ -20,6 +20,10 @@
     "Microsoft.Extensions.Configuration.Json": "1.0.0",
     "Microsoft.Extensions.Logging.Console": "1.0.0",
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
+    "Microsoft.AspNetCore.Razor.Tools": {
+      "version": "1.0.0-preview2-final",
+      "type": "build"
+    },
     "Microsoft.NETCore.App": {
       "type": "platform",
       "version": "1.0.0"
@@ -59,6 +63,10 @@
         "portable-net45+win8+dnxcore50",
         "portable-net45+win8"
       ]
+    },
+    "Microsoft.AspNetCore.Razor.Tools": {
+      "version": "1.0.0-preview2-final",
+      "imports": "portable-net45+win8+dnxcore50"
     }
   }
 }

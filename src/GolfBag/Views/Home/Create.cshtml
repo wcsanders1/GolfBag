@@ -1,31 +1,23 @@
-﻿@using GolfBag.Entities
-@model ScoreCard
+﻿@model ScoreCard
+@{ 
+    ViewBag.Title = "Golf Bag";
+}
 
-<html>
+<h1>Create</h1>
 
-<head>
-    <title>Golf Bag | Create</title>
-</head>
-<body>
-    <h1>Create</h1>
-
-    @using (Html.BeginForm())
-    {
-        <div>
-            @Html.LabelFor(m => m.PlayerName)
-            @Html.EditorFor(m => m.PlayerName)
-            @Html.ValidationMessageFor(m => m.PlayerName)
-        </div>
-        <div>
-            @Html.LabelFor(m => m.CourseName)
-            @Html.DropDownListFor(m => m.Course, Html.GetEnumSelectList(typeof (CourseType)))
-            @Html.ValidationMessageFor(m => m.Course)
-        </div>
-        <div>
-            <input type="submit" value="Save" />
-        </div>
-    }
-
-</body>
-
-</html>
+@using (Html.BeginForm())
+{
+    <div>
+        @Html.LabelFor(m => m.PlayerName)
+        @Html.EditorFor(m => m.PlayerName)
+        @Html.ValidationMessageFor(m => m.PlayerName)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.CourseName)
+        @Html.DropDownListFor(m => m.Course, Html.GetEnumSelectList(typeof (CourseType)))
+        @Html.ValidationMessageFor(m => m.Course)
+    </div>
+    <div>
+        <input type="submit" value="Save" />
+    </div>
+}

@@ -1,24 +1,20 @@
 ﻿@model GolfBag.ViewModels.HomePageViewModel
 
-<html>
+@{ 
+    ViewBag.Title = "Home";
+}
 
-<head>
-    <title>Golf Bag | Home</title>
-</head>
-<body>
-    <h1>Welcome to it!</h1>
-    <h3>@Model.CurrentGreeting</h3>
-    <table>
-        @foreach (var scoreCard in Model.ScoreCards)
-        {
-            <tr>
-                <td>
-                    @Html.ActionLink(scoreCard.PlayerName, "Details", new { id = scoreCard.Id })
-                </td>
-                <td>@scoreCard.CourseName</td>
-            </tr>
-        }
-    </table>
+<h1>Welcome to it!</h1>
 
-</body>
-</html>
+@foreach (var scoreCard in Model.ScoreCards)
+{
+    @Html.Partial("_Summary", scoreCard);
+}
+
+<div>
+    <a asp-controller="Home" asp-action="Create">Create</a>   @*don't need the controller tag here*@
+</div>
+
+@section footer{
+    <div>This is the footer.</div>
+}

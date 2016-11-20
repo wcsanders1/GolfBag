@@ -1,16 +1,11 @@
 ﻿@model GolfBag.Entities.ScoreCard
+@{ 
+    ViewBag.Title = Model.PlayerName;
+}
 
-<html>
-
-<head>
-    <title>Golf Bag | @Model.PlayerName</title>
-</head>
-<body>
-    <h1>@Model.CourseName</h1>
-    <div>@Model.Id</div>
-    <div>@Model.Course</div>
-    <div>
-        @Html.ActionLink("Home", "Index")
-    </div>
-</body>
-</html>
+<h1>@Model.CourseName</h1>
+<div>@Model.Id</div>
+<div>@Model.Course</div>
+<div>
+    @Html.ActionLink("Home", "Index")
+</div>

@@ -23,6 +23,7 @@ namespace GolfBag.Entities
         [Display(Name = "Player Name")]
         public string PlayerName { get; set; }
         public string CourseName { get; set; }
+        public string Scores { get; set; }
         public CourseType Course { get; set; }
     }
 }

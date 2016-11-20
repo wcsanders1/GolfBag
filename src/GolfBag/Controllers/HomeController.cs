@@ -6,31 +6,59 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GolfBag.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
-        private IGreeter _greeter;
         private IScoreCardData _scoreCardData;
 
         public HomeController(
-            IScoreCardData scoreCardData,
-            IGreeter greeter)
+            IScoreCardData scoreCardData)
         {
             _scoreCardData = scoreCardData;
-            _greeter = greeter;
         }
+
+        [AllowAnonymous]
         public ViewResult Index()
         {
             var model = new HomePageViewModel();
             model.ScoreCards = _scoreCardData.GetAll();
-            model.CurrentGreeting = _greeter.GetGreeting();
             return View(model);
         }
 
         [HttpGet]
-        public ViewResult Create()
+        public IActionResult Edit(int id)
+        {
+            var model = _scoreCardData.Get(id);
+            if (model == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int id, ScoreCardEditViewModel input)
+        {
+            var scoreCard = _scoreCardData.Get(id);
+            if (scoreCard != null && ModelState.IsValid)
+            {
+                scoreCard.PlayerName = input.PlayerName;
+                scoreCard.CourseName = input.CourseName;
+                scoreCard.Course = input.Course;
+
+                _scoreCardData.Commit();
+
+                return RedirectToAction("Details", new { id = scoreCard.Id });
+            }
+            return View(scoreCard);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
         {
             return View();
         }
@@ -46,6 +74,7 @@ namespace GolfBag.Controllers
                 scoreCard.Course = model.Course;
 
                 _scoreCardData.Add(scoreCard);
+                _scoreCardData.Commit();
 
                 return RedirectToAction("Details", new { id = scoreCard.Id });
             }

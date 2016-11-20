@@ -13,9 +13,9 @@ namespace GolfBag.Services
     public class Greeter : IGreeter
     {
         private string _greeting;
-        public Greeter(IConfiguration configuration)
+        public Greeter(IConfigurationRoot configuration)
         {
-            _greeting = configuration["greeting"];
+            _greeting = configuration["greeting"].ToString();
         }
         public string GetGreeting()
         {

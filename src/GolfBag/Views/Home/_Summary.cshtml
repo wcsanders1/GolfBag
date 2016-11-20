@@ -1,0 +1,12 @@
+﻿@model ScoreCard
+
+<section>
+    <h3>@Model.PlayerName</h3>
+    <div>
+        @Model.Course
+    </div>
+    <div>
+        <a asp-action="Details" asp-route-id="@Model.Id">Details</a>
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+    </div>
+</section>
