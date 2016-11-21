@@ -1,12 +1,12 @@
 ﻿@model ScoreCard
 
-<section>
-    <h3>@Model.PlayerName</h3>
-    <div>
+<section class="panel panel-default">
+    <h3 class="panel-heading">@Model.PlayerName</h3>
+    <div class="panel-body">
         @Model.Course
     </div>
-    <div>
-        <a asp-action="Details" asp-route-id="@Model.Id">Details</a>
-        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+    <div class="panel-footer">
+        <a class="btn btn-primary" asp-action="Details" asp-route-id="@Model.Id">Details</a>
+        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
     </div>
 </section>

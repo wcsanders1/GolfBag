@@ -78,6 +78,8 @@ namespace GolfBag
 
             app.UseFileServer();
 
+            app.UseNodeModules(env.ContentRootPath);
+
             app.UseIdentity();
 
             app.UseMvc(ConfigureRoutes);
