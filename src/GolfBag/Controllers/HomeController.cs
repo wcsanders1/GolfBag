@@ -57,6 +57,18 @@ namespace GolfBag.Controllers
             return View(scoreCard);
         }
 
+        public IActionResult Delete(int id)
+        {
+            var scoreCard = _scoreCardData.Get(id);
+            if (scoreCard != null && ModelState.IsValid)
+            {
+                _scoreCardData.Delete(scoreCard);
+
+                return RedirectToAction("Index");
+            }
+            return View(scoreCard);
+        }
+
         [HttpGet]
         public IActionResult Create()
         {
