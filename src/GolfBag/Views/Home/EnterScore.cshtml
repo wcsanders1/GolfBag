@@ -1,0 +1,17 @@
+﻿@model RoundOfGolfViewModel
+
+<h1>This is the EnterScore page.</h1>
+
+<form method="post" asp-controller="RoundOfGolf" asp-action="EnterScore" asp-antiforgery="true">
+    <label asp-for="CourseName"></label>
+    <input asp-for="CourseName" />
+
+    @for (int i = 0; i < 9; i++)
+    {
+        @Html.EditorFor(m => m.Scores[i]);
+    }
+
+    <div>
+        <input type="submit" value="Enter Score" />
+    </div>
+</form>

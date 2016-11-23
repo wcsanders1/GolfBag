@@ -53,12 +53,13 @@ namespace GolfBag
                 config.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
 
-
             services.AddDbContext<ScoreCardDbContext>();
+            //services.AddDbContext<RoundOfGolfDbContext>();
 
             services.AddSingleton(_config);
             services.AddSingleton<IGreeter, Greeter>();
             services.AddScoped<IScoreCardData, SqlScoreCardData>();
+            services.AddScoped<IRoundOfGolf, RoundOfGolfRepository>();
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ScoreCardDbContext>();
         }

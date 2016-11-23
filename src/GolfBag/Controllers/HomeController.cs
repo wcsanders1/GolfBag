@@ -102,5 +102,10 @@ namespace GolfBag.Controllers
             }
             return View(model);
         }
+
+        public IActionResult EnterScore()
+        {
+            return View();
+        }
     }
 }
