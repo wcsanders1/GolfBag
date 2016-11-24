@@ -802,3 +802,7 @@ paket-files/
 /src/GolfBag/Migrations/20161124013658_Courses2.cs
 /src/GolfBag/Migrations/20161124004948_Courses.Designer.cs
 /src/GolfBag/Migrations/20161124004948_Courses.cs
+/src/GolfBag/wwwroot/css/compilerconfig.json.defaults
+/src/GolfBag/wwwroot/css/compilerconfig.json
+/src/GolfBag/compilerconfig.json.defaults
+/src/GolfBag/compilerconfig.json
