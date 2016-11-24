@@ -49,7 +49,9 @@ namespace GolfBag.Controllers
 
                 course.CourseHoles = courseHoles;
                 _roundOfGolf.AddCourse(course);
-                return View("EnterScore");
+                List<Course> newCourseInList = new List<Course>();
+                newCourseInList.Add(course);
+                return View("EnterScore", newCourseInList);
             }
             return View();
         }
@@ -90,6 +92,13 @@ namespace GolfBag.Controllers
                 return RedirectToAction("Index", "Home", "");
             }
             return View();
+        }
+
+        public IActionResult DisplayCourse(string courseName)
+        {
+            Course course = new Course();
+            course = _roundOfGolf.GetCourse(courseName);
+            return PartialView("_DisplayCourse", course);
         }
     }
 }

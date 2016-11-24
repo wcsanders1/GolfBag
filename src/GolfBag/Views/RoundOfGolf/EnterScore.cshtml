@@ -1,4 +1,30 @@
-﻿@model RoundOfGolfViewModel
+﻿@model List<Course>
+
+<div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+        Choose A Course
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+
+        @foreach (var course in Model)
+        {
+            <li>
+                <a data-ajax="true" data-target="#course-display"
+                    data-action="@Url.Action("DisplayCourse", "RoundOfGolf", 
+                                new { courseName = course.CourseName })">
+                    @course.CourseName
+                </a>
+            </li>
+        }
+
+    </ul>
+</div>
+
+<div id="course-display"></div>
+
+
+@*@model RoundOfGolfViewModel
 
 <h1>This is the EnterScore page.</h1>
 
@@ -14,4 +40,4 @@
     <div>
         <input type="submit" value="Enter Score" />
     </div>
-</form>
+</form>*@

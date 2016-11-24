@@ -15,6 +15,7 @@ namespace GolfBag.Services
         void AddRound(RoundOfGolf newRoundOfGolf);
         void DeleteRound(RoundOfGolf roundOfGolf);
         void AddCourse(Course newCourse);
+        Course GetCourse(string courseName);
         int Commit();
     }
 }

@@ -60,7 +60,14 @@ namespace GolfBag
             services.AddSingleton<IGreeter, Greeter>();
             services.AddScoped<IScoreCardData, SqlScoreCardData>();
             services.AddScoped<IRoundOfGolf, RoundOfGolfRepository>();
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>(x =>
+                {
+                    x.Password.RequireDigit = false;
+                    x.Password.RequiredLength = 5;
+                    x.Password.RequireLowercase = false;
+                    x.Password.RequireNonAlphanumeric = false;
+                    x.Password.RequireUppercase = false;
+                })
                 .AddEntityFrameworkStores<ScoreCardDbContext>();
         }
 

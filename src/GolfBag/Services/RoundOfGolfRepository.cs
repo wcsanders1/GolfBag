@@ -48,5 +48,11 @@ namespace GolfBag.Services
                 .Where(r => r.PlayerName == playerName)
                 .ToList();
         }
+
+        public Course GetCourse(string courseName)
+        {
+            return _context.Courses
+                .FirstOrDefault(r => r.CourseName == courseName);
+        }
     }
 }

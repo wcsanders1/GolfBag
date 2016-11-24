@@ -1,0 +1,10 @@
+﻿@model Course
+
+@if (Model.NumberOfHoles == 0)
+{
+    <h1>Choose a course.</h1>
+}
+else
+{
+    <h1>@Model.CourseName</h1>
+}
