@@ -14,9 +14,15 @@ namespace GolfBag.Services
         {
             _context = context;
         }
-        public void Add(RoundOfGolf newRoundOfGolf)
+        public void AddRound(RoundOfGolf newRoundOfGolf)
         {
             _context.Add(newRoundOfGolf);
+            Commit();
+        }
+
+        public void AddCourse(Course newCourse)
+        {
+            _context.Add(newCourse);
             Commit();
         }
 
@@ -25,15 +31,22 @@ namespace GolfBag.Services
             return _context.SaveChanges();
         }
 
-        public void Delete(RoundOfGolf roundOfGolf)
+        public void DeleteRound(RoundOfGolf roundOfGolf)
         {
             _context.Remove(roundOfGolf);
             Commit();
         }
 
-        public IEnumerable<RoundOfGolf> GetAll(string playerName)
+        public IEnumerable<RoundOfGolf> GetAllRounds(string playerName)
         {
             return _context.RoundsOfGolf.Where(r => r.PlayerName == playerName);
+        }
+
+        public IEnumerable<Course> GetAllCourses(string playerName)
+        {
+            return _context.Courses
+                .Where(r => r.PlayerName == playerName)
+                .ToList();
         }
     }
 }

@@ -9,5 +9,6 @@ namespace GolfBag.Entities
     {
         public int Id { get; set; }
         public int HoleScore { get; set; }
+        public int HoleNumber { get; set; }
     }
 }

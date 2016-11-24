@@ -1,0 +1,23 @@
+﻿@model EnterCourseViewModel
+
+<h1>@ViewBag.Message</h1>
+
+<form method="post" asp-antiforgery="true" asp-controller="RoundOfGolf" asp-action="EnterCourse">
+    <label asp-for="CourseName"></label>
+    <input asp-for="CourseName" />
+
+    <label asp-for="NumberOfHoles"></label>
+    <input asp-for="NumberOfHoles" />
+
+    @for (int i = 0; i < 9; i++)
+    {
+        @Html.EditorFor(m => m.Par[i]);
+        @Html.LabelFor(m => m.Par[i]);
+        @Html.EditorFor(m => m.Yardage[i]);
+        @Html.LabelFor(m => m.Yardage[i]);
+    }
+
+    <div>
+        <input type="submit" value="Enter Score" />
+    </div>
+</form>

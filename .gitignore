@@ -798,3 +798,7 @@ paket-files/
 /src/GolfBag/wwwroot/lib/bootstrap/dist/css/bootstrap-theme.min.css
 /src/GolfBag/wwwroot/lib/bootstrap/dist/css/bootstrap-theme.css.map
 /src/GolfBag/wwwroot/lib/bootstrap/dist/css/bootstrap-theme.css
+/src/GolfBag/Migrations/20161124013658_Courses2.Designer.cs
+/src/GolfBag/Migrations/20161124013658_Courses2.cs
+/src/GolfBag/Migrations/20161124004948_Courses.Designer.cs
+/src/GolfBag/Migrations/20161124004948_Courses.cs

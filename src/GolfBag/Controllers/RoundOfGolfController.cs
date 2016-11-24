@@ -19,11 +19,60 @@ namespace GolfBag.Controllers
         {
             _roundOfGolf = roundOfGolf;
         }
+
+        [HttpGet]
+        public IActionResult EnterCourse()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult EnterCourse(EnterCourseViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Course course = new Course();
+                List<CourseHole> courseHoles = new List<CourseHole>();
+
+                course.PlayerName = User.Identity.Name;
+                course.CourseName = model.CourseName;
+                course.NumberOfHoles = model.NumberOfHoles;
+
+                for (int i = 0; i < model.NumberOfHoles; i++)
+                {
+                    CourseHole courseHole = new CourseHole();
+                    courseHole.HoleNumber = i + 1;
+                    courseHole.Par = model.Par[i];
+                    courseHole.Yardage = model.Yardage[i];
+                    courseHoles.Add(courseHole);
+                }
+
+                course.CourseHoles = courseHoles;
+                _roundOfGolf.AddCourse(course);
+                return View("EnterScore");
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult EnterScore()
+        {
+            IEnumerable<Course> courses = _roundOfGolf.GetAllCourses(User.Identity.Name);
+
+            if (courses.Count() > 0)
+            {
+                return View(courses);
+            }
+            ViewBag.Message = "You have no courses saved. Please enter a course before entering a score.";
+            return View("EnterCourse");
+        }
+
+        [HttpPost]
         public IActionResult EnterScore(RoundOfGolfViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var roundOfGolf = new RoundOfGolf();
+                RoundOfGolf roundOfGolf = new RoundOfGolf();
                 List<Score> scores = new List<Score>();
 
                 roundOfGolf.PlayerName = User.Identity.Name;
@@ -37,7 +86,7 @@ namespace GolfBag.Controllers
 
                 roundOfGolf.Scores = scores;
 
-                _roundOfGolf.Add(roundOfGolf);
+                _roundOfGolf.AddRound(roundOfGolf);
                 return RedirectToAction("Index", "Home", "");
             }
             return View();

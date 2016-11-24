@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 
 namespace GolfBag.Entities
 {
-    public class RoundOfGolf
+    public class Course
     {
         public int Id { get; set; }
-        public ICollection<Score> Scores { get; set; }
+        public string CourseName { get; set; }
         public string PlayerName { get; set; }
-        public Course CoursePlayed { get; set; }
+        public int NumberOfHoles { get; set; }
+        public ICollection<CourseHole> CourseHoles { get; set; }
     }
 }

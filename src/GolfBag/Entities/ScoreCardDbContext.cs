@@ -18,6 +18,7 @@ namespace GolfBag.Entities
         }
         public DbSet<ScoreCard> ScoreCards { get; set; }
         public DbSet<RoundOfGolf> RoundsOfGolf { get; set; }
+        public DbSet<Course> Courses { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

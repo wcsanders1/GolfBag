@@ -8,11 +8,13 @@ namespace GolfBag.Services
 {
     public interface IRoundOfGolf
     {
-        IEnumerable<RoundOfGolf> GetAll(string playerName);
+        IEnumerable<RoundOfGolf> GetAllRounds(string playerName);
+        IEnumerable<Course> GetAllCourses(string playerName);
 
         //RoundOfGolf Get(int id);
-        void Add(RoundOfGolf newRoundOfGolf);
-        void Delete(RoundOfGolf roundOfGolf);
+        void AddRound(RoundOfGolf newRoundOfGolf);
+        void DeleteRound(RoundOfGolf roundOfGolf);
+        void AddCourse(Course newCourse);
         int Commit();
     }
 }

@@ -16,14 +16,54 @@ namespace GolfBag.Migrations
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("GolfBag.Entities.Course", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CourseName");
+
+                    b.Property<int>("NumberOfHoles");
+
+                    b.Property<string>("PlayerName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("GolfBag.Entities.CourseHole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("CourseId");
+
+                    b.Property<int>("HoleNumber");
+
+                    b.Property<int>("Par");
+
+                    b.Property<int>("Yardage");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("CourseHole");
+                });
+
             modelBuilder.Entity("GolfBag.Entities.RoundOfGolf", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("CoursePlayedId");
+
                     b.Property<string>("PlayerName");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CoursePlayedId");
 
                     b.ToTable("RoundsOfGolf");
                 });
@@ -32,6 +72,8 @@ namespace GolfBag.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int>("HoleNumber");
 
                     b.Property<int>("HoleScore");
 
@@ -218,6 +260,20 @@ namespace GolfBag.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("GolfBag.Entities.CourseHole", b =>
+                {
+                    b.HasOne("GolfBag.Entities.Course")
+                        .WithMany("CourseHoles")
+                        .HasForeignKey("CourseId");
+                });
+
+            modelBuilder.Entity("GolfBag.Entities.RoundOfGolf", b =>
+                {
+                    b.HasOne("GolfBag.Entities.Course", "CoursePlayed")
+                        .WithMany()
+                        .HasForeignKey("CoursePlayedId");
                 });
 
             modelBuilder.Entity("GolfBag.Entities.Score", b =>
