@@ -7,4 +7,33 @@
 else
 {
     <h1>@Model.CourseName</h1>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <td>Hole</td>
+                    @for (int i = 0; i < Model.NumberOfHoles; i++)
+                    {
+                        string holeNumber = (i + 1).ToString();
+                        <td>@holeNumber</td>
+                    }
+                </tr>
+                <tr>
+                    <td>Par</td>
+                    @foreach (var courseHole in Model.CourseHoles)
+                    {
+                        <td>@courseHole.Par</td>
+                    }
+                </tr>
+                <tr>
+                    <td>Yards</td>
+                    @foreach (var courseHole in Model.CourseHoles)
+                    {
+                        <td>@courseHole.Yardage</td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+    </div>
 }

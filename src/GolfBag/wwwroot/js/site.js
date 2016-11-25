@@ -14,7 +14,8 @@
         $.ajax(options).done(function (data) {
             var $target = $($course.attr("data-target"));
             var $newHtml = $(data);
-            $target.replaceWith($newHtml);
+            console.log($target);
+            $target.html($newHtml);
         });
     };
 

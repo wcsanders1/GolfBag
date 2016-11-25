@@ -1,5 +1,44 @@
-﻿@main-color: gray;
+﻿@import "variables";
+@import "mixins";
+
+/*html {
+    font-size: @baseSize;
+}*/
 
 body {
-    background: @main-color;
+    background: @prevalantColor;
+}
+
+/*h1 {
+    font-size: @baseSize + 10px;
+}
+
+h2 {
+    font-size: @baseSize + 6px;
+}
+
+label {
+    background-color: lighten(@mainColor, 30%);
+}
+
+/*div {
+    .display-flexbox;
+}*/
+
+/*nav {               // example of nested rules
+    font-size: @baseSize;
+    ul {
+        font-size: @baseSize - 1;
+        li {
+            color: darken(@mainColor, 20%);
+        }
+    }
+}*/
+
+a {         // example of combinator to apply nested rule to parent
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
 }

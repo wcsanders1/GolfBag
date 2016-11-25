@@ -1,8 +1,5 @@
-﻿/*form {      // example of scoping a variable; this variable only applies in forms
-    @baseSize: 18px;
-}*/
-/*@root: "/images";
-@app-root: `"@{root}".toUpperCase()`;*/
+﻿@import "variables";
+
 /*.display-flexbox {
     display: -webkit-flex;
     display: -webkit-box;
@@ -15,6 +12,7 @@
     -ms-flex-direction: @direction;
     flex-direction: @direction;
 }*/
+
 /*.rounded-corners-all(@size: 5px) {  // 5px is the default in case no argument passed
     
 }
@@ -34,46 +32,14 @@
 .width(@size) when (ispercentage(@size)) {
 
 }*/
+
+
+// example of module mixin
+// to use this for fonts, put #contact-module > .fonts(); in a less command
+
 /*#contact-module {
     .fonts() {
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         font-size: @baseSize;
     }
 }*/
-/*html {
-    font-size: @baseSize;
-}*/
-body {
-  background: gray;
-}
-/*h1 {
-    font-size: @baseSize + 10px;
-}
-
-h2 {
-    font-size: @baseSize + 6px;
-}
-
-label {
-    background-color: lighten(@mainColor, 30%);
-}
-
-/*div {
-    .display-flexbox;
-}*/
-/*nav {               // example of nested rules
-    font-size: @baseSize;
-    ul {
-        font-size: @baseSize - 1;
-        li {
-            color: darken(@mainColor, 20%);
-        }
-    }
-}*/
-a {
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
-  cursor: pointer;
-}

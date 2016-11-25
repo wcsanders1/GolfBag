@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GolfBag.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace GolfBag.Services
 {
@@ -52,7 +53,9 @@ namespace GolfBag.Services
         public Course GetCourse(string courseName)
         {
             return _context.Courses
-                .FirstOrDefault(r => r.CourseName == courseName);
+                .Where(r => r.CourseName == courseName)
+                .Include(r => r.CourseHoles)
+                .FirstOrDefault();
         }
     }
 }
