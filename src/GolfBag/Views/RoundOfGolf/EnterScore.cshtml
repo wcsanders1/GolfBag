@@ -1,4 +1,4 @@
-﻿@model List<Course>
+﻿@model List<string>
 
 <div class="dropdown">
     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
@@ -10,10 +10,10 @@
         @foreach (var course in Model)
         {
             <li>
-                <a data-ajax="true" data-target="#course-display"
+                <a data-ajax="true" data-target="#display-course"
                     data-action="@Url.Action("DisplayCourse", "RoundOfGolf", 
-                                new { courseName = course.CourseName })">
-                    @course.CourseName
+                                new { courseName = course })">
+                    @course
                 </a>
             </li>
         }
@@ -22,23 +22,4 @@
     <a class="btn btn-primary" asp-action="EnterCourse" asp-controller="RoundOfGolf">Enter Another Course</a>
 </div>
 
-<div id="course-display"></div>
-
-
-@*@model RoundOfGolfViewModel
-
-<h1>This is the EnterScore page.</h1>
-
-<form method="post" asp-controller="RoundOfGolf" asp-action="EnterScore" asp-antiforgery="true">
-    <label asp-for="CourseName"></label>
-    <input asp-for="CourseName" />
-
-    @for (int i = 0; i < 9; i++)
-    {
-        @Html.EditorFor(m => m.Scores[i]);
-    }
-
-    <div>
-        <input type="submit" value="Enter Score" />
-    </div>
-</form>*@
+<div id="display-course"></div>

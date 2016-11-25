@@ -1,13 +1,9 @@
-﻿@model Course
+﻿@model CourseViewModel
 
-@if (Model.NumberOfHoles == 0)
-{
-    <h1>Choose a course.</h1>
-}
-else
-{
-    <h1>@Model.CourseName</h1>
+<h1>@Model.CourseName</h1>
 
+@if (Model.NumberOfHoles == 9)
+{
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
             <tbody>
@@ -21,19 +17,35 @@ else
                 </tr>
                 <tr>
                     <td>Par</td>
-                    @foreach (var courseHole in Model.CourseHoles)
+                    @foreach (var par in Model.Pars)
                     {
-                        <td>@courseHole.Par</td>
+                        <td>@par</td>
                     }
                 </tr>
                 <tr>
                     <td>Yards</td>
-                    @foreach (var courseHole in Model.CourseHoles)
+                    @foreach (var yardage in Model.Yardages)
                     {
-                        <td>@courseHole.Yardage</td>
+                        <td>@yardage</td>
                     }
                 </tr>
             </tbody>
         </table>
+    </div>
+}
+else
+{
+    <form method="post">
+        <div id="front-nine">
+            @Html.Partial("_FrontNineEnterScore", Model)
+        </div>
+        <div id="back-nine">
+            @Html.Partial("_BackNineEnterScore", Model)
+        </div>
+    </form>
+
+    <div id="checkbox-container">
+        <label><input type="checkbox" id="front-nine-checkbox" value="true" checked>Played the front nine.</label><br>
+        <input type="checkbox" id="back-nine-checkbox" value="true" checked> <label for="back-nine-checkbox">Played the back nine.</label>
     </div>
 }

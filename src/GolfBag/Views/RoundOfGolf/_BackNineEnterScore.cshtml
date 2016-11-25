@@ -1,0 +1,30 @@
+﻿@model CourseViewModel
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <td>Hole</td>
+                @for (int i = 9; i < 18; i++)
+                {
+                    string holeNumber = (i + 1).ToString();
+                    <td>@holeNumber</td>
+                }
+            </tr>
+            <tr>
+                <td>Par</td>
+                @for (int i = 9; i < 18; i++)
+                {
+                    <td>@Model.Pars[i]</td>
+                }
+            </tr>
+            <tr>
+                <td>Yards</td>
+                @for (int i = 9; i < 18; i++)
+                {
+                    <td>@Model.Yardages[i]</td>
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>

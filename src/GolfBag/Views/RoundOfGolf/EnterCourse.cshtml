@@ -1,4 +1,4 @@
-﻿@model EnterCourseViewModel
+﻿@model CourseViewModel
 
 <h1>@ViewBag.Message</h1>
 
@@ -7,15 +7,48 @@
     <input asp-for="CourseName" />
 
     <label asp-for="NumberOfHoles"></label>
-    <input asp-for="NumberOfHoles" />
+    <input id="input-nine" data-target="#back-nine" checked="checked" asp-for="NumberOfHoles" type="radio" value="9" />
+    <span>9</span>
+    <input id="input-eighteen" data-target="#back-nine" data-action="@Url.Action("DisplayBackNine", "RoundOfGolf")"
+           asp-for="NumberOfHoles" type="radio" value="18" />
+    <span>18</span>
 
-    @for (int i = 0; i < 9; i++)
-    {
-        @Html.EditorFor(m => m.Par[i]);
-        @Html.LabelFor(m => m.Par[i]);
-        @Html.EditorFor(m => m.Yardage[i]);
-        @Html.LabelFor(m => m.Yardage[i]);
-    }
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <tbody>
+                <tr>
+                    @for (int i = 0; i <= 9; i++)
+                    {
+                        if (i == 0)
+                        {
+                            <th></th>
+                        }
+                        else
+                        {
+                            <th>@i</th>
+                        }
+                    }
+                </tr>
+
+                <tr>
+                    <td>Enter Par</td>
+                    @for (int i = 0; i < 9; i++)
+                    {
+                        <td>@Html.EditorFor(m => m.Pars[i])</td>
+                    }
+                </tr>
+                <tr>
+                    <td>Enter Yardage</td>
+                    @for (int i = 0; i < 9; i++)
+                    {
+                        <td>@Html.EditorFor(m => m.Yardages[i])</td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="back-nine"></div>
 
     <div>
         <input type="submit" value="Enter Score" />

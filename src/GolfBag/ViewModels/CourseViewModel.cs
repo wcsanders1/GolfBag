@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace GolfBag.ViewModels
 {
-    public class EnterCourseViewModel
+    public class CourseViewModel
     {
         public string CourseName { get; set; }
         public int NumberOfHoles { get; set; }
-        public List<int> Yardage { get; set; }
-        public List<int> Par { get; set; }
+        public List<int> Yardages { get; set; }
+        public List<int> Pars { get; set; }
     }
 }

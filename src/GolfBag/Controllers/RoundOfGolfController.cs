@@ -27,7 +27,7 @@ namespace GolfBag.Controllers
         }
 
         [HttpPost]
-        public IActionResult EnterCourse(EnterCourseViewModel model)
+        public IActionResult EnterCourse(CourseViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -42,8 +42,8 @@ namespace GolfBag.Controllers
                 {
                     CourseHole courseHole = new CourseHole();
                     courseHole.HoleNumber = i + 1;
-                    courseHole.Par = model.Par[i];
-                    courseHole.Yardage = model.Yardage[i];
+                    courseHole.Par = model.Pars[i];
+                    courseHole.Yardage = model.Yardages[i];
                     courseHoles.Add(courseHole);
                 }
 
@@ -51,7 +51,7 @@ namespace GolfBag.Controllers
                 _roundOfGolf.AddCourse(course);
                 List<Course> newCourseInList = new List<Course>();
                 newCourseInList.Add(course);
-                return View("EnterScore", newCourseInList);
+                return RedirectToAction("EnterScore");
             }
             return View();
         }
@@ -63,7 +63,14 @@ namespace GolfBag.Controllers
 
             if (courses.Count() > 0)
             {
-                return View(courses);
+                var courseNames = new List<string>();
+
+                foreach (var course in courses)
+                {
+                    courseNames.Add(course.CourseName);
+                }
+
+                return View(courseNames);
             }
             ViewBag.Message = "You have no courses saved. Please enter a course before entering a score.";
             return View("EnterCourse");
@@ -96,9 +103,30 @@ namespace GolfBag.Controllers
 
         public IActionResult DisplayCourse(string courseName)
         {
-            Course course = new Course();
+            var course = new Course();
+            var courseViewModel = new CourseViewModel();
+            var pars = new List<int>();
+            var yardages = new List<int>();
+
             course = _roundOfGolf.GetCourse(courseName);
-            return PartialView("_DisplayCourse", course);
+
+            foreach (var courseHole in course.CourseHoles)
+            {
+                pars.Add(courseHole.Par);
+                yardages.Add(courseHole.Yardage);
+            }
+
+            courseViewModel.CourseName = course.CourseName;
+            courseViewModel.NumberOfHoles = course.NumberOfHoles;
+            courseViewModel.Pars = pars;
+            courseViewModel.Yardages = yardages;
+                
+            return PartialView("_DisplayCourse", courseViewModel);
+        }
+
+        public IActionResult DisplayBackNine()
+        {
+            return PartialView("_BackNine");
         }
     }
 }

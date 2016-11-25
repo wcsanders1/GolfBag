@@ -1,0 +1,36 @@
+﻿@model CourseViewModel
+
+<div id="eighteen-hole-table" class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                @for (int i = 9; i <= 18; i++)
+                {
+                    if (i == 9)
+                    {
+                        <th></th>
+                    }
+                    else
+                    {
+                        <th>@i</th>
+                    }
+                }
+            </tr>
+
+            <tr>
+                <td>Enter Par</td>
+                @for (int i = 9; i < 18; i++)
+                {
+                    <td>@Html.EditorFor(m => m.Pars[i])</td>
+                }
+            </tr>
+            <tr>
+                <td>Enter Yardage</td>
+                @for (int i = 9; i < 18; i++)
+                {
+                    <td>@Html.EditorFor(m => m.Yardages[i])</td>
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>
