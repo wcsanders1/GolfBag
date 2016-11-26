@@ -57,5 +57,15 @@ namespace GolfBag.Services
                 .Include(r => r.CourseHoles)
                 .FirstOrDefault();
         }
+
+        public int GetCourseId(string courseName)
+        {
+            var course = new Course();
+            course = _context.Courses
+                .Where(r => r.CourseName == courseName)
+                .FirstOrDefault();
+
+            return course.Id;
+        }
     }
 }

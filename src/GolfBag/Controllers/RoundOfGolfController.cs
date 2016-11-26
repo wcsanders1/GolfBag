@@ -77,7 +77,7 @@ namespace GolfBag.Controllers
         }
 
         [HttpPost]
-        public IActionResult EnterScore(RoundOfGolfViewModel model)
+        public IActionResult EnterScore(RoundOfGolfViewModel model, string courseName)
         {
             if (ModelState.IsValid)
             {
@@ -90,10 +90,12 @@ namespace GolfBag.Controllers
                 {
                     Score score = new Score();
                     score.HoleScore = model.Scores[i];
+                    score.HoleNumber = i + 1;
                     scores.Add(score);
                 }
 
                 roundOfGolf.Scores = scores;
+                roundOfGolf.CourseId = _roundOfGolf.GetCourseId(courseName);
 
                 _roundOfGolf.AddRound(roundOfGolf);
                 return RedirectToAction("Index", "Home", "");
@@ -104,7 +106,7 @@ namespace GolfBag.Controllers
         public IActionResult DisplayCourse(string courseName)
         {
             var course = new Course();
-            var courseViewModel = new CourseViewModel();
+            var roundOfGolfViewModel = new RoundOfGolfViewModel();
             var pars = new List<int>();
             var yardages = new List<int>();
 
@@ -116,17 +118,27 @@ namespace GolfBag.Controllers
                 yardages.Add(courseHole.Yardage);
             }
 
-            courseViewModel.CourseName = course.CourseName;
-            courseViewModel.NumberOfHoles = course.NumberOfHoles;
-            courseViewModel.Pars = pars;
-            courseViewModel.Yardages = yardages;
+            roundOfGolfViewModel.CourseName = course.CourseName;
+            roundOfGolfViewModel.NumberOfHoles = course.NumberOfHoles;
+            roundOfGolfViewModel.Pars = pars;
+            roundOfGolfViewModel.Yardages = yardages;
                 
-            return PartialView("_DisplayCourse", courseViewModel);
+            return PartialView("_DisplayCourse", roundOfGolfViewModel);
         }
 
         public IActionResult DisplayBackNine()
         {
             return PartialView("_BackNine");
+        }
+
+        public IActionResult DisplayFrontNineEnterScore(RoundOfGolfViewModel model)
+        {
+            return PartialView("_FrontNineEnterScore", model);
+        }
+
+        public IActionResult DisplayBackNineEnterScore(RoundOfGolfViewModel model)
+        {
+            return PartialView("_BackNineEnterScore", model);
         }
     }
 }

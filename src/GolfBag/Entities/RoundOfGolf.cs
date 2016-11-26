@@ -10,6 +10,6 @@ namespace GolfBag.Entities
         public int Id { get; set; }
         public ICollection<Score> Scores { get; set; }
         public string PlayerName { get; set; }
-        public Course CoursePlayed { get; set; }
+        public int CourseId { get; set; }
     }
 }

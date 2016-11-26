@@ -1,37 +1,53 @@
-﻿@model CourseViewModel
+﻿@model RoundOfGolfViewModel
 
 <h1>@Model.CourseName</h1>
 
 @if (Model.NumberOfHoles == 9)
 {
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-            <tbody>
-                <tr>
-                    <td>Hole</td>
-                    @for (int i = 0; i < Model.NumberOfHoles; i++)
-                    {
-                        string holeNumber = (i + 1).ToString();
-                        <td>@holeNumber</td>
-                    }
-                </tr>
-                <tr>
-                    <td>Par</td>
-                    @foreach (var par in Model.Pars)
-                    {
-                        <td>@par</td>
-                    }
-                </tr>
-                <tr>
-                    <td>Yards</td>
-                    @foreach (var yardage in Model.Yardages)
-                    {
-                        <td>@yardage</td>
-                    }
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <form method="post" asp-antiforgery="true"
+          asp-action="EnterScore" asp-controller="RoundOfGolf"
+          asp-route-courseName="@Model.CourseName">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <tbody>
+                    <tr>
+                        <td>Hole</td>
+                        @for (int i = 0; i < Model.NumberOfHoles; i++)
+                        {
+                            string holeNumber = (i + 1).ToString();
+                            <td>@holeNumber</td>
+                        }
+                    </tr>
+                    <tr>
+                        <td>Par</td>
+                        @foreach (var par in Model.Pars)
+                        {
+                            <td>@par</td>
+                        }
+                    </tr>
+                    <tr>
+                        <td>Yards</td>
+                        @foreach (var yardage in Model.Yardages)
+                        {
+                            <td>@yardage</td>
+                        }
+                    </tr>
+                    <tr>
+                        <td>Enter Scores</td>
+                        @for (int i = 0; i < 9; i++)
+                        {
+                            <td>
+                                <input asp-for="Scores[i]" />
+                            </td>
+                        }
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <input type="submit" value="Save Round" />
+        </div>
+    </form>
 }
 else
 {
@@ -45,7 +61,13 @@ else
     </form>
 
     <div id="checkbox-container">
-        <label><input type="checkbox" id="front-nine-checkbox" value="true" checked>Played the front nine.</label><br>
-        <input type="checkbox" id="back-nine-checkbox" value="true" checked> <label for="back-nine-checkbox">Played the back nine.</label>
+        <input type="checkbox" id="front-nine-checkbox" value="true"
+               data-nine="front" data-action="@Url.Action("DisplayFrontNineEnterScore", Model)" 
+               data-target="#front-nine" checked />
+        <label>Played the front nine.</label><br>
+        <input type="checkbox" id="back-nine-checkbox" value="true"
+               data-nine="back" data-action="@Url.Action("DisplayBackNineEnterScore", Model)"
+               data-target="#back-nine" checked />
+        <label for="back-nine-checkbox">Played the back nine.</label>
     </div>
 }
