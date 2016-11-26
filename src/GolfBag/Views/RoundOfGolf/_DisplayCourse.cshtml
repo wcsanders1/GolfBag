@@ -37,7 +37,7 @@
                         @for (int i = 0; i < 9; i++)
                         {
                             <td>
-                                <input asp-for="Scores[i]" />
+                                <input class="number-input" asp-for="FrontNineScores[i]" />
                             </td>
                         }
                     </tr>
@@ -51,12 +51,17 @@
 }
 else
 {
-    <form method="post">
+    <form method="post" asp-antiforgery="true"
+          asp-action="EnterScore" asp-controller="RoundOfGolf"
+          asp-route-courseName="@Model.CourseName">
         <div id="front-nine">
             @Html.Partial("_FrontNineEnterScore", Model)
         </div>
         <div id="back-nine">
             @Html.Partial("_BackNineEnterScore", Model)
+        </div>
+        <div>
+            <input type="submit" value="Save Round" />
         </div>
     </form>
 

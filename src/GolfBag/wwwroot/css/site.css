@@ -49,6 +49,10 @@ body {
 .display-none {
   display: none;
 }
+.number-input,
+.number-input input {
+  width: 4rem;
+}
 /*h1 {
     font-size: @baseSize + 10px;
 }

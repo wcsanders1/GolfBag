@@ -11,5 +11,6 @@ namespace GolfBag.Entities
         public ICollection<Score> Scores { get; set; }
         public string PlayerName { get; set; }
         public int CourseId { get; set; }
+        //public DateTime Date { get; set; }
     }
 }

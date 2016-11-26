@@ -10,12 +10,12 @@ namespace GolfBag.Services
     {
         IEnumerable<RoundOfGolf> GetAllRounds(string playerName);
         IEnumerable<Course> GetAllCourses(string playerName);
-
-        //RoundOfGolf Get(int id);
+        RoundOfGolf GetRound(int id);
         void AddRound(RoundOfGolf newRoundOfGolf);
         void DeleteRound(RoundOfGolf roundOfGolf);
         void AddCourse(Course newCourse);
         Course GetCourse(string courseName);
+        Course GetCourse(int id);
         int GetCourseId(string courseName);
         int Commit();
     }

@@ -25,6 +25,15 @@
                     <td>@Model.Yardages[i]</td>
                 }
             </tr>
+            <tr>
+                <td>Enter Scores</td>
+                @for (int i = 0; i < 9; i++)
+                {
+                    <td>
+                        <input class="number-input" asp-for="FrontNineScores[i]" />
+                    </td>
+                }
+            </tr>
         </tbody>
     </table>
 </div>

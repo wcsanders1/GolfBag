@@ -22,11 +22,11 @@
     </nav>
     <div class="container">
         @RenderBody()
-        <footer>
-            @RenderSection("footer", required: false)
-            @await Component.InvokeAsync("Greeting")
-        </footer>
     </div>
+    <footer class="container panel-footer">
+        @RenderSection("footer", required: false)
+        @await Component.InvokeAsync("Greeting")
+    </footer>
 
     <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>

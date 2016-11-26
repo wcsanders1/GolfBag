@@ -1,0 +1,24 @@
+﻿@model List<ViewRoundsViewModel>
+
+<div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+        Choose A Round
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+
+        @foreach (var round in Model)
+        {
+            <li>
+                <a data-ajax="true" data-target="#display-round"
+                    data-action="@Url.Action("DisplayRound", "RoundOfGolf",
+                            new { id = round.RoundId })">
+                    @round.CourseName
+                </a>
+            </li>
+        }
+
+    </ul>
+</div>
+
+<div id="display-round"></div>

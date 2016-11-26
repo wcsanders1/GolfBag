@@ -806,3 +806,5 @@ paket-files/
 /src/GolfBag/wwwroot/css/compilerconfig.json
 /src/GolfBag/compilerconfig.json.defaults
 /src/GolfBag/compilerconfig.json
+/src/GolfBag/Migrations/20161126173103_Saturday.Designer.cs
+/src/GolfBag/Migrations/20161126173103_Saturday.cs

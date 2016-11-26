@@ -34,14 +34,14 @@
                     <td>Enter Par</td>
                     @for (int i = 0; i < 9; i++)
                     {
-                        <td>@Html.EditorFor(m => m.Pars[i])</td>
+                        <td class="number-input">@Html.EditorFor(m => m.Pars[i])</td>
                     }
                 </tr>
                 <tr>
                     <td>Enter Yardage</td>
                     @for (int i = 0; i < 9; i++)
                     {
-                        <td>@Html.EditorFor(m => m.Yardages[i])</td>
+                        <td class="number-input">@Html.EditorFor(m => m.Yardages[i])</td>
                     }
                 </tr>
             </tbody>

@@ -58,6 +58,14 @@ namespace GolfBag.Services
                 .FirstOrDefault();
         }
 
+        public Course GetCourse(int id)
+        {
+            return _context.Courses
+                .Where(r => r.Id == id)
+                .Include(r => r.CourseHoles)
+                .FirstOrDefault();
+        }
+
         public int GetCourseId(string courseName)
         {
             var course = new Course();
@@ -66,6 +74,14 @@ namespace GolfBag.Services
                 .FirstOrDefault();
 
             return course.Id;
+        }
+
+        public RoundOfGolf GetRound(int id)
+        {
+            return _context.RoundsOfGolf
+                .Where(r => r.Id == id)
+                .Include(r => r.Scores)
+                .FirstOrDefault();
         }
     }
 }

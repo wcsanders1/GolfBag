@@ -81,17 +81,31 @@ namespace GolfBag.Controllers
         {
             if (ModelState.IsValid)
             {
-                RoundOfGolf roundOfGolf = new RoundOfGolf();
-                List<Score> scores = new List<Score>();
+                var roundOfGolf = new RoundOfGolf();
+                var scores = new List<Score>();
 
                 roundOfGolf.PlayerName = User.Identity.Name;
 
-                for (int i = 0; i < model.Scores.Count; i++)
+                if (model.FrontNineScores != null)
                 {
-                    Score score = new Score();
-                    score.HoleScore = model.Scores[i];
-                    score.HoleNumber = i + 1;
-                    scores.Add(score);
+                    for (int i = 0; i < 9; i++)
+                    {
+                        var score = new Score();
+                        score.HoleScore = model.FrontNineScores[i];
+                        score.HoleNumber = i + 1;
+                        scores.Add(score);                       
+                    }
+                }
+
+                if (model.BackNineScores != null)
+                {
+                    for (int i = 0; i < 9; i++)
+                    {
+                        var score = new Score();
+                        score.HoleScore = model.BackNineScores[i];
+                        score.HoleNumber = i + 10;
+                        scores.Add(score);
+                    }
                 }
 
                 roundOfGolf.Scores = scores;
@@ -111,6 +125,7 @@ namespace GolfBag.Controllers
             var yardages = new List<int>();
 
             course = _roundOfGolf.GetCourse(courseName);
+            course.CourseHoles = course.CourseHoles.OrderBy(r => r.HoleNumber).ToList();
 
             foreach (var courseHole in course.CourseHoles)
             {
@@ -139,6 +154,83 @@ namespace GolfBag.Controllers
         public IActionResult DisplayBackNineEnterScore(RoundOfGolfViewModel model)
         {
             return PartialView("_BackNineEnterScore", model);
+        }
+
+        public IActionResult ViewRounds()
+        {
+            var roundsOfGolfViewModel = new List<ViewRoundsViewModel>();
+            IEnumerable<RoundOfGolf> roundsOfGolf = _roundOfGolf.GetAllRounds(User.Identity.Name);
+
+            if (roundsOfGolf.Count() > 0)
+            {
+                foreach (var round in roundsOfGolf)
+                {
+                    Course course = _roundOfGolf.GetCourse(round.CourseId);
+
+                    var roundOfGolfViewModel = new ViewRoundsViewModel();
+                    roundOfGolfViewModel.CourseName = course.CourseName;
+                    roundOfGolfViewModel.RoundId = round.Id;
+                    roundsOfGolfViewModel.Add(roundOfGolfViewModel);
+                }
+
+                return View(roundsOfGolfViewModel);
+            }
+            ViewBag.Message = "You have no rounds saved.";
+
+            return View();
+        }
+
+        public IActionResult DisplayRound(int id)
+        {
+            var roundOfGolfViewModel = new RoundOfGolfViewModel();
+            var round = new RoundOfGolf();
+            var course = new Course();
+            var scores = new List<Score>();
+            var holes = new List<CourseHole>();
+            var viewFrontNineScores = new List<int>();
+            var viewBackNineScores = new List<int>();
+            var viewPars = new List<int>();
+            var viewYardages = new List<int>();
+
+            round = _roundOfGolf.GetRound(id);
+            course = _roundOfGolf.GetCourse(round.CourseId);
+
+            scores = round.Scores.OrderBy(r => r.HoleNumber).ToList();
+            holes = course.CourseHoles.OrderBy(r => r.HoleNumber).ToList();
+
+            for (int i = 0; i < scores.Count; i++)
+            {
+                if (scores[i].HoleNumber < 10)
+                {
+                    viewFrontNineScores.Add(scores[i].HoleScore);
+                    viewPars.Add(holes[i].Par);
+                    viewYardages.Add(holes[i].Yardage);
+                }
+                else if (scores[i].HoleNumber >= 10)
+                {
+                    viewBackNineScores.Add(scores[i].HoleScore);
+
+                    if (scores.Count < 10)
+                    {
+                        viewPars.Add(holes[i + 9].Par);
+                        viewYardages.Add(holes[i + 9].Yardage);
+                    }
+                    else
+                    {
+                        viewPars.Add(holes[i].Par);
+                        viewYardages.Add(holes[i].Yardage);
+                    }
+                }
+            }
+
+            roundOfGolfViewModel.FrontNineScores = viewFrontNineScores;
+            roundOfGolfViewModel.BackNineScores = viewBackNineScores;
+            roundOfGolfViewModel.Pars = viewPars;
+            roundOfGolfViewModel.Yardages = viewYardages;
+            roundOfGolfViewModel.CourseName = course.CourseName;
+            roundOfGolfViewModel.NumberOfHoles = scores.Count();
+
+            return PartialView("_DisplayRound", roundOfGolfViewModel);
         }
     }
 }
