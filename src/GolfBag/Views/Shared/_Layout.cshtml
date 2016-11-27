@@ -10,7 +10,7 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="/">Golf Bag</a>
@@ -20,10 +20,10 @@
             </div>
         </div>
     </nav>
-    <div class="container">
+    <div id="main-content" class="container">
         @RenderBody()
     </div>
-    <footer class="container panel-footer">
+    <footer>
         @RenderSection("footer", required: false)
         @await Component.InvokeAsync("Greeting")
     </footer>

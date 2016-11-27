@@ -1,18 +1,22 @@
-﻿@if (User.Identity.IsAuthenticated)
-{
-    <span>Hello, @User.Identity.Name</span>
-    <form method="get" asp-controller="RoundOfGolf" asp-action="EnterScore" asp-antiforgery="true">
-        <input class="btn btn-default" type="submit" value="Enter Score" />
-    </form>
-    <form method="get" asp-controller="RoundOfGolf" asp-action="ViewRounds" asp-antiforgery="true">
-        <input class="btn btn-default" type="submit" value="View Rounds" />
-    </form>
-    <form method="post" asp-controller="Account" asp-action="Logout" asp-antiforgery="true">
-        <input class="btn btn-default" type="submit" value="Logout" />
-    </form>
-}
-else
-{
-    <a class="btn btn-default" asp-controller="Account" asp-action="Register">Register</a>
-    <a class="btn btn-default" asp-controller="Account" asp-action="Login">Login</a>
-}
+﻿<span>Hello, @User.Identity.Name</span>
+<div class="btn btn-success navbar-toggle"
+     data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-angle-down"></i></div>
+<div class="navbar-header navbar-collapse collapse">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <form class="nav navbar-nav" method="get" asp-controller="RoundOfGolf" asp-action="EnterScore" asp-antiforgery="true">
+            <input class="btn btn-default" type="submit" value="Enter Score" />
+        </form>
+        <form class="nav navbar-nav" method="get" asp-controller="RoundOfGolf" asp-action="ViewRounds" asp-antiforgery="true">
+            <input class="btn btn-default" type="submit" value="View Rounds" />
+        </form>
+        <form class="nav navbar-nav" method="post" asp-controller="Account" asp-action="Logout" asp-antiforgery="true">
+            <input class="btn btn-default" type="submit" value="Logout" />
+        </form>
+    }
+    else
+    {
+        <a class="btn btn-default nav navbar-nav" asp-controller="Account" asp-action="Register">Register</a>
+        <a class="btn btn-default nav navbar-nav" asp-controller="Account" asp-action="Login">Login</a>
+    }
+</div>

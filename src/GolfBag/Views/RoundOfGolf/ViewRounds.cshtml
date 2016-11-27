@@ -5,15 +5,16 @@
         Choose A Round
         <span class="caret"></span>
     </button>
-    <ul class="dropdown-menu">
+    <ul class="dropdown-menu list-group">
 
         @foreach (var round in Model)
         {
-            <li>
+            <li class="list-group-item">
                 <a data-ajax="true" data-target="#display-round"
                     data-action="@Url.Action("DisplayRound", "RoundOfGolf",
                             new { id = round.RoundId })">
                     @round.CourseName
+                    <span class="badge">date here</span>
                 </a>
             </li>
         }
