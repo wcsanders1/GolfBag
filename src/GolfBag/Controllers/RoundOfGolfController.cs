@@ -137,7 +137,8 @@ namespace GolfBag.Controllers
             roundOfGolfViewModel.NumberOfHoles = course.NumberOfHoles;
             roundOfGolfViewModel.Pars = pars;
             roundOfGolfViewModel.Yardages = yardages;
-                
+
+
             return PartialView("_DisplayCourse", roundOfGolfViewModel);
         }
 
@@ -229,8 +230,186 @@ namespace GolfBag.Controllers
             roundOfGolfViewModel.Yardages = viewYardages;
             roundOfGolfViewModel.CourseName = course.CourseName;
             roundOfGolfViewModel.NumberOfHoles = scores.Count();
+            roundOfGolfViewModel.Id = id;
 
             return PartialView("_DisplayRound", roundOfGolfViewModel);
+        }
+
+        public IActionResult EditCourses()
+        {
+            IEnumerable<Course> courses = _roundOfGolf.GetAllCourses(User.Identity.Name);
+
+            if (courses.Count() > 0)
+            {
+                var courseNames = new List<string>();
+
+                foreach (var course in courses)
+                {
+                    courseNames.Add(course.CourseName);
+                }
+
+                return View(courseNames);
+            }
+            ViewBag.Message = "You have no courses saved. Please enter a course before entering a score.";
+            return View("EnterCourse");
+        }
+
+        [HttpGet]
+        public IActionResult EditCourse(string courseName)
+        {
+            var course = _roundOfGolf.GetCourse(courseName);
+            var courseViewModel = new CourseViewModel();
+            var pars = new List<int>();
+            var yardages = new List<int>();
+
+            course.CourseHoles = course.CourseHoles.OrderBy(r => r.HoleNumber).ToList();
+
+            courseViewModel.CourseName = course.CourseName;
+            courseViewModel.NumberOfHoles = course.NumberOfHoles;
+            courseViewModel.Id = course.Id;
+
+            foreach (var courseHole in course.CourseHoles)
+            {
+                pars.Add(courseHole.Par);
+                yardages.Add(courseHole.Yardage);
+            }
+            courseViewModel.Pars = pars;
+            courseViewModel.Yardages = yardages;
+
+            return PartialView("_DisplayCourseToEdit", courseViewModel);
+        }
+
+        public IActionResult SaveCourseChanges(CourseViewModel course)
+        {
+            if (ModelState.IsValid)
+            {
+                var courseToSave = _roundOfGolf.GetCourse(course.CourseName);
+
+                courseToSave.CourseHoles = courseToSave.CourseHoles.OrderBy(r => r.HoleNumber).ToList();
+
+                int i = 0;
+                foreach (var courseHole in courseToSave.CourseHoles)
+                {
+                    courseHole.Par = course.Pars[i];
+                    courseHole.Yardage = course.Yardages[i];
+                    i++;
+                }
+                _roundOfGolf.SaveCourseEdits(courseToSave);
+            }
+            return RedirectToAction("EditCourses");
+        }
+
+        public IActionResult EditRound(int id)
+        {
+            var roundOfGolfViewModel = new RoundOfGolfViewModel();
+            var round = new RoundOfGolf();
+            var course = new Course();
+            var scores = new List<Score>();
+            var holes = new List<CourseHole>();
+            var viewFrontNineScores = new List<int>();
+            var viewBackNineScores = new List<int>();
+            var viewPars = new List<int>();
+            var viewYardages = new List<int>();
+
+            round = _roundOfGolf.GetRound(id);
+            course = _roundOfGolf.GetCourse(round.CourseId);
+
+            scores = round.Scores.OrderBy(r => r.HoleNumber).ToList();
+            holes = course.CourseHoles.OrderBy(r => r.HoleNumber).ToList();
+
+            for (int i = 0; i < scores.Count; i++)
+            {
+                if (scores[i].HoleNumber < 10)
+                {
+                    viewFrontNineScores.Add(scores[i].HoleScore);
+                    viewPars.Add(holes[i].Par);
+                    viewYardages.Add(holes[i].Yardage);
+                }
+                else if (scores[i].HoleNumber >= 10)
+                {
+                    viewBackNineScores.Add(scores[i].HoleScore);
+
+                    if (scores.Count < 10)
+                    {
+                        viewPars.Add(holes[i + 9].Par);
+                        viewYardages.Add(holes[i + 9].Yardage);
+                    }
+                    else
+                    {
+                        viewPars.Add(holes[i].Par);
+                        viewYardages.Add(holes[i].Yardage);
+                    }
+                }
+            }
+
+            roundOfGolfViewModel.FrontNineScores = viewFrontNineScores;
+            roundOfGolfViewModel.BackNineScores = viewBackNineScores;
+            roundOfGolfViewModel.Pars = viewPars;
+            roundOfGolfViewModel.Yardages = viewYardages;
+            roundOfGolfViewModel.CourseName = course.CourseName;
+            roundOfGolfViewModel.NumberOfHoles = scores.Count();
+            roundOfGolfViewModel.Id = id;
+
+            return View("DisplayRoundToEdit", roundOfGolfViewModel);
+        }
+
+        public IActionResult SaveRoundChanges(RoundOfGolfViewModel round)
+        {
+            if (ModelState.IsValid)
+            {
+                var roundToSave = _roundOfGolf.GetRound(round.Id);
+
+                roundToSave.Scores = roundToSave.Scores.OrderBy(r => r.HoleNumber).ToList();
+
+                int i = 0;
+                foreach (var score in roundToSave.Scores)
+                {
+                    if (score.HoleNumber < 10)
+                    {
+                        score.HoleScore = round.FrontNineScores[i];
+                        i++;
+                    }
+                }
+
+                i = 0;
+                foreach (var score in roundToSave.Scores)
+                {
+                    if (score.HoleNumber >= 10)
+                    {
+                        score.HoleScore = round.BackNineScores[i];
+                        i++;
+                    }
+                }
+                _roundOfGolf.SaveRoundEdits(roundToSave);
+            }
+            return RedirectToAction("ViewRounds");
+        }
+
+        public IActionResult DeleteRound(int id)
+        {
+            var round = _roundOfGolf.GetRound(id);
+            _roundOfGolf.DeleteRound(round);
+            return RedirectToAction("ViewRounds");
+        }
+
+        public IActionResult DeleteCourse(int id)
+        {
+            var course = _roundOfGolf.GetCourse(id);
+
+            if (!_roundOfGolf.DeleteCourse(course))
+            {
+                IEnumerable<Course> courses = _roundOfGolf.GetAllCourses(User.Identity.Name);
+
+                var courseNames = new List<string>();
+
+                foreach (var courseName in courses)
+                {
+                    courseNames.Add(courseName.CourseName);
+                }
+                ViewBag.Message = "You must delete all rounds associated with this course before you can delete it.";
+                return View("EditCourses", courseNames);
+            }
+            return RedirectToAction("EditCourses");
         }
     }
 }

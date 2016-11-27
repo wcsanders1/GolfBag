@@ -32,12 +32,6 @@ namespace GolfBag.Services
             return _context.SaveChanges();
         }
 
-        public void DeleteRound(RoundOfGolf roundOfGolf)
-        {
-            _context.Remove(roundOfGolf);
-            Commit();
-        }
-
         public IEnumerable<RoundOfGolf> GetAllRounds(string playerName)
         {
             return _context.RoundsOfGolf.Where(r => r.PlayerName == playerName);
@@ -82,6 +76,45 @@ namespace GolfBag.Services
                 .Where(r => r.Id == id)
                 .Include(r => r.Scores)
                 .FirstOrDefault();
+        }
+
+        public void SaveCourseEdits(Course course)
+        {
+            _context.Entry(course).State = EntityState.Modified;
+            Commit();
+        }
+
+        public void SaveRoundEdits(RoundOfGolf round)
+        {
+            _context.Entry(round).State = EntityState.Modified;
+            Commit();
+        }
+        public void DeleteRound(RoundOfGolf roundOfGolf)
+        {
+            foreach (var score in roundOfGolf.Scores)
+            {
+                _context.Remove(score);
+            }
+
+            _context.Remove(roundOfGolf);
+            Commit();
+        }
+
+        public bool DeleteCourse(Course course)
+        {
+            if (_context.RoundsOfGolf.Any(r => r.CourseId == course.Id))
+            {
+                return false;
+            }
+
+            foreach (var courseHole in course.CourseHoles)
+            {
+                _context.Remove(courseHole);
+            }
+            _context.Remove(course);
+            Commit();
+            return true;
+
         }
     }
 }

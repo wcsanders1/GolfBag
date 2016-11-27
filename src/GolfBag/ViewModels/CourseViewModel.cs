@@ -7,6 +7,7 @@ namespace GolfBag.ViewModels
 {
     public class CourseViewModel
     {
+        public int Id { get; set; }
         public string CourseName { get; set; }
         public int NumberOfHoles { get; set; }
         public List<int> Yardages { get; set; }

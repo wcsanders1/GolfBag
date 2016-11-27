@@ -2,7 +2,7 @@
 
 <div class="dropdown">
     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-        Choose A Course
+        Choose A Course To Edit
         <span class="caret"></span>
     </button>
     <ul class="dropdown-menu list-group">
@@ -10,8 +10,8 @@
         @foreach (var course in Model)
         {
             <li class="list-group-item">
-                <a data-ajax="true" data-target="#display-course"
-                    data-action="@Url.Action("DisplayCourse", "RoundOfGolf", 
+                <a data-ajax="true" data-target="#display-course-to-edit"
+                   data-action="@Url.Action("EditCourse", "RoundOfGolf",
                                 new { courseName = course })">
                     @course
                 </a>
@@ -19,8 +19,8 @@
         }
 
     </ul>
-    <a class="btn btn-primary" asp-action="EnterCourse" asp-controller="RoundOfGolf">Enter Another Course</a>
-    <a class="btn btn-primary" asp-action="EditCourses" asp-controller="RoundOfGolf">Edit Courses</a>
 </div>
 
-<div id="display-course"></div>
+<h1>@ViewBag.Message</h1>
+
+<div id="display-course-to-edit"></div>

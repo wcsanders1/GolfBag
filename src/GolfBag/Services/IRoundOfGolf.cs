@@ -12,8 +12,11 @@ namespace GolfBag.Services
         IEnumerable<Course> GetAllCourses(string playerName);
         RoundOfGolf GetRound(int id);
         void AddRound(RoundOfGolf newRoundOfGolf);
-        void DeleteRound(RoundOfGolf roundOfGolf);
         void AddCourse(Course newCourse);
+        void SaveCourseEdits(Course course);
+        void SaveRoundEdits(RoundOfGolf round);
+        bool DeleteCourse(Course course);
+        void DeleteRound(RoundOfGolf round);
         Course GetCourse(string courseName);
         Course GetCourse(int id);
         int GetCourseId(string courseName);

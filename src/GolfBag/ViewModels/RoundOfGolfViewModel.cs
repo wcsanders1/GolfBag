@@ -12,6 +12,7 @@ namespace GolfBag.ViewModels
         public List<int> BackNineScores { get; set; }
         public string CourseName { get; set; }
         public int NumberOfHoles { get; set; }
+        public int Id { get; set; }
         public List<int> Yardages { get; set; }
         public List<int> Pars { get; set; }
     }

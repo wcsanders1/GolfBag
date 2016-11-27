@@ -1,0 +1,73 @@
+﻿@model CourseViewModel
+
+<h1>@Model.CourseName</h1>
+
+<form method="post" asp-antiforgery="true"
+      asp-action="SaveCourseChanges" asp-controller="RoundOfGolf">
+    @Html.HiddenFor(m => m.CourseName)
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <td>Hole</td>
+                    @for (int i = 0; i < 9; i++)
+                    {
+                        string holeNumber = (i + 1).ToString();
+                        <td>@holeNumber</td>
+                    }
+                </tr>
+                <tr>
+                    <td>Par</td>
+                    @for (int i = 0; i < 9; i++)
+                    {
+                        <td>@Html.EditorFor(m => m.Pars[i])</td>
+                    }
+                </tr>
+
+                <tr>
+                    <td>Yards</td>
+                    @for (int i = 0; i < 9; i++)
+                    {
+                        <td>@Html.EditorFor(m => m.Yardages[i])</td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    @if (Model.NumberOfHoles == 18)
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <tbody>
+                    <tr>
+                        <td>Hole</td>
+                        @for (int i = 9; i < 18; i++)
+                        {
+                            string holeNumber = (i + 1).ToString();
+                            <td>@holeNumber</td>
+                        }
+                    </tr>
+                    <tr>
+                        <td>Par</td>
+                        @for (int i = 9; i < 18; i++)
+                        {
+                            <td>@Html.EditorFor(m => m.Pars[i])</td>
+                        }
+                    </tr>
+
+                    <tr>
+                        <td>Yards</td>
+                        @for (int i = 9; i < 18; i++)
+                        {
+                            <td>@Html.EditorFor(m => m.Yardages[i])</td>
+                        }
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    }
+    <div>
+        <input class="btn btn-primary" type="submit" value="Save Course Changes" />
+    </div>
+</form>
+<a class="btn btn-primary" asp-controller="RoundOfGolf" asp-action="DeleteCourse" asp-route-id="@Model.Id">Delete Course</a>
