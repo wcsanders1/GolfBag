@@ -65,14 +65,18 @@ else
         </div>
     </form>
 
-    <div id="checkbox-container">
-        <input type="checkbox" id="front-nine-checkbox" value="true"
-               data-nine="front" data-action="@Url.Action("DisplayFrontNineEnterScore", Model)" 
-               data-target="#front-nine" checked />
+    <div id="checkbox-container btn-group btn-group-sm">
+        <label class="btn btn-success">
+            <input type="checkbox" id="front-nine-checkbox" value="true"
+                   data-nine="front" data-action="@Url.Action("DisplayFrontNineEnterScore", Model)"
+                   data-target="#front-nine" checked />
+        </label>
         <label>Played the front nine.</label><br>
-        <input type="checkbox" id="back-nine-checkbox" value="true"
-               data-nine="back" data-action="@Url.Action("DisplayBackNineEnterScore", Model)"
-               data-target="#back-nine" checked />
+        <label class="btn btn-success">
+            <input type="checkbox" id="back-nine-checkbox" value="true"
+                   data-nine="back" data-action="@Url.Action("DisplayBackNineEnterScore", Model)"
+                   data-target="#back-nine" checked />
+        </label>
         <label for="back-nine-checkbox">Played the back nine.</label>
     </div>
 }

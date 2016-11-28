@@ -7,11 +7,17 @@
     <input asp-for="CourseName" />
 
     <label asp-for="NumberOfHoles"></label>
-    <input id="input-nine" data-target="#back-nine" checked="checked" asp-for="NumberOfHoles" type="radio" value="9" />
-    <span>9</span>
-    <input id="input-eighteen" data-target="#back-nine" data-action="@Url.Action("DisplayBackNine", "RoundOfGolf")"
-           asp-for="NumberOfHoles" type="radio" value="18" />
-    <span>18</span>
+    <div class="btn-group btn-group-sm">
+        <label class="btn btn-success">
+            <input id="input-nine" data-target="#back-nine" checked="checked" asp-for="NumberOfHoles" type="radio" value="9" />
+            <span>9</span>
+        </label>
+        <label class="btn btn-success">
+            <input id="input-eighteen" data-target="#back-nine" data-action="@Url.Action("DisplayBackNine", "RoundOfGolf")"
+                   asp-for="NumberOfHoles" type="radio" value="18" />
+            <span>18</span>
+        </label>
+    </div>
 
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
