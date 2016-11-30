@@ -7,6 +7,8 @@
     <form method="post" asp-antiforgery="true"
           asp-action="EnterScore" asp-controller="RoundOfGolf"
           asp-route-courseName="@Model.CourseName">
+        <input id="date-of-round-input" asp-for="DateOfRound" />
+        <label for="date-of-round-input">Date of Round</label>
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
                 <tbody>
@@ -44,6 +46,8 @@
                 </tbody>
             </table>
         </div>
+        <input id="comment-input" asp-for="Comment" />
+        <label for="comment-input">Enter Comment</label>
         <div>
             <input type="submit" value="Save Round" />
         </div>
@@ -54,12 +58,16 @@ else
     <form method="post" asp-antiforgery="true"
           asp-action="EnterScore" asp-controller="RoundOfGolf"
           asp-route-courseName="@Model.CourseName">
+        <input id="date-of-round-input-2" asp-for="DateOfRound" />
+        <label for="date-of-round-input-2">Date of Round</label>
         <div id="front-nine">
             @Html.Partial("_FrontNineEnterScore", Model)
         </div>
         <div id="back-nine">
             @Html.Partial("_BackNineEnterScore", Model)
         </div>
+        <input id="comment-input-2" asp-for="Comment" />
+        <label for="comment-input-2">Enter Comment</label>
         <div>
             <input type="submit" value="Save Round" />
         </div>

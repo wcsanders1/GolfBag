@@ -1,106 +1,118 @@
 ﻿@model RoundOfGolfViewModel
-
-<h1>@Model.CourseName</h1>
-
-@if (Model.FrontNineScores.Count() > 0)
-{
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-            <tbody>
-                <tr>
-                    <td>Hole</td>
-                    @for (int i = 1; i <= 9; i++)
-                    {
-                        string holeNumber = i.ToString();
-                        <td>@holeNumber</td>
-                    }
-                </tr>
-                <tr>
-                    <td>Par</td>
-                    @for (int i = 0; i < 9; i++)
-                    {
-                        <td>@Model.Pars[i]</td>
-                    }
-                </tr>
-                <tr>
-                    <td>Yards</td>
-                    @for (int i = 0; i < 9; i++)
-                    {
-                        <td>@Model.Yardages[i]</td>
-                    }
-                </tr>
-                <tr>
-                    <td>Scores</td>
-                    @for (int i = 0; i < 9; i++)
-                    {
-                        <td>@Model.FrontNineScores[i]</td>
-                    }
-                </tr>
-
-            </tbody>
-        </table>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h1 class="panel-title">@Model.CourseName</h1>
+        <h2 class="panel-title">@Model.DateOfRound.Date.ToString("M/dd/yyyy")</h2>
+        <ul class="pager">
+            @*Make these link to prior and subsequent rounds, and be inactive when such rounds don't exist*@
+            <li class="previous disabled"><a data-ajax="true" data-target="#display-round"><i class="fa fa-arrow-circle-o-left"></i> Prior Round</a></li>
+            <li class="next"><a href="#">Next Round <i class="fa fa-arrow-circle-o-right"></i></a></li>
+        </ul>
     </div>
-}
 
-@if (Model.BackNineScores.Count() > 0)
-{
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-            <tbody>
-                <tr>
-                    <td>Hole</td>
-                    @for (int i = 10; i <= 18; i++)
-                    {
-                        string holeNumber = i.ToString();
-                        <td>@holeNumber</td>
-                    }
-                </tr>
-                <tr>
-                    <td>Par</td>
-                    @if (Model.FrontNineScores.Count() == 0)
-                    {
-                        for (int i = 0; i < 9; i++)
-                        {
-                            <td>@Model.Pars[i]</td>
-                        }
-                    }
-                    else
-                    {
-                        for (int i = 9; i < 18; i++)
-                        {
-                            <td>@Model.Pars[i]</td>
-                        }
-                    }
-                </tr>
+    <div class="panel-body">
+        @if (Model.FrontNineScores.Count() > 0)
+        {
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr>
+                            <td>Hole</td>
+                            @for (int i = 1; i <= 9; i++)
+                            {
+                                string holeNumber = i.ToString();
+                                <td>@holeNumber</td>
+                            }
+                        </tr>
+                        <tr>
+                            <td>Par</td>
+                            @for (int i = 0; i < 9; i++)
+                            {
+                                <td>@Model.Pars[i]</td>
+                            }
+                        </tr>
+                        <tr>
+                            <td>Yards</td>
+                            @for (int i = 0; i < 9; i++)
+                            {
+                                <td>@Model.Yardages[i]</td>
+                            }
+                        </tr>
+                        <tr>
+                            <td>Scores</td>
+                            @for (int i = 0; i < 9; i++)
+                            {
+                                <td>@Model.FrontNineScores[i]</td>
+                            }
+                        </tr>
 
-                <tr>
-                    <td>Yards</td>
-                    @if (Model.FrontNineScores.Count() == 0)
-                    {
-                        for (int i = 0; i < 9; i++)
-                        {
-                            <td>@Model.Yardages[i]</td>
-                        }
-                    }
-                    else
-                    {
-                        for (int i = 9; i < 18; i++)
-                        {
-                            <td>@Model.Yardages[i]</td>
-                        }
-                    }
-                </tr>
+                    </tbody>
+                </table>
+            </div>
+        }
 
-                <tr>
-                    <td>Scores</td>
-                    @for (int i = 0; i < 9; i++)
-                    {
-                        <td>@Model.BackNineScores[i]</td>
-                    }
-                </tr>
-            </tbody>
-        </table>
+        @if (Model.BackNineScores.Count() > 0)
+        {
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr>
+                            <td>Hole</td>
+                            @for (int i = 10; i <= 18; i++)
+                            {
+                                string holeNumber = i.ToString();
+                                <td>@holeNumber</td>
+                            }
+                        </tr>
+                        <tr>
+                            <td>Par</td>
+                            @if (Model.FrontNineScores.Count() == 0)
+                            {
+                                for (int i = 0; i < 9; i++)
+                                {
+                                    <td>@Model.Pars[i]</td>
+                                }
+                            }
+                            else
+                            {
+                                for (int i = 9; i < 18; i++)
+                                {
+                                    <td>@Model.Pars[i]</td>
+                                }
+                            }
+                        </tr>
+
+                        <tr>
+                            <td>Yards</td>
+                            @if (Model.FrontNineScores.Count() == 0)
+                            {
+                                for (int i = 0; i < 9; i++)
+                                {
+                                    <td>@Model.Yardages[i]</td>
+                                }
+                            }
+                            else
+                            {
+                                for (int i = 9; i < 18; i++)
+                                {
+                                    <td>@Model.Yardages[i]</td>
+                                }
+                            }
+                        </tr>
+
+                        <tr>
+                            <td>Scores</td>
+                            @for (int i = 0; i < 9; i++)
+                            {
+                                <td>@Model.BackNineScores[i]</td>
+                            }
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        }
+    <a asp-action="EditRound" asp-controller="RoundOfGolf" 
+       asp-route-id="@Model.Id" class="btn panel-footer">Edit Round</a>
     </div>
-}
-
-<a asp-action="EditRound" asp-controller="RoundOfGolf" asp-route-id="@Model.Id" class="btn btn-primary">Edit Round</a>
+    <div class="well">@Model.Comment</div>
+</div>

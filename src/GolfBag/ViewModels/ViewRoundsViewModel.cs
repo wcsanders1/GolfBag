@@ -9,5 +9,6 @@ namespace GolfBag.ViewModels
     {
         public string CourseName { get; set; }
         public int RoundId { get; set; }
+        public DateTime RoundDate { get; set; }
     }
 }

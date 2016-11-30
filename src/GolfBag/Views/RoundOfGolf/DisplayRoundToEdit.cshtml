@@ -5,6 +5,7 @@
 <form method="post" asp-antiforgery="true"
       asp-action="SaveRoundChanges" asp-controller="RoundOfGolf">
     @Html.HiddenFor(m => m.Id)
+    @Html.EditorFor(m => m.DateOfRound)
     @if (Model.FrontNineScores.Count() > 0)
     {
         <div class="table-responsive">
@@ -105,6 +106,7 @@
             </table>
         </div>
     }
+    @Html.EditorFor(m => m.Comment)
     <div>
         <input class="btn btn-primary" type="submit" value="Save Round Changes" />
     </div>

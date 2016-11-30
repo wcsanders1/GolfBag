@@ -108,6 +108,8 @@ namespace GolfBag.Controllers
                     }
                 }
 
+                roundOfGolf.Comment = model.Comment;
+                roundOfGolf.Date = model.DateOfRound;
                 roundOfGolf.Scores = scores;
                 roundOfGolf.CourseId = _roundOfGolf.GetCourseId(courseName);
 
@@ -160,7 +162,8 @@ namespace GolfBag.Controllers
         public IActionResult ViewRounds()
         {
             var roundsOfGolfViewModel = new List<ViewRoundsViewModel>();
-            IEnumerable<RoundOfGolf> roundsOfGolf = _roundOfGolf.GetAllRounds(User.Identity.Name);
+            IEnumerable<RoundOfGolf> roundsOfGolf = _roundOfGolf.GetAllRounds(User.Identity.Name)
+                .OrderBy(m => m.Date);
 
             if (roundsOfGolf.Count() > 0)
             {
@@ -171,6 +174,7 @@ namespace GolfBag.Controllers
                     var roundOfGolfViewModel = new ViewRoundsViewModel();
                     roundOfGolfViewModel.CourseName = course.CourseName;
                     roundOfGolfViewModel.RoundId = round.Id;
+                    roundOfGolfViewModel.RoundDate = round.Date;
                     roundsOfGolfViewModel.Add(roundOfGolfViewModel);
                 }
 
@@ -230,7 +234,11 @@ namespace GolfBag.Controllers
             roundOfGolfViewModel.Yardages = viewYardages;
             roundOfGolfViewModel.CourseName = course.CourseName;
             roundOfGolfViewModel.NumberOfHoles = scores.Count();
+            roundOfGolfViewModel.DateOfRound = round.Date;
+            roundOfGolfViewModel.Comment = round.Comment;
             roundOfGolfViewModel.Id = id;
+            //roundOfGolfViewModel.PriorRoundExists = 
+            //roundOfGolfViewModel.SubsequentRoundExists = 
 
             return PartialView("_DisplayRound", roundOfGolfViewModel);
         }
@@ -348,6 +356,8 @@ namespace GolfBag.Controllers
             roundOfGolfViewModel.Yardages = viewYardages;
             roundOfGolfViewModel.CourseName = course.CourseName;
             roundOfGolfViewModel.NumberOfHoles = scores.Count();
+            roundOfGolfViewModel.DateOfRound = round.Date;
+            roundOfGolfViewModel.Comment = round.Comment;
             roundOfGolfViewModel.Id = id;
 
             return View("DisplayRoundToEdit", roundOfGolfViewModel);
@@ -360,6 +370,8 @@ namespace GolfBag.Controllers
                 var roundToSave = _roundOfGolf.GetRound(round.Id);
 
                 roundToSave.Scores = roundToSave.Scores.OrderBy(r => r.HoleNumber).ToList();
+                roundToSave.Comment = round.Comment;
+                roundToSave.Date = round.DateOfRound;
 
                 int i = 0;
                 foreach (var score in roundToSave.Scores)
