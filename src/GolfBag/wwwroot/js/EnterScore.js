@@ -15,7 +15,7 @@
         });
     };
 
-    $("a[data-ajax='true']").on("click", ajaxGetCourse);
+    $(document).on("click", "a[data-ajax='true']", ajaxGetCourse);
 });
 
 $(function () {

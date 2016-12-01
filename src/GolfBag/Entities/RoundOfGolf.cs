@@ -19,7 +19,7 @@ namespace GolfBag.Entities
 
         [Required]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{M/dd/yy}")]
+        [DisplayFormat(DataFormatString = "{MMMM d, yyyy}")]
         public DateTime Date { get; set; }
 
         public string Comment { get; set; }

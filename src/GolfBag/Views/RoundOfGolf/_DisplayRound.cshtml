@@ -1,12 +1,49 @@
 ﻿@model RoundOfGolfViewModel
+
+<ul class="nav nav-pills navbar-default">
+    <li><a href="#handicaps" data-toggle="collapse">Handicaps</a></li>
+    <li><a href="#red-tees" data-toggle="collapse">RedTees</a></li>
+</ul>
+
 <div class="panel panel-primary">
     <div class="panel-heading">
         <h1 class="panel-title">@Model.CourseName</h1>
-        <h2 class="panel-title">@Model.DateOfRound.Date.ToString("M/dd/yyyy")</h2>
+        <h2 class="panel-title">@Model.DateOfRound.Date.ToString("MMMM d, yyyy")</h2>
         <ul class="pager">
-            @*Make these link to prior and subsequent rounds, and be inactive when such rounds don't exist*@
-            <li class="previous disabled"><a data-ajax="true" data-target="#display-round"><i class="fa fa-arrow-circle-o-left"></i> Prior Round</a></li>
-            <li class="next"><a href="#">Next Round <i class="fa fa-arrow-circle-o-right"></i></a></li>
+            @if (Model.IdOfPriorRound >= 0)
+            {
+                <li class="previous">
+                    <a data-ajax="true" data-target="#display-round"
+                       data-action="@Url.Action("DisplayRound", "RoundOfGolf", new { id = Model.IdOfPriorRound })">
+                        <i class="fa fa-arrow-circle-o-left"></i> Prior Round
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li class="previous disabled">
+                    <a data-ajax="false" data-target="#">
+                        <i class="fa fa-arrow-circle-o-left"></i> Prior Round
+                    </a>
+                </li>
+            }
+            @if (Model.IdOfSubsequentRound >= 0)
+            {
+                <li class="next">
+                    <a data-ajax="true" data-target="#display-round"
+                       data-action="@Url.Action("DisplayRound", "RoundOfGolf", new { id = Model.IdOfSubsequentRound })">
+                        Next Round <i class="fa fa-arrow-circle-o-right"></i> 
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li class="next disabled">
+                    <a data-ajax="false" data-target="#">
+                        Next Round <i class="fa fa-arrow-circle-o-right"></i> 
+                    </a>
+                </li>
+            }
         </ul>
     </div>
 
@@ -36,6 +73,20 @@
                             @for (int i = 0; i < 9; i++)
                             {
                                 <td>@Model.Yardages[i]</td>
+                            }
+                        </tr>
+                        <tr id="red-tees" class="collapse in">
+                            <td>Red Tees</td>
+                            @for (int i = 0; i < 9; i++)
+                            {
+                                <td>X</td>
+                            }
+                        </tr>
+                        <tr id="handicaps" class="collapse in">
+                            <td>Handicaps</td>
+                            @for (int i = 0; i < 9; i++)
+                            {
+                                <td>X</td>
                             }
                         </tr>
                         <tr>

@@ -1,17 +1,25 @@
-﻿<span>Hello, @User.Identity.Name</span>
+﻿@if (User.Identity.IsAuthenticated)
+{
+    <h4 class="nav navbar-header">Hello, @User.Identity.Name</h4>
+}
+else
+{
+    <h4 class="nav navbar-header">Login Or Register To Use This Neat Website!</h4>
+}
+
 <div class="btn btn-success navbar-toggle"
      data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-angle-down"></i></div>
 <div class="navbar-header navbar-collapse collapse">
     @if (User.Identity.IsAuthenticated)
     {
         <form class="nav navbar-nav" method="get" asp-controller="RoundOfGolf" asp-action="EnterScore" asp-antiforgery="true">
-            <input class="btn btn-default" type="submit" value="Enter Score" />
+            <input class="btn btn-success" type="submit" value="Enter Score" />
         </form>
         <form class="nav navbar-nav" method="get" asp-controller="RoundOfGolf" asp-action="ViewRounds" asp-antiforgery="true">
-            <input class="btn btn-default" type="submit" value="View Rounds" />
+            <input class="btn btn-success" type="submit" value="View Rounds" />
         </form>
         <form class="nav navbar-nav" method="post" asp-controller="Account" asp-action="Logout" asp-antiforgery="true">
-            <input class="btn btn-default" type="submit" value="Logout" />
+            <input class="btn btn-success" type="submit" value="Logout" />
         </form>
     }
     else

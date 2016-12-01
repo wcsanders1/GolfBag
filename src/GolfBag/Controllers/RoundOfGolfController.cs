@@ -237,8 +237,34 @@ namespace GolfBag.Controllers
             roundOfGolfViewModel.DateOfRound = round.Date;
             roundOfGolfViewModel.Comment = round.Comment;
             roundOfGolfViewModel.Id = id;
-            //roundOfGolfViewModel.PriorRoundExists = 
-            //roundOfGolfViewModel.SubsequentRoundExists = 
+
+            var rounds = _roundOfGolf.GetAllRounds(User.Identity.Name)
+                            .OrderBy(m => m.Date)
+                            .ToList();
+
+            for (int i = 0; i < rounds.Count; i++)
+            {
+                if (rounds[i].Date == round.Date)
+                {
+                    if (i == 0)
+                    {
+                        roundOfGolfViewModel.IdOfPriorRound = -1;
+                    }
+                    else
+                    {
+                        roundOfGolfViewModel.IdOfPriorRound = rounds[i - 1].Id;
+                    }
+
+                    if ((i + 1) == rounds.Count)
+                    {
+                        roundOfGolfViewModel.IdOfSubsequentRound = -1;
+                    }
+                    else
+                    {
+                        roundOfGolfViewModel.IdOfSubsequentRound = rounds[i + 1].Id;
+                    }
+                }
+            } 
 
             return PartialView("_DisplayRound", roundOfGolfViewModel);
         }

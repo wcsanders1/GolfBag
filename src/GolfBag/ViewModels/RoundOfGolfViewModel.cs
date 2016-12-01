@@ -23,12 +23,16 @@ namespace GolfBag.ViewModels
 
         [Required]
         [DataType(DataType.Date, ErrorMessage = "Date only")]
-        [DisplayFormat(DataFormatString = "{M/dd/yyyy}")]
+        [DisplayFormat(DataFormatString = "{MMMM d, yyyy}")]
         public DateTime DateOfRound { get; set; }
 
         public DateTime DateOfPriorRound { get; set; }
 
         public DateTime DateOfSubsequentRound { get; set; }
+
+        public int IdOfPriorRound { get; set; }
+
+        public int IdOfSubsequentRound { get; set; }
 
         public List<int> Yardages { get; set; }
         public List<int> Pars { get; set; }

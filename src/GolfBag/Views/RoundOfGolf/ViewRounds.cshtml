@@ -1,5 +1,7 @@
 ﻿@model List<ViewRoundsViewModel>
 
+<p>Maybe use accordion feature to display rounds according to various categories/</p>
+
 @if (Model == null)
 {
     <h1>@ViewBag.Message</h1>
@@ -20,7 +22,7 @@ else
                        data-action="@Url.Action("DisplayRound", "RoundOfGolf",
              new { id = round.RoundId })">
                         @round.CourseName
-                        <span class="badge">@round.RoundDate.Date.ToString("M/dd/yyyy")</span>
+                        <span class="badge">@round.RoundDate.Date.ToString("MMMM d, yyyy")</span>
                     </a>
                 </li>
             }

@@ -112,4 +112,27 @@
     </div>
 </form>
 
-<a class="btn btn-primary" asp-action="DeleteRound" asp-controller="RoundOfGolf" asp-route-id="@Model.Id">Delete Round</a>
+<a href="#delete-dialog" class="btn btn-warning"
+   data-toggle="modal">Delete Round</a>
+
+<div class="modal fade" id="delete-dialog" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="warning">Delete</p>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this round?</p>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-warning" asp-action="DeleteRound"
+                   asp-controller="RoundOfGolf"
+                   asp-route-id="@Model.Id">
+                    Delete Round
+                </a>
+                <button class="btn btn-success" data-dismiss="modal">Don't Delete</button>
+            </div>
+        </div>
+    </div>
+</div>

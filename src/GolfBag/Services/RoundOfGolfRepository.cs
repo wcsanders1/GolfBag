@@ -34,13 +34,17 @@ namespace GolfBag.Services
 
         public IEnumerable<RoundOfGolf> GetAllRounds(string playerName)
         {
-            return _context.RoundsOfGolf.Where(r => r.PlayerName == playerName);
+            return _context.RoundsOfGolf
+                .Where(r => r.PlayerName == playerName)
+                .Include(r => r.Scores)
+                .ToList();
         }
 
         public IEnumerable<Course> GetAllCourses(string playerName)
         {
             return _context.Courses
                 .Where(r => r.PlayerName == playerName)
+                .Include(r => r.CourseHoles)
                 .ToList();
         }
 
