@@ -106,7 +106,7 @@
             </table>
         </div>
     }
-    @Html.EditorFor(m => m.Comment)
+    @Html.EditorFor(m => m.Comment, new { htmlAttributes = new { @class = "well" } })
     <div>
         <input class="btn btn-primary" type="submit" value="Save Round Changes" />
     </div>

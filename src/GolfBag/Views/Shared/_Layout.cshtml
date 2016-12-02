@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 
 </head>
 <body>
@@ -28,11 +33,6 @@
         @await Component.InvokeAsync("Greeting")
     </footer>
 
-    <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-    <script type="text/javascript" src="~/js/EnterScore.js"></script>
-    <script type="text/javascript" src="~/js/EnterCourse.js"></script>
+    <script type="text/javascript" src="~/js/site.js"></script>
 </body>
 </html>

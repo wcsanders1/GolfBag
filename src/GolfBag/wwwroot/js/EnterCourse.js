@@ -1,4 +1,5 @@
 ﻿$(function () {
+    "use strict";
 
     var backNine = function () {
         var $radioButton = $(this),

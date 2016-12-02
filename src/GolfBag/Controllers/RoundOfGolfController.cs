@@ -253,6 +253,7 @@ namespace GolfBag.Controllers
                     else
                     {
                         roundOfGolfViewModel.IdOfPriorRound = rounds[i - 1].Id;
+                        roundOfGolfViewModel.DateOfPriorRound = rounds[i - 1].Date;
                     }
 
                     if ((i + 1) == rounds.Count)
@@ -262,6 +263,7 @@ namespace GolfBag.Controllers
                     else
                     {
                         roundOfGolfViewModel.IdOfSubsequentRound = rounds[i + 1].Id;
+                        roundOfGolfViewModel.DateOfSubsequentRound = rounds[i + 1].Date;
                     }
                 }
             } 
