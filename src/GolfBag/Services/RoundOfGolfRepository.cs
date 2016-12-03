@@ -53,6 +53,8 @@ namespace GolfBag.Services
             return _context.Courses
                 .Where(r => r.CourseName == courseName)
                 .Include(r => r.CourseHoles)
+                .Include(r => r.TeeBoxes)
+                .ThenInclude(m => m.Tees)
                 .FirstOrDefault();
         }
 
@@ -61,6 +63,8 @@ namespace GolfBag.Services
             return _context.Courses
                 .Where(r => r.Id == id)
                 .Include(r => r.CourseHoles)
+                .Include(r => r.TeeBoxes)
+                .ThenInclude(m => m.Tees)
                 .FirstOrDefault();
         }
 
@@ -115,10 +119,18 @@ namespace GolfBag.Services
             {
                 _context.Remove(courseHole);
             }
+
+            foreach (var teeBox in course.TeeBoxes)
+            {
+                foreach (var tee in teeBox.Tees)
+                {
+                    _context.Remove(tee);
+                }
+                _context.Remove(teeBox);
+            }
             _context.Remove(course);
             Commit();
             return true;
-
         }
     }
 }

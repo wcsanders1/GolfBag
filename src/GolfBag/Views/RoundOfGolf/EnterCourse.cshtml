@@ -3,10 +3,10 @@
 <h1>@ViewBag.Message</h1>
 
 <form method="post" asp-antiforgery="true" asp-controller="RoundOfGolf" asp-action="EnterCourse">
-    <label asp-for="CourseName"></label>
+    <label asp-for="CourseName">Course Name</label>
     <input asp-for="CourseName" />
 
-    <label asp-for="NumberOfHoles"></label>
+    <label asp-for="NumberOfHoles">Number of Holes</label>
     <div class="btn-group btn-group-sm">
         <label class="btn btn-success">
             <input id="input-nine" data-target="#back-nine" checked="checked" asp-for="NumberOfHoles" type="radio" value="9" />
@@ -18,6 +18,16 @@
             <span>18</span>
         </label>
     </div>
+
+    <label asp-for="NumberOfTeeBoxes">Number of Tee Boxes</label>
+    <select asp-for="NumberOfTeeBoxes" id="tee-box-number-selector">
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3" selected="selected">Three</option>
+        <option value="4">Four</option>
+        <option value="5">Five</option>
+        <option value="6">Six</option>
+    </select>
 
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
@@ -43,14 +53,41 @@
                         <td class="number-input">@Html.EditorFor(m => m.Pars[i])</td>
                     }
                 </tr>
+
+                @for (int i = 0; i < 6; i++)
+                {
+                    if (i >= 3)
+                    {
+                        <tr class="tee-box-input hidden">
+                            <td>@Html.EditorFor(m => m.TeeBoxes[i].Name)</td>
+                            @for (int x = 0; x < 9; x++)
+                            {
+                                <td class="number-input">@Html.EditorFor(m => m.TeeBoxes[i].Tees[x].Yardage)</td>
+                            }
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr class="tee-box-input">
+                            <td>@Html.EditorFor(m => m.TeeBoxes[i].Name)</td>
+                            @for (int x = 0; x < 9; x++)
+                            {
+                                <td class="number-input">@Html.EditorFor(m => m.TeeBoxes[i].Tees[x].Yardage)</td>
+                            }
+                        </tr>
+                    }
+                }
+
                 <tr>
-                    <td>Enter Yardage</td>
+                    <td>Enter Handicap</td>
                     @for (int i = 0; i < 9; i++)
                     {
-                        <td class="number-input">@Html.EditorFor(m => m.Yardages[i])</td>
+                        <td class="number-input">@Html.EditorFor(m => m.Handicaps[i])</td>
                     }
                 </tr>
+
             </tbody>
+
         </table>
     </div>
 

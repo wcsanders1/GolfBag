@@ -24,13 +24,38 @@
                     <td class="number-input">@Html.EditorFor(m => m.Pars[i])</td>
                 }
             </tr>
+            @for (int i = 0; i < 6; i++)
+            {
+                if (i >= 3)
+                {
+                    <tr class="back-nine-tee-box-input hidden">
+                        <td>@Html.EditorFor(m => m.TeeBoxes[i].Name)</td>
+                        @for (int x = 9; x < 18; x++)
+                        {
+                            <td class="number-input">@Html.EditorFor(m => m.TeeBoxes[i].Tees[x].Yardage)</td>
+                        }
+                    </tr>
+                }
+                else
+                {
+                    <tr class="back-nine-tee-box-input">
+                        <td>@Html.EditorFor(m => m.TeeBoxes[i].Name)</td>
+                        @for (int x = 9; x < 18; x++)
+                        {
+                            <td class="number-input">@Html.EditorFor(m => m.TeeBoxes[i].Tees[x].Yardage)</td>
+                        }
+                    </tr>
+                }
+            }
+
             <tr>
-                <td>Enter Yardage</td>
+                <td>Enter Handicap</td>
                 @for (int i = 9; i < 18; i++)
                 {
-                    <td class="number-input">@Html.EditorFor(m => m.Yardages[i])</td>
+                    <td class="number-input">@Html.EditorFor(m => m.Handicaps[i])</td>
                 }
             </tr>
+
         </tbody>
     </table>
 </div>

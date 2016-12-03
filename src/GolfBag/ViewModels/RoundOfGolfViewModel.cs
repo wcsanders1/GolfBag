@@ -15,6 +15,8 @@ namespace GolfBag.ViewModels
 
         public string CourseName { get; set; }
 
+        public int IdOfTeeBoxPlayed { get; set; }
+
         public string Comment { get; set; }
 
         public int NumberOfHoles { get; set; }
@@ -34,7 +36,10 @@ namespace GolfBag.ViewModels
 
         public int IdOfSubsequentRound { get; set; }
 
-        public List<int> Yardages { get; set; }
+        public List<TeeBox> TeeBoxes { get; set; }
+
         public List<int> Pars { get; set; }
+
+        public List<int> Handicaps { get; set; }
     }
 }

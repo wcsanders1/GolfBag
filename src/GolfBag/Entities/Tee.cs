@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 
 namespace GolfBag.Entities
 {
-    public class CourseHole
+    public class Tee
     {
         public int Id { get; set; }
-        public int Handicap { get; set; }
         public int HoleNumber { get; set; }
-        public int Par { get; set; }
+        public int Yardage { get; set; }
     }
 }

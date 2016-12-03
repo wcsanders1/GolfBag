@@ -11,6 +11,7 @@ namespace GolfBag.Entities
         public string CourseName { get; set; }
         public string PlayerName { get; set; }
         public int NumberOfHoles { get; set; }
-        public ICollection<CourseHole> CourseHoles { get; set; }
+        public List<CourseHole> CourseHoles { get; set; }
+        public List<TeeBox> TeeBoxes { get; set; }
     }
 }

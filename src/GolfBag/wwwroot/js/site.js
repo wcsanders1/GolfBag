@@ -23,7 +23,6 @@ $(function () {
     "use strict";
 
     $("body").tooltip({
-        selector: "[data-toggle='tooltip']",
-        placement: "left"
+        selector: "[data-toggle='tooltip']"
     });
 });

@@ -9,6 +9,15 @@
           asp-route-courseName="@Model.CourseName">
         <input id="date-of-round-input" asp-for="DateOfRound" />
         <label for="date-of-round-input">Date of Round</label>
+
+        <select asp-for="IdOfTeeBoxPlayed" name="id-of-tee-box-played">
+            @foreach (var teeBox in Model.TeeBoxes)
+            {
+                <option value="@teeBox.Id">@teeBox.Name</option>
+            }
+        </select>
+        <label for="id-of-tee-box-played">Select Tee Box Played</label>
+
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
                 <tbody>
@@ -26,14 +35,17 @@
                         {
                             <td>@par</td>
                         }
-                    </tr>
-                    <tr>
-                        <td>Yards</td>
-                        @foreach (var yardage in Model.Yardages)
-                        {
-                            <td>@yardage</td>
-                        }
-                    </tr>
+                    </tr>                  
+                    @foreach (var teeBox in Model.TeeBoxes)
+                    {
+                        <tr>
+                            <td>@teeBox.Name</td>
+                            @foreach (var tee in teeBox.Tees)
+                            {
+                                <td>@tee.Yardage</td>
+                            }
+                        </tr>
+                    }                         
                     <tr>
                         <td>Enter Scores</td>
                         @for (int i = 0; i < 9; i++)

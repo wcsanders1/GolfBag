@@ -11,11 +11,13 @@ namespace GolfBag.Entities
         public int Id { get; set; }
 
         [Required]
-        public ICollection<Score> Scores { get; set; }
+        public List<Score> Scores { get; set; }
 
         public string PlayerName { get; set; }
 
         public int CourseId { get; set; }
+
+        public int TeeBoxPlayed { get; set; }
 
         [Required]
         [DataType(DataType.Date)]

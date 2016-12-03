@@ -17,14 +17,17 @@
                 {
                     <td>@Model.Pars[i]</td>
                 }
-            </tr>
-            <tr>
-                <td>Yards</td>
-                @for (int i = 0; i < 9; i++)
-                {
-                    <td>@Model.Yardages[i]</td>
-                }
-            </tr>
+            </tr>         
+            @foreach (var teeBox in Model.TeeBoxes)
+            {
+                <tr>
+                    <td>@teeBox.Name</td>
+                    @for (int i = 0; i < 9; i++)
+                    {
+                        <td>@teeBox.Tees[i].Yardage</td>
+                    }
+                </tr>
+            }                  
             <tr>
                 <td>Enter Scores</td>
                 @for (int i = 0; i < 9; i++)
