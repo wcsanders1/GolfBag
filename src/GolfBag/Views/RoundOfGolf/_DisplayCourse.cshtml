@@ -10,7 +10,7 @@
         <input id="date-of-round-input" asp-for="DateOfRound" />
         <label for="date-of-round-input">Date of Round</label>
 
-        <select asp-for="IdOfTeeBoxPlayed" name="id-of-tee-box-played">
+        <select asp-for="IdOfTeeBoxPlayed">
             @foreach (var teeBox in Model.TeeBoxes)
             {
                 <option value="@teeBox.Id">@teeBox.Name</option>
@@ -72,6 +72,15 @@ else
           asp-route-courseName="@Model.CourseName">
         <input id="date-of-round-input-2" asp-for="DateOfRound" />
         <label for="date-of-round-input-2">Date of Round</label>
+
+        <select asp-for="IdOfTeeBoxPlayed">
+            @foreach (var teeBox in Model.TeeBoxes)
+            {
+                <option value="@teeBox.Id">@teeBox.Name</option>
+            }
+        </select>
+        <label for="id-of-tee-box-played">Select Tee Box Played</label>
+
         <div id="front-nine">
             @Html.Partial("_FrontNineEnterScore", Model)
         </div>

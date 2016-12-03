@@ -135,6 +135,7 @@ namespace GolfBag.Controllers
                 roundOfGolf.Date = model.DateOfRound;
                 roundOfGolf.Scores = scores;
                 roundOfGolf.CourseId = _roundOfGolf.GetCourseId(courseName);
+                roundOfGolf.TeeBoxPlayed = model.IdOfTeeBoxPlayed;
 
                 _roundOfGolf.AddRound(roundOfGolf);
                 return RedirectToAction("Index", "Home", "");
@@ -233,6 +234,11 @@ namespace GolfBag.Controllers
             scores = round.Scores.OrderBy(r => r.HoleNumber).ToList();
             holes = course.CourseHoles.OrderBy(r => r.HoleNumber).ToList();
 
+            for (int i = 0; i < course.TeeBoxes.Count; i++)
+            {
+                course.TeeBoxes[i].Tees = course.TeeBoxes[i].Tees.OrderBy(r => r.HoleNumber).ToList();
+            }
+
             for (int i = 0; i < scores.Count; i++)
             {
                 if (scores[i].HoleNumber < 10)
@@ -255,7 +261,7 @@ namespace GolfBag.Controllers
                 }
             }
 
-            roundOfGolfViewModel.TeeBoxes = course.TeeBoxes.OrderBy(r => r.Tees.OrderBy(m => m.HoleNumber)).ToList();
+            roundOfGolfViewModel.TeeBoxes = course.TeeBoxes;
             roundOfGolfViewModel.FrontNineScores = viewFrontNineScores;
             roundOfGolfViewModel.BackNineScores = viewBackNineScores;
             roundOfGolfViewModel.Pars = viewPars;
@@ -264,6 +270,7 @@ namespace GolfBag.Controllers
             roundOfGolfViewModel.DateOfRound = round.Date;
             roundOfGolfViewModel.Comment = round.Comment;
             roundOfGolfViewModel.Id = id;
+            roundOfGolfViewModel.IdOfTeeBoxPlayed = round.TeeBoxPlayed;
 
             var rounds = _roundOfGolf.GetAllRounds(User.Identity.Name)
                             .OrderBy(m => m.Date)
@@ -337,7 +344,11 @@ namespace GolfBag.Controllers
                 handicaps.Add(courseHole.Handicap);
             }
             courseViewModel.Pars = pars;
-            courseViewModel.TeeBoxes = course.TeeBoxes.OrderBy(r => r.Tees.OrderBy(m => m.HoleNumber)).ToList();
+
+            for (int i = 0; i < course.TeeBoxes.Count; i++)
+            {
+                course.TeeBoxes[i].Tees = course.TeeBoxes[i].Tees.OrderBy(r => r.HoleNumber).ToList();
+            }
 
             return PartialView("_DisplayCourseToEdit", courseViewModel);
         }
@@ -402,15 +413,21 @@ namespace GolfBag.Controllers
                 }
             }
 
+            for (int i = 0; i < course.TeeBoxes.Count; i++)
+            {
+                course.TeeBoxes[i].Tees = course.TeeBoxes[i].Tees.OrderBy(r => r.HoleNumber).ToList();
+            }
+
+            roundOfGolfViewModel.TeeBoxes = course.TeeBoxes;
             roundOfGolfViewModel.FrontNineScores = viewFrontNineScores;
             roundOfGolfViewModel.BackNineScores = viewBackNineScores;
             roundOfGolfViewModel.Pars = viewPars;
-            roundOfGolfViewModel.TeeBoxes = course.TeeBoxes.OrderBy(r => r.Tees.OrderBy(m => m.HoleNumber)).ToList();
             roundOfGolfViewModel.CourseName = course.CourseName;
             roundOfGolfViewModel.NumberOfHoles = scores.Count();
             roundOfGolfViewModel.DateOfRound = round.Date;
             roundOfGolfViewModel.Comment = round.Comment;
             roundOfGolfViewModel.Id = id;
+            roundOfGolfViewModel.IdOfTeeBoxPlayed = round.TeeBoxPlayed;
 
             return View("DisplayRoundToEdit", roundOfGolfViewModel);
         }
