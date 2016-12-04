@@ -26,3 +26,5 @@ $(function () {
         selector: "[data-toggle='tooltip']"
     });
 });
+
+// $("#carousel").carousel();  this will activate a carousel

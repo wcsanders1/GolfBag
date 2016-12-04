@@ -34,38 +34,82 @@ namespace GolfBag.Services
 
         public IEnumerable<RoundOfGolf> GetAllRounds(string playerName)
         {
-            return _context.RoundsOfGolf
+            IEnumerable<RoundOfGolf> rounds = _context.RoundsOfGolf
                 .Where(r => r.PlayerName == playerName)
                 .Include(r => r.Scores)
+                .OrderBy(r => r.Date)
                 .ToList();
+
+            foreach (var round in rounds)
+            {
+                round.Scores = round.Scores.OrderBy(r => r.HoleNumber).ToList();
+            }
+
+            return rounds;
         }
 
         public IEnumerable<Course> GetAllCourses(string playerName)
         {
-            return _context.Courses
+            IEnumerable<Course> courses = _context.Courses
                 .Where(r => r.PlayerName == playerName)
                 .Include(r => r.CourseHoles)
+                .Include(r => r.TeeBoxes)
+                .ThenInclude(m => m.Tees)
+                .OrderBy(r => r.CourseName)
                 .ToList();
+
+            foreach (var course in courses)
+            {
+                course.CourseHoles = course.CourseHoles.OrderBy(r => r.HoleNumber).ToList();
+                course.TeeBoxes = course.TeeBoxes.OrderByDescending(r => r.Tees.Sum(m => m.Yardage)).ToList();
+
+                for (int i = 0; i < course.TeeBoxes.Count; i++)
+                {
+                    course.TeeBoxes[i].Tees = course.TeeBoxes[i].Tees.OrderBy(r => r.HoleNumber).ToList();
+                }
+            }
+
+            return courses;
         }
 
         public Course GetCourse(string courseName)
         {
-            return _context.Courses
+            Course course = _context.Courses
                 .Where(r => r.CourseName == courseName)
-                .Include(r => r.CourseHoles)
+                .Include(r => r.CourseHoles)                
                 .Include(r => r.TeeBoxes)
                 .ThenInclude(m => m.Tees)
                 .FirstOrDefault();
+
+            course.CourseHoles = course.CourseHoles.OrderBy(r => r.HoleNumber).ToList();
+            course.TeeBoxes = course.TeeBoxes.OrderByDescending(r => r.Tees.Sum(m => m.Yardage)).ToList();
+
+            for (int i = 0; i < course.TeeBoxes.Count; i++)
+            {
+                course.TeeBoxes[i].Tees = course.TeeBoxes[i].Tees.OrderBy(r => r.HoleNumber).ToList();
+            }
+
+            return course;
         }
 
         public Course GetCourse(int id)
         {
-            return _context.Courses
+            Course course = _context.Courses
                 .Where(r => r.Id == id)
                 .Include(r => r.CourseHoles)
                 .Include(r => r.TeeBoxes)
                 .ThenInclude(m => m.Tees)
                 .FirstOrDefault();
+
+            course.CourseHoles = course.CourseHoles.OrderBy(r => r.HoleNumber).ToList();
+            course.TeeBoxes = course.TeeBoxes.OrderByDescending(r => r.Tees.Sum(m => m.Yardage)).ToList();
+
+            for (int i = 0; i < course.TeeBoxes.Count; i++)
+            {
+                course.TeeBoxes[i].Tees = course.TeeBoxes[i].Tees.OrderBy(r => r.HoleNumber).ToList();
+            }
+
+            return course;
         }
 
         public int GetCourseId(string courseName)
@@ -80,10 +124,14 @@ namespace GolfBag.Services
 
         public RoundOfGolf GetRound(int id)
         {
-            return _context.RoundsOfGolf
+            RoundOfGolf round = _context.RoundsOfGolf
                 .Where(r => r.Id == id)
                 .Include(r => r.Scores)
                 .FirstOrDefault();
+
+            round.Scores = round.Scores.OrderBy(r => r.HoleNumber).ToList();
+
+            return round;
         }
 
         public void SaveCourseEdits(Course course)

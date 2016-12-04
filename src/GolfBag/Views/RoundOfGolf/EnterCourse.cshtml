@@ -1,6 +1,9 @@
 ﻿@model CourseViewModel
 
-<h1>@ViewBag.Message</h1>
+<div class="alert alert-warning collapse">   @*this needs js to .show();*@
+    <a href="#" data-dismiss="alert" class="close">&times;</a>
+    <h1>@ViewBag.Message</h1>
+</div>
 
 <form method="post" asp-antiforgery="true" asp-controller="RoundOfGolf" asp-action="EnterCourse">
     <label asp-for="CourseName">Course Name</label>
