@@ -30,8 +30,15 @@ footer {
 
 .number-input,
 .number-input input {
-    width: 4rem;
+    width: 5rem;
+    text-align: center;
+    -webkit-appearance: none;
 }
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+        .remove-number-spinners;
+    }
 
 .dropdown-menu > li > a {
     display: flex;
@@ -42,6 +49,10 @@ footer {
 
 .dropdown-menu > li > a > span {
     margin-left: 1rem;
+}
+
+.teebox-played {
+    font-weight: bold;
 }
 
 /*h1 {

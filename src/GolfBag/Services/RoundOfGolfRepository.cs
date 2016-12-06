@@ -50,7 +50,7 @@ namespace GolfBag.Services
 
         public IEnumerable<Course> GetAllCourses(string playerName)
         {
-            IEnumerable<Course> courses = _context.Courses
+            List<Course> courses = _context.Courses
                 .Where(r => r.PlayerName == playerName)
                 .Include(r => r.CourseHoles)
                 .Include(r => r.TeeBoxes)
@@ -58,15 +58,9 @@ namespace GolfBag.Services
                 .OrderBy(r => r.CourseName)
                 .ToList();
 
-            foreach (var course in courses)
+            for (int i = 0; i < courses.Count(); i++)           
             {
-                course.CourseHoles = course.CourseHoles.OrderBy(r => r.HoleNumber).ToList();
-                course.TeeBoxes = course.TeeBoxes.OrderByDescending(r => r.Tees.Sum(m => m.Yardage)).ToList();
-
-                for (int i = 0; i < course.TeeBoxes.Count; i++)
-                {
-                    course.TeeBoxes[i].Tees = course.TeeBoxes[i].Tees.OrderBy(r => r.HoleNumber).ToList();
-                }
+                courses[i] = OrderCourseProperties(courses[i]);
             }
 
             return courses;
@@ -81,15 +75,7 @@ namespace GolfBag.Services
                 .ThenInclude(m => m.Tees)
                 .FirstOrDefault();
 
-            course.CourseHoles = course.CourseHoles.OrderBy(r => r.HoleNumber).ToList();
-            course.TeeBoxes = course.TeeBoxes.OrderByDescending(r => r.Tees.Sum(m => m.Yardage)).ToList();
-
-            for (int i = 0; i < course.TeeBoxes.Count; i++)
-            {
-                course.TeeBoxes[i].Tees = course.TeeBoxes[i].Tees.OrderBy(r => r.HoleNumber).ToList();
-            }
-
-            return course;
+            return OrderCourseProperties(course);
         }
 
         public Course GetCourse(int id)
@@ -101,15 +87,7 @@ namespace GolfBag.Services
                 .ThenInclude(m => m.Tees)
                 .FirstOrDefault();
 
-            course.CourseHoles = course.CourseHoles.OrderBy(r => r.HoleNumber).ToList();
-            course.TeeBoxes = course.TeeBoxes.OrderByDescending(r => r.Tees.Sum(m => m.Yardage)).ToList();
-
-            for (int i = 0; i < course.TeeBoxes.Count; i++)
-            {
-                course.TeeBoxes[i].Tees = course.TeeBoxes[i].Tees.OrderBy(r => r.HoleNumber).ToList();
-            }
-
-            return course;
+            return OrderCourseProperties(course);
         }
 
         public int GetCourseId(string courseName)
@@ -179,6 +157,21 @@ namespace GolfBag.Services
             _context.Remove(course);
             Commit();
             return true;
+        }
+
+        //************************   PRIVATE METHODS  ******************************************************
+
+        private Course OrderCourseProperties(Course course)
+        {
+            course.CourseHoles = course.CourseHoles.OrderBy(r => r.HoleNumber).ToList();
+            course.TeeBoxes = course.TeeBoxes.OrderByDescending(r => r.Tees.Sum(m => m.Yardage)).ToList();
+
+            for (int i = 0; i < course.TeeBoxes.Count; i++)
+            {
+                course.TeeBoxes[i].Tees = course.TeeBoxes[i].Tees.OrderBy(r => r.HoleNumber).ToList();
+            }
+
+            return course;
         }
     }
 }

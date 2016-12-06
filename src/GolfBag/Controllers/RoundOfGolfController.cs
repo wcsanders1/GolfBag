@@ -251,6 +251,9 @@ namespace GolfBag.Controllers
             return RedirectToAction("EditCourses");
         }
 
+
+        //****************  PRIVATE METHODS  ***********************************************************
+
         private Course MapViewModelToCourse(CourseViewModel model)
         {
             model.TeeBoxes.RemoveRange(int.Parse(model.NumberOfTeeBoxes), model.TeeBoxes.Count - int.Parse(model.NumberOfTeeBoxes));

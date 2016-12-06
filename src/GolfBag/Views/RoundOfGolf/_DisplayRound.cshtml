@@ -1,9 +1,19 @@
 ﻿@model RoundOfGolfViewModel
 
-<ul class="nav nav-pills navbar-default">
-    <li><a href="#handicaps" data-toggle="collapse">Handicaps</a></li>
-    <li><a href="#red-tees" data-toggle="collapse">RedTees</a></li>
-</ul>
+@if (Model.TeeBoxes.Count > 1)
+{
+    <ul class="nav nav-pills navbar-default">
+        <li>Toggle Tee Boxes:</li>
+
+        @foreach (var teeBox in Model.TeeBoxes)
+        {
+            if (teeBox.Id != Model.IdOfTeeBoxPlayed)
+            {
+                <li><a href="#@teeBox.Id" data-toggle="collapse">@teeBox.Name</a></li>
+            }
+        }
+    </ul>
+}
 
 <div class="panel panel-primary">
     <div class="panel-heading">
@@ -75,7 +85,7 @@
                         {
                             if (teeBox.Id != Model.IdOfTeeBoxPlayed)
                             {
-                                <tr class="hidden">
+                                <tr id="@teeBox.Id" class="collapse">
                                     <td>@teeBox.Name</td>
                                     @for (int i = 0; i < 9; i++)
                                     {
@@ -86,28 +96,14 @@
                             else
                             {
                                 <tr>
-                                    <td>@teeBox.Name</td>
+                                    <td class="teebox-played">@teeBox.Name</td>
                                     @for (int i = 0; i < 9; i++)
                                     {
-                                        <td>@teeBox.Tees[i].Yardage</td>
+                                        <td class="teebox-played">@teeBox.Tees[i].Yardage</td>
                                     }
                                 </tr>
                             }
                         }
-                        @*<tr id="red-tees" class="collapse in">
-                <td>Red Tees</td>
-                @for (int i = 0; i < 9; i++)
-                {
-                    <td>X</td>
-                }
-            </tr>
-            <tr id="handicaps" class="collapse in">
-                <td>Handicaps</td>
-                @for (int i = 0; i < 9; i++)
-                {
-                    <td>X</td>
-                }
-            </tr>*@
                         <tr>
                             <td>Scores</td>
                             @for (int i = 0; i < 9; i++)
@@ -157,7 +153,7 @@
                         {
                             if (teeBox.Id != Model.IdOfTeeBoxPlayed)
                             {
-                            <tr class="hidden">
+                            <tr id="@teeBox.Id" class="collapse">
                                 <td>@teeBox.Name</td>
                                 @for (int i = 9; i < 18; i++)
                                 {
@@ -168,33 +164,14 @@
                             else
                             {
                                 <tr>
-                                    <td>@teeBox.Name</td>
+                                    <td class="teebox-played">@teeBox.Name</td>
                                     @for (int i = 9; i < 18; i++)
                                     {
-                                        <td>@teeBox.Tees[i].Yardage</td>
+                                        <td class="teebox-played">@teeBox.Tees[i].Yardage</td>
                                     }
                                 </tr>
                             }
                         }
-
-                        @*<tr>
-
-        <td>Yards</td>
-        @if (Model.FrontNineScores.Count() == 0)
-        {
-            for (int i = 0; i < 9; i++)
-            {
-                <td>@Model.Yardages[i]</td>
-            }
-        }
-        else
-        {
-            for (int i = 9; i < 18; i++)
-            {
-                <td>@Model.Yardages[i]</td>
-            }
-        }
-    <tr>*@
                         <tr>
                             <td>Scores</td>
                             @for (int i = 0; i < 9; i++)
