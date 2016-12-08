@@ -9,7 +9,7 @@
         {
             if (teeBox.Id != Model.IdOfTeeBoxPlayed)
             {
-                <li><a href="#@teeBox.Id" data-toggle="collapse">@teeBox.Name</a></li>
+                <li><a href=".@teeBox.Id" data-toggle="collapse">@teeBox.Name</a></li>
             }
         }
     </ul>
@@ -72,25 +72,35 @@
                                 string holeNumber = i.ToString();
                                 <td>@holeNumber</td>
                             }
+                            <td>Totals</td>
                         </tr>
                         <tr>
                             <td>Par</td>
-                            @for (int i = 0; i < 9; i++)
-                            {
-                                <td>@Model.Pars[i]</td>
+                            @{
+                                int totalPar = 0;
+                                for (int i = 0; i < 9; i++)
+                                {
+                                    totalPar += Model.Pars[i];
+                                    <td>@Model.Pars[i]</td>
+                                }
+
+                            <td>@totalPar</td>
                             }
                         </tr>
 
                         @foreach (var teeBox in Model.TeeBoxes)
                         {
+                            int totalYardage = 0;
                             if (teeBox.Id != Model.IdOfTeeBoxPlayed)
                             {
-                                <tr id="@teeBox.Id" class="collapse">
+                                <tr class="@teeBox.Id collapse">
                                     <td>@teeBox.Name</td>
                                     @for (int i = 0; i < 9; i++)
                                     {
                                         <td>@teeBox.Tees[i].Yardage</td>
+                                        totalYardage += teeBox.Tees[i].Yardage;
                                     }
+                                    <td>@totalYardage</td>
                                 </tr>
                             }
                             else
@@ -100,15 +110,22 @@
                                     @for (int i = 0; i < 9; i++)
                                     {
                                         <td class="teebox-played">@teeBox.Tees[i].Yardage</td>
+                                        totalYardage += teeBox.Tees[i].Yardage;
                                     }
+                                    <td>@totalYardage</td>
                                 </tr>
                             }
                         }
                         <tr>
                             <td>Scores</td>
-                            @for (int i = 0; i < 9; i++)
-                            {
-                                <td>@Model.FrontNineScores[i]</td>
+                            @{
+                                int totalScore = 0;
+                                for (int i = 0; i < 9; i++)
+                                {
+                                    <td>@Model.FrontNineScores[i]</td>
+                                    totalScore += Model.FrontNineScores[i];
+                                }
+                                <td>@totalScore</td>
                             }
                         </tr>
 
@@ -130,36 +147,46 @@
                                 string holeNumber = i.ToString();
                                 <td>@holeNumber</td>
                             }
+                            <td>Totals</td>
                         </tr>
                         <tr>
                             <td>Par</td>
-                            @if (Model.FrontNineScores.Count() == 0)
-                            {
-                                for (int i = 0; i < 9; i++)
+                            @{ 
+                                int totalPar = 0;
+                                if (Model.FrontNineScores.Count() == 0)
                                 {
-                                    <td>@Model.Pars[i]</td>
+                                    for (int i = 0; i < 9; i++)
+                                    {
+                                        <td>@Model.Pars[i]</td>
+                                        totalPar += Model.Pars[i];
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                for (int i = 9; i < 18; i++)
+                                else
                                 {
-                                    <td>@Model.Pars[i]</td>
+                                    for (int i = 9; i < 18; i++)
+                                    {
+                                        <td>@Model.Pars[i]</td>
+                                        totalPar += Model.Pars[i];
+                                    }
                                 }
+                                <td>@totalPar</td>
                             }
                         </tr>
 
                         @foreach (var teeBox in Model.TeeBoxes)
                         {
+                            int totalYardage = 0;
                             if (teeBox.Id != Model.IdOfTeeBoxPlayed)
                             {
-                            <tr id="@teeBox.Id" class="collapse">
-                                <td>@teeBox.Name</td>
-                                @for (int i = 9; i < 18; i++)
-                                {
-                                    <td>@teeBox.Tees[i].Yardage</td>
-                                }
-                            </tr>
+                                <tr class="@teeBox.Id collapse">
+                                    <td>@teeBox.Name</td>
+                                    @for (int i = 9; i < 18; i++)
+                                    {
+                                        <td>@teeBox.Tees[i].Yardage</td>
+                                        totalYardage += teeBox.Tees[i].Yardage;
+                                    }
+                                    <td>@totalYardage</td>
+                                </tr>
                             }
                             else
                             {
@@ -168,15 +195,22 @@
                                     @for (int i = 9; i < 18; i++)
                                     {
                                         <td class="teebox-played">@teeBox.Tees[i].Yardage</td>
+                                        totalYardage += teeBox.Tees[i].Yardage;
                                     }
+                                    <td>@totalYardage</td>
                                 </tr>
                             }
                         }
                         <tr>
                             <td>Scores</td>
-                            @for (int i = 0; i < 9; i++)
-                            {
-                                <td>@Model.BackNineScores[i]</td>
+                            @{ 
+                                int totalScore = 0;
+                                for (int i = 0; i < 9; i++)
+                                {
+                                    <td>@Model.BackNineScores[i]</td>
+                                    totalScore += Model.BackNineScores[i];
+                                }
+                                <td>@totalScore</td>
                             }
                         </tr>
                     </tbody>

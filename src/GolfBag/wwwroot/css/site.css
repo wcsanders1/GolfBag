@@ -91,10 +91,6 @@ input::-webkit-outer-spin-button {
 .teebox-played {
   font-weight: bold;
 }
-.flex-header {
-  display: flex;
-  justify-content: space-between;
-}
 /*h1 {
     font-size: @baseSize + 10px;
 }

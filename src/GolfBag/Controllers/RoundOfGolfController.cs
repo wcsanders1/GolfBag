@@ -371,7 +371,6 @@ namespace GolfBag.Controllers
             var viewPars = new List<int>();
             var viewYardages = new List<int>();
 
-
             course = _roundOfGolf.GetCourse(roundOfGolf.CourseId);
 
             scores = roundOfGolf.Scores;
