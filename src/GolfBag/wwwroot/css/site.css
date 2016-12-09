@@ -90,6 +90,13 @@ input::-webkit-outer-spin-button {
 }
 .teebox-played {
   font-weight: bold;
+  background-color: #2AC930;
+}
+.teebox-not-played {
+  color: #B8BEBF;
+}
+.table-row-striped {
+  background-color: #F9F9F9;
 }
 /*h1 {
     font-size: @baseSize + 10px;
