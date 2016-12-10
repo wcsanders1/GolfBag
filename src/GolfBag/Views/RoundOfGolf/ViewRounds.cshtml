@@ -1,4 +1,4 @@
-﻿@model List<ViewRoundsViewModel>
+﻿@model ViewRoundsViewModel
 
 <p>Maybe use accordion feature to display rounds according to various categories/</p>
 
@@ -15,7 +15,7 @@ else
         </button>
         <ul class="dropdown-menu list-group">
 
-            @foreach (var round in Model)
+            @foreach (var round in Model.ViewRounds)
             {
                 <li class="list-group-item">
                     <a data-ajax="true" data-target="#display-round"
@@ -31,4 +31,9 @@ else
     </div>
 
     <div id="display-round"></div>
+
+    <script>
+        var selectedRound = @Model.SelectedRound;
+    </script>
+    <script src="~/js/ViewRounds.js" type="text/javascript"></script>
 }

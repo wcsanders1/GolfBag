@@ -98,9 +98,11 @@ namespace GolfBag.Controllers
             return PartialView("_BackNineEnterScore", model);
         }
 
-        public IActionResult ViewRounds()
+        public IActionResult ViewRounds(int selectedRound = -1)
         {
-            var roundsOfGolfViewModel = new List<ViewRoundsViewModel>();
+            var roundsOfGolfViewModel = new ViewRoundsViewModel();
+            roundsOfGolfViewModel.SelectedRound = selectedRound;
+
             IEnumerable<RoundOfGolf> roundsOfGolf = _roundOfGolf.GetAllRounds(User.Identity.Name);
 
             if (roundsOfGolf.Count() > 0)
@@ -109,11 +111,11 @@ namespace GolfBag.Controllers
                 {
                     Course course = _roundOfGolf.GetCourse(round.CourseId);
 
-                    var roundOfGolfViewModel = new ViewRoundsViewModel();
-                    roundOfGolfViewModel.CourseName = course.CourseName;
-                    roundOfGolfViewModel.RoundId = round.Id;
-                    roundOfGolfViewModel.RoundDate = round.Date;
-                    roundsOfGolfViewModel.Add(roundOfGolfViewModel);
+                    var viewRound = new ViewRound();
+                    viewRound.CourseName = course.CourseName;
+                    viewRound.RoundId = round.Id;
+                    viewRound.RoundDate = round.Date;
+                    roundsOfGolfViewModel.ViewRounds.Add(viewRound);
                 }
 
                 return View(roundsOfGolfViewModel);
@@ -193,35 +195,34 @@ namespace GolfBag.Controllers
 
         public IActionResult SaveRoundChanges(RoundOfGolfViewModel round)
         {
-            if (ModelState.IsValid)
+            var roundToSave = _roundOfGolf.GetRound(round.Id);
+
+            roundToSave.Comment = round.Comment;
+            roundToSave.Date = round.DateOfRound;
+            roundToSave.TeeBoxPlayed = round.IdOfTeeBoxPlayed;
+
+            int i = 0;
+            foreach (var score in roundToSave.Scores)
             {
-                var roundToSave = _roundOfGolf.GetRound(round.Id);
-
-                roundToSave.Comment = round.Comment;
-                roundToSave.Date = round.DateOfRound;
-
-                int i = 0;
-                foreach (var score in roundToSave.Scores)
+                if (score.HoleNumber < 10)
                 {
-                    if (score.HoleNumber < 10)
-                    {
-                        score.HoleScore = round.FrontNineScores[i];
-                        i++;
-                    }
+                    score.HoleScore = round.FrontNineScores[i];
+                    i++;
                 }
-
-                i = 0;
-                foreach (var score in roundToSave.Scores)
-                {
-                    if (score.HoleNumber >= 10)
-                    {
-                        score.HoleScore = round.BackNineScores[i];
-                        i++;
-                    }
-                }
-                _roundOfGolf.SaveRoundEdits(roundToSave);
             }
-            return RedirectToAction("ViewRounds");
+
+            i = 0;
+            foreach (var score in roundToSave.Scores)
+            {
+                if (score.HoleNumber >= 10)
+                {
+                    score.HoleScore = round.BackNineScores[i];
+                    i++;
+                }
+            }
+            _roundOfGolf.SaveRoundEdits(roundToSave);
+            
+            return RedirectToAction("ViewRounds", new { selectedRound = roundToSave.Id });
         }
 
         public IActionResult DeleteRound(int id)
