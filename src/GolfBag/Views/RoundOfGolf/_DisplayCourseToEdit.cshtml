@@ -27,8 +27,14 @@
                 </tr>
                 @for (int i = 0; i < int.Parse(Model.NumberOfTeeBoxes); i++)
                 {
-                    <tr class="tee-box-input">
-                        <td>@Html.EditorFor(m => m.TeeBoxes[i].Name)</td>
+                    <tr class="teebox-row" data-teebox-id="@Model.TeeBoxes[i].Id"
+                        data-teebox-name="@Model.TeeBoxes[i].Name">
+                        <td>
+                            @Html.EditorFor(m => m.TeeBoxes[i].Name)
+                            <i class="fa fa-trash delete-teebox" data-toggle="tooltip"
+                               title="Delete @Model.TeeBoxes[i].Name Teebox"></i>
+                            <span class="undo-delete hidden">Undo Delete <i class="fa fa-undo"></i></span>
+                        </td>
                         @for (int x = 0; x < 9; x++)
                         {
                             <td class="number-input">@Html.EditorFor(m => m.TeeBoxes[i].Tees[x].Yardage)</td>
@@ -69,8 +75,8 @@
 
                     @for (int i = 0; i < int.Parse(Model.NumberOfTeeBoxes); i++)
                     {
-                        <tr class="tee-box-input">
-                            <td>@Html.EditorFor(m => m.TeeBoxes[i].Name)</td>
+                        <tr class="teebox-row" data-teebox-id="@Model.TeeBoxes[i].Id">
+                            <td><p>@Model.TeeBoxes[i].Name</p></td>
                             @for (int x = 9; x < 18; x++)
                             {
                                 <td class="number-input">@Html.EditorFor(m => m.TeeBoxes[i].Tees[x].Yardage)</td>
@@ -94,3 +100,24 @@
     </div>
 </form>
 <a class="btn btn-primary" asp-controller="RoundOfGolf" asp-action="DeleteCourse" asp-route-id="@Model.Id">Delete Course</a>
+
+<div class="modal fade" id="delete-teebox-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="warning">You Cannot Delete The <span class="teebox-name"></span> Tees</p>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            <div class="modal-body">
+                <h1>You played the <span class="teebox-name"></span> tees on the following days:</h1>
+                <div id="dates-teebox-played"></div>
+                <h2>You must edit those rounds before you can delete the <span class="teebox-name"></span> tees.</h2>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/_DisplayCourseToEdit.js" type="text/javascript"></script>

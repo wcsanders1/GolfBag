@@ -252,6 +252,20 @@ namespace GolfBag.Controllers
             return RedirectToAction("EditCourses");
         }
 
+        public string DatesPlayedTeebox(int id)
+        {
+            var rounds = _roundOfGolf.GetAllRounds(User.Identity.Name);
+            string datesPlayedTeebox = "";
+
+            foreach (var round in rounds)
+            {
+                if (round.TeeBoxPlayed == id)
+                    datesPlayedTeebox += round.Date.ToString("MMMM d, yyyy") + ":";
+            }
+
+            return datesPlayedTeebox;
+        }
+
 
         //****************  PRIVATE METHODS  ***********************************************************
 

@@ -56,8 +56,21 @@ input::-webkit-outer-spin-button {
     background-color: #2AC930;
 }
 
-.teebox-not-played {
+.teebox-not-played,
+.faded-font {
     color: @fadedFontColor;
+}
+
+.teebox-to-delete {
+    text-decoration: line-through;
+}
+
+.delete-teebox,
+.undo-delete {
+    cursor: pointer;
+    &.faded-font {
+        cursor: default;
+    }
 }
 
 .table-row-striped {
