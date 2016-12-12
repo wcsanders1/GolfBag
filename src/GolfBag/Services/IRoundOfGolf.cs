@@ -13,7 +13,7 @@ namespace GolfBag.Services
         RoundOfGolf GetRound(int id);
         void AddRound(RoundOfGolf newRoundOfGolf);
         void AddCourse(Course newCourse);
-        void SaveCourseEdits(Course course);
+        void SaveCourseEdits(Course course, List<int> teeboxesToDelete);
         void SaveRoundEdits(RoundOfGolf round);
         bool DeleteCourse(Course course);
         void DeleteRound(RoundOfGolf round);

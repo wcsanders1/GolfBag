@@ -158,29 +158,35 @@ namespace GolfBag.Controllers
             var course = _roundOfGolf.GetCourse(courseName);
             CourseViewModel courseViewModel = MapCourseToCourseViewModel(course);
 
+            for (int i = 0; i < course.TeeBoxes.Count; i++)
+            {
+                courseViewModel.ListOfDeletedTeeBoxes.Add(0);
+            }
+
             return PartialView("_DisplayCourseToEdit", courseViewModel);
         }
 
-        public IActionResult SaveCourseChanges(CourseViewModel course)
+        [HttpPost]
+        public IActionResult SaveCourseChanges(CourseViewModel model)
         {
-            var courseToSave = _roundOfGolf.GetCourse(course.CourseName);
+            var courseToSave = _roundOfGolf.GetCourse(model.CourseName);
 
             for (int i = 0; i < courseToSave.CourseHoles.Count; i++)
             {
-                courseToSave.CourseHoles[i].Par = course.Pars[i];
-                courseToSave.CourseHoles[i].Handicap = course.Handicaps[i];
+                courseToSave.CourseHoles[i].Par = model.Pars[i];
+                courseToSave.CourseHoles[i].Handicap = model.Handicaps[i];
             }
 
             for (int i = 0; i < courseToSave.TeeBoxes.Count; i++)
             {
-                courseToSave.TeeBoxes[i].Name = course.TeeBoxes[i].Name;
+                courseToSave.TeeBoxes[i].Name = model.TeeBoxes[i].Name;
                 for (int x = 0; x < courseToSave.TeeBoxes[i].Tees.Count; x++)
                 {
-                    courseToSave.TeeBoxes[i].Tees[x].Yardage = course.TeeBoxes[i].Tees[x].Yardage;
+                    courseToSave.TeeBoxes[i].Tees[x].Yardage = model.TeeBoxes[i].Tees[x].Yardage;
                 }
             }
 
-            _roundOfGolf.SaveCourseEdits(courseToSave);
+            _roundOfGolf.SaveCourseEdits(courseToSave, model.ListOfDeletedTeeBoxes);
             return RedirectToAction("EditCourses");
 
         }
@@ -473,7 +479,21 @@ namespace GolfBag.Controllers
             courseViewModel.Pars = pars;
             courseViewModel.Handicaps = handicaps;
 
-            courseViewModel.TeeBoxes = course.TeeBoxes;
+            for (int i = 0; i < course.TeeBoxes.Count; i++)
+            {
+                var viewTeebox = new ViewTeeBox();
+
+                viewTeebox.Id = course.TeeBoxes[i].Id;
+                viewTeebox.Name = course.TeeBoxes[i].Name;
+
+                for (int x = 0; x < course.TeeBoxes[i].Tees.Count; x++)
+                {
+                    var viewTee = new ViewTee();
+                    viewTee.Yardage = course.TeeBoxes[i].Tees[x].Yardage;
+                    viewTeebox.Tees.Add(viewTee);
+                }
+                courseViewModel.TeeBoxes.Add(viewTeebox);
+            }
 
             return courseViewModel;
         }   

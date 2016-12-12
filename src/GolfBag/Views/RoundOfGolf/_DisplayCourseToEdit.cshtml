@@ -7,6 +7,8 @@
     @Html.HiddenFor(m => m.CourseName)
     @Html.HiddenFor(m => m.Id)
     @Html.HiddenFor(m => m.NumberOfTeeBoxes)
+    @Html.HiddenFor(m => m.NumberOfHoles)
+
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
             <tbody>
@@ -25,23 +27,24 @@
                         <td class="number-input">@Html.EditorFor(m => m.Pars[i])</td>
                     }
                 </tr>
-                @for (int i = 0; i < int.Parse(Model.NumberOfTeeBoxes); i++)
+                @for (int i = 0; i < Model.TeeBoxes.Count; i++)
                 {
-                    <tr class="teebox-row" data-teebox-id="@Model.TeeBoxes[i].Id"
-                        data-teebox-name="@Model.TeeBoxes[i].Name">
+                    @Html.HiddenFor(m => m.TeeBoxes[i].Id)                    
+                    
+                    <tr class="teebox-row" data-teebox-id="@Model.TeeBoxes[i].Id" data-teebox-name="@Model.TeeBoxes[i].Name">
                         <td>
                             @Html.EditorFor(m => m.TeeBoxes[i].Name)
                             <i class="fa fa-trash delete-teebox" data-toggle="tooltip"
                                title="Delete @Model.TeeBoxes[i].Name Teebox"></i>
                             <span class="undo-delete hidden">Undo Delete <i class="fa fa-undo"></i></span>
                         </td>
+
                         @for (int x = 0; x < 9; x++)
                         {
                             <td class="number-input">@Html.EditorFor(m => m.TeeBoxes[i].Tees[x].Yardage)</td>
                         }
-                    </tr>                    
+                    </tr>
                 }
-
                 <tr>
                     <td>Enter Handicap</td>
                     @for (int i = 0; i < 9; i++)
@@ -95,6 +98,13 @@
             </table>
         </div>
     }
+    @{
+        for (int i = 0; i < Model.TeeBoxes.Count; i++)
+        {
+            @Html.HiddenFor(m => m.ListOfDeletedTeeBoxes[i], new { @class = "deleted-teebox-input" });
+        }
+    }
+
     <div>
         <input class="btn btn-primary" type="submit" value="Save Course Changes" />
     </div>

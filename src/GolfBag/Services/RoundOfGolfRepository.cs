@@ -112,8 +112,26 @@ namespace GolfBag.Services
             return round;
         }
 
-        public void SaveCourseEdits(Course course)
+        public void SaveCourseEdits(Course course, List<int> teeboxesToDelete)
         {
+            foreach (var teeboxToDelete in teeboxesToDelete)
+            {
+                if (teeboxToDelete > 0)
+                {
+                    foreach (var teebox in course.TeeBoxes)
+                    {
+                        if (teebox.Id == teeboxToDelete)
+                        {
+                            foreach (var tee in teebox.Tees)
+                            {
+                                _context.Remove(tee);
+                            }
+                            _context.Remove(teebox);
+                        }
+                    }
+                }
+            }
+
             _context.Entry(course).State = EntityState.Modified;
             Commit();
         }
@@ -131,6 +149,7 @@ namespace GolfBag.Services
             }
 
             _context.Remove(roundOfGolf);
+                       
             Commit();
         }
 
