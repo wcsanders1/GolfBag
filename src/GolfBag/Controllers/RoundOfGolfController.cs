@@ -157,11 +157,8 @@ namespace GolfBag.Controllers
         {
             var course = _roundOfGolf.GetCourse(courseName);
             CourseViewModel courseViewModel = MapCourseToCourseViewModel(course);
-
-            for (int i = 0; i < course.TeeBoxes.Count; i++)
-            {
-                courseViewModel.ListOfDeletedTeeBoxes.Add(0);
-            }
+            courseViewModel.ProduceListOfNewTeeBoxes(course);
+            courseViewModel.ProduceListOfDeletedTeeBoxes(course);
 
             return PartialView("_DisplayCourseToEdit", courseViewModel);
         }

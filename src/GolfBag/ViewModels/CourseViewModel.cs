@@ -18,6 +18,8 @@ namespace GolfBag.ViewModels
 
         public List<ViewTeeBox> TeeBoxes { get; set; }
 
+        public List<ViewTeeBox> NewTeeBoxes { get; set; }
+
         public List<int> Pars { get; set; }
 
         public List<int> Handicaps { get; set; }
@@ -28,6 +30,30 @@ namespace GolfBag.ViewModels
         {
             ListOfDeletedTeeBoxes = new List<int>();
             TeeBoxes = new List<ViewTeeBox>();
+            NewTeeBoxes = new List<ViewTeeBox>();
+        }
+
+        public void ProduceListOfNewTeeBoxes(Course course)
+        {
+            for (int i = 0; i < (6 - course.TeeBoxes.Count); i++)
+            {
+                var newViewTeeBox = new ViewTeeBox();
+
+                for (int x = 0; x < course.NumberOfHoles; x++)
+                {
+                    var newViewTee = new ViewTee();
+                    newViewTeeBox.Tees.Add(newViewTee);
+                }
+                NewTeeBoxes.Add(newViewTeeBox);
+            }
+        }
+
+        public void ProduceListOfDeletedTeeBoxes(Course course)
+        {
+            for (int i = 0; i < course.TeeBoxes.Count; i++)
+            {
+                ListOfDeletedTeeBoxes.Add(0);
+            }
         }
     }
 

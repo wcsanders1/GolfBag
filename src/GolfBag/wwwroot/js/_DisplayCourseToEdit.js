@@ -1,112 +1,184 @@
 ﻿$(function () {
     "use strict";
 
+    /*******************   deleteTeebox()   **************************************************/
+
     var deleteTeebox = function () {
         var $teeboxToDelete = $(this),
-            $numberOfTeeboxesToDelete = 0,
-            $dates = [],
-            $id = $teeboxToDelete.parents("tr").attr("data-teebox-id"),
-            options = {
-                async: false,
-                url: "/RoundOfGolf/DatesPlayedTeebox/" + $id,
-                type: "GET",
-            };
+            $modal = $("#delete-teebox-modal"),
+            $id = $teeboxToDelete.parents("tr").attr("data-teebox-id");
 
-        $teeboxToDelete.tooltip("hide");
+        var roundIsAssociatedWithTeebox = function () {
+            var roundIsAssociated,
+                options = {
+                    async: false,
+                    url: "/RoundOfGolf/DatesPlayedTeebox/" + $id,
+                    type: "GET",
+                };
 
-        $(".teebox-row").each(function (i) {
-            if ($(this).hasClass("teebox-row-to-delete")) {
-                $numberOfTeeboxesToDelete++;
-            }
-        });
-
-        if ($numberOfTeeboxesToDelete >= ($(".teebox-row").length) - 1) {   //this doesn't work
-            alert("You can't delete all the teeboxes.");
-            console.log($numberOfTeeboxesToDelete);
-            return false;
-        }
-
-        $.ajax(options).done(function (data) {
-
-            if (data.length === 0) {
-                $teeboxToDelete
-                    .tooltip("disable")
-                    .addClass("faded-font")
-                    .prop("disabled", true);
-
-                $teeboxToDelete
-                    .parents("tr")
-                    .find(".undo-delete")
-                    .removeClass("hidden");
-
-                $(".teebox-row").each(function (i) {
-                    if ($(this).attr("data-teebox-id") === $id) {
-                        $(this)
-                            .addClass("teebox-row-to-delete")
-                            .find("input, p")
-                            .addClass("teebox-to-delete")
-                            .prop("readonly", true);
-                    }
-                });
-
-                $(".deleted-teebox-input").each(function (i) {
-                    if ($(this).val() == 0) {
-                        $(this).val($id);
-                        return false;
-                    }
-                });
-            } else {
-                for (var i = 0; i < data.length; i++) {
+            var getDatesPlayed = function (dateData) {
+                var $dates = [];
+                
+                for (var i = 0; i < dateData.length; i++) {
                     var date = "";
-                    while (data.charAt(i) != ":") {
-                        date += data.charAt(i);
+                    while (dateData.charAt(i) != ":") {
+                        date += dateData.charAt(i);
                         i++;
                     }
                     $dates.push(date);
                 }
+                return $dates;
+            };
 
-                var $modal = $("#delete-teebox-modal");
-                $(".teebox-name").each(function () {
-                    $(this).text($teeboxToDelete.parents("tr").attr("data-teebox-name"));
-                });
+            var displayModal = function ($dates, $teeboxName) {
                 var $htmlDates = "";
+
+                $("#modal-header-p").text("You cannot delete the " + $teeboxName + " tees.");
+                $("#modal-body-h1").text("You played the " + $teeboxName + " tees on the following days:");
+                $("#modal-body-h2").text("You must edit those rounds before you can delete the " + $teeboxName + " tees.");
+
                 $.each($dates, function (i) {
                     $htmlDates += "<p>" + $dates[i] + "</p>";
                 });
-                console.log($htmlDates);
+
                 $("#dates-teebox-played").html($htmlDates);
                 $modal.modal("show");
+            };
+
+            $.ajax(options).done(function (data) {
+                if (data.length > 0) {
+                    var $dates = [],
+                        $teeboxName = "";                       
+
+                    $dates = getDatesPlayed(data);
+                    $teeboxName = $teeboxToDelete.parents("tr").attr("data-teebox-name");
+                    displayModal($dates, $teeboxName);                   
+                    roundIsAssociated = true;
+                } else {
+                    roundIsAssociated = false;
+                }                
+            });
+            return roundIsAssociated;
+        };
+
+        var everyTeeboxIsAlreadyDeleted = function () {
+            var numberOfTeeboxes = 0,
+                numberOfTeeboxesToDelete = 0;
+
+            var showModal = function () {
+                $("#modal-header-p").text("Hey!");
+                $("#modal-body-h1").text("You can't delete all the teeboxes!");
+                $("#modal-body-h2").text("Why would you want to do that anyway?");
+                $modal.modal("show");
+            };
+
+            $("#front-nine-table").find(".teebox-row").each(function (i) {
+                numberOfTeeboxes++;
+                if ($(this).hasClass("teebox-row-to-delete")) {
+                    numberOfTeeboxesToDelete++;
+                }
+            });
+
+            if (numberOfTeeboxesToDelete >= (numberOfTeeboxes - 1)) {
+                showModal();
+                return true;
+            } else {
+                return false;
             }
-        });
+        };
+
+        var disableToolTip = function () {
+            $teeboxToDelete
+                .tooltip("disable")
+                .addClass("faded-font")
+                .prop("disabled", true);
+        };
+
+        var enableUndoDelete = function () {
+            $teeboxToDelete
+                .parents("tr")
+                .find(".undo-delete")
+                .removeClass("hidden");
+        };
+
+        var disableDeletedTeebox = function () {
+            $(".teebox-row").each(function (i) {
+                if ($(this).attr("data-teebox-id") === $id) {
+                    $(this)
+                        .addClass("teebox-row-to-delete")
+                        .find("input, p")
+                        .addClass("teebox-to-delete")
+                        .prop("readonly", true);
+                }
+            });
+        };
+
+        var addDeletedTeeboxToListOfDeletedTeeboxes = function () {
+            $(".deleted-teebox-input").each(function (i) {
+                if ($(this).val() == 0) {
+                    $(this).val($id);
+                    return false;
+                }
+            });
+        };
+
+        $teeboxToDelete.tooltip("hide");
+
+        if (roundIsAssociatedWithTeebox()) {
+            return false;
+        }
+
+        if (everyTeeboxIsAlreadyDeleted()) {
+            return false;
+        }
+       
+        disableToolTip();
+        enableUndoDelete();
+        disableDeletedTeebox();
+        addDeletedTeeboxToListOfDeletedTeeboxes();        
     };
+
+
+    /*******************   undoDeleteTeebox()   **************************************************/
 
     var undoDeleteTeebox = function () {
         var $deleteToUndo = $(this),
             $id = $(this).parents("tr").attr("data-teebox-id");
 
+        var enableTeebox = function ($teebox) {
+            $teebox
+                .removeClass("teebox-row-to-delete")
+                .find("input, p")
+                .removeClass("teebox-to-delete")
+                .prop("readonly", false);
+        };
+
+        var enableDeleteIcon = function ($teebox) {
+            $teebox
+                .find(".delete-teebox")
+                .tooltip("enable")
+                .removeClass("faded-font")
+                .prop("disabled", false);
+        };
+
+        var removeTeeboxFromList = function () {
+            $(".deleted-teebox-input").each(function (i) {
+                if ($(this).val() == $id) {
+                    $(this).val(0);
+                    return false;
+                }
+            });
+        };
+
         $deleteToUndo.addClass("hidden");
+        removeTeeboxFromList();
 
         $(".teebox-row").each(function (i) {
             if ($(this).attr("data-teebox-id") === $id) {
+                var $teeboxRow = $(this);
 
-                $(this)
-                    .removeClass("teebox-row-to-delete")
-                    .find("input, p")
-                    .removeClass("teebox-to-delete")
-                    .prop("readonly", false);
-
-                $(this)
-                    .find(".delete-teebox")
-                    .tooltip("enable")
-                    .removeClass("faded-font")
-                    .prop("disabled", false);
-            }
-        });
-
-        $(".deleted-teebox-input").each(function (i) {
-            if ($(this).val() == $id) {
-                $(this).val(0);
-                return false;
+                enableTeebox($teeboxRow);
+                enableDeleteIcon($teeboxRow);
             }
         });
     };
