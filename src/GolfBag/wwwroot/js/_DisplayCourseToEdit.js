@@ -186,3 +186,86 @@
     $(document).on("click", ".delete-teebox", deleteTeebox);
     $(document).on("click", ".undo-delete", undoDeleteTeebox);
 });
+
+$(function () {
+    "use strict";
+
+    var showNewTeebox = function () {
+        var $frontNineNewTeeboxRows = $("#front-nine-table").find(".new-teebox-row"),
+            $backNineNewTeeboxRows = $("#back-nine-table").find(".new-teebox-row"),
+            $addTeeboxBtn = $("#add-teebox-btn");
+
+        var showBackNineNewTeebox = function (newTeeboxNum) {
+            $backNineNewTeeboxRows.each(function (i) {
+                if ($(this).attr("data-new-teebox-num") === newTeeboxNum) {
+                    $(this).removeClass("hidden");
+                    return false;
+                }
+            });
+        };
+
+        var setButtonStatus = function () {
+            var numberOfHiddenNewTeeboxRows = 0;
+
+            $frontNineNewTeeboxRows.each(function (i) {
+                if ($(this).hasClass("hidden")) {
+                    numberOfHiddenNewTeeboxRows++;
+                }
+            });
+            console.log(numberOfHiddenNewTeeboxRows);
+            if (numberOfHiddenNewTeeboxRows > 0) {
+                $addTeeboxBtn.removeClass("disabled");
+            } else {
+                $addTeeboxBtn.addClass("disabled");
+            }
+        };
+
+        $frontNineNewTeeboxRows.each(function (i) {
+            if ($(this).hasClass("hidden")) {
+                $(this).removeClass("hidden");
+                if ($backNineNewTeeboxRows.length > 0) {
+                    showBackNineNewTeebox($(this).attr("data-new-teebox-num"));
+                }
+                setButtonStatus();
+                return false;
+            }
+        });
+
+    };
+
+    var removeNewTeebox = function () {
+        var $id = $(this).parents("tr").attr("data-new-teebox-num"),
+            $frontNineNewTeeboxRows = $("#front-nine-table").find(".new-teebox-row"),
+            $backNineNewTeeboxRows = $("#back-nine-table").find(".new-teebox-row"),
+            $addTeeboxBtn = $("#add-teebox-btn");
+
+        var setButtonStatus = function () {      //there is duplicate code here
+            var numberOfHiddenNewTeeboxRows = 0;
+
+            $frontNineNewTeeboxRows.each(function (i) {
+                if ($(this).hasClass("hidden")) {
+                    numberOfHiddenNewTeeboxRows++;
+                }
+            });
+            console.log(numberOfHiddenNewTeeboxRows);
+            if (numberOfHiddenNewTeeboxRows > 0) {
+                $addTeeboxBtn.removeClass("disabled");
+            } else {
+                $addTeeboxBtn.addClass("disabled");
+            }
+        };
+
+        $(this).parents("tr").addClass("hidden");
+
+        $backNineNewTeeboxRows.each(function () {
+            if ($(this).attr("data-new-teebox-num") === $id) {
+                $(this).addClass("hidden");
+                setButtonStatus();
+                return false;
+            }
+        });
+    }
+
+    $(document).on("click", "#add-teebox-btn", showNewTeebox);
+    $(document).on("click", ".remove-new-teebox", removeNewTeebox);
+});

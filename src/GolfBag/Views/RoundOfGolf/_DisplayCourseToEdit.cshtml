@@ -57,9 +57,10 @@
 
                 @for (int i = 0; i < Model.NewTeeBoxes.Count; i++)
                 {
-                    <tr class="hidden">
+                    <tr class="new-teebox-row hidden" data-new-teebox-num="@i">
                         <td>
                             @Html.EditorFor(m => m.NewTeeBoxes[i].Name)
+                            <span class="remove-new-teebox">Remove <i class="fa fa-frown-o"></i></span>
                         </td>
 
                         @for (int x = 0; x < 9; x++)
@@ -77,7 +78,7 @@
     @if (Model.NumberOfHoles == 18)
     {
         <div class="table-responsive">
-            <table class="table table-bordered table-striped">
+            <table id="back-nine-table" class="table table-bordered table-striped">
                 <tbody>
                     <tr>
                         <td>Hole</td>
@@ -115,7 +116,7 @@
                     }
                     @for (int i = 0; i < Model.NewTeeBoxes.Count; i++)
                     {
-                        <tr class="hidden">
+                        <tr class="new-teebox-row hidden" data-new-teebox-num="@i">
                             <td>
                                 @Html.EditorFor(m => m.NewTeeBoxes[i].Name)
                             </td>
@@ -144,7 +145,15 @@
     </div>
 </form>
 <a class="btn btn-primary" asp-controller="RoundOfGolf" asp-action="DeleteCourse" asp-route-id="@Model.Id">Delete Course</a>
-<a class="btn btn-primary" id="add-teebox">Add Teebox</a>
+
+@if (Model.NewTeeBoxes.Count > 0)
+{
+    <a class="btn btn-primary" id="add-teebox-btn">Add Teebox</a>
+}
+else
+{
+    <a class="btn btn-primary disabled" id="add-teebox-btn">Add Teebox</a>
+}
 
 <div class="modal fade" id="delete-teebox-modal" tabindex="-1">
     <div class="modal-dialog">
