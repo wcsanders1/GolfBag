@@ -1,4 +1,8 @@
-﻿$(function () {
+﻿/********************************************************************************************************
+                    DELETES AND UN-DELEETES EXISTING TEE BOXES
+********************************************************************************************************/
+
+$(function () {
     "use strict";
 
     /*******************   deleteTeebox()   **************************************************/
@@ -187,13 +191,41 @@
     $(document).on("click", ".undo-delete", undoDeleteTeebox);
 });
 
+
+/********************************************************************************************************
+                    ALLOWS NEW TEEBOXES TO BE ADDED TO A COURSE
+********************************************************************************************************/
+
 $(function () {
     "use strict";
+
+    var setButtonStatus = function ($newTeeboxRows, $addBtn, $removeBtn) {
+        var numberOfNewTeeboxRows = 0,
+            numberOfHiddenNewTeeboxRows = 0;
+
+        $newTeeboxRows.each(function (i) {
+            numberOfNewTeeboxRows++;
+            if ($(this).hasClass("hidden")) {
+                numberOfHiddenNewTeeboxRows++;
+            }
+        });
+        if (numberOfHiddenNewTeeboxRows > 0) {
+            $addBtn.removeClass("disabled");
+        } else {
+            $addBtn.addClass("disabled");
+        }
+        if (numberOfNewTeeboxRows > numberOfHiddenNewTeeboxRows) {
+            $removeBtn.removeClass("disabled");
+        } else {
+            $removeBtn.addClass("disabled");
+        }
+    };
 
     var showNewTeebox = function () {
         var $frontNineNewTeeboxRows = $("#front-nine-table").find(".new-teebox-row"),
             $backNineNewTeeboxRows = $("#back-nine-table").find(".new-teebox-row"),
-            $addTeeboxBtn = $("#add-teebox-btn");
+            $addTeeboxBtn = $("#add-teebox-btn"),
+            $removeNewTeeboxBtn = $("#remove-new-teebox");
 
         var showBackNineNewTeebox = function (newTeeboxNum) {
             $backNineNewTeeboxRows.each(function (i) {
@@ -204,29 +236,13 @@ $(function () {
             });
         };
 
-        var setButtonStatus = function () {
-            var numberOfHiddenNewTeeboxRows = 0;
-
-            $frontNineNewTeeboxRows.each(function (i) {
-                if ($(this).hasClass("hidden")) {
-                    numberOfHiddenNewTeeboxRows++;
-                }
-            });
-            console.log(numberOfHiddenNewTeeboxRows);
-            if (numberOfHiddenNewTeeboxRows > 0) {
-                $addTeeboxBtn.removeClass("disabled");
-            } else {
-                $addTeeboxBtn.addClass("disabled");
-            }
-        };
-
         $frontNineNewTeeboxRows.each(function (i) {
             if ($(this).hasClass("hidden")) {
                 $(this).removeClass("hidden");
                 if ($backNineNewTeeboxRows.length > 0) {
                     showBackNineNewTeebox($(this).attr("data-new-teebox-num"));
                 }
-                setButtonStatus();
+                setButtonStatus($frontNineNewTeeboxRows, $addTeeboxBtn, $removeNewTeeboxBtn);
                 return false;
             }
         });
@@ -234,38 +250,30 @@ $(function () {
     };
 
     var removeNewTeebox = function () {
-        var $id = $(this).parents("tr").attr("data-new-teebox-num"),
-            $frontNineNewTeeboxRows = $("#front-nine-table").find(".new-teebox-row"),
+        var $frontNineNewTeeboxRows = $("#front-nine-table").find(".new-teebox-row"),
             $backNineNewTeeboxRows = $("#back-nine-table").find(".new-teebox-row"),
-            $addTeeboxBtn = $("#add-teebox-btn");
+            $addTeeboxBtn = $("#add-teebox-btn"),
+            $removeNewTeeboxBtn = $("#remove-new-teebox");
 
-        var setButtonStatus = function () {      //there is duplicate code here
-            var numberOfHiddenNewTeeboxRows = 0;
-
-            $frontNineNewTeeboxRows.each(function (i) {
-                if ($(this).hasClass("hidden")) {
-                    numberOfHiddenNewTeeboxRows++;
+        var hideBackNineNewTeebox = function (newTeeboxNum) {
+            for (var i = $backNineNewTeeboxRows.length - 1; i >= 0; i--) {
+                if ($backNineNewTeeboxRows.eq(i).attr("data-new-teebox-num") === newTeeboxNum) {
+                    $backNineNewTeeboxRows.eq(i).addClass("hidden");
+                    return false;
                 }
-            });
-            console.log(numberOfHiddenNewTeeboxRows);
-            if (numberOfHiddenNewTeeboxRows > 0) {
-                $addTeeboxBtn.removeClass("disabled");
-            } else {
-                $addTeeboxBtn.addClass("disabled");
             }
         };
 
-        $(this).parents("tr").addClass("hidden");
-
-        $backNineNewTeeboxRows.each(function () {
-            if ($(this).attr("data-new-teebox-num") === $id) {
-                $(this).addClass("hidden");
-                setButtonStatus();
+        for (var i = $frontNineNewTeeboxRows.length - 1; i >= 0; i--) {
+            if (!($frontNineNewTeeboxRows.eq(i).hasClass("hidden"))) {
+                $frontNineNewTeeboxRows.eq(i).addClass("hidden");
+                hideBackNineNewTeebox($frontNineNewTeeboxRows.eq(i).attr("data-new-teebox-num"));
+                setButtonStatus($frontNineNewTeeboxRows, $addTeeboxBtn, $removeNewTeeboxBtn);
                 return false;
             }
-        });
+        }
     }
 
     $(document).on("click", "#add-teebox-btn", showNewTeebox);
-    $(document).on("click", ".remove-new-teebox", removeNewTeebox);
+    $(document).on("click", "#remove-new-teebox", removeNewTeebox);
 });

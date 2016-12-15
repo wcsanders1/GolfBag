@@ -60,7 +60,6 @@
                     <tr class="new-teebox-row hidden" data-new-teebox-num="@i">
                         <td>
                             @Html.EditorFor(m => m.NewTeeBoxes[i].Name)
-                            <span class="remove-new-teebox">Remove <i class="fa fa-frown-o"></i></span>
                         </td>
 
                         @for (int x = 0; x < 9; x++)
@@ -149,10 +148,7 @@
 @if (Model.NewTeeBoxes.Count > 0)
 {
     <a class="btn btn-primary" id="add-teebox-btn">Add Teebox</a>
-}
-else
-{
-    <a class="btn btn-primary disabled" id="add-teebox-btn">Add Teebox</a>
+    <a class="btn btn-primary disabled" id="remove-new-teebox">Remove New Teebox</a> 
 }
 
 <div class="modal fade" id="delete-teebox-modal" tabindex="-1">
