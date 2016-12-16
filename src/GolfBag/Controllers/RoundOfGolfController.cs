@@ -167,7 +167,7 @@ namespace GolfBag.Controllers
         public IActionResult SaveCourseChanges(CourseViewModel model)
         {
             var courseToSave = _roundOfGolf.GetCourse(model.CourseName);
-
+            
             for (int i = 0; i < courseToSave.CourseHoles.Count; i++)
             {
                 courseToSave.CourseHoles[i].Par = model.Pars[i];
@@ -180,6 +180,26 @@ namespace GolfBag.Controllers
                 for (int x = 0; x < courseToSave.TeeBoxes[i].Tees.Count; x++)
                 {
                     courseToSave.TeeBoxes[i].Tees[x].Yardage = model.TeeBoxes[i].Tees[x].Yardage;
+                }
+            }
+
+            foreach (var newTeebox in model.NewTeeBoxes)
+            {
+                if (newTeebox.Name != null)
+                {
+                    var teebox = new TeeBox();
+                    var tees = new List<Tee>();
+                    teebox.Name = newTeebox.Name;
+
+                    for (int i = 0; i < newTeebox.Tees.Count; i++)
+                    {
+                        var tee = new Tee();
+                        tee.HoleNumber = i + 1;
+                        tee.Yardage = newTeebox.Tees[i].Yardage;
+                        tees.Add(tee);
+                    }
+                    teebox.Tees = tees;
+                    courseToSave.TeeBoxes.Add(teebox);
                 }
             }
 
