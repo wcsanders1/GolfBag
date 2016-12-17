@@ -33,6 +33,60 @@ namespace GolfBag.ViewModels
             NewTeeBoxes = new List<ViewTeeBox>();
         }
 
+        public Course MapViewModelToCourse(string name)
+        {
+            var course = new Course();
+
+            TeeBoxes.RemoveRange(int.Parse(NumberOfTeeBoxes), TeeBoxes.Count - int.Parse(NumberOfTeeBoxes));
+
+            course.PlayerName = name;
+            course.CourseName = CourseName;
+            course.NumberOfHoles = NumberOfHoles;
+            course.CourseHoles = MapCourseHoles();
+            course.TeeBoxes = MapTeeBoxes();
+
+            return course;
+        }
+
+        private List<CourseHole> MapCourseHoles()
+        {
+            var courseHoles = new List<CourseHole>();
+
+            for (int i = 0; i < NumberOfHoles; i++)
+            {
+                var courseHole = new CourseHole();
+                courseHole.HoleNumber = i + 1;
+                courseHole.Par = Pars[i];
+                courseHole.Handicap = Handicaps[i];
+                courseHoles.Add(courseHole);
+                courseHoles.Add(courseHole);
+            }
+            return courseHoles;
+        }
+
+        private List<TeeBox> MapTeeBoxes()
+        {
+            var teeBoxes = new List<TeeBox>();
+            for (int i = 0; i < int.Parse(NumberOfTeeBoxes); i++)
+            {
+                var teeBox = new TeeBox();
+                var tees = new List<Tee>();
+                teeBox.Name = TeeBoxes[i].Name;
+
+                for (int x = 0; x < NumberOfHoles; x++)
+                {
+                    var tee = new Tee();
+                    tee.HoleNumber = x + 1;
+                    tee.Yardage = TeeBoxes[i].Tees[x].Yardage;
+                    tees.Add(tee);
+                }
+
+                teeBox.Tees = tees;
+                teeBoxes.Add(teeBox);
+            }
+            return teeBoxes;
+        }
+
         public void ProduceListOfNewTeeBoxes(Course course)
         {
             for (int i = 0; i < (6 - course.TeeBoxes.Count); i++)
@@ -55,24 +109,5 @@ namespace GolfBag.ViewModels
                 ListOfDeletedTeeBoxes.Add(0);
             }
         }
-    }
-
-    public class ViewTeeBox
-    {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public List<ViewTee> Tees { get; set; }
-
-        public ViewTeeBox()
-        {
-            Tees = new List<ViewTee>();
-        }
-    }
-
-    public class ViewTee
-    {
-        public int Yardage { get; set; }
     }
 }
