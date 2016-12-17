@@ -92,12 +92,18 @@ namespace GolfBag.Controllers
 
         public IActionResult DisplayFrontNineEnterScore(RoundOfGolfViewModel model)
         {
-            return PartialView("_FrontNineEnterScore", model);
+            Course course = _roundOfGolf.GetCourse(model.CourseName);
+            RoundOfGolfViewModel roundOfGolfViewModel = RoundOfGolfViewModel.MapCourseToRoundOfGolfViewModel(course);
+
+            return PartialView("_FrontNineEnterScore", roundOfGolfViewModel);
         }
 
         public IActionResult DisplayBackNineEnterScore(RoundOfGolfViewModel model)
         {
-            return PartialView("_BackNineEnterScore", model);
+            Course course = _roundOfGolf.GetCourse(model.CourseName);
+            RoundOfGolfViewModel roundOfGolfViewModel = RoundOfGolfViewModel.MapCourseToRoundOfGolfViewModel(course);
+
+            return PartialView("_BackNineEnterScore", roundOfGolfViewModel);
         }
 
         public IActionResult ViewRounds(int selectedRound = -1)
@@ -112,18 +118,12 @@ namespace GolfBag.Controllers
                 foreach (var round in roundsOfGolf)
                 {
                     Course course = _roundOfGolf.GetCourse(round.CourseId);
-
-                    var viewRound = new ViewRound();
-                    viewRound.CourseName = course.CourseName;
-                    viewRound.RoundId = round.Id;
-                    viewRound.RoundDate = round.Date;
-                    roundsOfGolfViewModel.ViewRounds.Add(viewRound);
+                    roundsOfGolfViewModel.MapViewRounds(round, course);
                 }
 
                 return View(roundsOfGolfViewModel);
             }
             ViewBag.Message = "You have no rounds saved.";
-
             return View();
         }
 
@@ -156,7 +156,7 @@ namespace GolfBag.Controllers
         public IActionResult EditCourse(string courseName)
         {
             var course = _roundOfGolf.GetCourse(courseName);
-            CourseViewModel courseViewModel = MapCourseToCourseViewModel(course);
+            CourseViewModel courseViewModel = CourseViewModel.MapCourseToCourseViewModel(course);
             courseViewModel.ProduceListOfNewTeeBoxes(course);
             courseViewModel.ProduceListOfDeletedTeeBoxes(course);
 
@@ -288,10 +288,10 @@ namespace GolfBag.Controllers
         }
 
 
-        //****************  PRIVATE METHODS  ***********************************************************
+/**********************************************************************************************************************************
+                                            PRIVATE METHODS
+**********************************************************************************************************************************/
         
-
-
         private RoundOfGolfViewModel GetRoundOfGolfViewModel(int id)
         {
             RoundOfGolf roundOfGolf = _roundOfGolf.GetRound(id);
@@ -303,45 +303,6 @@ namespace GolfBag.Controllers
                                                             course,
                                                             User.Identity.Name);
             return roundOfGolfViewModel;
-        }
-        
-        
-        private CourseViewModel MapCourseToCourseViewModel(Course course)
-        {
-            var courseViewModel = new CourseViewModel();
-            var pars = new List<int>();
-            var handicaps = new List<int>();
-
-            courseViewModel.CourseName = course.CourseName;
-            courseViewModel.NumberOfHoles = course.NumberOfHoles;
-            courseViewModel.NumberOfTeeBoxes = course.TeeBoxes.Count.ToString();
-            courseViewModel.Id = course.Id;
-
-            foreach (var courseHole in course.CourseHoles)
-            {
-                pars.Add(courseHole.Par);
-                handicaps.Add(courseHole.Handicap);
-            }
-            courseViewModel.Pars = pars;
-            courseViewModel.Handicaps = handicaps;
-
-            for (int i = 0; i < course.TeeBoxes.Count; i++)
-            {
-                var viewTeebox = new ViewTeeBox();
-
-                viewTeebox.Id = course.TeeBoxes[i].Id;
-                viewTeebox.Name = course.TeeBoxes[i].Name;
-
-                for (int x = 0; x < course.TeeBoxes[i].Tees.Count; x++)
-                {
-                    var viewTee = new ViewTee();
-                    viewTee.Yardage = course.TeeBoxes[i].Tees[x].Yardage;
-                    viewTeebox.Tees.Add(viewTee);
-                }
-                courseViewModel.TeeBoxes.Add(viewTeebox);
-            }
-
-            return courseViewModel;
         }   
     }
 }

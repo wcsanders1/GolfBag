@@ -29,7 +29,9 @@
                 if (i >= 3)
                 {
                     <tr class="back-nine-tee-box-input hidden">
-                        <td>@Html.EditorFor(m => m.TeeBoxes[i].Name)</td>
+                        <td>
+                            <label></label>   @*need to make this change when name entered in front nine*@
+                        </td>
                         @for (int x = 9; x < 18; x++)
                         {
                             <td class="number-input">@Html.EditorFor(m => m.TeeBoxes[i].Tees[x].Yardage)</td>
@@ -39,7 +41,9 @@
                 else
                 {
                     <tr class="back-nine-tee-box-input">
-                        <td>@Html.EditorFor(m => m.TeeBoxes[i].Name)</td>
+                        <td>
+                            <label></label>     @*need to make this change when name entered in front nine*@
+                        </td>
                         @for (int x = 9; x < 18; x++)
                         {
                             <td class="number-input">@Html.EditorFor(m => m.TeeBoxes[i].Tees[x].Yardage)</td>

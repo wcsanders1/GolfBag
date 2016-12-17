@@ -33,6 +33,29 @@ namespace GolfBag.ViewModels
             NewTeeBoxes = new List<ViewTeeBox>();
         }
 
+        public void ProduceListOfNewTeeBoxes(Course course)
+        {
+            for (int i = 0; i < (6 - course.TeeBoxes.Count); i++)
+            {
+                var newViewTeeBox = new ViewTeeBox();
+
+                for (int x = 0; x < course.NumberOfHoles; x++)
+                {
+                    var newViewTee = new ViewTee();
+                    newViewTeeBox.Tees.Add(newViewTee);
+                }
+                NewTeeBoxes.Add(newViewTeeBox);
+            }
+        }
+
+        public void ProduceListOfDeletedTeeBoxes(Course course)
+        {
+            for (int i = 0; i < course.TeeBoxes.Count; i++)
+            {
+                ListOfDeletedTeeBoxes.Add(0);
+            }
+        }
+
         public Course MapViewModelToCourse(string name)
         {
             var course = new Course();
@@ -46,6 +69,22 @@ namespace GolfBag.ViewModels
             course.TeeBoxes = MapTeeBoxes();
 
             return course;
+        }
+
+        public static CourseViewModel MapCourseToCourseViewModel(Course course)
+        {
+            var courseViewModel = new CourseViewModel();
+            Dictionary<string, List<int>> parsAndHandicaps = MapViewParsAndHandicaps(course);
+
+            courseViewModel.CourseName = course.CourseName;
+            courseViewModel.NumberOfHoles = course.NumberOfHoles;
+            courseViewModel.NumberOfTeeBoxes = course.TeeBoxes.Count.ToString();
+            courseViewModel.Id = course.Id;
+            courseViewModel.Pars = parsAndHandicaps["pars"];
+            courseViewModel.Handicaps = parsAndHandicaps["handicaps"];
+            courseViewModel.TeeBoxes = MapViewTeeBoxes(course);
+
+            return courseViewModel;
         }
 
         private List<CourseHole> MapCourseHoles()
@@ -87,27 +126,42 @@ namespace GolfBag.ViewModels
             return teeBoxes;
         }
 
-        public void ProduceListOfNewTeeBoxes(Course course)
+        private static Dictionary<string, List<int>> MapViewParsAndHandicaps(Course course)
         {
-            for (int i = 0; i < (6 - course.TeeBoxes.Count); i++)
-            {
-                var newViewTeeBox = new ViewTeeBox();
+            var parsAndHandicaps = new Dictionary<string, List<int>>();
+            var pars = new List<int>();
+            var handicaps = new List<int>();
 
-                for (int x = 0; x < course.NumberOfHoles; x++)
-                {
-                    var newViewTee = new ViewTee();
-                    newViewTeeBox.Tees.Add(newViewTee);
-                }
-                NewTeeBoxes.Add(newViewTeeBox);
+            foreach (var courseHole in course.CourseHoles)
+            {
+                pars.Add(courseHole.Par);
+                handicaps.Add(courseHole.Handicap);
             }
+
+            parsAndHandicaps.Add("pars", pars);
+            parsAndHandicaps.Add("handicaps", handicaps);
+            return parsAndHandicaps;
         }
 
-        public void ProduceListOfDeletedTeeBoxes(Course course)
+        private static List<ViewTeeBox> MapViewTeeBoxes(Course course)
         {
+            var viewTeeBoxes = new List<ViewTeeBox>();
             for (int i = 0; i < course.TeeBoxes.Count; i++)
             {
-                ListOfDeletedTeeBoxes.Add(0);
+                var viewTeebox = new ViewTeeBox();
+
+                viewTeebox.Id = course.TeeBoxes[i].Id;
+                viewTeebox.Name = course.TeeBoxes[i].Name;
+
+                for (int x = 0; x < course.TeeBoxes[i].Tees.Count; x++)
+                {
+                    var viewTee = new ViewTee();
+                    viewTee.Yardage = course.TeeBoxes[i].Tees[x].Yardage;
+                    viewTeebox.Tees.Add(viewTee);
+                }
+                viewTeeBoxes.Add(viewTeebox);
             }
+            return viewTeeBoxes;
         }
     }
 }

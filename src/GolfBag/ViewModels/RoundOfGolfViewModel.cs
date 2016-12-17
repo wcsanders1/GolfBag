@@ -1,5 +1,6 @@
 ﻿using GolfBag.Entities;
 using System;
+using System.Reflection;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -60,17 +61,23 @@ namespace GolfBag.ViewModels
             List<RoundOfGolf> roundsOfGolf, 
             Course course, 
             string playerName)
-        {
-            
+        {         
             var roundOfGolfViewModel = new RoundOfGolfViewModel();
-            var priorAndSubsequentRounds = new Dictionary<string, Tuple<int, DateTime>>();
-            Dictionary<string, List<int>> frontAndBackNineScores = GetFrontAndBackNineScores(roundOfGolf); 
-            
+            Dictionary<string, List<int>> frontAndBackNineScores = GetFrontAndBackNineScores(roundOfGolf);
+            Dictionary<string, object> priorAndSubsequentRounds = GetPriorAndSubsequentRounds(roundsOfGolf, roundOfGolf);
+            var priorRound = priorAndSubsequentRounds["priorRound"];
+            var subsequentRound = priorAndSubsequentRounds["subsequentRound"];
+            Type priorRoundType = priorRound.GetType();
+            Type subsequentRoundType = subsequentRound.GetType();
 
             roundOfGolfViewModel.Pars = MapPars(roundOfGolf, course.CourseHoles);
             roundOfGolfViewModel.TeeBoxes = course.TeeBoxes;
             roundOfGolfViewModel.FrontNineScores = frontAndBackNineScores["frontNineScores"];
             roundOfGolfViewModel.BackNineScores = frontAndBackNineScores["backNineScores"];
+            roundOfGolfViewModel.IdOfPriorRound = (int)priorRoundType.GetProperty("id").GetValue(priorRound, null);
+            roundOfGolfViewModel.IdOfSubsequentRound = (int)subsequentRoundType.GetProperty("id").GetValue(subsequentRound, null);
+            roundOfGolfViewModel.DateOfPriorRound = (DateTime)priorRoundType.GetProperty("date").GetValue(priorRound, null);
+            roundOfGolfViewModel.DateOfSubsequentRound = (DateTime)subsequentRoundType.GetProperty("date").GetValue(subsequentRound, null);
             roundOfGolfViewModel.CourseName = course.CourseName;
             roundOfGolfViewModel.NumberOfHoles = roundOfGolf.Scores.Count();
             roundOfGolfViewModel.DateOfRound = roundOfGolf.Date;
@@ -78,31 +85,6 @@ namespace GolfBag.ViewModels
             roundOfGolfViewModel.Id = roundOfGolf.Id;
             roundOfGolfViewModel.IdOfTeeBoxPlayed = roundOfGolf.TeeBoxPlayed;
 
-            for (int i = 0; i < roundsOfGolf.Count; i++)
-            {
-                if (roundsOfGolf[i].Date == roundOfGolf.Date)
-                {
-                    if (i == 0)
-                    {
-                        roundOfGolfViewModel.IdOfPriorRound = -1;
-                    }
-                    else
-                    {
-                        roundOfGolfViewModel.IdOfPriorRound = roundsOfGolf[i - 1].Id;
-                        roundOfGolfViewModel.DateOfPriorRound = roundsOfGolf[i - 1].Date;
-                    }
-
-                    if ((i + 1) == roundsOfGolf.Count)
-                    {
-                        roundOfGolfViewModel.IdOfSubsequentRound = -1;
-                    }
-                    else
-                    {
-                        roundOfGolfViewModel.IdOfSubsequentRound = roundsOfGolf[i + 1].Id;
-                        roundOfGolfViewModel.DateOfSubsequentRound = roundsOfGolf[i + 1].Date;
-                    }
-                }
-            }
             return roundOfGolfViewModel;
         }
 
@@ -211,6 +193,44 @@ namespace GolfBag.ViewModels
             frontAndBackNineScores.Add("frontNineScores", frontNineScores);
             frontAndBackNineScores.Add("backNineScores", backNineScores);
             return frontAndBackNineScores;
+        }
+
+        private static Dictionary<string, object> GetPriorAndSubsequentRounds(List<RoundOfGolf> roundsOfGolf, RoundOfGolf roundOfGolf)
+        {
+            int idOfPriorRound = 0;
+            int idOfSubsequentRound = 0;
+            var dateOfPriorRound = new DateTime();
+            var dateOfSubsequentRound = new DateTime();
+            var priorAndSubsequentRounds = new Dictionary<string, object>();
+
+            for (int i = 0; i < roundsOfGolf.Count; i++)
+            {
+                if (roundsOfGolf[i].Date == roundOfGolf.Date)
+                {
+                    if (i == 0)
+                    {
+                        idOfPriorRound = -1;
+                    }
+                    else
+                    {
+                        idOfPriorRound = roundsOfGolf[i - 1].Id;
+                        dateOfPriorRound = roundsOfGolf[i - 1].Date;
+                    }
+
+                    if ((i + 1) == roundsOfGolf.Count)
+                    {
+                        idOfSubsequentRound = -1;
+                    }
+                    else
+                    {
+                        idOfSubsequentRound = roundsOfGolf[i + 1].Id;
+                        dateOfSubsequentRound = roundsOfGolf[i + 1].Date;
+                    }
+                }
+            }
+            priorAndSubsequentRounds.Add("priorRound", new { id = idOfPriorRound, date = dateOfPriorRound });
+            priorAndSubsequentRounds.Add("subsequentRound", new { id = idOfSubsequentRound, date = dateOfSubsequentRound });
+            return priorAndSubsequentRounds;
         }
     }
 }

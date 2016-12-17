@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GolfBag.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,14 +16,15 @@ namespace GolfBag.ViewModels
         {
             ViewRounds = new List<ViewRound>();
         }
-    }
 
-    public class ViewRound
-    {
-        public string CourseName { get; set; }
+        public void MapViewRounds(RoundOfGolf round, Course course)
+        {
+            var viewRound = new ViewRound();
 
-        public int RoundId { get; set; }
-
-        public DateTime RoundDate { get; set; }
+            viewRound.CourseName = course.CourseName;
+            viewRound.RoundId = round.Id;
+            viewRound.RoundDate = round.Date;
+            ViewRounds.Add(viewRound);         
+        }
     }
 }

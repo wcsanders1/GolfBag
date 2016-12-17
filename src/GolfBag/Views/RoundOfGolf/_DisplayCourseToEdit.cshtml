@@ -117,7 +117,7 @@
                     {
                         <tr class="new-teebox-row hidden" data-new-teebox-num="@i">
                             <td>
-                                @Html.EditorFor(m => m.NewTeeBoxes[i].Name)
+                                <label data-new-teebox-num="@i"></label>
                             </td>
 
                             @for (int x = 9; x < 18; x++)
