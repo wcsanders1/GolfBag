@@ -1,30 +1,36 @@
-﻿@if (User.Identity.IsAuthenticated)
-{
-    <h4 class="nav navbar-header">Hello, @User.Identity.Name</h4>
-}
-else
-{
-    <h4 class="nav navbar-header">Login Or Register To Use This Neat Website!</h4>
-}
-
-<div class="btn btn-success navbar-toggle"
-        data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-angle-down"></i></div>
-<div class="navbar-header navbar-collapse collapse">
+﻿<div id="navbar-toggler" class="btn btn-success navbar-toggle"
+     data-toggle="collapse" data-target=".navbar-collapse">
+    <i class="fa fa-angle-down"></i>
+</div>
+<div id="main-collapsing-navbar" class="navbar-header navbar-collapse navbar-right collapse">
     @if (User.Identity.IsAuthenticated)
     {
-        <form class="nav navbar-nav" method="get" asp-controller="RoundOfGolf" asp-action="EnterScore" asp-antiforgery="true">
-            <input class="btn btn-success" type="submit" value="Enter Score" />
-        </form>
-        <form class="nav navbar-nav" method="get" asp-controller="RoundOfGolf" asp-action="ViewRounds" asp-antiforgery="true">
-            <input class="btn btn-success" type="submit" value="View Rounds" />
-        </form>
-        <form class="nav navbar-nav" method="post" asp-controller="Account" asp-action="Logout" asp-antiforgery="true">
-            <input class="btn btn-success" type="submit" value="Logout" />
+
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
+                   aria-haspopup="true" aria-expanded="false">Rounds <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a asp-controller="RoundOfGolf" asp-action="EnterScore">Enter Score</a></li>
+                    <li><a asp-controller="RoundOfGolf" asp-action="ViewRounds">View Rounds</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
+                   aria-haspopup="true" aria-expanded="false">Manage Courses <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a asp-controller="RoundOfGolf" asp-action="EditCourses">Edit Courses</a></li>
+                    <li><a asp-controller="RoundOfGolf" asp-action="EnterCourse">Enter New Course</a></li>
+                </ul>
+            </li>
+        </ul>
+        <form id="logout-button" class="nav navbar-nav" method="post" asp-controller="Account" asp-action="Logout" asp-antiforgery="true">
+            <input class="btn btn-danger" type="submit" value="Logout" />
         </form>
     }
     else
     {
-        <a class="btn btn-default nav navbar-nav" asp-controller="Account" asp-action="Register">Register</a>
-        <a class="btn btn-default nav navbar-nav" asp-controller="Account" asp-action="Login">Login</a>
+        <a class="btn btn-success nav navbar-nav" asp-controller="Account" asp-action="Register">Register</a>
+        <a class="btn btn-success nav navbar-nav" asp-controller="Account" asp-action="Login">Login</a>
     }
 </div>

@@ -8,6 +8,8 @@
     <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
 
+    <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond" rel="stylesheet">       @*font-family: 'Cormorant Garamond', serif;*@
+
     <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
@@ -17,10 +19,16 @@
 <body>
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="/">Golf Bag</a>
+            <div id="title-and-welcome">
+                <div class="navbar-header">
+                    <a id="site-title" class="navbar-brand" href="/">Golf Bag</a>
+                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <h4 id="welcome-nav">Welcome, @User.Identity.Name</h4>
+                }
             </div>
-            <div class="navbar-right">
+            <div id="loginlogout" class="navbar">
                 @await Component.InvokeAsync("LoginLogout")
             </div>
         </div>

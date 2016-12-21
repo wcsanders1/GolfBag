@@ -53,8 +53,32 @@ body {
   background: gray;
   margin-bottom: 60px;
 }
+#title-and-welcome {
+  display: flex;
+  flex-direction: column;
+}
+#site-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  padding-left: 0;
+  margin: 0;
+}
+#welcome-nav {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  margin: 0;
+}
+#navbar-toggler {
+  background-color: chocolate;
+}
 #main-content {
   padding-top: 120px;
+}
+#main-collapsing-navbar {
+  margin: 0;
+}
+#logout-button {
+  margin-top: 10px;
 }
 footer {
   position: absolute;

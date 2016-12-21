@@ -1,4 +1,8 @@
-﻿$(function () {
+﻿/***********************************************************************************
+                        AJAX
+ **********************************************************************************/
+
+$(function () {
     "use strict";
 
     var ajaxGetCourse = function () {
@@ -19,12 +23,37 @@
     $(document).on("click", "a[data-ajax='true']", ajaxGetCourse);
 });
 
+
+/***********************************************************************************
+                        SWITCHES ON TOOLTIPS
+ **********************************************************************************/
+
 $(function () {
     "use strict";
 
     $("body").tooltip({
         selector: "[data-toggle='tooltip']"
     });
+});
+
+
+/***********************************************************************************
+                        TOGGLES FLOAT ON NAVBAR
+ **********************************************************************************/
+
+$(function () {
+    "use strict";
+
+    var navbarCollapse = function () {
+        if ($("#main-collapsing-navbar").is(":visible")) {
+            $("#title-and-welcome").css("float", "left");
+        } else {
+            $("#title-and-welcome").css("float", "none");
+        }
+    };
+
+    $(document).ready(navbarCollapse);
+    $(window).on('resize', navbarCollapse);
 });
 
 // $("#carousel").carousel();  this will activate a carousel
