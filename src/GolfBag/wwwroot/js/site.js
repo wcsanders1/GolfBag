@@ -45,10 +45,10 @@ $(function () {
     "use strict";
 
     var navbarCollapse = function () {
-        if ($("#main-collapsing-navbar").is(":visible")) {
-            $("#title-and-welcome").css("float", "left");
-        } else {
+        if ($("#navbar-toggler").is(":visible")) {
             $("#title-and-welcome").css("float", "none");
+        } else {
+            $("#title-and-welcome").css("float", "left");
         }
     };
 

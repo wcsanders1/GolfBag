@@ -80,6 +80,9 @@ body {
 #logout-button {
   margin-top: 10px;
 }
+#logout-button-a {
+  color: #F2112B;
+}
 footer {
   position: absolute;
   bottom: 0;

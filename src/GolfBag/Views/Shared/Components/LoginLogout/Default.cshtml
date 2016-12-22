@@ -8,29 +8,35 @@
 
         <ul class="nav navbar-nav">
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
-                   aria-haspopup="true" aria-expanded="false">Rounds <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                   aria-haspopup="true" aria-expanded="false">Rounds<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a asp-controller="RoundOfGolf" asp-action="EnterScore">Enter Score</a></li>
                     <li><a asp-controller="RoundOfGolf" asp-action="ViewRounds">View Rounds</a></li>
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
-                   aria-haspopup="true" aria-expanded="false">Manage Courses <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                   aria-haspopup="true" aria-expanded="false">Manage Courses<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a asp-controller="RoundOfGolf" asp-action="EditCourses">Edit Courses</a></li>
                     <li><a asp-controller="RoundOfGolf" asp-action="EnterCourse">Enter New Course</a></li>
                 </ul>
             </li>
+            <li>
+                <form id="logout-button" class="hidden" method="post" asp-controller="Account" asp-action="Logout" asp-antiforgery="true"></form>
+                <a id="logout-button-a" href="javascript:$('#logout-button').submit();">Logout</a>
+            </li>
         </ul>
-        <form id="logout-button" class="nav navbar-nav" method="post" asp-controller="Account" asp-action="Logout" asp-antiforgery="true">
+        @*<form id="logout-button" class="nav navbar-nav" method="post" asp-controller="Account" asp-action="Logout" asp-antiforgery="true">
             <input class="btn btn-danger" type="submit" value="Logout" />
-        </form>
+        </form>*@
     }
     else
     {
-        <a class="btn btn-success nav navbar-nav" asp-controller="Account" asp-action="Register">Register</a>
-        <a class="btn btn-success nav navbar-nav" asp-controller="Account" asp-action="Login">Login</a>
+        <ul class="nav navbar-nav">
+            <li><a asp-controller="Account" asp-action="Register">Create New Account</a></li>
+            <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+        </ul>
     }
 </div>
