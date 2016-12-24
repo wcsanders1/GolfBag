@@ -1,4 +1,7 @@
-﻿// This stripes the scorecard and restripes it when toggling teeboxes
+﻿/*********************************************************************************************
+                        STRIPES SCORECARD WHEN TOGGLING TEEBOXES
+*********************************************************************************************/
+
 $(function () {
     "use strict";
     
@@ -21,4 +24,24 @@ $(function () {
 
     $(document).ready(stripeTables);
     $(document).on("shown.bs.collapse hidden.bs.collapse", ".collapse", stripeTables);
+});
+
+
+/*********************************************************************************************
+                        TOGGLES LIGHTBULB ICON WHEN TOGGLING TEEBOXES
+*********************************************************************************************/
+$(function () {
+    "use strict";
+
+    var toggleIcon = function () {
+        var $icon = $(this).siblings(".teebox-toggler-icon");
+
+        if ($icon.hasClass("hidden")) {
+            $icon.removeClass("hidden");
+        } else {
+            $icon.addClass("hidden");
+        }
+    };
+
+    $(document).on("click", ".teebox-toggler", toggleIcon);
 });

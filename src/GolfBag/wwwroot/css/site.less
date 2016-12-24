@@ -18,14 +18,17 @@ body {
 
 #site-title {
     font-family: @mainSiteFont;
-    font-size: 3rem;
+    font-size: 5rem;
+    color: #14A647;
     padding-left: 0;
-    margin: 0;
+    margin: 0 0 10px 0;
+    position: relative;
+    z-index: 5;
 }
 
 #welcome-nav {
     font-family: @mainSiteFont;
-    font-size: 2rem;
+    font-size: 3rem;
     margin: 0;
 }
 
@@ -69,6 +72,40 @@ footer {
     -webkit-appearance: none;
 }
 
+.nav {
+    font-family: @mainSiteFont;
+    li {
+        font-size: 2rem;
+        @media (min-width: @defaultCollapseSize) {
+            font-size: 3rem;
+        }
+        li {
+            font-size: 1.5rem;
+            @media (min-width: @defaultCollapseSize) {
+                font-size: 2rem;
+            }
+            a {
+                margin-left: 5px;
+            }
+        }
+    }
+}
+
+.navpill-header {
+    padding: 10px 15px 0 15px;
+    margin-right: 5rem;
+}
+
+.nav-pills li {
+    min-height: 7rem;
+    a {
+        padding-bottom: 0;
+    }
+    @media (min-width: @defaultCollapseSize) {
+        min-height: 10rem;
+    }
+}
+
 input::-webkit-inner-spin-button,
 input::-webkit-outer-spin-button {
         .remove-number-spinners;
@@ -97,6 +134,16 @@ input::-webkit-outer-spin-button {
 
 .teebox-to-delete {
     text-decoration: line-through;
+}
+
+.teebox-toggler-icon {
+    width: 100%;
+    text-align: center;
+    color: @yellow;
+    font-size: 1.5rem;
+    @media (min-width: @defaultCollapseSize) {
+        font-size: 2rem;
+    }
 }
 
 .delete-teebox,

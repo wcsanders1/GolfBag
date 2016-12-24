@@ -3,15 +3,19 @@
 @if (Model.TeeBoxes.Count > 1)
 {
     <ul class="nav nav-pills navbar-default">
-        <li>Toggle Tee Boxes:</li>
-        
+        <li class="navpill-header">Show and Hide Tee Boxes:</li>
         @foreach (var teeBox in Model.TeeBoxes)
         {
             if (teeBox.Id != Model.IdOfTeeBoxPlayed)
             {
-                <li><a class="teebox-toggler" href=".@teeBox.Id" data-toggle="collapse">@teeBox.Name</a></li>
+                <li>
+                    <a class="teebox-toggler" href=".@teeBox.Id" data-toggle="collapse">@teeBox.Name</a>
+                    <i class="fa fa-lightbulb-o teebox-toggler-icon hidden"></i>
+                </li>
+
             }
         }
+
     </ul>
 }
 

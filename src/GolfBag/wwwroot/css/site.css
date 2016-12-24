@@ -59,13 +59,16 @@ body {
 }
 #site-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 3rem;
+  font-size: 5rem;
+  color: #14A647;
   padding-left: 0;
-  margin: 0;
+  margin: 0 0 10px 0;
+  position: relative;
+  z-index: 5;
 }
 #welcome-nav {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 2rem;
+  font-size: 3rem;
   margin: 0;
 }
 #navbar-toggler {
@@ -100,6 +103,43 @@ footer {
   text-align: center;
   -webkit-appearance: none;
 }
+.nav {
+  font-family: 'Cormorant Garamond', serif;
+}
+.nav li {
+  font-size: 2rem;
+}
+@media (min-width: 768px) {
+  .nav li {
+    font-size: 3rem;
+  }
+}
+.nav li li {
+  font-size: 1.5rem;
+}
+@media (min-width: 768px) {
+  .nav li li {
+    font-size: 2rem;
+  }
+}
+.nav li li a {
+  margin-left: 5px;
+}
+.navpill-header {
+  padding: 10px 15px 0 15px;
+  margin-right: 5rem;
+}
+.nav-pills li {
+  min-height: 7rem;
+}
+.nav-pills li a {
+  padding-bottom: 0;
+}
+@media (min-width: 768px) {
+  .nav-pills li {
+    min-height: 10rem;
+  }
+}
 input::-webkit-inner-spin-button,
 input::-webkit-outer-spin-button {
   -moz-appearance: none;
@@ -125,6 +165,17 @@ input::-webkit-outer-spin-button {
 }
 .teebox-to-delete {
   text-decoration: line-through;
+}
+.teebox-toggler-icon {
+  width: 100%;
+  text-align: center;
+  color: #F2EB0C;
+  font-size: 1.5rem;
+}
+@media (min-width: 768px) {
+  .teebox-toggler-icon {
+    font-size: 2rem;
+  }
 }
 .delete-teebox,
 .undo-delete {
