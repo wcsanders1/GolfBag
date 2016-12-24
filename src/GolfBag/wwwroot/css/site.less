@@ -1,5 +1,71 @@
-﻿@import "variables";
+﻿/*********************************************************************************************
+                        IMPORTS
+*********************************************************************************************/
+
+@import "variables";
 @import "mixins";
+
+
+
+
+/*********************************************************************************************
+                        GLOBAL ELEMENT STYLES
+*********************************************************************************************/
+
+a {
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
+li {
+    font-size: 2rem;
+    @media (min-width: @defaultCollapseSize) {
+        font-size: 3rem;
+    }
+    li {
+        font-size: 1.5rem;
+        @media (min-width: @defaultCollapseSize) {
+            font-size: 2rem;
+        }
+        a {
+            margin-left: 5px;
+        }
+    }
+}
+
+.btn {
+    font-size: 1.5rem;
+    @media (min-width: @defaultCollapseSize) {
+        font-size: 2rem;
+    }
+}
+
+.dropdown-menu > li > a {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 1.5rem;
+    @media (min-width: @defaultCollapseSize) {
+        font-size: 2rem;
+    }
+}
+
+.dropdown-menu > li > a > span {
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+/*********************************************************************************************
+                        HTML, BODY, & @RenderBody container div, i.e., #main-content
+*********************************************************************************************/
 
 html {
     position: relative;
@@ -8,8 +74,66 @@ html {
 
 body {
     background: @prevalantColor;
-    margin-bottom: 60px;
+    font-family: @mainSiteFont;
+    font-size: 2rem;
+    margin-bottom: 60px;  // This margin exists to accommodate the sticky footer; see below
 }
+
+#main-content {
+    padding-top: 210px;
+    @media (min-width: @defaultCollapseSize) {
+        padding-top: 180px;
+    }
+}
+
+
+
+
+/*********************************************************************************************
+                        NAVIGATION & NAV PILLS
+*********************************************************************************************/
+
+/********************************************
+        Generally
+********************************************/
+
+.navpill-header {
+    padding: 10px 15px 0 15px;
+    margin-right: 5rem;
+}
+
+.nav-pills li {
+    min-height: 7rem;
+    a {
+        padding-bottom: 0;
+    }
+    @media (min-width: @defaultCollapseSize) {
+        min-height: 10rem;
+    }
+}
+
+.teebox-toggler-icon {
+    width: 100%;
+    text-align: center;
+    color: @yellow;
+    font-size: 1.5rem;
+    @media (min-width: @defaultCollapseSize) {
+        font-size: 2rem;
+    }
+}
+
+.panel-title {
+    text-align: center;
+    font-size: 2rem;
+    @media (min-width: @defaultCollapseSize) {
+        font-size: 3rem;
+    }
+}
+
+
+/********************************************
+        _Layout
+********************************************/
 
 #title-and-welcome {
     display: flex;
@@ -32,12 +156,13 @@ body {
     margin: 0;
 }
 
+
+/********************************************
+        <LoginLogout> Default
+********************************************/
+
 #navbar-toggler {
     background-color: chocolate;
-}
-
-#main-content {
-    padding-top: 120px;
 }
 
 #main-collapsing-navbar {
@@ -52,17 +177,23 @@ body {
     color: @redText;
 }
 
-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 60px;
-    background-color: #000;
-    color: #FFF;
+
+
+
+/*********************************************************************************************
+                        SCORECARDS
+*********************************************************************************************/
+
+/********************************************
+        Generally
+********************************************/
+
+.scorecard {
+   font-family: 'Suez One', serif;
 }
 
-.display-none {
-    display: none;
+.hole-score {
+    font-family: @scorecardNumberFont;
 }
 
 .number-input,
@@ -72,55 +203,10 @@ footer {
     -webkit-appearance: none;
 }
 
-.nav {
-    font-family: @mainSiteFont;
-    li {
-        font-size: 2rem;
-        @media (min-width: @defaultCollapseSize) {
-            font-size: 3rem;
-        }
-        li {
-            font-size: 1.5rem;
-            @media (min-width: @defaultCollapseSize) {
-                font-size: 2rem;
-            }
-            a {
-                margin-left: 5px;
-            }
-        }
-    }
-}
-
-.navpill-header {
-    padding: 10px 15px 0 15px;
-    margin-right: 5rem;
-}
-
-.nav-pills li {
-    min-height: 7rem;
-    a {
-        padding-bottom: 0;
-    }
-    @media (min-width: @defaultCollapseSize) {
-        min-height: 10rem;
-    }
-}
-
 input::-webkit-inner-spin-button,
 input::-webkit-outer-spin-button {
         .remove-number-spinners;
     }
-
-.dropdown-menu > li > a {
-    display: flex;
-    justify-content: space-between;
-    padding-left: 0;
-    padding-right: 0;
-}
-
-.dropdown-menu > li > a > span {
-    margin-left: 1rem;
-}
 
 .teebox-played {
     font-weight: bold;
@@ -136,16 +222,6 @@ input::-webkit-outer-spin-button {
     text-decoration: line-through;
 }
 
-.teebox-toggler-icon {
-    width: 100%;
-    text-align: center;
-    color: @yellow;
-    font-size: 1.5rem;
-    @media (min-width: @defaultCollapseSize) {
-        font-size: 2rem;
-    }
-}
-
 .delete-teebox,
 .undo-delete {
     cursor: pointer;
@@ -158,6 +234,29 @@ input::-webkit-outer-spin-button {
     background-color: @tableStripeColor;
 }
 
+/*********************************************************************************************
+                        FOOTER
+*********************************************************************************************/
+
+/********************************************
+        _Layout
+********************************************/
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #000;
+    color: #FFF;
+}
+
+
+
+
+/*********************************************************************************************
+                        MISC. COMMENTS
+*********************************************************************************************/
 /*h1 {
     font-size: @baseSize + 10px;
 }
@@ -184,10 +283,3 @@ label {
     }
 }*/
 
-a {         // example of combinator to apply nested rule to parent
-    text-decoration: none;
-    &:hover {
-        text-decoration: underline;
-        cursor: pointer;
-    }
-}

@@ -27,7 +27,7 @@
             @if (Model.IdOfPriorRound >= 0)
             {
                 <li class="previous">
-                    <a data-ajax="true" data-target="#display-round"
+                    <a class="btn" data-ajax="true" data-target="#display-round"
                        data-action="@Url.Action("DisplayRound", "RoundOfGolf", new { id = Model.IdOfPriorRound })"
                        data-toggle="tooltip" title="Prior Round: @Model.DateOfPriorRound.ToString("MMMM d, yyyy")">
                         <i class="fa fa-arrow-circle-o-left"></i> Prior Round
@@ -37,7 +37,7 @@
             else
             {
                 <li class="previous disabled">
-                    <a data-ajax="false" data-target="#" data-toggle="tooltip" title="No Prior Round">
+                    <a class="btn" data-ajax="false" data-target="#" data-toggle="tooltip" title="No Prior Round">
                         <i class="fa fa-arrow-circle-o-left"></i> Prior Round
                     </a>
                 </li>
@@ -45,7 +45,7 @@
             @if (Model.IdOfSubsequentRound >= 0)
             {
                 <li class="next">
-                    <a data-ajax="true" data-target="#display-round"
+                    <a class="btn" data-ajax="true" data-target="#display-round"
                        data-action="@Url.Action("DisplayRound", "RoundOfGolf", new { id = Model.IdOfSubsequentRound })"
                        data-toggle="tooltip" title="Next Round: @Model.DateOfSubsequentRound.ToString("MMMM d, yyyy")">
                         Next Round <i class="fa fa-arrow-circle-o-right"></i> 
@@ -55,7 +55,7 @@
             else
             {
                 <li class="next disabled">
-                    <a data-ajax="false" data-target="#" data-toggle="tooltip" title="No Subsequent Round">
+                    <a class="btn" data-ajax="false" data-target="#" data-toggle="tooltip" title="No Subsequent Round">
                         Next Round <i class="fa fa-arrow-circle-o-right"></i> 
                     </a>
                 </li>
@@ -67,7 +67,7 @@
         @if (Model.FrontNineScores.Count() > 0)
         {
             <div class="table-responsive">
-                <table class="table table-bordered table-striped-custom">
+                <table class="table table-bordered table-striped-custom scorecard">
                     <tbody>
                         <tr>
                             <td>Hole</td>
@@ -126,10 +126,10 @@
                                 int totalScore = 0;
                                 for (int i = 0; i < 9; i++)
                                 {
-                                    <td>@Model.FrontNineScores[i]</td>
+                                    <td class="hole-score">@Model.FrontNineScores[i]</td>
                                     totalScore += Model.FrontNineScores[i];
                                 }
-                                <td>@totalScore</td>
+                                <td class="hole-score">@totalScore</td>
                             }
                         </tr>
 
@@ -142,7 +142,7 @@
         @if (Model.BackNineScores.Count() > 0)
         {
             <div class="table-responsive">
-                <table class="table table-bordered table-striped-custom">
+                <table class="table table-bordered table-striped-custom scorecard">
                     <tbody>
                         <tr>
                             <td>Hole</td>
@@ -211,10 +211,10 @@
                                 int totalScore = 0;
                                 for (int i = 0; i < 9; i++)
                                 {
-                                    <td>@Model.BackNineScores[i]</td>
+                                    <td class="hole-score">@Model.BackNineScores[i]</td>
                                     totalScore += Model.BackNineScores[i];
                                 }
-                                <td>@totalScore</td>
+                                <td class="hole-score">@totalScore</td>
                             }
                         </tr>
                     </tbody>
