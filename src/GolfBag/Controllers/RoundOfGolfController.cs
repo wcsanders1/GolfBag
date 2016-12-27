@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using GolfBag.ViewModels;
 using GolfBag.Entities;
 using GolfBag.Services;
+using Microsoft.AspNetCore.Identity;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,10 +15,12 @@ namespace GolfBag.Controllers
     public class RoundOfGolfController : Controller
     {
         private IRoundOfGolf _roundOfGolf;
+        private UserManager<User> _userManager;
 
-        public RoundOfGolfController(IRoundOfGolf roundOfGolf)
+        public RoundOfGolfController(IRoundOfGolf roundOfGolf, UserManager<User> userManager)
         {
             _roundOfGolf = roundOfGolf;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -66,6 +69,7 @@ namespace GolfBag.Controllers
         public IActionResult EnterScore(RoundOfGolfViewModel model, string courseName)
         {
             int courseId = _roundOfGolf.GetCourseId(courseName);
+            
 
             RoundOfGolf roundOfGolf = model.MapViewModelToRoundOfGolf(courseName, courseId, User.Identity.Name);
 
@@ -108,6 +112,7 @@ namespace GolfBag.Controllers
 
         public IActionResult ViewRounds(int selectedRound = -1)
         {
+            var r = _userManager.GetUserId(User);
             var roundsOfGolfViewModel = new ViewRoundsViewModel();
             roundsOfGolfViewModel.SelectedRound = selectedRound;
 
