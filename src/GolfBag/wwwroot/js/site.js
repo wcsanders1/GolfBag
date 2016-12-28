@@ -56,4 +56,5 @@ $(function () {
     $(window).on('resize', navbarCollapse);
 });
 
+
 // $("#carousel").carousel();  this will activate a carousel

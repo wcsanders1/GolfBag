@@ -19,5 +19,9 @@ namespace GolfBag.ViewModels
         public int ScoreOfLastRound { get; set; }
 
         public int DaysSinceLastRound { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
     }
 }

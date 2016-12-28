@@ -7,7 +7,7 @@
 <div class="page-header">
     @if (User.Identity.IsAuthenticated && Model.NumberOfHolesPlayedInLastRound > 0)
     {
-        <h1>Welcome, @User.Identity.Name</h1>
+        <h1>Welcome, @Model.FirstName @Model.LastName</h1>
         <h3>Your played your last round on @Model.DateOfLastRound.Date.ToString("MMMM d, yyyy")<span>,</span></h3>
 
         switch (Model.DaysSinceLastRound)
@@ -27,7 +27,7 @@
     }
     else if (User.Identity.IsAuthenticated)
     {
-        <h2>You haven't played any rounds yet, @User.Identity.Name!</h2>
+        <h2>You haven't played any rounds yet, @Model.FirstName @Model.LastName!</h2>
         <h2>Geez, get out there!</h2>
     }
     else

@@ -1,4 +1,16 @@
-﻿<div id="navbar-toggler" class="btn btn-success navbar-toggle"
+﻿@model LoginLogoutViewComponentViewModel
+
+<div id="title-and-welcome">
+    <div class="navbar-header">
+        <a id="site-title" class="navbar-brand" href="/">Golf Bag</a>
+    </div>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <h4 id="welcome-nav">Welcome, @Model.FirstName @Model.LastName</h4>
+    }
+</div>
+
+<div id="navbar-toggler" class="btn btn-success navbar-toggle"
      data-toggle="collapse" data-target=".navbar-collapse">
     <i class="fa fa-angle-down"></i>
 </div>
@@ -23,9 +35,16 @@
                     <li><a asp-controller="RoundOfGolf" asp-action="EnterCourse">Enter New Course</a></li>
                 </ul>
             </li>
-            <li>
-                <form id="logout-button" class="hidden" method="post" asp-controller="Account" asp-action="Logout" asp-antiforgery="true"></form>
-                <a id="logout-button-a" href="javascript:$('#logout-button').submit();">Logout</a>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                   aria-haspopup="true" aria-expanded="false">Account<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a asp-controller="Account" asp-action="ManageAccount">Manage Account</a></li>
+                    <li>
+                        <form id="logout-button" class="hidden" method="post" asp-controller="Account" asp-action="Logout" asp-antiforgery="true"></form>
+                        <a id="logout-button-a" href="javascript:$('#logout-button').submit();">Logout</a>
+                    </li>
+                </ul>
             </li>
         </ul>
     }

@@ -19,7 +19,7 @@ namespace GolfBag.Controllers
 
         public RoundOfGolfController(IRoundOfGolf roundOfGolf, UserManager<User> userManager)
         {
-            _roundOfGolf = roundOfGolf;
+            _roundOfGolf = roundOfGolf;             
             _userManager = userManager;
         }
 
@@ -113,6 +113,7 @@ namespace GolfBag.Controllers
         public IActionResult ViewRounds(int selectedRound = -1)
         {
             var r = _userManager.GetUserId(User);
+            
             var roundsOfGolfViewModel = new ViewRoundsViewModel();
             roundsOfGolfViewModel.SelectedRound = selectedRound;
 
@@ -308,6 +309,6 @@ namespace GolfBag.Controllers
                                                             course,
                                                             User.Identity.Name);
             return roundOfGolfViewModel;
-        }   
+        }
     }
 }

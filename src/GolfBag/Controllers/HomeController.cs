@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace GolfBag.Controllers
 {
@@ -14,15 +15,25 @@ namespace GolfBag.Controllers
     public class HomeController : Controller
     {
         private IRoundOfGolf _roundOfGolf;
-        public HomeController(IRoundOfGolf roundOfGolf)
+        private UserManager<User> _userManager;
+
+        public HomeController(IRoundOfGolf roundOfGolf, UserManager<User> userManager)
         {
             _roundOfGolf = roundOfGolf;
+            _userManager = userManager;
         }
 
         [AllowAnonymous]
         public ViewResult Index()
         {
             var homePageViewModel = new HomePageViewModel();
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var currentUser = GetCurrentUserAsync().Result;
+                homePageViewModel.FirstName = currentUser.FirstName;
+                homePageViewModel.LastName = currentUser.LastName;
+            }
 
             if (User.Identity.IsAuthenticated &&
                 _roundOfGolf.GetAllRounds(User.Identity.Name).ToList().Count > 0)
@@ -54,6 +65,17 @@ namespace GolfBag.Controllers
                 homePageViewModel.NumberOfHolesPlayedInLastRound = 0;
                 return View(homePageViewModel);
             }
+        }
+
+
+/**********************************************************************************************************************************
+                                            PRIVATE METHODS
+**********************************************************************************************************************************/
+
+        private async Task<User> GetCurrentUserAsync()
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            return currentUser;
         }
     }
 }

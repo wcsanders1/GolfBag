@@ -102,6 +102,11 @@ li li a {
   display: flex;
   align-items: center;
 }
+@media (min-width: 768px) {
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+}
 /*********************************************************************************************
                         HTML, BODY, & @RenderBody container div, i.e., #main-content
 *********************************************************************************************/

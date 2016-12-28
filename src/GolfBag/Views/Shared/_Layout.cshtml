@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -21,15 +23,6 @@
 <body>
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
-            <div id="title-and-welcome">
-                <div class="navbar-header">
-                    <a id="site-title" class="navbar-brand" href="/">Golf Bag</a>
-                </div>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <h4 id="welcome-nav">Welcome, @User.Identity.Name</h4>
-                }
-            </div>
             <div id="loginlogout" class="navbar">
                 @await Component.InvokeAsync("LoginLogout")
             </div>
@@ -45,4 +38,5 @@
 
     <script type="text/javascript" src="~/js/site.js"></script>
 </body>
+
 </html>

@@ -1,4 +1,5 @@
 ﻿using GolfBag.Entities;
+using GolfBag.Services;
 using GolfBag.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,12 +14,15 @@ namespace GolfBag.Controllers
     {
         private SignInManager<User> _signInManager;
         private UserManager<User> _userManager;
+        private IRoundOfGolf _roundOfGolf;
 
         public AccountController(UserManager<User> userManager,
-            SignInManager<User> signInManager)
+            SignInManager<User> signInManager,
+            IRoundOfGolf roundOfGolf)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roundOfGolf = roundOfGolf;
         }
         [HttpGet]
         public IActionResult Register()
@@ -31,7 +35,12 @@ namespace GolfBag.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.Username };
+                var user = new User
+                {
+                    UserName = model.Username,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName
+                };
 
                 var createResult = await _userManager.CreateAsync(user, model.Password);
                 if (createResult.Succeeded)
@@ -88,6 +97,33 @@ namespace GolfBag.Controllers
             }
             ModelState.AddModelError("", "Could not log in");
             return View(model);
-        } 
+        }
+        
+        //[HttpGet, ValidateAntiForgeryToken]
+        public IActionResult ManageAccount()
+        {
+            var currentUser = GetCurrentUserAsync().Result;
+            var manageAccountViewModel = new ManageAccountViewModel();
+            return View(manageAccountViewModel);
+        }
+
+        public IActionResult SaveChanges(ManageAccountViewModel model)
+        {
+            if (ModelState.IsValid)
+            {               
+                var currentUser = GetCurrentUserAsync().Result;
+                currentUser.FirstName = model.FirstName;
+                currentUser.LastName = model.LastName;
+                _userManager.UpdateAsync(currentUser);
+                _roundOfGolf.Commit();
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        private async Task<User> GetCurrentUserAsync()
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            return currentUser;
+        }
     }
 }
