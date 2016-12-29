@@ -38,8 +38,14 @@ $(function () {
                 var $htmlDates = "";
 
                 $("#modal-header-p").text("You cannot delete the " + $teeboxName + " tees.");
-                $("#modal-body-h1").text("You played the " + $teeboxName + " tees on the following days:");
-                $("#modal-body-h2").text("You must edit those rounds before you can delete the " + $teeboxName + " tees.");
+
+                if ($dates.length === 1) {
+                    $("#modal-body-h1").text("You played the " + $teeboxName + " tees on the following day:");
+                    $("#modal-body-h2").text("You must edit that round before you can delete the " + $teeboxName + " tees.");
+                } else {
+                    $("#modal-body-h1").text("You played the " + $teeboxName + " tees on the following days:");
+                    $("#modal-body-h2").text("You must edit those rounds before you can delete the " + $teeboxName + " tees.");
+                }
 
                 $.each($dates, function (i) {
                     $htmlDates += "<p>" + $dates[i] + "</p>";

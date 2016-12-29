@@ -33,6 +33,8 @@ namespace GolfBag.ViewModels
 
         public DateTime DateOfSubsequentRound { get; set; }
 
+        public string CurrentDate { get; set; }
+
         public int IdOfPriorRound { get; set; }
 
         public int IdOfSubsequentRound { get; set; }
@@ -42,6 +44,11 @@ namespace GolfBag.ViewModels
         public List<int> Pars { get; set; }
 
         public List<int> Handicaps { get; set; }
+
+        public RoundOfGolfViewModel()
+        {
+            CurrentDate = DateTime.Today.Date.ToString("mm/dd/yyyy");
+        }
 
         public static RoundOfGolfViewModel MapCourseToRoundOfGolfViewModel(Course course)
         {

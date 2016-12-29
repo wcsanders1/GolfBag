@@ -7,7 +7,8 @@
     <form method="post" asp-antiforgery="true"
           asp-action="EnterScore" asp-controller="RoundOfGolf"
           asp-route-courseName="@Model.CourseName">
-        <input id="date-of-round-input" asp-for="DateOfRound" />
+        <input id="date-of-round-input" asp-for="DateOfRound" value="@Model.CurrentDate"
+               type="text" readonly class="datepicker" />
         <label for="date-of-round-input">Date of Round</label>
 
         <select asp-for="IdOfTeeBoxPlayed">
@@ -61,7 +62,8 @@
         <input id="comment-input" asp-for="Comment" />
         <label for="comment-input">Enter Comment</label>
         <div>
-            <input type="submit" value="Save Round" />
+            <input class="btn btn-success" type="submit" value="Save Round" />
+            <a class="btn btn-default" asp-action="EnterScore" asp-controller="RoundOfGolf">Cancel</a>
         </div>
     </form>
 }
@@ -70,7 +72,8 @@ else
     <form method="post" asp-antiforgery="true"
           asp-action="EnterScore" asp-controller="RoundOfGolf"
           asp-route-courseName="@Model.CourseName">
-        <input id="date-of-round-input-2" asp-for="DateOfRound" />
+        <input id="date-of-round-input-2" asp-for="DateOfRound" 
+               type="text" readonly class="datepicker" value="@Model.CurrentDate"/>
         <label for="date-of-round-input-2">Date of Round</label>
 
         <select asp-for="IdOfTeeBoxPlayed">
@@ -90,7 +93,8 @@ else
         <input id="comment-input-2" asp-for="Comment" />
         <label for="comment-input-2">Enter Comment</label>
         <div>
-            <input type="submit" value="Save Round" />
+            <input class="btn btn-success" type="submit" value="Save Round" />
+            <a class="btn btn-default" asp-action="EnterScore" asp-controller="RoundOfGolf">Cancel</a>
         </div>
     </form>
 

@@ -33,28 +33,26 @@ $(function () {
 
     $("body").tooltip({
         selector: "[data-toggle='tooltip']"
-    });
+    });    
 });
 
 
+
 /***********************************************************************************
-                        TOGGLES FLOAT ON NAVBAR
- **********************************************************************************/
+                        SWITCHES ON JQUERY UI DATEPICKER
+
+documentation for the datepicker: http://www.eyecon.ro/bootstrap-datepicker/
+***********************************************************************************/
 
 $(function () {
     "use strict";
 
-    var navbarCollapse = function () {
-        if ($("#navbar-toggler").is(":visible")) {
-            $("#title-and-welcome").css("float", "none");
-        } else {
-            $("#title-and-welcome").css("float", "left");
-        }
-    };
-
-    $(document).ready(navbarCollapse);
-    $(window).on('resize', navbarCollapse);
+    $(document).on("focus", ".datepicker", function () {
+        $(this).datepicker();
+        $(this).on("changeDate", function () {
+            $(this).datepicker("hide");
+        });
+    });
 });
-
 
 // $("#carousel").carousel();  this will activate a carousel

@@ -103,9 +103,12 @@ li li a {
   align-items: center;
 }
 @media (min-width: 768px) {
-  .dropdown:hover .dropdown-menu {
+  .nav .dropdown:hover .dropdown-menu {
     display: block;
   }
+}
+.datepicker {
+  cursor: pointer;
 }
 /*********************************************************************************************
                         HTML, BODY, & @RenderBody container div, i.e., #main-content
@@ -175,6 +178,12 @@ body {
 #title-and-welcome {
   display: flex;
   flex-direction: column;
+  float: none;
+}
+@media (min-width: 768px) {
+  #title-and-welcome {
+    float: left;
+  }
 }
 #site-title {
   font-family: 'Cormorant Garamond', serif;

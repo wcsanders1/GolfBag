@@ -103,7 +103,10 @@ namespace GolfBag.Controllers
         public IActionResult ManageAccount()
         {
             var currentUser = GetCurrentUserAsync().Result;
-            var manageAccountViewModel = new ManageAccountViewModel();
+            var manageAccountViewModel = new ManageAccountViewModel {
+                FirstName = currentUser.FirstName,
+                LastName = currentUser.LastName
+            };
             return View(manageAccountViewModel);
         }
 

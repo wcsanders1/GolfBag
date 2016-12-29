@@ -60,11 +60,17 @@ li {
     align-items: center;
 }
 
-.dropdown:hover .dropdown-menu {
+.nav .dropdown:hover .dropdown-menu {
     @media (min-width: @defaultBootstrapCollapseSize) {
         display: block;
     }
 }
+
+.datepicker {
+    cursor: pointer;
+}
+
+
 
 
 /*********************************************************************************************
@@ -142,6 +148,10 @@ body {
 #title-and-welcome {
     display: flex;
     flex-direction: column;
+    float: none;
+    @media (min-width: @defaultBootstrapCollapseSize) {
+        float: left;
+    }
 }
 
 #site-title {
