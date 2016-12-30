@@ -40,18 +40,32 @@ $(function () {
 
 /***********************************************************************************
                         SWITCHES ON JQUERY UI DATEPICKER
-
-documentation for the datepicker: http://www.eyecon.ro/bootstrap-datepicker/
 ***********************************************************************************/
 
 $(function () {
     "use strict";
 
     $(document).on("focus", ".datepicker", function () {
-        $(this).datepicker();
-        $(this).on("changeDate", function () {
-            $(this).datepicker("hide");
+        $(this).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "1900:+nn",
+            dateFormat: "DD, MM d, yy",
+            showAnim: ""
         });
+    });
+
+    // to prevent backspace in input from sending user to prior page
+    $(document).on("keydown", "input[readonly]", function (e) {
+        e.preventDefault();
+    });
+
+    // to force datepicker to be in correct place on resize
+    $(window).resize(function () {
+        var field = $(document.activeElement);
+        if (field.is('.hasDatepicker')) {
+            field.datepicker('hide').datepicker('show');
+        }
     });
 });
 

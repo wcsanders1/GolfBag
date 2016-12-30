@@ -1,11 +1,32 @@
 ﻿/*********************************************************************************************
-                        STRIPES SCORECARD WHEN TOGGLING TEEBOXES
+               TOGGLES LIGHTBULB ICON AND STRIPES SCORECARD WHEN TOGGLING TEEBOXES
 *********************************************************************************************/
-
 $(function () {
     "use strict";
-    
-    var stripeTables = function () {
+
+    var toggleIcons = function () {
+        var shownTeeboxes = [];
+
+        $(".teebox-not-played").each(function () {
+            if ($(this).hasClass("in")) {
+                shownTeeboxes.push($(this).attr("data-teebox-id"));
+            }
+        });
+
+        $(".teebox-toggler-icon").each(function () {
+            $(this).addClass("hidden");
+        });
+
+        $.each(shownTeeboxes, function (i) {
+            $(".teebox-toggler-icon").each(function () {
+                if ($(this).attr("data-teebox-id") == shownTeeboxes[i]) {
+                    $(this).removeClass("hidden");
+                }
+            });
+        });
+    };
+
+    var stripeTable = function () {
         $(".table-striped-custom").each(function (i) {
             var x = 2;
             $(this).find("tr").each(function (i) {
@@ -17,31 +38,11 @@ $(function () {
                 } else if ((!($(this).hasClass("collapse")))
                         || ($(this).hasClass("in"))) {
                     x++;
-                }               
+                }
             });
         });
+        toggleIcons();
     };
 
-    $(document).ready(stripeTables);
-    $(document).on("shown.bs.collapse hidden.bs.collapse", ".collapse", stripeTables);
-});
-
-
-/*********************************************************************************************
-                        TOGGLES LIGHTBULB ICON WHEN TOGGLING TEEBOXES
-*********************************************************************************************/
-$(function () {
-    "use strict";
-
-    var toggleIcon = function () {
-        var $icon = $(this).siblings(".teebox-toggler-icon");
-
-        if ($icon.hasClass("hidden")) {
-            $icon.removeClass("hidden");
-        } else {
-            $icon.addClass("hidden");
-        }
-    };
-
-    $(document).on("click", ".teebox-toggler", toggleIcon);
+    $(document).on("shown.bs.collapse hidden.bs.collapse", ".collapse", stripeTable);
 });

@@ -47,7 +47,7 @@ namespace GolfBag.ViewModels
 
         public RoundOfGolfViewModel()
         {
-            CurrentDate = DateTime.Today.Date.ToString("mm/dd/yyyy");
+            CurrentDate = DateTime.Today.Date.ToString("D");
         }
 
         public static RoundOfGolfViewModel MapCourseToRoundOfGolfViewModel(Course course)

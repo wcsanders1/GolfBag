@@ -10,7 +10,7 @@
             {
                 <li>
                     <a class="teebox-toggler" href=".@teeBox.Id" data-toggle="collapse">@teeBox.Name</a>
-                    <i class="fa fa-lightbulb-o teebox-toggler-icon hidden"></i>
+                    <i class="fa fa-lightbulb-o teebox-toggler-icon hidden" data-teebox-id="@teeBox.Id"></i>
                 </li>
 
             }
@@ -22,7 +22,7 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
         <h1 class="panel-title">@Model.CourseName</h1>
-        <h2 class="panel-title">@Model.DateOfRound.Date.ToString("MMMM d, yyyy")</h2>
+        <h2 class="panel-title">@Model.DateOfRound.Date.ToString("D")</h2>
         <ul class="pager">
             @if (Model.IdOfPriorRound >= 0)
             {
@@ -69,7 +69,7 @@
             <div class="table-responsive">
                 <table class="table table-bordered table-striped-custom scorecard">
                     <tbody>
-                        <tr>
+                        <tr class="table-row-striped">
                             <td>Hole</td>
                             @for (int i = 1; i <= 9; i++)
                             {
@@ -97,7 +97,7 @@
                             int totalYardage = 0;
                             if (teeBox.Id != Model.IdOfTeeBoxPlayed)
                             {
-                                <tr class="@teeBox.Id collapse teebox-not-played">
+                                <tr class="@teeBox.Id collapse teebox-not-played" data-teebox-id="@teeBox.Id">
                                     <td>@teeBox.Name</td>
                                     @for (int i = 0; i < 9; i++)
                                     {
@@ -144,7 +144,7 @@
             <div class="table-responsive">
                 <table class="table table-bordered table-striped-custom scorecard">
                     <tbody>
-                        <tr>
+                        <tr class="table-row-striped">
                             <td>Hole</td>
                             @for (int i = 10; i <= 18; i++)
                             {
