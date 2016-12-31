@@ -9,7 +9,7 @@ $(function () {
 
     var deleteTeebox = function () {
         var $teeboxToDelete = $(this),
-            $modal = $("#delete-teebox-modal"),
+            $modal = $("#delete-modal"),
             $id = $teeboxToDelete.parents("tr").attr("data-teebox-id");
 
         var roundIsAssociatedWithTeebox = function () {
@@ -51,7 +51,7 @@ $(function () {
                     $htmlDates += "<p>" + $dates[i] + "</p>";
                 });
 
-                $("#dates-teebox-played").html($htmlDates);
+                $("#dates-played").html($htmlDates);
                 $modal.modal("show");
             };
 
@@ -282,4 +282,93 @@ $(function () {
 
     $(document).on("click", "#add-teebox-btn", showNewTeebox);
     $(document).on("click", "#remove-new-teebox", removeNewTeebox);
+});
+
+
+
+/********************************************************************************************************
+                    ENSURES NO ROUNDS ARE ASSOCIATED WITH COURSE BEFORE DELETING COURSE
+********************************************************************************************************/
+
+$(function () {
+    "use strict";
+
+    var deleteCourse = function () {
+        var $courseId = $(this).attr("data-course-id"),
+            $courseName = $(this).attr("data-course-name"),
+            $modal = $("#delete-modal");
+
+        var roundIsAssociatedWithCourse = function () {
+            var roundIsAssociated,
+                options = {
+                    async: false,
+                    url: "/RoundOfGolf/DatesPlayedCourse/" + $courseId,
+                    type: "GET",
+                };
+
+            var getDatesPlayed = function (dateData) {
+                var $dates = [];
+
+                for (var i = 0; i < dateData.length; i++) {
+                    var date = "";
+                    while (dateData.charAt(i) != ":") {
+                        date += dateData.charAt(i);
+                        i++;
+                    }
+                    $dates.push(date);
+                }
+                return $dates;
+            };
+
+            var displayModal = function ($dates, $courseName) {
+                var $htmlDates = "";
+
+                $("#modal-header-p").text("You cannot delete the " + $courseName + " course.");
+
+                if ($dates.length === 1) {
+                    $("#modal-body-h1").text("You played the " + $courseName + " course on the following day:");
+                    $("#modal-body-h2").text("You must delete that round before you can delete the " + $courseName + " course.");
+                } else {
+                    $("#modal-body-h1").text("You played the " + $courseName + " course on the following days:");
+                    $("#modal-body-h2").text("You must delete those rounds before you can delete the " + $courseName + " course.");
+                }
+
+                $.each($dates, function (i) {
+                    $htmlDates += "<p>" + $dates[i] + "</p>";
+                });
+
+                $("#dates-played").html($htmlDates);
+                $modal.modal("show");
+            };
+
+            $.ajax(options).done(function (data) {
+                if (data.length > 0) {
+                    var $dates = [];
+
+                    $dates = getDatesPlayed(data);
+                    displayModal($dates, $courseName);
+                    roundIsAssociated = true;
+                } else {
+                    roundIsAssociated = false;
+                }
+            });
+            return roundIsAssociated;
+        };
+
+        if (roundIsAssociatedWithCourse()) {
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: "/RoundOfGolf/DeleteCourse/",
+            data: { "courseId": $courseId },
+            success: function (data) {
+                location.replace(data);
+            }
+        });
+    };
+
+    $(document).on("click", "#delete-course-button", deleteCourse);
 });

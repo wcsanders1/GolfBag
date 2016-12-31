@@ -139,21 +139,22 @@
         }
     }
 
-    <div>
-        <input class="btn btn-primary" type="submit" value="Save Course Changes" />
+    @if (Model.NewTeeBoxes.Count > 0)
+    {
+        <div class="btn-group">
+            <a class="btn btn-default" id="add-teebox-btn">Add Teebox</a>
+            <a class="btn btn-default disabled" id="remove-new-teebox">Remove New Teebox</a>
+        </div>
+    }
+
+    <div class="btn-group">
+        <input class="btn btn-success" type="submit" value="Save Course Changes" />
+        <a id="delete-course-button" class="btn btn-danger" data-course-id="@Model.Id" data-course-name="@Model.CourseName">Delete Course</a>
+        <a class="btn btn-default" asp-controller="RoundOfGolf" asp-action="EditCourses">Cancel</a>
     </div>
 </form>
-<a class="btn btn-primary" asp-controller="RoundOfGolf" asp-action="DeleteCourse" asp-route-id="@Model.Id">Delete Course</a>
 
-@if (Model.NewTeeBoxes.Count > 0)
-{
-    <a class="btn btn-primary" id="add-teebox-btn">Add Teebox</a>
-    <a class="btn btn-primary disabled" id="remove-new-teebox">Remove New Teebox</a> 
-}
-
-<a class="btn btn-default" asp-controller="RoundOfGolf" asp-action="EditCourses">Cancel</a>
-
-<div class="modal fade" id="delete-teebox-modal" tabindex="-1">
+<div class="modal fade" id="delete-modal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -162,7 +163,7 @@
             </div>
             <div class="modal-body">
                 <h1 id="modal-body-h1"></h1>
-                <div id="dates-teebox-played"></div>
+                <div id="dates-played"></div>
                 <h2 id="modal-body-h2"></h2>
             </div>
             <div class="modal-footer">

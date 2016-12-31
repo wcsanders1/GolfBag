@@ -85,6 +85,17 @@ li li a {
     font-size: 2rem;
   }
 }
+.btn-group {
+  margin-bottom: 1rem;
+}
+.comment-box {
+  width: 100%;
+}
+.datepicker {
+  cursor: pointer;
+  width: 25rem;
+  margin-right: 5rem;
+}
 .dropdown-menu {
   max-height: 40rem;
   overflow-y: auto;
@@ -111,8 +122,11 @@ li li a {
     display: block;
   }
 }
-.datepicker {
-  cursor: pointer;
+.table {
+  margin-bottom: 1rem;
+}
+.table-responsive {
+  margin-bottom: 3rem;
 }
 /*********************************************************************************************
                         HTML, BODY, & @RenderBody container div, i.e., #main-content

@@ -4,7 +4,7 @@
     ViewBag.Title = "Home";
 }
 
-<div class="page-header">
+<div class="well jumbotron">
     @if (User.Identity.IsAuthenticated && Model.NumberOfHolesPlayedInLastRound > 0)
     {
         <h1>Welcome, @Model.FirstName @Model.LastName</h1>

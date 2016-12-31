@@ -259,24 +259,13 @@ namespace GolfBag.Controllers
             return RedirectToAction("ViewRounds");
         }
 
-        public IActionResult DeleteCourse(int id)
+        [HttpPost]
+        public IActionResult DeleteCourse(int courseId)
         {
-            var course = _roundOfGolf.GetCourse(id);
-
-            if (!_roundOfGolf.DeleteCourse(course))
-            {
-                IEnumerable<Course> courses = _roundOfGolf.GetAllCourses(User.Identity.Name);
-
-                var courseNames = new List<string>();
-
-                foreach (var courseName in courses)
-                {
-                    courseNames.Add(courseName.CourseName);
-                }
-                ViewBag.Message = "You must delete all rounds associated with this course before you can delete it.";
-                return View("EditCourses", courseNames);
-            }
-            return RedirectToAction("EditCourses");
+            var course = _roundOfGolf.GetCourse(courseId);
+            _roundOfGolf.DeleteCourse(course);
+            return Json(Url.Action("EditCourses", "RoundOfGolf"));
+            //return RedirectToAction("EditCourses");
         }
 
         public string DatesPlayedTeebox(int id)
@@ -291,6 +280,20 @@ namespace GolfBag.Controllers
             }
 
             return datesPlayedTeebox;
+        }
+
+        public string DatesPlayedCourse(int id)
+        {
+            var rounds = _roundOfGolf.GetAllRounds(User.Identity.Name);
+            string datesPlayedCourse = "";
+
+            foreach (var round in rounds)
+            {
+                if (round.CourseId == id)
+                    datesPlayedCourse += round.Date.ToString("MMMM d, yyyy") + ":";
+            }
+
+            return datesPlayedCourse;
         }
 
 

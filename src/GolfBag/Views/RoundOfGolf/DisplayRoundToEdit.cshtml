@@ -5,8 +5,8 @@
 <form method="post" asp-antiforgery="true"
       asp-action="SaveRoundChanges" asp-controller="RoundOfGolf">
     @Html.HiddenFor(m => m.Id)
-    @Html.EditorFor(m => m.DateOfRound)
-
+    <input asp-for="DateOfRound" value="@Model.DateOfRound.ToString("D")"
+           type="text" readonly class="datepicker" />
     <label for="@Model.IdOfTeeBoxPlayed">Select Tee Box Played</label>
     <select class="teebox-selector" asp-for="IdOfTeeBoxPlayed">
         @foreach (var teeBox in Model.TeeBoxes)
@@ -21,8 +21,6 @@
             }
         }
     </select>
-
-
     @if (Model.FrontNineScores.Count() > 0)
     {
         <div class="table-responsive">
@@ -145,19 +143,20 @@
             </table>
         </div>
     }
-    @Html.EditorFor(m => m.Comment, new { htmlAttributes = new { @class = "well" } })
-    <div>
+
+    <textarea asp-for="@Model.Comment" class="well comment-box"></textarea>
+
+    @*@Html.EditorFor(m => m.Comment, new { htmlAttributes = new { @class = "well comment-box" } })*@
+    <div class="btn-group">
         <input class="btn btn-primary" type="submit" value="Save Round Changes" />
+        <a href="#delete-dialog" class="btn btn-danger"
+           data-toggle="modal">Delete Round</a>
+        <a class="btn btn-default" asp-action="ViewRounds"
+           asp-controller="RoundOfGolf" asp-route-selectedRound="@Model.Id">
+            Cancel
+        </a>
     </div>
 </form>
-
-<a href="#delete-dialog" class="btn btn-warning"
-   data-toggle="modal">Delete Round</a>
-
-<a class="btn btn-default" asp-action="ViewRounds"
-   asp-controller="RoundOfGolf" asp-route-selectedRound="@Model.Id">
-    Cancel
-</a>
 
 <div class="modal fade" id="delete-dialog" tabindex="-1">
     <div class="modal-dialog">
