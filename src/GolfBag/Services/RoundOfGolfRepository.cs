@@ -32,10 +32,10 @@ namespace GolfBag.Services
             return _context.SaveChanges();
         }
 
-        public IEnumerable<RoundOfGolf> GetAllRounds(string playerName)
+        public IEnumerable<RoundOfGolf> GetAllRounds(string playerId)
         {
             IEnumerable<RoundOfGolf> rounds = _context.RoundsOfGolf
-                .Where(r => r.PlayerName == playerName)
+                .Where(r => r.PlayerId == playerId)
                 .Include(r => r.Scores)
                 .OrderBy(r => r.Date)
                 .ToList();
@@ -48,10 +48,10 @@ namespace GolfBag.Services
             return rounds;
         }
 
-        public IEnumerable<Course> GetAllCourses(string playerName)
+        public IEnumerable<Course> GetAllCourses(string playerId)
         {
             List<Course> courses = _context.Courses
-                .Where(r => r.PlayerName == playerName)
+                .Where(r => r.PlayerId == playerId)
                 .Include(r => r.CourseHoles)
                 .Include(r => r.TeeBoxes)
                 .ThenInclude(m => m.Tees)

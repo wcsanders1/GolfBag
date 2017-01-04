@@ -27,44 +27,44 @@ namespace GolfBag.Controllers
         public ViewResult Index()
         {
             var homePageViewModel = new HomePageViewModel();
+            User currentUser;
 
             if (User.Identity.IsAuthenticated)
             {
-                var currentUser = GetCurrentUserAsync().Result;
+                currentUser = GetCurrentUserAsync().Result;
                 homePageViewModel.FirstName = currentUser.FirstName;
                 homePageViewModel.LastName = currentUser.LastName;
-            }
 
-            if (User.Identity.IsAuthenticated &&
-                _roundOfGolf.GetAllRounds(User.Identity.Name).ToList().Count > 0)
-            {
-                var mostRecentRound = _roundOfGolf.GetAllRounds(User.Identity.Name)
-                                        .OrderBy(m => m.Date)
-                                        .Last();
 
-                var mostRecentCoursePlayed = _roundOfGolf
-                                        .GetCourse(mostRecentRound.CourseId);
-                var mostRecentScores = mostRecentRound.Scores.ToList();
+                if (_roundOfGolf.GetAllRounds(currentUser.Id).ToList().Count > 0)
+                {
+                    var mostRecentRound = _roundOfGolf.GetAllRounds(currentUser.Id)
+                                            .OrderBy(m => m.Date)
+                                            .Last();
 
-                homePageViewModel.CourseLastPlayed = mostRecentCoursePlayed
-                                        .CourseName;
-                homePageViewModel.DateOfLastRound = mostRecentRound.Date;
-                homePageViewModel.NumberOfHolesPlayedInLastRound = mostRecentScores
-                                        .Count;
-                homePageViewModel.ScoreOfLastRound = mostRecentScores
-                                        .Sum(m => m.HoleScore);
-                homePageViewModel.DaysSinceLastRound = DateTime
-                                        .Now
-                                        .Subtract(mostRecentRound.Date)
-                                        .Days;
+                    var mostRecentCoursePlayed = _roundOfGolf
+                                            .GetCourse(mostRecentRound.CourseId);
+                    var mostRecentScores = mostRecentRound.Scores.ToList();
 
+                    homePageViewModel.CourseLastPlayed = mostRecentCoursePlayed
+                                            .CourseName;
+                    homePageViewModel.DateOfLastRound = mostRecentRound.Date;
+                    homePageViewModel.NumberOfHolesPlayedInLastRound = mostRecentScores
+                                            .Count;
+                    homePageViewModel.ScoreOfLastRound = mostRecentScores
+                                            .Sum(m => m.HoleScore);
+                    homePageViewModel.DaysSinceLastRound = DateTime
+                                            .Now
+                                            .Subtract(mostRecentRound.Date)
+                                            .Days;                  
+                }
                 return View(homePageViewModel);
             }
             else
             {
                 homePageViewModel.NumberOfHolesPlayedInLastRound = 0;
                 return View(homePageViewModel);
-            }
+            }           
         }
 
 

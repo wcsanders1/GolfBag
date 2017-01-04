@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using GolfBag.ViewModels;
@@ -20,7 +21,7 @@ namespace GolfBag.Controllers
         public RoundOfGolfController(IRoundOfGolf roundOfGolf, UserManager<User> userManager)
         {
             _roundOfGolf = roundOfGolf;             
-            _userManager = userManager;
+            _userManager = userManager;    
         }
 
         [HttpGet]
@@ -33,6 +34,7 @@ namespace GolfBag.Controllers
         public IActionResult EnterCourse(CourseViewModel model)
         {
             Course course = model.MapViewModelToCourse(User.Identity.Name);
+            course.PlayerId = GetCurrentUserAsync().Result.Id;
 
             if (course != null)
             {
@@ -48,7 +50,7 @@ namespace GolfBag.Controllers
         [HttpGet]
         public IActionResult EnterScore()
         {
-            IEnumerable<Course> courses = _roundOfGolf.GetAllCourses(User.Identity.Name);
+            IEnumerable<Course> courses = _roundOfGolf.GetAllCourses(GetCurrentUserAsync().Result.Id);
 
             if (courses.Count() > 0)
             {
@@ -70,8 +72,8 @@ namespace GolfBag.Controllers
         {
             int courseId = _roundOfGolf.GetCourseId(courseName);
             
-
             RoundOfGolf roundOfGolf = model.MapViewModelToRoundOfGolf(courseName, courseId, User.Identity.Name);
+            roundOfGolf.PlayerId = GetCurrentUserAsync().Result.Id;
 
             if (roundOfGolf != null)
             { 
@@ -117,7 +119,7 @@ namespace GolfBag.Controllers
             var roundsOfGolfViewModel = new ViewRoundsViewModel();
             roundsOfGolfViewModel.SelectedRound = selectedRound;
 
-            IEnumerable<RoundOfGolf> roundsOfGolf = _roundOfGolf.GetAllRounds(User.Identity.Name);
+            IEnumerable<RoundOfGolf> roundsOfGolf = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id);
 
             if (roundsOfGolf.Count() > 0)
             {
@@ -141,7 +143,7 @@ namespace GolfBag.Controllers
 
         public IActionResult EditCourses()
         {
-            IEnumerable<Course> courses = _roundOfGolf.GetAllCourses(User.Identity.Name);
+            IEnumerable<Course> courses = _roundOfGolf.GetAllCourses(GetCurrentUserAsync().Result.Id);
 
             if (courses.Count() > 0)
             {
@@ -265,12 +267,11 @@ namespace GolfBag.Controllers
             var course = _roundOfGolf.GetCourse(courseId);
             _roundOfGolf.DeleteCourse(course);
             return Json(Url.Action("EditCourses", "RoundOfGolf"));
-            //return RedirectToAction("EditCourses");
         }
 
         public string DatesPlayedTeebox(int id)
         {
-            var rounds = _roundOfGolf.GetAllRounds(User.Identity.Name);
+            var rounds = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id);
             string datesPlayedTeebox = "";
 
             foreach (var round in rounds)
@@ -284,7 +285,7 @@ namespace GolfBag.Controllers
 
         public string DatesPlayedCourse(int id)
         {
-            var rounds = _roundOfGolf.GetAllRounds(User.Identity.Name);
+            var rounds = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id);
             string datesPlayedCourse = "";
 
             foreach (var round in rounds)
@@ -304,7 +305,7 @@ namespace GolfBag.Controllers
         private RoundOfGolfViewModel GetRoundOfGolfViewModel(int id)
         {
             RoundOfGolf roundOfGolf = _roundOfGolf.GetRound(id);
-            List<RoundOfGolf> roundsOfGolf = _roundOfGolf.GetAllRounds(User.Identity.Name).ToList();
+            List<RoundOfGolf> roundsOfGolf = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id).ToList();
             Course course = _roundOfGolf.GetCourse(roundOfGolf.CourseId);
             RoundOfGolfViewModel roundOfGolfViewModel = RoundOfGolfViewModel.MapRoundOfGolfToRoundOfGolfViewModel(
                                                             roundOfGolf,
@@ -312,6 +313,11 @@ namespace GolfBag.Controllers
                                                             course,
                                                             User.Identity.Name);
             return roundOfGolfViewModel;
+        }
+
+        private async Task<User> GetCurrentUserAsync()
+        {
+            return await _userManager.GetUserAsync(User);
         }
     }
 }

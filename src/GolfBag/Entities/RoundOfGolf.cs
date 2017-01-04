@@ -15,6 +15,8 @@ namespace GolfBag.Entities
 
         public string PlayerName { get; set; }
 
+        public string PlayerId { get; set; }
+
         public int CourseId { get; set; }
 
         public int TeeBoxPlayed { get; set; }
