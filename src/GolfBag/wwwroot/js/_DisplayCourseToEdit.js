@@ -357,17 +357,13 @@ $(function () {
 
         if (roundIsAssociatedWithCourse()) {
             return false;
+        } else {
+            $("#modal-header-p").text("Delete " + $courseName + " course.");
+            $("#modal-body-h1").text("Are you sure you want to delete the " + $courseName + " course?");
+            $("#delete-confirm-button").removeClass("hidden");
+            $("#cancel-button").text("Don't Delete");
+            $modal.modal("show");
         }
-
-        $.ajax({
-            type: "POST",
-            async: false,
-            url: "/RoundOfGolf/DeleteCourse/",
-            data: { "courseId": $courseId },
-            success: function (data) {
-                location.replace(data);
-            }
-        });
     };
 
     $(document).on("click", "#delete-course-button", deleteCourse);

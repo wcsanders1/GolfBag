@@ -261,12 +261,12 @@ namespace GolfBag.Controllers
             return RedirectToAction("ViewRounds");
         }
 
-        [HttpPost]
+        //[HttpPost]
         public IActionResult DeleteCourse(int courseId)
         {
             var course = _roundOfGolf.GetCourse(courseId);
             _roundOfGolf.DeleteCourse(course);
-            return Json(Url.Action("EditCourses", "RoundOfGolf"));
+            return RedirectToAction("EditCourses");
         }
 
         public string DatesPlayedTeebox(int id)

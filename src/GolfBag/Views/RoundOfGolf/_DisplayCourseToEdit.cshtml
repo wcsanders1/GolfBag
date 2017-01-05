@@ -167,7 +167,9 @@
                 <h2 id="modal-body-h2"></h2>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-success" data-dismiss="modal">OK</button>
+                <a id="delete-confirm-button" class="btn btn-warning hidden"
+                   asp-action="DeleteCourse" asp-controller="RoundOfGolf" asp-route-courseId="@Model.Id">Delete Course</a>
+                <button id="cancel-button" class="btn btn-success" data-dismiss="modal">OK</button>
             </div>
         </div>
     </div>

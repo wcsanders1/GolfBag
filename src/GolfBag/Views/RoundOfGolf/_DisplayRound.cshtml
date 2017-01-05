@@ -182,7 +182,7 @@
                             int totalYardage = 0;
                             if (teeBox.Id != Model.IdOfTeeBoxPlayed)
                             {
-                                <tr class="@teeBox.Id collapse teebox-not-played">
+                                <tr class="@teeBox.Id collapse teebox-not-played" data-teebox-id="@teeBox.Id">
                                     <td>@teeBox.Name</td>
                                     @for (int i = 9; i < 18; i++)
                                     {
