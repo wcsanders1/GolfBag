@@ -1,9 +1,36 @@
 ﻿/***********************************************************************************
-                        AJAX
+                        AJAX AND JQUERY FORM VALIDATION
  **********************************************************************************/
 
 $(function () {
     "use strict";
+
+    var validateForm = function ($form) {
+
+        $form.validate();
+
+        $(".score").each(function () {
+            $(this).rules("add", {
+                required: true,
+                range: [1, 99],
+                messages: {
+                    required: "You must enter a score",
+                    range: "Be a good man"
+                }
+            })
+        });
+
+        $form.data("validator").settings.onfocusout = function (element) { $(element).valid(); };
+        $form.data("validator").settings.showErrors = function (errorMap, errorList) {
+            this.defaultShowErrors();
+            $("#error-container").empty();
+            $(".field-validation-error span", $form)
+                .clone()
+                .appendTo("#error-container")
+                .wrap("<li>");
+
+        };
+    };
 
     var ajaxGetCourse = function () {
         var $course = $(this),
@@ -17,6 +44,8 @@ $(function () {
             var $target = $($course.attr("data-target"));
             var $newHtml = $(data);
             $target.html($newHtml);
+            $.validator.unobtrusive.parse("#nine-holes");
+            validateForm($("#nine-holes"));
         });
     };
 

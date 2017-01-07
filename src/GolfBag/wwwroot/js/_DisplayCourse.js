@@ -1,4 +1,8 @@
-﻿$(function () {
+﻿/******************************************************************************
+            TOGGLES FRONT AND BACK NINES
+*******************************************************************************/
+
+$(function () {
     "use strict";
 
     var toggleNines = function () {
@@ -36,4 +40,16 @@
 
     $(document).on("change", "#front-nine-checkbox", toggleNines);
     $(document).on("change", "#back-nine-checkbox", toggleNines);
+});
+
+
+
+/******************************************************************************
+            FORM VALIDATION
+*******************************************************************************/
+
+$(function () {
+    "use strict";
+
+
 });

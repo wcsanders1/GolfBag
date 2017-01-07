@@ -1,12 +1,13 @@
 {
-	"name": "asp.net",
-	"private": true,
+  "name": "asp.net",
+  "private": true,
   "dependencies": {
     "underscore": "1.8.3",
     "bootstrap": "3.3.7",
     "jquery": "3.1.1",
     "jquery-validation": "1.15.1",
     "jquery-validation-unobtrusive": "3.2.6",
-    "font-awesome": "4.7.0"
+    "font-awesome": "4.7.0",
+    "angular": "1.5.7"
   }
 }

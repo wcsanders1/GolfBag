@@ -1,4 +1,12 @@
 ﻿@model List<string>
+@{
+    ViewBag.Title = "Enter Score";
+}
+@*@section Scripts {
+    <script src="~/lib/angular/angular.min.js"></script>
+    <script src="~/js/AngularControllers/app-enter-score.js"></script>
+    <script src="~/js/AngularControllers/enterScoreController.js"></script>
+}*@
 
 <div class="dropdown">
     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
@@ -22,6 +30,12 @@
     <a class="btn btn-primary" asp-action="EnterCourse" asp-controller="RoundOfGolf">Enter Another Course</a>
     <a class="btn btn-primary" asp-action="EditCourses" asp-controller="RoundOfGolf">Edit Courses</a>
 </div>
+
+@*<div ng-app="app-enter-score">
+    <div ng-controller="enterScoreController as vm">
+        {{vm.name}}
+    </div>
+</div>*@
 
 <div id="display-course"></div>
 

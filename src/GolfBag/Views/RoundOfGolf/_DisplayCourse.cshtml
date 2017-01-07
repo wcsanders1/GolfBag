@@ -4,7 +4,7 @@
 
 @if (Model.NumberOfHoles == 9)
 {
-    <form method="post" asp-antiforgery="true"
+    <form novalidate id="nine-holes" method="post" asp-antiforgery="true"
           asp-action="EnterScore" asp-controller="RoundOfGolf"
           asp-route-courseName="@Model.CourseName">
         <label for="date-of-round-input">Date of Round</label>
@@ -17,6 +17,7 @@
                 <option value="@teeBox.Id">@teeBox.Name</option>
             }
         </select>
+
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
                 <tbody>
@@ -50,7 +51,8 @@
                         @for (int i = 0; i < 9; i++)
                         {
                             <td>
-                                <input class="number-input" asp-for="FrontNineScores[i]" />
+                                <input class="number-input score" asp-for="FrontNineScores[i]" />
+                                @Html.ValidationMessageFor(m => m.FrontNineScores[i], null, new { style = "display: none" })
                             </td>
                         }
                     </tr>
@@ -60,9 +62,12 @@
         <label for="comment-input-2">Enter Comment</label>
         <textarea asp-for="@Model.Comment" class="well comment-box"></textarea>
         <div class="btn-group">
-            <input class="btn btn-success" type="submit" value="Save Round" />
+            <input id="nine-hole-submit" class="btn btn-success" type="submit" value="Save Round" />
             <a class="btn btn-default" asp-action="EnterScore" asp-controller="RoundOfGolf">Cancel</a>
         </div>
+        <ul id="error-container">
+
+        </ul>
     </form>
 }
 else
