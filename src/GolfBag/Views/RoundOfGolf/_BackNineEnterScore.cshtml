@@ -18,22 +18,38 @@
                     <td>@Model.Pars[i]</td>
                 }
             </tr>
-            @foreach (var teeBox in Model.TeeBoxes)
+            @for (int i = 0; i < Model.TeeBoxes.Count; i++)
             {
-                <tr>
-                    <td>@teeBox.Name</td>
-                    @for (int i = 9; i < 18; i++)
-                    {
-                        <td>@teeBox.Tees[i].Yardage</td>
-                    }
-                </tr>
+                if (i == 0)
+                {
+                    <tr class="teebox-played" data-teebox-id="@Model.TeeBoxes[i].Id">
+                        <td class="teebox-played">@Model.TeeBoxes[i].Name</td>
+                        @for (int x = 9; x < 18; x++)
+                        {
+                            <td class="teebox-played">@Model.TeeBoxes[i].Tees[x].Yardage</td>
+                        }
+                    </tr>
+                }
+                else
+                {
+                    <tr data-teebox-id="@Model.TeeBoxes[i].Id">
+                        <td>@Model.TeeBoxes[i].Name</td>
+                        @for (int x = 9; x < 18; x++)
+                        {
+                            <td>@Model.TeeBoxes[i].Tees[x].Yardage</td>
+                        }
+                    </tr>
+
+                }
             } 
             <tr>
                 <td>Enter Scores</td>
                 @for (int i = 0; i < 9; i++)
                 {
+                    int holeNumber = i + 10;
                     <td>
-                        <input class="number-input" asp-for="BackNineScores[i]" required min="1" max="99" />
+                        <input class="number-input score" data-hole-number="@holeNumber" asp-for="BackNineScores[i]" />
+                        @Html.ValidationMessageFor(m => m.BackNineScores[i], null, new { style = "display: none" })
                     </td>
                 }
             </tr>
