@@ -28,6 +28,7 @@
       "type": "platform",
       "version": "1.0.0"
     },
+    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
     "jQuery-vsdoc": "2.1.0"
   },
   "frameworks": {

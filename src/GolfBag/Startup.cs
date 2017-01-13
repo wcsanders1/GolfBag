@@ -81,6 +81,7 @@ namespace GolfBag
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
             }
 
             app.UseFileServer();
@@ -89,7 +90,7 @@ namespace GolfBag
 
             app.UseIdentity();
 
-            app.UseMvc(ConfigureRoutes);
+            app.UseMvc(ConfigureRoutes);           
         }
 
         private void ConfigureRoutes(IRouteBuilder routeBuilder)
