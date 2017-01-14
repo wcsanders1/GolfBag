@@ -23,9 +23,7 @@
     -ms-flex-direction: @direction;
     flex-direction: @direction;
 }*/
-/*.rounded-corners-all(@size: 5px) {  // 5px is the default in case no argument passed
-    
-}
+/*
 
 .rounded-corners-all(@size, @color) {  // can overload mixins
 

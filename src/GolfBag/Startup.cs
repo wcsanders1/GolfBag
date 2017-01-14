@@ -54,7 +54,6 @@ namespace GolfBag
             });
 
             services.AddDbContext<ScoreCardDbContext>();
-            //services.AddDbContext<RoundOfGolfDbContext>();
 
             services.AddSingleton(_config);
             services.AddSingleton<IGreeter, Greeter>();

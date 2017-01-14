@@ -2,7 +2,7 @@
 
 <h1>@Model.CourseName</h1>
 
-<form method="post" asp-antiforgery="true"
+<form novalidate class="writable-scorecard" method="post" asp-antiforgery="true"
       asp-action="SaveRoundChanges" asp-controller="RoundOfGolf">
     @Html.HiddenFor(m => m.Id)
     <input asp-for="DateOfRound" value="@Model.DateOfRound.ToString("D")"
@@ -68,7 +68,11 @@
                         <td>Scores</td>
                         @for (int i = 0; i < 9; i++)
                         {
-                            <td class="number-input">@Html.EditorFor(m => m.FrontNineScores[i])</td>
+                            int holeNumber = i + 1;
+                            <td>
+                                <input class="number-input score" data-hole-number="@holeNumber" asp-for="FrontNineScores[i]" />
+                                @Html.ValidationMessageFor(m => m.FrontNineScores[i], null, new { style = "display: none" })
+                            </td>
                         }
                     </tr>
 
@@ -136,7 +140,11 @@
                         <td>Scores</td>
                         @for (int i = 0; i < 9; i++)
                         {
-                            <td class="number-input">@Html.EditorFor(m => m.BackNineScores[i])</td>
+                            int holeNumber = i + 10;
+                            <td>
+                                <input class="number-input score" data-hole-number="@holeNumber" asp-for="BackNineScores[i]" />
+                                @Html.ValidationMessageFor(m => m.BackNineScores[i], null, new { style = "display: none" })
+                            </td>
                         }
                     </tr>
                 </tbody>
@@ -155,6 +163,8 @@
         </a>
     </div>
 </form>
+
+<ul class="error-container"></ul>
 
 <div class="modal fade" id="delete-dialog" tabindex="-1">
     <div class="modal-dialog">

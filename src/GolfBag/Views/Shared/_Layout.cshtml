@@ -23,6 +23,10 @@
     @*<script type="text/javascript" src="~/lib/jquery-ui/external/jquery/jquery.js"></script>    THIS CONFLICTS WITH STRIPED TABLES JS FUNCTION*@
     <script type="text/javascript" src="~/lib/jquery-ui/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 
+    <script type="text/javascript" src="~/js/validator.js"></script>
+    <script type="text/javascript" src="~/js/globalFunctions.js"></script>
+    <script type="text/javascript" src="~/js/site.js"></script>
+
 </head>
 <body>
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -40,9 +44,6 @@
         @await Component.InvokeAsync("Greeting")
     </footer>
 
-    <script type="text/javascript" src="~/js/validator.js"></script>
-    <script type="text/javascript" src="~/js/globalFunctions.js"></script>
-    <script type="text/javascript" src="~/js/site.js"></script>
     @RenderSection("Scripts", false)
 </body>
 

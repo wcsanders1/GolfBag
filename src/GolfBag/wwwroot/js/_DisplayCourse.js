@@ -16,34 +16,28 @@ $(function () {
                 data: $checkbox.serialize()
             };
 
-        var _validate = function () {
-            $.validator.unobtrusive.parse(".writable-scorecard");
-            validateForm($(".writable-scorecard"));
-        };
-
         if ($checkbox.prop("checked")) {
             $.ajax(options).done(function (data) {
                 var $newHtml = $(data);
                 $target.html($newHtml);
-                _validate();
+                //_validate();
                 stripeRow($(".teebox-selector"));
             });
         } else {
             $target.empty();
+            validateForm($(".writable-scorecard"), true);
         }
 
         if (!$frontNineCheckbox.prop("checked")) {
             $backNineCheckbox.attr("disabled", true);
         } else {
             $backNineCheckbox.attr("disabled", false);
-            _validate();
         }
 
         if (!$backNineCheckbox.prop("checked")) {
             $frontNineCheckbox.attr("disabled", true);
         } else {
             $frontNineCheckbox.attr("disabled", false);
-            _validate();
         }
     };
 

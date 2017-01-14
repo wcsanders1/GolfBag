@@ -17,7 +17,7 @@ $(function () {
             var $target = $($course.attr("data-target"));
             var $newHtml = $(data);
             $target.html($newHtml);
-            $.validator.unobtrusive.parse(".writable-scorecard");
+            $.validator.unobtrusive.parse($(".writable-scorecard"));
             validateForm($(".writable-scorecard"));
         });
     };

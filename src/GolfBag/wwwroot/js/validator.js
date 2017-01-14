@@ -2,7 +2,7 @@
             GLOBAL VALIDATION FUNCTIONS
 **********************************************************************************/
 
-var validateForm = function ($form) {
+var validateForm = function ($form, makeMessagesNow) {
     "use strict";
 
     var $errorContainer = $(".error-container");
@@ -82,6 +82,8 @@ var validateForm = function ($form) {
         }
     };
 
+    
+
     $form.validate();
 
     $errorContainer.empty();
@@ -112,4 +114,8 @@ var validateForm = function ($form) {
             makeAndShowErrorMessages();
         });
     });
+
+    if (makeMessagesNow) {
+        makeAndShowErrorMessages();
+    }
 };
