@@ -2,15 +2,41 @@
             GLOBAL VALIDATION OBJECTS AND FUNCTIONS
 **********************************************************************************/
 
+
+/*****************************************
+    CUSTOM VALIDATION FUNCTIONS
+*****************************************/
+
 var customValidations = {
-    validateElement: function ($element, validationClass) {
+    validateElement: function ($element, validationClassnName) {
         "use strict";
 
         if (!($element.valid())) {
-            $element.addClass(validationClass);
+            $element.addClass(validationClassName);
         } else {
-            $element.removeClass(validationClass);
+            $element.removeClass(validationClassName);
         }
+    },
+    bindValidationToElement: function ($element, validationClassName, messageFunction) {
+        "use strict";
+
+        $element.on("focusout keyup", function (e) {
+            var code = e.keyCode || e.which;
+            if (code != 9) {                        //RETURNS FALSE IF TAB KEY
+                customValidations.validateElement($element, validationClassName);
+                messageFunction();
+            }
+        });
+    },
+    bindValidationToSubmit: function ($form, $element, validationClassName, messageFunction) {
+        "use strict";
+
+        $form.on("invalid-form.validate", function () {
+            $element.each(function () {
+                customValidations.validateElement($(this), validationClassName);
+                messageFunction();
+            });
+        });
     },
     turnArrayToMessage: function (array) {
         "use strict";
@@ -37,6 +63,11 @@ var customValidations = {
         $(".error-container").empty().append($message);
     }
 };
+
+
+/*****************************************
+    SCORE VALIDATOR
+*****************************************/
 
 var scoreValidator = {
     makeAndShowErrorMessages: function () {
@@ -85,31 +116,11 @@ var scoreValidator = {
     },
     validateScores: function ($form, makeMessagesNow) {
         "use strict";
-         
-        var bindValidationToElement = function ($element) {
-            $element.on("focusout keyup", function (e) {
-                var code = e.keyCode || e.which;
-                if (code != 9) {                        //RETURNS FALSE IF TAB KEY
-                    customValidations.validateElement($element, "invalid-score");
-                    scoreValidator.makeAndShowErrorMessages();
-                }
-            });
-        };
-
-        var bindValidationToSubmit = function ($form) {
-            $form.on("invalid-form.validate", function () {
-                $(".score").each(function () {
-                    customValidations.validateElement($(this), "invalid-score");
-                    scoreValidator.makeAndShowErrorMessages();
-                    
-                });
-            });
-        };
 
         var makeRules = function ($form) {
             $(".score").each(function () {
-                var $holeNumber = $(this).attr("data-hole-number"),
-                    $element = $(this);
+                var $element = $(this);
+
                 $element.rules("add", {
                     required: true,
                     range: [1, 99],
@@ -118,9 +129,9 @@ var scoreValidator = {
                         range: "range"
                     }
                 });
-                bindValidationToElement($element);
+                customValidations.bindValidationToElement($element, "invalid-score", scoreValidator.makeAndShowErrorMessages);
             });
-            bindValidationToSubmit($form);
+            customValidations.bindValidationToSubmit($form, $(".score"), "invalid-score", scoreValidator.makeAndShowErrorMessages);
         };
         makeRules($form);
         if (makeMessagesNow) {
@@ -129,18 +140,91 @@ var scoreValidator = {
     }
 };
 
+
+
+/*****************************************
+    COURSE NAME VALIDATOR
+*****************************************/
+
+var courseNameValidator = {
+    makeAndShowErrorMessages: function () {
+        var messageArray = [],
+            requiredMessage = "",
+            rangeMessage = "",
+            $errorContainer = $(".error-container");
+
+        $errorContainer.empty();
+
+        $(".course-name").each(function () {
+            if ($(this).hasClass("invalid-course-name")) {
+                var error = $(this).siblings(".field-validation-error").find("span").text();
+                if (error == "required") {
+                    requiredMessage = "Please enter the name of the course."
+                } else if (error == "maxlength") {
+                    rangeMessage = "The course name cannot be more than 50 characters long."
+                }
+            }
+        });
+
+        if (requiredMessage != "") {
+            messageArray.push(requiredMessage);
+        }
+
+        if (rangeMessage != "") {
+            messageArray.push(rangeMessage);
+        }
+
+        if (messageArray.length > 0) {
+            customValidations.showMessages(messageArray);
+        }
+    },
+    validateCourseNames: function ($form, makeMessagesNow) {
+        "use strict";
+
+        var makeRules = function ($form) {
+            $(".course-name").each(function () {
+                var $element = $(this);
+                $element.rules("add", {
+                    required: true,
+                    maxlength: 50,
+                    messages: {
+                        required: "required",
+                        maxlength: "maxlength"
+                    }
+                });
+                customValidations.bindValidationToElement($element, "invalid-course-name", courseNameValidator.makeAndShowErrorMessages);
+            });
+            customValidations.bindValidationToSubmit($form, $(".course-name"), "invalid-course-name", courseNameValidator.makeAndShowErrorMessages);
+        };
+
+        makeRules($form);
+        if (makeMessagesNow) {
+            courseNameValidator.makeAndShowErrorMessages();
+        }
+    }
+};
+
+
+
+/*****************************************
+    VALIDATOR
+*****************************************/
+
 var validateForm = function ($form, makeMessagesNow) {
     "use strict";
 
     var $errorContainer = $(".error-container");
 
     $form.removeData("validator").removeData("unobtrusiveValidation");
-
     $.validator.unobtrusive.parse($form);
-
     $errorContainer.empty();
 
     if ($form.find(".score")) {
         scoreValidator.validateScores($form, makeMessagesNow);
+    }
+
+    if ($form.find(".course-name")) {
+        console.log("validating coursename");
+        courseNameValidator.validateCourseNames($form, makeMessagesNow);
     }
 };

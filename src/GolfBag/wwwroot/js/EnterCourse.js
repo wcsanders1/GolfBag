@@ -48,3 +48,15 @@
     $("#input-eighteen").on("change", backNine);
     $("#tee-box-number-selector").on("change", configureTeeBoxes);
 });
+
+
+
+/*********************************************************************************************
+               JQUERY VALIDATOR ON FORM
+*********************************************************************************************/
+
+$(function () {
+    "use strict";
+
+    validateForm($(".writable-scorecard"), false);
+});

@@ -5,9 +5,10 @@
     <h1>@ViewBag.Message</h1>
 </div>
 
-<form method="post" asp-antiforgery="true" asp-controller="RoundOfGolf" asp-action="EnterCourse">
+<form novalidate class="writable-scorecard" method="post" asp-antiforgery="true" asp-controller="RoundOfGolf" asp-action="EnterCourse">
     <label asp-for="CourseName">Course Name</label>
-    <input asp-for="CourseName" />
+    <input class="course-name" asp-for="CourseName" />
+    @Html.ValidationMessageFor(m => m.CourseName, null, new { style = "display: none" })
 
     <label asp-for="NumberOfHoles">Number of Holes</label>
     <div class="btn-group btn-group-sm">
@@ -101,5 +102,7 @@
         <a class="btn btn-default" href="javascript:void(0);" onclick="history.go(-1);">Cancel</a>
     </div>
 </form>
+
+<div class="error-container"></div>
 
 <script type="text/javascript" src="~/js/EnterCourse.js"></script>
