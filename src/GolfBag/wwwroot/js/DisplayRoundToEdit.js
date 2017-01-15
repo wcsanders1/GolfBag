@@ -20,10 +20,5 @@ $(function () {
 $(function () {
     "use strict";
 
-    var $scorecard = $(".writable-scorecard");
-
-    $scorecard.removeData("validator").removeData("unobtrusiveValidation");
-
-    $.validator.unobtrusive.parse($(".writable-scorecard"));
-    validateForm($(".writable-scorecard"));
+    validateForm($(".writable-scorecard"), false);
 });

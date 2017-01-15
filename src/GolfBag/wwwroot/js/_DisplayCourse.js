@@ -20,8 +20,8 @@ $(function () {
             $.ajax(options).done(function (data) {
                 var $newHtml = $(data);
                 $target.html($newHtml);
-                //_validate();
                 stripeRow($(".teebox-selector"));
+                validateForm($(".writable-scorecard"), true);
             });
         } else {
             $target.empty();
