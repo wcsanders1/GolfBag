@@ -80,16 +80,17 @@ li {
 }
 
 .error-container {
-    list-style: none;
     padding: 0;
-    li {
-        color: darken(@redText, 20%);
-        font-size: 2rem;
+    color: darken(@redText, 20%);
+    font-size: 2rem;
+    p {
+        margin: 0;
     }
 }
 
 .invalid-score,
-.invalid-course-name {
+.invalid-course-name,
+.invalid-par {
     border-color: @redText;
 }
 

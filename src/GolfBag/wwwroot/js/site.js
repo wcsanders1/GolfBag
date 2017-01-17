@@ -18,7 +18,7 @@ $(function () {
             var $newHtml = $(data);
             $target.html($newHtml);
             $.validator.unobtrusive.parse($(".writable-scorecard"));
-            validateForm($(".writable-scorecard"));
+            validateForm($(".writable-scorecard"), false, false);
         });
     };
 

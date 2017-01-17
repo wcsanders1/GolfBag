@@ -8,7 +8,7 @@
 *****************************************/
 
 var customValidations = {
-    validateElement: function ($element, validationClassnName) {
+    validateElement: function ($element, validationClassName) {
         "use strict";
 
         if (!($element.valid())) {
@@ -31,7 +31,8 @@ var customValidations = {
     bindValidationToSubmit: function ($form, $element, validationClassName, messageFunction) {
         "use strict";
 
-        $form.on("invalid-form.validate", function () {
+        //$form.on("invalid-form.validate", function () {
+        $(".custom-submit").on("click", function () {
             $element.each(function () {
                 customValidations.validateElement($(this), validationClassName);
                 messageFunction();
@@ -51,16 +52,20 @@ var customValidations = {
         }
         return message;
     },
-    showMessages: function (messages) {
+    showMessages: function (messages, $errorElement) {
         "use strict";
 
-        var $message = "";
+        var $message = "";  //"<div class='" + errorClass + "'>";
 
         for (var i = 0; i < messages.length; i++) {
-            $message += "<li>" + messages[i] + "</li>"
+            $message += "<p>" + messages[i] + "</p>"
         }
 
-        $(".error-container").empty().append($message);
+        //$message += "</div>";
+
+        $errorElement.empty();
+        $errorElement.append($message);
+        //$(".error-container").append($message);
     }
 };
 
@@ -75,10 +80,9 @@ var scoreValidator = {
             rangeArray = [],
             messageArray = [],
             requiredMessage = "",
-            rangeMessage = "",
-            $errorContainer = $(".error-container");
+            rangeMessage = "";
 
-        $errorContainer.empty();
+        $(".score-errors").empty();
 
         $(".score").each(function () {
             if ($(this).hasClass("invalid-score")) {
@@ -111,7 +115,7 @@ var scoreValidator = {
         }
         
         if (messageArray.length > 0) {
-            customValidations.showMessages(messageArray);
+            customValidations.showMessages(messageArray, $(".score-errors"));
         }
     },
     validateScores: function ($form, makeMessagesNow) {
@@ -133,7 +137,10 @@ var scoreValidator = {
             });
             customValidations.bindValidationToSubmit($form, $(".score"), "invalid-score", scoreValidator.makeAndShowErrorMessages);
         };
+
         makeRules($form);
+        $(".error-container").append("<div class='score-errors'></div>");
+
         if (makeMessagesNow) {
             scoreValidator.makeAndShowErrorMessages();
         }
@@ -150,10 +157,9 @@ var courseNameValidator = {
     makeAndShowErrorMessages: function () {
         var messageArray = [],
             requiredMessage = "",
-            rangeMessage = "",
-            $errorContainer = $(".error-container");
+            rangeMessage = "";
 
-        $errorContainer.empty();
+        $(".course-name-errors").empty();
 
         $(".course-name").each(function () {
             if ($(this).hasClass("invalid-course-name")) {
@@ -175,7 +181,7 @@ var courseNameValidator = {
         }
 
         if (messageArray.length > 0) {
-            customValidations.showMessages(messageArray);
+            customValidations.showMessages(messageArray, $(".course-name-errors"));
         }
     },
     validateCourseNames: function ($form, makeMessagesNow) {
@@ -198,8 +204,89 @@ var courseNameValidator = {
         };
 
         makeRules($form);
+        $(".error-container").append("<div class='course-name-errors'></div>");
+
         if (makeMessagesNow) {
             courseNameValidator.makeAndShowErrorMessages();
+        }
+    }
+};
+
+
+
+/*****************************************
+    PAR VALIDATOR
+*****************************************/
+
+var parValidator = {
+    makeAndShowErrorMessages: function () {
+        var requiredArray = [],
+            rangeArray = [],
+            messageArray = [],
+            requiredMessage = "",
+            rangeMessage = "";
+
+        $(".par-errors").empty();
+
+        $(".par").each(function () {
+            if ($(this).hasClass("invalid-par")) {
+                var error = $(this).siblings(".field-validation-error").find("span").text(),
+                    holeNumber = $(this).data("hole-number");
+                if (error == "required") {
+                    requiredArray.push(holeNumber);
+                } else if (error == "range") {
+                    rangeArray.push(holeNumber);
+                }
+            }
+        });
+
+        if (requiredArray.length > 0) {
+            if (requiredArray.length == 1) {
+                requiredMessage = "Enter a par for the following hole:" + customValidations.turnArrayToMessage(requiredArray);
+            } else {
+                requiredMessage = "Enter a par for the following holes:" + customValidations.turnArrayToMessage(requiredArray);
+            }
+            messageArray.push(requiredMessage);
+        }
+
+        if (rangeArray.length > 0) {
+            if (rangeArray.length == 1) {
+                rangeMessage = "The par for the following hole must be between 1 and 9:" + customValidations.turnArrayToMessage(rangeArray);
+            } else {
+                rangeMessage = "Pars for the following holes must be between 1 and 9:" + customValidations.turnArrayToMessage(rangeArray);
+            }
+            messageArray.push(rangeMessage);
+        }
+
+        if (messageArray.length > 0) {
+            customValidations.showMessages(messageArray, $(".par-errors"));
+        }
+    },
+    validatePars: function ($form, makeMessagesNow) {
+        "use strict";
+
+        var makeRules = function ($form) {
+            $(".par").each(function () {
+                var $element = $(this);
+
+                $element.rules("add", {
+                    required: true,
+                    range: [1, 9],
+                    messages: {
+                        required: "required",
+                        range: "range"
+                    }
+                });
+                customValidations.bindValidationToElement($element, "invalid-par", parValidator.makeAndShowErrorMessages);
+            });
+            customValidations.bindValidationToSubmit($form, $(".par"), "invalid-par", parValidator.makeAndShowErrorMessages);
+        };
+
+        makeRules($form);
+        $(".error-container").append("<div class='par-errors'></div>");
+
+        if (makeMessagesNow) {
+            parValidator.makeAndShowErrorMessages();
         }
     }
 };
@@ -210,21 +297,42 @@ var courseNameValidator = {
     VALIDATOR
 *****************************************/
 
-var validateForm = function ($form, makeMessagesNow) {
+var validateForm = function ($form, makeMessagesNow, turnOff) {
     "use strict";
 
     var $errorContainer = $(".error-container");
 
     $form.removeData("validator").removeData("unobtrusiveValidation");
+    $form.removeData();
+
+    if (turnOff) {
+        $form.off();
+    }
+
     $.validator.unobtrusive.parse($form);
     $errorContainer.empty();
 
-    if ($form.find(".score")) {
+    if ($form.find(".score").length != 0) {
         scoreValidator.validateScores($form, makeMessagesNow);
     }
 
-    if ($form.find(".course-name")) {
-        console.log("validating coursename");
+    if ($form.find(".course-name").length != 0) {
         courseNameValidator.validateCourseNames($form, makeMessagesNow);
+    }
+
+    if ($form.find(".par").length != 0) {
+        parValidator.validatePars($form, makeMessagesNow);
+    }
+};
+
+var validateCustom = function ($form) {
+    if ($(".error-container").has("p").length != 0) {
+        console.log("erroring");
+
+        return false;
+    } else {
+        console.log("submitting");
+
+        //$form.submit();
     }
 };

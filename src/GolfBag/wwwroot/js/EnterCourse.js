@@ -36,9 +36,13 @@
             $.ajax(options).done(function (data) {
                 var $newHtml = $(data);
                 $target.html($newHtml);
+                $(".custom-submit").off();
+                validateForm($(".writable-scorecard"), true, false);
             });
         } else {
             $target.empty();
+            $(".custom-submit").off();
+            validateForm($(".writable-scorecard"), true, true);
         }
 
         configureTeeBoxes();
@@ -58,5 +62,11 @@
 $(function () {
     "use strict";
 
-    validateForm($(".writable-scorecard"), false);
+    validateForm($(".writable-scorecard"), false, false);
+
+    var validateThis = function () {
+        validateCustom($(".writeable-scorecard"));
+    };
+
+    $(document).on("click", ".custom-submit", validateThis);
 });

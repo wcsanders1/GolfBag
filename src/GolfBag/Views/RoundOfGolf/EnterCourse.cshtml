@@ -54,7 +54,11 @@
                     <td>Enter Par</td>
                     @for (int i = 0; i < 9; i++)
                     {
-                        <td class="number-input">@Html.EditorFor(m => m.Pars[i])</td>
+                        int holeNumber = i + 1;
+                        <td>
+                            <input class="number-input par" data-hole-number="@holeNumber" asp-for="Pars[i]" />
+                            @Html.ValidationMessageFor(m => m.Pars[i], null, new { style = "display: none" })
+                        </td>
                     }
                 </tr>
 
@@ -98,7 +102,8 @@
     <div id="back-nine"></div>
 
     <div class="btn-group">
-        <input class="btn btn-success" type="submit" value="Save" />
+        <button class="btn btn-success custom-submit" type="button">Save</button>
+        @*<input class="btn btn-success" type="submit" value="Save" />*@
         <a class="btn btn-default" href="javascript:void(0);" onclick="history.go(-1);">Cancel</a>
     </div>
 </form>

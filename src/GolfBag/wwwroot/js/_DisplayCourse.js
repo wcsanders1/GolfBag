@@ -21,11 +21,13 @@ $(function () {
                 var $newHtml = $(data);
                 $target.html($newHtml);
                 stripeRow($(".teebox-selector"));
-                validateForm($(".writable-scorecard"), true);
+                $(".custom-submit").off();
+                validateForm($(".writable-scorecard"), true, true);
             });
         } else {
             $target.empty();
-            validateForm($(".writable-scorecard"), true);
+            $(".custom-submit").off();
+            validateForm($(".writable-scorecard"), true, true);
         }
 
         if (!$frontNineCheckbox.prop("checked")) {
@@ -59,4 +61,20 @@ $(function () {
     }
 
     $(document).on("change", ".teebox-selector", stripe);
+});
+
+
+
+/******************************************************************************
+            CUSTOM SUBMIT BUTTON
+*******************************************************************************/
+
+$(function () {
+    "use strict";
+
+    var validateThis = function () {
+        validateCustom($(".writeable-scorecard"));
+    };
+
+    $(document).on("click", ".custom-submit",  validateThis);
 });

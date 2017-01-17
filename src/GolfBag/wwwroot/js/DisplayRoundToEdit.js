@@ -21,4 +21,10 @@ $(function () {
     "use strict";
 
     validateForm($(".writable-scorecard"), false);
+
+    var validateThis = function () {
+        validateCustom($(".writeable-scorecard"));
+    };
+
+    $(document).on("click", ".custom-submit", validateThis);
 });

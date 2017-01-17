@@ -116,15 +116,16 @@ li li a {
   align-items: center;
 }
 .error-container {
-  list-style: none;
   padding: 0;
-}
-.error-container li {
   color: #950818;
   font-size: 2rem;
 }
+.error-container p {
+  margin: 0;
+}
 .invalid-score,
-.invalid-course-name {
+.invalid-course-name,
+.invalid-par {
   border-color: #F2112B;
 }
 @media (min-width: 768px) {
