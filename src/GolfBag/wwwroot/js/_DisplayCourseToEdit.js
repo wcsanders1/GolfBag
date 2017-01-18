@@ -368,3 +368,21 @@ $(function () {
 
     $(document).on("click", "#delete-course-button", deleteCourse);
 });
+
+
+
+/*********************************************************************************************
+               JQUERY VALIDATOR ON FORM
+*********************************************************************************************/
+
+$(function () {
+    "use strict";
+
+    validateForm($(".writable-scorecard"), false, false);
+
+    //var validateThis = function () {
+    //    validateCustom($(".writable-scorecard"));
+    //};
+
+    //$(document).on("click", ".custom-submit", validateThis);
+});

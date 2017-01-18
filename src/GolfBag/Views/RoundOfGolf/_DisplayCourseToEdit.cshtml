@@ -1,13 +1,16 @@
 ﻿@model CourseViewModel
 
-<h1>@Model.CourseName</h1>
-
-<form method="post" asp-antiforgery="true"
+<form novalidate class="writable-scorecard" method="post" asp-antiforgery="true"
       asp-action="SaveCourseChanges" asp-controller="RoundOfGolf">
-    @Html.HiddenFor(m => m.CourseName)
+    @*@Html.HiddenFor(m => m.CourseName)*@
     @Html.HiddenFor(m => m.Id)
     @Html.HiddenFor(m => m.NumberOfTeeBoxes)
     @Html.HiddenFor(m => m.NumberOfHoles)
+
+    <h1>
+        <input class="course-name" asp-for="CourseName" />
+        @Html.ValidationMessageFor(m => m.CourseName, null, new { style = "display: none" })
+    </h1>
 
     <div class="table-responsive">
         <table id="front-nine-table" class="table table-bordered table-striped">
@@ -153,6 +156,8 @@
         <a class="btn btn-default" asp-controller="RoundOfGolf" asp-action="EditCourses">Cancel</a>
     </div>
 </form>
+
+<div class="error-container"></div>
 
 <div class="modal fade" id="delete-modal" tabindex="-1">
     <div class="modal-dialog">

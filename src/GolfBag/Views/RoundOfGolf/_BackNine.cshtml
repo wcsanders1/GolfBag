@@ -60,7 +60,12 @@
                 <td>Enter Handicap</td>
                 @for (int i = 9; i < 18; i++)
                 {
-                    <td class="number-input">@Html.EditorFor(m => m.Handicaps[i])</td>
+                    int holeNumber = i + 1;
+                    <td>
+                        <input class="number-input handicap" data-hole-number="@holeNumber" asp-for="Handicaps[i]" />
+                        @Html.ValidationMessageFor(m => m.Handicaps[i], null, new { style = "display: none" })
+                    </td>
+                    @*<td>class="number-input">@Html.EditorFor(m => m.Handicaps[i])</td>*@
                 }
             </tr>
 

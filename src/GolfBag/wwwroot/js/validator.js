@@ -294,6 +294,85 @@ var parValidator = {
 
 
 /*****************************************
+    HANDICAP VALIDATOR
+*****************************************/
+
+var handicapValidator = {
+    makeAndShowErrorMessages: function () {
+        var requiredArray = [],
+            rangeArray = [],
+            messageArray = [],
+            requiredMessage = "",
+            rangeMessage = "";
+
+        $(".handicap-errors").empty();
+
+        $(".handicap").each(function () {
+            if ($(this).hasClass("invalid-handicap")) {
+                var error = $(this).siblings(".field-validation-error").find("span").text(),
+                    holeNumber = $(this).data("hole-number");
+                if (error == "required") {
+                    requiredArray.push(holeNumber);
+                } else if (error == "range") {
+                    rangeArray.push(holeNumber);
+                }
+            }
+        });
+
+        if (requiredArray.length > 0) {
+            if (requiredArray.length == 1) {
+                requiredMessage = "Enter a handicap for the following hole:" + customValidations.turnArrayToMessage(requiredArray);
+            } else {
+                requiredMessage = "Enter a handicap for the following holes:" + customValidations.turnArrayToMessage(requiredArray);
+            }
+            messageArray.push(requiredMessage);
+        }
+
+        if (rangeArray.length > 0) {
+            if (rangeArray.length == 1) {
+                rangeMessage = "The handicap for the following hole must be between 1 and 18:" + customValidations.turnArrayToMessage(rangeArray);
+            } else {
+                rangeMessage = "Handicaps for the following holes must be between 1 and 18:" + customValidations.turnArrayToMessage(rangeArray);
+            }
+            messageArray.push(rangeMessage);
+        }
+
+        if (messageArray.length > 0) {
+            customValidations.showMessages(messageArray, $(".handicap-errors"));
+        }
+    },
+    validateHandicaps: function ($form, makeMessagesNow) {
+        "use strict";
+
+        var makeRules = function ($form) {
+            $(".handicap").each(function () {
+                var $element = $(this);
+
+                $element.rules("add", {
+                    required: true,
+                    range: [1, 9],
+                    messages: {
+                        required: "required",
+                        range: "range"
+                    }
+                });
+                customValidations.bindValidationToElement($element, "invalid-handicap", handicapValidator.makeAndShowErrorMessages);
+            });
+            customValidations.bindValidationToSubmit($form, $(".handicap"), "invalid-handicap", handicapValidator.makeAndShowErrorMessages);
+        };
+
+        makeRules($form);
+        $(".error-container").append("<div class='handicap-errors'></div>");
+
+        if (makeMessagesNow) {
+            handicapValidator.makeAndShowErrorMessages();
+        }
+    }
+};
+
+
+
+/*****************************************
     VALIDATOR
 *****************************************/
 
@@ -323,16 +402,16 @@ var validateForm = function ($form, makeMessagesNow, turnOff) {
     if ($form.find(".par").length != 0) {
         parValidator.validatePars($form, makeMessagesNow);
     }
+
+    if ($form.find(".handicap").length != 0) {
+        handicapValidator.validateHandicaps($form, makeMessagesNow);
+    }
 };
 
 var validateCustom = function ($form) {
     if ($(".error-container").has("p").length != 0) {
-        console.log("erroring");
-
         return false;
     } else {
-        console.log("submitting");
-
-        //$form.submit();
+        $form.submit();
     }
 };

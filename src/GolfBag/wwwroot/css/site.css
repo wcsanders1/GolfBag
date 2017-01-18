@@ -125,7 +125,8 @@ li li a {
 }
 .invalid-score,
 .invalid-course-name,
-.invalid-par {
+.invalid-par,
+.invalid-handicap {
   border-color: #F2112B;
 }
 @media (min-width: 768px) {

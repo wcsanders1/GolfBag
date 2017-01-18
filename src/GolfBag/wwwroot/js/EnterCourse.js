@@ -65,7 +65,7 @@ $(function () {
     validateForm($(".writable-scorecard"), false, false);
 
     var validateThis = function () {
-        validateCustom($(".writeable-scorecard"));
+        validateCustom($(".writable-scorecard"));
     };
 
     $(document).on("click", ".custom-submit", validateThis);

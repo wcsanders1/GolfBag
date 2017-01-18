@@ -90,7 +90,12 @@
                     <td>Enter Handicap</td>
                     @for (int i = 0; i < 9; i++)
                     {
-                        <td class="number-input">@Html.EditorFor(m => m.Handicaps[i])</td>
+                        int holeNumber = i + 1;
+                        <td>
+                            <input class="number-input handicap" data-hole-number="@holeNumber" asp-for="Handicaps[i]" />
+                            @Html.ValidationMessageFor(m => m.Handicaps[i], null, new { style = "display: none" })
+                            @*<td class="number-input">@Html.EditorFor(m => m.Handicaps[i])</td>*@
+                        </td>
                     }
                 </tr>
 
@@ -103,7 +108,6 @@
 
     <div class="btn-group">
         <button class="btn btn-success custom-submit" type="button">Save</button>
-        @*<input class="btn btn-success" type="submit" value="Save" />*@
         <a class="btn btn-default" href="javascript:void(0);" onclick="history.go(-1);">Cancel</a>
     </div>
 </form>
