@@ -60,11 +60,8 @@ var customValidations = {
             $message += "<p>" + messages[i] + "</p>"
         }
 
-        //$message += "</div>";
-
         $errorElement.empty();
         $errorElement.append($message);
-        //$(".error-container").append($message);
     }
 };
 

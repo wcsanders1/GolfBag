@@ -2,7 +2,6 @@
 
 <form novalidate class="writable-scorecard" method="post" asp-antiforgery="true"
       asp-action="SaveCourseChanges" asp-controller="RoundOfGolf">
-    @*@Html.HiddenFor(m => m.CourseName)*@
     @Html.HiddenFor(m => m.Id)
     @Html.HiddenFor(m => m.NumberOfTeeBoxes)
     @Html.HiddenFor(m => m.NumberOfHoles)

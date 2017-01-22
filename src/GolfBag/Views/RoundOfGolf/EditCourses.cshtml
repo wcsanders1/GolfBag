@@ -1,4 +1,4 @@
-﻿@model List<string>
+﻿@model Dictionary<int, string>
 
 <div class="dropdown">
     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
@@ -12,8 +12,8 @@
             <li class="list-group-item">
                 <a data-ajax="true" data-target="#display-course-to-edit"
                    data-action="@Url.Action("EditCourse", "RoundOfGolf",
-                                new { courseName = course })">
-                    @course
+                                new { courseId = course.Key })">
+                    @course.Value
                 </a>
             </li>
         }

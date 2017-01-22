@@ -54,14 +54,14 @@ namespace GolfBag.Controllers
 
             if (courses.Count() > 0)
             {
-                var courseNames = new List<string>();
+                var courseDictionary = new Dictionary<int, string>();
 
                 foreach (var course in courses)
                 {
-                    courseNames.Add(course.CourseName);
+                    courseDictionary.Add(course.Id, course.CourseName);
                 }
 
-                return View(courseNames);
+                return View(courseDictionary);
             }
             ViewBag.Message = "You have no courses saved. Please enter a course before entering a score.";
             return View("EnterCourse");
@@ -83,9 +83,9 @@ namespace GolfBag.Controllers
             return View();
         }
 
-        public IActionResult DisplayCourse(string courseName)
+        public IActionResult DisplayCourse(int courseId)
         {
-            Course course = _roundOfGolf.GetCourse(courseName);
+            Course course = _roundOfGolf.GetCourse(courseId);
             RoundOfGolfViewModel roundOfGolfViewModel = RoundOfGolfViewModel.MapCourseToRoundOfGolfViewModel(course);
 
             return PartialView("_DisplayCourse", roundOfGolfViewModel);
@@ -98,7 +98,7 @@ namespace GolfBag.Controllers
 
         public IActionResult DisplayFrontNineEnterScore(RoundOfGolfViewModel model)
         {
-            Course course = _roundOfGolf.GetCourse(model.CourseName);
+            Course course = _roundOfGolf.GetCourse(model.IdOfCourse);
             RoundOfGolfViewModel roundOfGolfViewModel = RoundOfGolfViewModel.MapCourseToRoundOfGolfViewModel(course);
 
             return PartialView("_FrontNineEnterScore", roundOfGolfViewModel);
@@ -106,7 +106,7 @@ namespace GolfBag.Controllers
 
         public IActionResult DisplayBackNineEnterScore(RoundOfGolfViewModel model)
         {
-            Course course = _roundOfGolf.GetCourse(model.CourseName);
+            Course course = _roundOfGolf.GetCourse(model.IdOfCourse);
             RoundOfGolfViewModel roundOfGolfViewModel = RoundOfGolfViewModel.MapCourseToRoundOfGolfViewModel(course);
 
             return PartialView("_BackNineEnterScore", roundOfGolfViewModel);
@@ -147,23 +147,23 @@ namespace GolfBag.Controllers
 
             if (courses.Count() > 0)
             {
-                var courseNames = new List<string>();
+                var courseDictionary = new Dictionary<int, string>();
 
                 foreach (var course in courses)
                 {
-                    courseNames.Add(course.CourseName);
+                    courseDictionary.Add(course.Id, course.CourseName);
                 }
 
-                return View(courseNames);
+                return View(courseDictionary);
             }
             ViewBag.Message = "You have no courses saved. Please enter a course before entering a score.";
             return View("EnterCourse");
         }
 
         [HttpGet]
-        public IActionResult EditCourse(string courseName)
+        public IActionResult EditCourse(int courseId)
         {
-            var course = _roundOfGolf.GetCourse(courseName);
+            var course = _roundOfGolf.GetCourse(courseId);
             CourseViewModel courseViewModel = CourseViewModel.MapCourseToCourseViewModel(course);
             courseViewModel.ProduceListOfNewTeeBoxes(course);
             courseViewModel.ProduceListOfDeletedTeeBoxes(course);
@@ -174,7 +174,9 @@ namespace GolfBag.Controllers
         [HttpPost]
         public IActionResult SaveCourseChanges(CourseViewModel model)
         {
-            var courseToSave = _roundOfGolf.GetCourse(model.CourseName);
+            var courseToSave = _roundOfGolf.GetCourse(model.Id);
+
+            courseToSave.CourseName = model.CourseName;
             
             for (int i = 0; i < courseToSave.CourseHoles.Count; i++)
             {

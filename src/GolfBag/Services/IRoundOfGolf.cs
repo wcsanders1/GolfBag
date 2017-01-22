@@ -17,7 +17,7 @@ namespace GolfBag.Services
         void SaveRoundEdits(RoundOfGolf round);
         bool DeleteCourse(Course course);
         void DeleteRound(RoundOfGolf round);
-        Course GetCourse(string courseName);
+        //Course GetCourse(string courseName);
         Course GetCourse(int id);
         int GetCourseId(string courseName);
         int Commit();

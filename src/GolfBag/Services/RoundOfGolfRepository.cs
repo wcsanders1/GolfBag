@@ -66,17 +66,17 @@ namespace GolfBag.Services
             return courses;
         }
 
-        public Course GetCourse(string courseName)
-        {
-            Course course = _context.Courses
-                .Where(r => r.CourseName == courseName)
-                .Include(r => r.CourseHoles)                
-                .Include(r => r.TeeBoxes)
-                .ThenInclude(m => m.Tees)
-                .FirstOrDefault();
+        //public Course GetCourse(string courseName)
+        //{
+        //    Course course = _context.Courses
+        //        .Where(r => r.CourseName == courseName)
+        //        .Include(r => r.CourseHoles)
+        //        .Include(r => r.TeeBoxes)
+        //        .ThenInclude(m => m.Tees)
+        //        .FirstOrDefault();
 
-            return OrderCourseProperties(course);
-        }
+        //    return OrderCourseProperties(course);
+        //}
 
         public Course GetCourse(int id)
         {

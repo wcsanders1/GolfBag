@@ -1,4 +1,4 @@
-﻿@model List<string>
+﻿@model Dictionary<int, string>
 @{
     ViewBag.Title = "Enter Score";
 }
@@ -20,8 +20,8 @@
             <li class="list-group-item">
                 <a data-ajax="true" data-target="#display-course"
                    data-action="@Url.Action("DisplayCourse", "RoundOfGolf",
-                                new { courseName = course })">
-                    @course
+                                new { courseId = course.Key })">
+                    @course.Value
                 </a>
             </li>
         }

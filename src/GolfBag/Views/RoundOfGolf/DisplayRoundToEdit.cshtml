@@ -5,6 +5,7 @@
 <form novalidate class="writable-scorecard" method="post" asp-antiforgery="true"
       asp-action="SaveRoundChanges" asp-controller="RoundOfGolf">
     @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.IdOfCourse)
     <input asp-for="DateOfRound" value="@Model.DateOfRound.ToString("D")"
            type="text" readonly class="datepicker" />
     <label for="@Model.IdOfTeeBoxPlayed">Select Tee Box Played</label>

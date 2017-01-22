@@ -360,6 +360,7 @@ $(function () {
         } else {
             $("#modal-header-p").text("Delete " + $courseName + " course.");
             $("#modal-body-h1").text("Are you sure you want to delete the " + $courseName + " course?");
+            $("#modal-body-h2").text("");
             $("#delete-confirm-button").removeClass("hidden");
             $("#cancel-button").text("Don't Delete");
             $modal.modal("show");

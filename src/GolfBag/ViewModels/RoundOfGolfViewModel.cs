@@ -16,6 +16,8 @@ namespace GolfBag.ViewModels
 
         public string CourseName { get; set; }
 
+        public int IdOfCourse { get; set; }
+
         public int IdOfTeeBoxPlayed { get; set; }
 
         public string Comment { get; set; }
@@ -57,6 +59,7 @@ namespace GolfBag.ViewModels
             roundOfGolfViewModel.Pars = MapPars(course);
             roundOfGolfViewModel.Handicaps = MapHandicaps(course);
             roundOfGolfViewModel.CourseName = course.CourseName;
+            roundOfGolfViewModel.IdOfCourse = course.Id;
             roundOfGolfViewModel.NumberOfHoles = course.NumberOfHoles;
             roundOfGolfViewModel.TeeBoxes = course.TeeBoxes;
 
@@ -86,6 +89,7 @@ namespace GolfBag.ViewModels
             roundOfGolfViewModel.DateOfPriorRound = (DateTime)priorRoundType.GetProperty("date").GetValue(priorRound, null);
             roundOfGolfViewModel.DateOfSubsequentRound = (DateTime)subsequentRoundType.GetProperty("date").GetValue(subsequentRound, null);
             roundOfGolfViewModel.CourseName = course.CourseName;
+            roundOfGolfViewModel.IdOfCourse = course.Id;
             roundOfGolfViewModel.NumberOfHoles = roundOfGolf.Scores.Count();
             roundOfGolfViewModel.DateOfRound = roundOfGolf.Date;
             roundOfGolfViewModel.Comment = roundOfGolf.Comment;
