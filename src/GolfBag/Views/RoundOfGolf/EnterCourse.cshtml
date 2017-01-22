@@ -70,7 +70,12 @@
                             <td>@Html.EditorFor(m => m.TeeBoxes[i].Name)</td>
                             @for (int x = 0; x < 9; x++)
                             {
-                                <td class="number-input">@Html.EditorFor(m => m.TeeBoxes[i].Tees[x].Yardage)</td>
+                                int holeNumber = x + 1;
+                                <td class="number-input">
+                                    <input class="number-input teebox" data-hole-number="@holeNumber" asp-for="TeeBoxes[i].Tees[x].Yardage" />
+                                    @Html.ValidationMessageFor(m => m.TeeBoxes[i].Tees[x].Yardage, null, new { style = "display: none" })
+                                    @*@Html.EditorFor(m => m.TeeBoxes[i].Tees[x].Yardage)*@
+                                </td>
                             }
                         </tr>
                     }
@@ -80,7 +85,12 @@
                             <td>@Html.EditorFor(m => m.TeeBoxes[i].Name)</td>
                             @for (int x = 0; x < 9; x++)
                             {
-                                <td class="number-input">@Html.EditorFor(m => m.TeeBoxes[i].Tees[x].Yardage)</td>
+                                int holeNumber = x + 1;
+                                <td class="number-input">
+                                    <input class="number-input teebox" data-hole-number="@holeNumber" asp-for="TeeBoxes[i].Tees[x].Yardage" />
+                                    @Html.ValidationMessageFor(m => m.TeeBoxes[i].Tees[x].Yardage, null, new { style = "display: none" })
+                                    @*@Html.EditorFor(m => m.TeeBoxes[i].Tees[x].Yardage)*@
+                                </td>
                             }
                         </tr>
                     }
@@ -94,7 +104,6 @@
                         <td>
                             <input class="number-input handicap" data-hole-number="@holeNumber" asp-for="Handicaps[i]" />
                             @Html.ValidationMessageFor(m => m.Handicaps[i], null, new { style = "display: none" })
-                            @*<td class="number-input">@Html.EditorFor(m => m.Handicaps[i])</td>*@
                         </td>
                     }
                 </tr>

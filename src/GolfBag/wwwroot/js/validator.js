@@ -31,7 +31,6 @@ var customValidations = {
     bindValidationToSubmit: function ($form, $element, validationClassName, messageFunction) {
         "use strict";
 
-        //$form.on("invalid-form.validate", function () {
         $(".custom-submit").on("click", function () {
             $element.each(function () {
                 customValidations.validateElement($(this), validationClassName);
@@ -373,6 +372,92 @@ var handicapValidator = {
 
 
 /*****************************************
+    TEEBOX VALIDATOR
+*****************************************/
+
+var teeboxValidator = {
+    makeAndShowErrorMessages: function () {
+        var requiredArray = [],
+            rangeArray = [],
+            messageArray = [],
+            requiredMessage = "",
+            rangeMessage = "";
+
+        $(".teebox-errors").empty();
+        console.log("messaging");
+
+        $(".teebox").each(function () {
+            if ($(this).hasClass("invalid-teebox")) {
+                var error = $(this).siblings(".field-validation-error").find("span").text(),
+                    holeNumber = $(this).data("hole-number");
+                if (error == "required") {
+                    requiredArray.push(holeNumber);
+                } else if (error == "range") {
+                    rangeArray.push(holeNumber);
+                }
+            }
+        });
+
+        if (requiredArray.length > 0) {
+            if (requiredArray.length == 1) {
+                requiredMessage = "Enter a yardage for the following hole:" + customValidations.turnArrayToMessage(requiredArray);
+            } else {
+                requiredMessage = "Enter a yardage for the following holes:" + customValidations.turnArrayToMessage(requiredArray);
+            }
+            messageArray.push(requiredMessage);
+        }
+
+        if (rangeArray.length > 0) {
+            if (rangeArray.length == 1) {
+                rangeMessage = "The yardage for the following hole must be between 1 and 1000:" + customValidations.turnArrayToMessage(rangeArray);
+            } else {
+                rangeMessage = "Yardages for the following holes must be between 1 and 1000:" + customValidations.turnArrayToMessage(rangeArray);
+            }
+            messageArray.push(rangeMessage);
+        }
+
+        if (messageArray.length > 0) {
+            customValidations.showMessages(messageArray, $(".teebox-errors"));
+        }
+    },
+    validateTeeboxes: function ($form, makeMessagesNow) {
+        "use strict";
+
+        var makeRules = function ($form) {
+            $(".teebox").each(function () {
+                var $element = $(this);
+
+                if (!($element.parents("tr").hasClass("hidden"))) {
+                    console.log("validating teebox");
+                    $element.rules("add", {
+                        required: true,
+                        range: [1, 1000],
+                        messages: {
+                            required: "required",
+                            range: "range"
+                        }
+                    });
+                    customValidations.bindValidationToElement($element, "invalid-teebox", teeboxValidator.makeAndShowErrorMessages);
+                    customValidations.bindValidationToSubmit($form, $element, "invalid-teebox", teeboxValidator.makeAndShowErrorMessages);
+                } else {
+                    $element.off();
+                    $element.removeClass("invalid-teebox");
+                }
+            });
+        };
+
+        makeRules($form);
+        $(".error-container").append("<div class='teebox-errors'></div>");
+
+        if (makeMessagesNow) {
+            teeboxValidator.makeAndShowErrorMessages();
+        }
+    }
+};
+
+
+
+/*****************************************
     VALIDATOR
 *****************************************/
 
@@ -405,6 +490,10 @@ var validateForm = function ($form, makeMessagesNow, turnOff) {
 
     if ($form.find(".handicap").length != 0) {
         handicapValidator.validateHandicaps($form, makeMessagesNow);
+    }
+
+    if ($form.find(".teebox").length != 0) {
+        teeboxValidator.validateTeeboxes($form, makeMessagesNow);
     }
 };
 

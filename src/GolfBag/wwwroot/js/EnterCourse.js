@@ -19,6 +19,12 @@
                 $(this).addClass("hidden");
             }
         });
+        validateOnTeeboxChange();
+    };
+
+    var validateOnTeeboxChange = function () {
+        $(".custom-submit").off();
+        validateForm($(".writable-scorecard"), true, true);
     };
 
     var backNine = function () {
