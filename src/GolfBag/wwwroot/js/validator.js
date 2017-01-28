@@ -47,9 +47,19 @@ var customValidations = {
             message += " " + array[i];
             if (i < array.length - 1) {
                 message += ","
-            }
+            }          
         }
         return message;
+    },
+    isDuplicate: function (array, item) {
+        "use strict";
+
+        for (var i = 0; i < array.length; i++) {
+            if (array[i] == item) {
+                return true;
+            }
+        }
+        return false;
     },
     showMessages: function (messages, $errorElement) {
         "use strict";
@@ -381,19 +391,21 @@ var teeboxValidator = {
             rangeMessage = "";
 
         $(".teebox-errors").empty();
-        console.log("messaging");
 
         $(".teebox").each(function () {
             if ($(this).hasClass("invalid-teebox")) {
                 var error = $(this).siblings(".field-validation-error").find("span").text(),
                     holeNumber = $(this).data("hole-number");
-                if (error == "required") {
+                if (error == "required" && (!customValidations.isDuplicate(requiredArray, holeNumber))) {
                     requiredArray.push(holeNumber);
-                } else if (error == "range") {
+                } else if (error == "range" && (!customValidations.isDuplicate(rangeArray, holeNumber))) {
                     rangeArray.push(holeNumber);
-                }
+                }             
             }
         });
+
+        requiredArray.sort((a, b) => a - b);
+        rangeArray.sort((a, b) => a - b);
 
         if (requiredArray.length > 0) {
             if (requiredArray.length == 1) {
@@ -425,7 +437,6 @@ var teeboxValidator = {
                 var $element = $(this);
 
                 if (!($element.parents("tr").hasClass("hidden"))) {
-                    console.log("validating teebox");
                     $element.rules("add", {
                         required: true,
                         range: [1, 1000],
