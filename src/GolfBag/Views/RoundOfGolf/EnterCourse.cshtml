@@ -67,14 +67,16 @@
                     if (i >= 3)
                     {
                         <tr class="tee-box-input hidden">
-                            <td>@Html.EditorFor(m => m.TeeBoxes[i].Name)</td>
+                            <td>
+                                <input class="teebox-name" asp-for="TeeBoxes[i].Name" />
+                                @Html.ValidationMessageFor(m => m.TeeBoxes[i].Name, null, new { style = "display: none" })
+                            </td>
                             @for (int x = 0; x < 9; x++)
                             {
                                 int holeNumber = x + 1;
                                 <td class="number-input">
                                     <input class="number-input teebox" data-hole-number="@holeNumber" asp-for="TeeBoxes[i].Tees[x].Yardage" />
                                     @Html.ValidationMessageFor(m => m.TeeBoxes[i].Tees[x].Yardage, null, new { style = "display: none" })
-                                    @*@Html.EditorFor(m => m.TeeBoxes[i].Tees[x].Yardage)*@
                                 </td>
                             }
                         </tr>
@@ -82,14 +84,16 @@
                     else
                     {
                         <tr class="tee-box-input">
-                            <td>@Html.EditorFor(m => m.TeeBoxes[i].Name)</td>
+                            <td>
+                                <input class="teebox-name" asp-for="TeeBoxes[i].Name" />
+                                @Html.ValidationMessageFor(m => m.TeeBoxes[i].Name, null, new { style = "display: none" })
+                            </td>
                             @for (int x = 0; x < 9; x++)
                             {
                                 int holeNumber = x + 1;
                                 <td class="number-input">
                                     <input class="number-input teebox" data-hole-number="@holeNumber" asp-for="TeeBoxes[i].Tees[x].Yardage" />
                                     @Html.ValidationMessageFor(m => m.TeeBoxes[i].Tees[x].Yardage, null, new { style = "display: none" })
-                                    @*@Html.EditorFor(m => m.TeeBoxes[i].Tees[x].Yardage)*@
                                 </td>
                             }
                         </tr>

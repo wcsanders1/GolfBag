@@ -379,6 +379,78 @@ var handicapValidator = {
 
 
 /*****************************************
+    TEEBOX NAME VALIDATOR
+*****************************************/
+
+var teeboxNameValidator = {
+    makeAndShowErrorMessages: function () {
+        var messageArray = [],
+            requiredMessage = "",
+            rangeMessage = "";
+
+        $(".teebox-name-errors").empty();
+
+        $(".teebox-name").each(function () {
+            if ($(this).hasClass("invalid-teebox-name")) {
+                var error = $(this).siblings(".field-validation-error").find("span").text();
+                if (error == "required") {
+                    requiredMessage = "All teeboxes must have a name."
+                } else if (error == "maxlength") {
+                    rangeMessage = "Teebox names cannot be more than 20 characters long."
+                }
+            }
+        });
+
+        if (requiredMessage != "") {
+            messageArray.push(requiredMessage);
+        }
+
+        if (rangeMessage != "") {
+            messageArray.push(rangeMessage);
+        }
+
+        if (messageArray.length > 0) {
+            customValidations.showMessages(messageArray, $(".teebox-name-errors"));
+        }
+    },
+    validateTeeboxNames: function ($form, makeMessagesNow) {
+        "use strict";
+
+        var makeRules = function ($form) {
+            $(".teebox-name").each(function () {
+                var $element = $(this);
+
+                if (!($element.parents("tr").hasClass("hidden"))) {
+                    $element.rules("add", {
+                        required: true,
+                        maxlength: 20,
+                        messages: {
+                            required: "required",
+                            maxlength: "maxlength"
+                        } 
+                    });
+                    customValidations.bindValidationToElement($element, "invalid-teebox-name", teeboxNameValidator.makeAndShowErrorMessages);
+                    customValidations.bindValidationToSubmit($form, $(".teebox-name"), "invalid-teebox-name", teeboxNameValidator.makeAndShowErrorMessages);
+                } else {
+                    $element.off();
+                    $element.removeClass("invalid-teebox-name");
+                }               
+            });
+            
+        };
+
+        makeRules($form);
+        $(".error-container").append("<div class='teebox-name-errors'></div>");
+
+        if (makeMessagesNow) {
+            teeboxNameValidator.makeAndShowErrorMessages();
+        }
+    }
+};
+
+
+
+/*****************************************
     TEEBOX VALIDATOR
 *****************************************/
 
@@ -498,6 +570,10 @@ var validateForm = function ($form, makeMessagesNow, turnOff) {
 
     if ($form.find(".handicap").length != 0) {
         handicapValidator.validateHandicaps($form, makeMessagesNow);
+    }
+
+    if ($form.find(".teebox-name").length != 0) {
+        teeboxNameValidator.validateTeeboxNames($form, makeMessagesNow);
     }
 
     if ($form.find(".teebox").length != 0) {

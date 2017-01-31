@@ -127,6 +127,7 @@ li li a {
 .invalid-course-name,
 .invalid-par,
 .invalid-handicap,
+.invalid-teebox-name,
 .invalid-teebox {
   border-color: #F2112B;
 }
