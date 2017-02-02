@@ -91,6 +91,14 @@
                             <td>@totalPar</td>
                             }
                         </tr>
+                        <tr class="table-row-striped">
+                            <td>Handicap</td>
+                            @for (int i = 0; i < 9; i++)
+                            {
+                                <td>@Model.Handicaps[i]</td>
+                            }
+                            <td></td>
+                        </tr>
 
                         @foreach (var teeBox in Model.TeeBoxes)
                         {
@@ -175,6 +183,14 @@
                                 }
                                 <td>@totalPar</td>
                             }
+                        </tr>
+                        <tr class="table-row-striped">
+                            <td>Handicap</td>
+                            @for (int i = 9; i < 18; i++)
+                            {
+                                <td>@Model.Handicaps[i]</td>
+                            }
+                            <td></td>
                         </tr>
 
                         @foreach (var teeBox in Model.TeeBoxes)

@@ -28,6 +28,19 @@
                     </td>
                 }
             </tr>
+
+            <tr>
+                <td>Enter Handicap</td>
+                @for (int i = 9; i < 18; i++)
+                {
+                    int holeNumber = i + 1;
+                    <td>
+                        <input class="number-input handicap" data-hole-number="@holeNumber" asp-for="Handicaps[i]" />
+                        @Html.ValidationMessageFor(m => m.Handicaps[i], null, new { style = "display: none" })
+                    </td>
+                }
+            </tr>
+
             @for (int i = 0; i < 6; i++)
             {
                 if (i >= 3)
@@ -63,18 +76,6 @@
                     </tr>
                 }
             }
-
-            <tr>
-                <td>Enter Handicap</td>
-                @for (int i = 9; i < 18; i++)
-                {
-                    int holeNumber = i + 1;
-                    <td>
-                        <input class="number-input handicap" data-hole-number="@holeNumber" asp-for="Handicaps[i]" />
-                        @Html.ValidationMessageFor(m => m.Handicaps[i], null, new { style = "display: none" })
-                    </td>
-                }
-            </tr>
 
         </tbody>
     </table>

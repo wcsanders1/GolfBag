@@ -81,6 +81,7 @@ namespace GolfBag.ViewModels
             Type subsequentRoundType = subsequentRound.GetType();
 
             roundOfGolfViewModel.Pars = MapPars(roundOfGolf, course.CourseHoles);
+            roundOfGolfViewModel.Handicaps = MapHandicaps(course);
             roundOfGolfViewModel.TeeBoxes = course.TeeBoxes;
             roundOfGolfViewModel.FrontNineScores = frontAndBackNineScores["frontNineScores"];
             roundOfGolfViewModel.BackNineScores = frontAndBackNineScores["backNineScores"];

@@ -42,6 +42,13 @@
                             <td>@Model.Pars[i]</td>
                         }
                     </tr>
+                    <tr>
+                        <td>Handicap</td>
+                        @for (int i = 0; i < 9; i++)
+                        {
+                            <td>@Model.Handicaps[i]</td>
+                        }
+                    </tr>
                     @foreach (var teeBox in Model.TeeBoxes)
                     {
                         if (teeBox.Id == Model.IdOfTeeBoxPlayed)
@@ -109,6 +116,23 @@
                             for (int i = 9; i < 18; i++)
                             {
                                 <td>@Model.Pars[i]</td>
+                            }
+                        }
+                    </tr>
+                    <tr>
+                        <td>Handicap</td>
+                        @if (Model.FrontNineScores.Count() == 0)
+                        {
+                            for (int i = 0; i < 9; i++)
+                            {
+                                <td>@Model.Handicaps[i]</td>
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 9; i < 18; i++)
+                            {
+                                <td>@Model.Handicaps[i]</td>
                             }
                         }
                     </tr>
