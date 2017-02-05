@@ -356,7 +356,7 @@ var handicapValidator = {
 
                 $element.rules("add", {
                     required: true,
-                    range: [1, 9],
+                    range: [1, 18],
                     messages: {
                         required: "required",
                         range: "range"

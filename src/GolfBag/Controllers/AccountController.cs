@@ -105,7 +105,8 @@ namespace GolfBag.Controllers
             var currentUser = GetCurrentUserAsync().Result;
             var manageAccountViewModel = new ManageAccountViewModel {
                 FirstName = currentUser.FirstName,
-                LastName = currentUser.LastName
+                LastName = currentUser.LastName,
+                UserName = currentUser.UserName
             };
             return View(manageAccountViewModel);
         }
@@ -117,7 +118,8 @@ namespace GolfBag.Controllers
                 var currentUser = GetCurrentUserAsync().Result;
                 currentUser.FirstName = model.FirstName;
                 currentUser.LastName = model.LastName;
-                _userManager.UpdateAsync(currentUser);
+                currentUser.UserName = model.UserName;
+                _userManager.UpdateAsync(currentUser).Wait();
                 _roundOfGolf.Commit();
             }
             return RedirectToAction("Index", "Home");

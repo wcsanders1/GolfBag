@@ -18,6 +18,11 @@
         <input asp-for="LastName" class="form-control" value="@Model.LastName" />
         <span asp-validation-for="LastName"></span>
     </div>
+    <div class="form-group">
+        <label asp-for="UserName"></label>
+        <input asp-for="UserName" class="form-control" value="@Model.UserName" />
+        <span asp-validation-for="UserName"></span>
+    </div>
     <div>
         <input type="submit" value="Save Changes" class="btn btn-success" />
         <a class="btn btn-default" href="/">Cancel</a>

@@ -249,6 +249,8 @@ $(function () {
                     showBackNineNewTeebox($(this).attr("data-new-teebox-num"));
                 }
                 setButtonStatus($frontNineNewTeeboxRows, $addTeeboxBtn, $removeNewTeeboxBtn);
+                $(".custom-submit").off();
+                validateForm($(".writable-scorecard"), true, false);
                 return false;
             }
         });
@@ -275,6 +277,8 @@ $(function () {
                 $frontNineNewTeeboxRows.eq(i).addClass("hidden");
                 hideBackNineNewTeebox($frontNineNewTeeboxRows.eq(i).attr("data-new-teebox-num"));
                 setButtonStatus($frontNineNewTeeboxRows, $addTeeboxBtn, $removeNewTeeboxBtn);
+                $(".custom-submit").off();
+                validateForm($(".writable-scorecard"), true, true);
                 return false;
             }
         }
@@ -381,9 +385,9 @@ $(function () {
 
     validateForm($(".writable-scorecard"), false, false);
 
-    //var validateThis = function () {
-    //    validateCustom($(".writable-scorecard"));
-    //};
+    var validateThis = function () {
+        validateCustom($(".writable-scorecard"));
+    };
 
-    //$(document).on("click", ".custom-submit", validateThis);
+    $(document).on("click", ".custom-submit", validateThis);
 });
