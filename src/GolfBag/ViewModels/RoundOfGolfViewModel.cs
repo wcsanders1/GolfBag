@@ -14,6 +14,10 @@ namespace GolfBag.ViewModels
 
         public List<int> BackNineScores { get; set; }
 
+        public List<string> FrontNineScoreNames { get; set; }
+
+        public List<string> BackNineScoreNames { get; set; }
+
         public string CourseName { get; set; }
 
         public int IdOfCourse { get; set; }
@@ -112,6 +116,43 @@ namespace GolfBag.ViewModels
             roundOfGolf.Scores = MapScores();
 
             return roundOfGolf;
+        }
+
+        public List<string> CreateScoreNames(List<int> scores, List<int> pars)
+        {
+            var scoreNames = new List<string>();
+
+            for (int i = 0; i < scores.Count; i++)
+            {
+                string name;
+                int difference = scores[i] - pars[i];
+                switch (difference)
+                {
+                    case -3:
+                        name = "albatross-score";
+                        break;
+                    case -2:
+                        name = "eagle-score";
+                        break;
+                    case -1:
+                        name = "birdie-score";
+                        break;
+                    case 0:
+                        name = "par-score";
+                        break;
+                    case 1:
+                        name = "bogie-score";
+                        break;
+                    case 2:
+                        name = "double-bogie-score";
+                        break;
+                    default:
+                        name = "other-score";
+                        break;
+                }
+                scoreNames.Add(name);
+            }
+            return scoreNames;
         }
 
         private List<Score> MapScores()

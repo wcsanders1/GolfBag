@@ -865,3 +865,16 @@ paket-files/
 /src/GolfBag/wwwroot/lib/angular/index.js
 /src/GolfBag/wwwroot/lib/angular/bower.json
 /src/GolfBag/wwwroot/lib/angular/.bower.json
+/Tests/GolfBag.Tests/project.json
+/Tests/GolfBag.Tests/logo-64-transparent.png
+/Tests/GolfBag.Tests/logo-512-transparent.png
+/Tests/GolfBag.Tests/GolfBag.Tests.xproj
+/Tests/GolfBag.Tests/Class1.cs
+/GolfBag.Tests/UnitTest1.cs
+/GolfBag.Tests/Properties/AssemblyInfo.cs
+/GolfBag.Tests/Package.appxmanifest
+/GolfBag.Tests/Images/UnitTestStoreLogo.scale-100.png
+/GolfBag.Tests/Images/UnitTestSplashScreen.scale-100.png
+/GolfBag.Tests/Images/UnitTestSmallLogo.scale-100.png
+/GolfBag.Tests/Images/UnitTestLogo.scale-100.png
+/GolfBag.Tests/GolfBag.Tests.csproj
