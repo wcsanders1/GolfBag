@@ -134,7 +134,7 @@
                                 int totalScore = 0;
                                 for (int i = 0; i < 9; i++)
                                 {
-                                    <td class="hole-score">@Model.FrontNineScores[i]</td>
+                                    <td class="hole-score @Model.FrontNineScoreNames[i]">@Model.FrontNineScores[i]</td>
                                     totalScore += Model.FrontNineScores[i];
                                 }
                                 <td class="hole-score">@totalScore</td>
@@ -227,7 +227,7 @@
                                 int totalScore = 0;
                                 for (int i = 0; i < 9; i++)
                                 {
-                                    <td class="hole-score">@Model.BackNineScores[i]</td>
+                                    <td class="hole-score @Model.BackNineScoreNames[i]">@Model.BackNineScores[i]</td>
                                     totalScore += Model.BackNineScores[i];
                                 }
                                 <td class="hole-score">@totalScore</td>

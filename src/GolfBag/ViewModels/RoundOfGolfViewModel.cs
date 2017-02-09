@@ -78,6 +78,7 @@ namespace GolfBag.ViewModels
         {         
             var roundOfGolfViewModel = new RoundOfGolfViewModel();
             Dictionary<string, List<int>> frontAndBackNineScores = GetFrontAndBackNineScores(roundOfGolf);
+            Dictionary<string, List<string>> frontAndBackNineScoreNames = GetFrontAndBackNineScoreNames(roundOfGolf.Scores, course.CourseHoles);
             Dictionary<string, object> priorAndSubsequentRounds = GetPriorAndSubsequentRounds(roundsOfGolf, roundOfGolf);
             var priorRound = priorAndSubsequentRounds["priorRound"];
             var subsequentRound = priorAndSubsequentRounds["subsequentRound"];
@@ -89,6 +90,8 @@ namespace GolfBag.ViewModels
             roundOfGolfViewModel.TeeBoxes = course.TeeBoxes;
             roundOfGolfViewModel.FrontNineScores = frontAndBackNineScores["frontNineScores"];
             roundOfGolfViewModel.BackNineScores = frontAndBackNineScores["backNineScores"];
+            roundOfGolfViewModel.FrontNineScoreNames = frontAndBackNineScoreNames["frontNineScoreNames"];
+            roundOfGolfViewModel.BackNineScoreNames = frontAndBackNineScoreNames["backNineScoreNames"];
             roundOfGolfViewModel.IdOfPriorRound = (int)priorRoundType.GetProperty("id").GetValue(priorRound, null);
             roundOfGolfViewModel.IdOfSubsequentRound = (int)subsequentRoundType.GetProperty("id").GetValue(subsequentRound, null);
             roundOfGolfViewModel.DateOfPriorRound = (DateTime)priorRoundType.GetProperty("date").GetValue(priorRound, null);
@@ -116,43 +119,6 @@ namespace GolfBag.ViewModels
             roundOfGolf.Scores = MapScores();
 
             return roundOfGolf;
-        }
-
-        public List<string> CreateScoreNames(List<int> scores, List<int> pars)
-        {
-            var scoreNames = new List<string>();
-
-            for (int i = 0; i < scores.Count; i++)
-            {
-                string name;
-                int difference = scores[i] - pars[i];
-                switch (difference)
-                {
-                    case -3:
-                        name = "albatross-score";
-                        break;
-                    case -2:
-                        name = "eagle-score";
-                        break;
-                    case -1:
-                        name = "birdie-score";
-                        break;
-                    case 0:
-                        name = "par-score";
-                        break;
-                    case 1:
-                        name = "bogie-score";
-                        break;
-                    case 2:
-                        name = "double-bogie-score";
-                        break;
-                    default:
-                        name = "other-score";
-                        break;
-                }
-                scoreNames.Add(name);
-            }
-            return scoreNames;
         }
 
         private List<Score> MapScores()
@@ -246,6 +212,55 @@ namespace GolfBag.ViewModels
             frontAndBackNineScores.Add("frontNineScores", frontNineScores);
             frontAndBackNineScores.Add("backNineScores", backNineScores);
             return frontAndBackNineScores;
+        }
+
+        private static Dictionary<string, List<string>> GetFrontAndBackNineScoreNames(List<Score> scores, List<CourseHole> courseHoles)
+        {
+            var frontAndBackNineScoreNames = new Dictionary<string, List<string>>();
+            var frontNineScoreNames = new List<string>();
+            var backNineScoreNames = new List<string>();
+
+            for (int i = 0; i < scores.Count; i++)
+            {
+                string name;
+                int difference = scores[i].HoleScore - courseHoles[scores[i].HoleNumber - 1].Par;
+                switch (difference)
+                {
+                    case -3:
+                        name = "albatross-score";
+                        break;
+                    case -2:
+                        name = "eagle-score";
+                        break;
+                    case -1:
+                        name = "birdie-score";
+                        break;
+                    case 0:
+                        name = "par-score";
+                        break;
+                    case 1:
+                        name = "bogie-score";
+                        break;
+                    case 2:
+                        name = "double-bogie-score";
+                        break;
+                    default:
+                        name = "other-score";
+                        break;
+                }
+
+                if (scores[i].HoleNumber < 10)
+                {
+                    frontNineScoreNames.Add(name);
+                }
+                else if (scores[i].HoleNumber >= 10)
+                {
+                    backNineScoreNames.Add(name);
+                }
+            }
+            frontAndBackNineScoreNames.Add("frontNineScoreNames", frontNineScoreNames);
+            frontAndBackNineScoreNames.Add("backNineScoreNames", backNineScoreNames);
+            return frontAndBackNineScoreNames;
         }
 
         private static Dictionary<string, object> GetPriorAndSubsequentRounds(List<RoundOfGolf> roundsOfGolf, RoundOfGolf roundOfGolf)
