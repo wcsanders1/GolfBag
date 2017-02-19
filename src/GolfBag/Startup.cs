@@ -66,7 +66,8 @@ namespace GolfBag
                     x.Password.RequireNonAlphanumeric = false;
                     x.Password.RequireUppercase = false;
                 })
-                .AddEntityFrameworkStores<ScoreCardDbContext>();
+                .AddEntityFrameworkStores<ScoreCardDbContext>()
+                .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime.

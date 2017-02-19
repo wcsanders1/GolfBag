@@ -5,6 +5,7 @@
   },
   "dependencies": {
     "AutoMapper": "4.2.1",
+    "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",
     "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
     "Microsoft.AspNetCore.Mvc": "1.0.0",
@@ -29,7 +30,9 @@
       "version": "1.0.0"
     },
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
-    "jQuery-vsdoc": "2.1.0"
+    "jQuery-vsdoc": "2.1.0",
+    "MailKit": "1.10.2",
+    "Google.Apis.Auth": "1.21.0"
   },
   "frameworks": {
     "netcoreapp1.0": {
