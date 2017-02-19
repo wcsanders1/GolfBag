@@ -17,9 +17,6 @@ namespace GolfBag.ViewModels
         [DataType(DataType.Password), Compare(nameof(Password))]
         public string ConfirmPassword { get; set; }
 
-        [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
-
         [Required]
         public string FirstName { get; set; }
 
