@@ -9,7 +9,6 @@
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
-appsettings.json
 
 # Build results
 [Dd]ebug/
@@ -879,3 +878,5 @@ paket-files/
 /GolfBag.Tests/Images/UnitTestSmallLogo.scale-100.png
 /GolfBag.Tests/Images/UnitTestLogo.scale-100.png
 /GolfBag.Tests/GolfBag.Tests.csproj
+
+/src/GolfBag/appsettings.json
