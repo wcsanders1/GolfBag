@@ -145,11 +145,10 @@ li li a {
 /*****************************
             Score Colors
 *****************************/
-.table > tbody > tr.hole-score {
+.table > tbody > tr > td.hole-score {
   font-family: 'Sriracha', cursive;
   text-align: center;
-  vertical-align: middle;
-  padding: 0;
+  vertical-align: baseline;
 }
 .bogie-box {
   text-align: center;
