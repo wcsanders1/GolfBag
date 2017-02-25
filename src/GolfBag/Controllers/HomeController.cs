@@ -24,7 +24,7 @@ namespace GolfBag.Controllers
         }
 
         [AllowAnonymous]
-        public ViewResult Index()
+        public IActionResult Index()
         {
             var homePageViewModel = new HomePageViewModel();
             User currentUser;
@@ -32,6 +32,12 @@ namespace GolfBag.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 currentUser = GetCurrentUserAsync().Result;
+
+                if (currentUser == null)
+                {
+                    // TODO1 account for when a cookie exists for a deleted user
+                }
+
                 homePageViewModel.FirstName = currentUser.FirstName;
                 homePageViewModel.LastName = currentUser.LastName;
 

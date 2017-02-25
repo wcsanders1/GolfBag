@@ -1,0 +1,16 @@
+﻿@model ConfirmEmailViewModel
+
+@{
+    ViewBag.Title = "Confirm Email";
+}
+
+<h1>@ViewBag.Message</h1>
+
+<h3>If you would like to change your email, please do so in the box below, then press the "Change Email" button.</h3>
+<h3>Pressing the "Change Email" button will send a confirmation link to the email in the box.</h3>
+
+<form method="post" asp-antiforgery="true" asp-controller="Account" asp-action="ChangeEmail">
+    @Html.HiddenFor(m => m.UserId)
+    <input asp-for="Email" type="email" />
+    <input class="btn btn-primary" type="submit" value="Change Email" />
+</form>
