@@ -3,6 +3,8 @@
     ViewBag.Title = "Login";
 }
 
+<h1>@ViewBag.Message</h1>
+
 <h2>Login</h2>
 
 <form method="post" asp-antiforgery="true">
@@ -24,4 +26,13 @@
         <span asp-validation-for="RememberMe"></span>
     </div>
     <input type="submit" value="Login" class="btn btn-success"/>
+</form>
+
+<h2>Reset Password</h2>
+
+<form asp-action="SendPasswordResetLink" asp-controller="Account"
+       asp-antiforgery="true" method="post">
+    <label asp-for="Username">User Name:</label>
+    <input asp-for="Username" type="text"/>
+    <input type="submit" value="Reset Password" class="btn btn-success" />
 </form>

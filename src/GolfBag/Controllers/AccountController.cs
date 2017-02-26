@@ -56,13 +56,13 @@ namespace GolfBag.Controllers
                 var createResult = await _userManager.CreateAsync(user, model.Password);
                 if (createResult.Succeeded)
                 {
-                    SendConfirmationEmail(user);
+                    var confirmationLink = CreateEmailConfirmationLink(user);
+                    SendConfirmationEmail(user, confirmationLink);
 
                     // take user to ConfirmEmail view
                     var confirmEmail = new ConfirmEmailViewModel
                     {
                         Email = user.Email,
-                        EmailConfirmed = user.EmailConfirmed,
                         UserId = user.Id
                     };
 
@@ -103,13 +103,13 @@ namespace GolfBag.Controllers
                 currentUser.Email = confirmEmailViewModel.Email;
                 _userManager.UpdateAsync(currentUser).Wait();
                 _roundOfGolf.Commit();
+                var confirmationLink = CreateEmailConfirmationLink(currentUser);
 
-                SendConfirmationEmail(currentUser);
+                SendConfirmationEmail(currentUser, confirmationLink);
 
                 var confirmEmail = new ConfirmEmailViewModel
                 {
                     Email = currentUser.Email,
-                    EmailConfirmed = currentUser.EmailConfirmed,
                     UserId = currentUser.Id
                 };
 
@@ -118,6 +118,45 @@ namespace GolfBag.Controllers
             }
             ViewBag.Message = "Please enter a valid email address.";
             return View(confirmEmailViewModel);
+        }
+
+        public IActionResult SendPasswordResetLink(string username)
+        {
+            var user = _userManager.FindByNameAsync(username).Result;
+
+            if (user == null || !(_userManager.IsEmailConfirmedAsync(user).Result))
+            {
+                ViewBag.Message = "Sorry. Error while resetting your password.";
+                return View("Error");
+            }
+
+            var confirmationLink = CreatePasswordResetLink(user);
+            SendConfirmationEmail(user, confirmationLink);
+
+            ViewBag.Message = "Password reset link has been sent to your email address.";
+            return View("Login");
+        }
+
+        [HttpGet]
+        public IActionResult ResetPassword(string token)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ResetPassword(ResetPasswordViewModel model)
+        {
+            var user = _userManager.FindByNameAsync(model.UserName).Result;
+            var result = _userManager.ResetPasswordAsync
+                (user, model.Token, model.Password).Result;
+
+            if (result.Succeeded)
+            {
+                ViewBag.Message = "Password reset successful";
+                return RedirectToAction("Login", "Account");
+            }
+            ViewBag.Message = "Error while resetting the password";
+            return View("Login");
         }
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -202,16 +241,22 @@ namespace GolfBag.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+
+/**************************************
+Private Methods
+**************************************/
+
         private async Task<User> GetCurrentUserAsync()
         {
             var currentUser = await _userManager.GetUserAsync(User);
             return currentUser;
         }
 
-        private void SendConfirmationEmail(User user)
+        // TODO1 chage this method so the body of the email matches the confirmation being sent
+        // maybe make enum to pass in as argument to indicate both which confirmation link to create and which message to make
+        // use switch statement for the enum
+        private void SendConfirmationEmail(User user, string confirmationLink)
         {
-            var confirmationLink = CreateConfirmationLink(user);
-
             MimeMessage emailMessage = new MimeMessage();
             emailMessage.From.Add(new MailboxAddress(_config["email:address"]));
             emailMessage.To.Add(new MailboxAddress(user.Email));
@@ -228,7 +273,7 @@ namespace GolfBag.Controllers
             }                        
         }
 
-        private string CreateConfirmationLink(User user)
+        private string CreateEmailConfirmationLink(User user)
         {
             var confirmationToken = _userManager.GenerateEmailConfirmationTokenAsync(user).Result;
             return Url.Action("ConfirmEmail",
@@ -238,6 +283,13 @@ namespace GolfBag.Controllers
                             token = confirmationToken
                         },
                         protocol: HttpContext.Request.Scheme);
+        }
+
+        private string CreatePasswordResetLink(User user)
+        {
+            var token = _userManager.GeneratePasswordResetTokenAsync(user).Result;
+            return Url.Action("ResetPassword", "Account",
+                new { token = token }, protocol: HttpContext.Request.Scheme);
         }
     }
 }
