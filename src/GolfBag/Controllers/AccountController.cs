@@ -24,6 +24,12 @@ namespace GolfBag.Controllers
         private IRoundOfGolf _roundOfGolf;
         private IConfigurationRoot _config;
 
+        private enum emailType
+        {
+            ConfirmEmail,
+            ChangePassword
+        }
+
         public AccountController(UserManager<User> userManager,
             SignInManager<User> signInManager,
             IRoundOfGolf roundOfGolf,
@@ -56,8 +62,7 @@ namespace GolfBag.Controllers
                 var createResult = await _userManager.CreateAsync(user, model.Password);
                 if (createResult.Succeeded)
                 {
-                    var confirmationLink = CreateEmailConfirmationLink(user);
-                    SendConfirmationEmail(user, confirmationLink);
+                    SendConfirmationEmail(user, emailType.ConfirmEmail);
 
                     // take user to ConfirmEmail view
                     var confirmEmail = new ConfirmEmailViewModel
@@ -103,9 +108,8 @@ namespace GolfBag.Controllers
                 currentUser.Email = confirmEmailViewModel.Email;
                 _userManager.UpdateAsync(currentUser).Wait();
                 _roundOfGolf.Commit();
-                var confirmationLink = CreateEmailConfirmationLink(currentUser);
 
-                SendConfirmationEmail(currentUser, confirmationLink);
+                SendConfirmationEmail(currentUser, emailType.ConfirmEmail);
 
                 var confirmEmail = new ConfirmEmailViewModel
                 {
@@ -130,8 +134,7 @@ namespace GolfBag.Controllers
                 return View("Error");
             }
 
-            var confirmationLink = CreatePasswordResetLink(user);
-            SendConfirmationEmail(user, confirmationLink);
+            SendConfirmationEmail(user, emailType.ChangePassword);
 
             ViewBag.Message = "Password reset link has been sent to your email address.";
             return View("Login");
@@ -248,20 +251,42 @@ Private Methods
 
         private async Task<User> GetCurrentUserAsync()
         {
-            var currentUser = await _userManager.GetUserAsync(User);
-            return currentUser;
+            return await _userManager.GetUserAsync(User);
         }
 
         // TODO1 chage this method so the body of the email matches the confirmation being sent
         // maybe make enum to pass in as argument to indicate both which confirmation link to create and which message to make
         // use switch statement for the enum
-        private void SendConfirmationEmail(User user, string confirmationLink)
+        private void SendConfirmationEmail(User user, emailType email)
         {
+            string emailSubject;
+            string emailBody;
+            string confirmationLink;
+
+            switch (email)
+            {
+                case emailType.ConfirmEmail:
+                    emailSubject     = _config["email:confirmEmail:subject"];
+                    emailBody        = _config["email:confirmEmail:body"];
+                    confirmationLink = CreateEmailConfirmationLink(user);
+                    break;
+                case emailType.ChangePassword:
+                    emailSubject     = _config["email:changePassword:subject"];
+                    emailBody        = _config["email:changePassword:body"];
+                    confirmationLink = CreatePasswordResetLink(user);
+                    break;
+                default:
+                    emailSubject     = "Golf Bag error";
+                    emailBody        = "Sorry, there was an error.";
+                    confirmationLink = null;
+                    break;
+            }
+
             MimeMessage emailMessage = new MimeMessage();
             emailMessage.From.Add(new MailboxAddress(_config["email:address"]));
             emailMessage.To.Add(new MailboxAddress(user.Email));
-            emailMessage.Subject = _config["email:subject"];
-            emailMessage.Body = new TextPart("plain") { Text = _config["email:body"] + Environment.NewLine + confirmationLink };
+            emailMessage.Subject = emailSubject;
+            emailMessage.Body = new TextPart("plain") { Text = emailBody + Environment.NewLine + confirmationLink };
 
             using (SmtpClient client = new SmtpClient())
             {
