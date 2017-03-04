@@ -254,9 +254,6 @@ Private Methods
             return await _userManager.GetUserAsync(User);
         }
 
-        // TODO1 chage this method so the body of the email matches the confirmation being sent
-        // maybe make enum to pass in as argument to indicate both which confirmation link to create and which message to make
-        // use switch statement for the enum
         private void SendConfirmationEmail(User user, emailType email)
         {
             string emailSubject;

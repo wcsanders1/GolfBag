@@ -111,6 +111,14 @@ li {
     margin-bottom: 3rem;
 }
 
+.account-form {
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+        max-width: 45rem;
+    }
+}
+
 
 /*****************************
             Score Colors
@@ -123,7 +131,15 @@ li {
 }
 
 .bogie-box {
-    text-align: center;
+    text-align: center;   
+    margin: 0 auto;
+    width: 100%;
+    @media (min-width: @secondBootstrapTableShrink) {
+        width: 75%;
+    }
+    @media (min-width: @firstBootstrapTableShrink) {
+        width: 50%;
+    }
 }
 
 .table > tbody > tr > td.birdie-score {
@@ -141,24 +157,18 @@ li {
 .table > tbody > tr > td.bogie-score {
     .bogie-box {
         border: 1px black solid;
-        width: 50%;
-        margin: 0 auto;
     }
 }
 
 .table > tbody > tr > td.double-bogie-score {
     .bogie-box {
         border: 3px black solid;
-        width: 50%;
-        margin: 0 auto;
     }
 }
 
 .table > tbody > tr > td.other-score {
     .bogie-box {
         border: 4px black double;
-        width: 50%;
-        margin: 0 auto;
     }
 }
 
@@ -294,6 +304,13 @@ body {
 
 .scorecard {
    font-family: 'Suez One', serif;
+   @media (min-width: @defaultBootstrapCollapseSize) {
+        font-size: 2rem;
+    }
+   td:not(:first-child),
+   th:not(:first-child) {
+       text-align: center;
+   }
 }
 
 .number-input,

@@ -476,8 +476,13 @@ var teeboxValidator = {
             }
         });
 
-        requiredArray.sort((a, b) => a - b);
-        rangeArray.sort((a, b) => a - b);
+        requiredArray.sort(function (a, b) {
+            return a.index - b.index;
+        });
+
+        rangeArray.sort(function (a, b) {
+            return a.index - b.index;
+        });
 
         if (requiredArray.length > 0) {
             if (requiredArray.length == 1) {
