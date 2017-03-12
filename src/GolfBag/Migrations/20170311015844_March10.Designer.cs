@@ -8,13 +8,13 @@ using GolfBag.Entities;
 namespace GolfBag.Migrations
 {
     [DbContext(typeof(ScoreCardDbContext))]
-    [Migration("20161227160254_IDFirstNameLastName")]
-    partial class IDFirstNameLastName
+    [Migration("20170311015844_March10")]
+    partial class March10
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
+                .HasAnnotation("ProductVersion", "1.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("GolfBag.Entities.Course", b =>
@@ -25,6 +25,8 @@ namespace GolfBag.Migrations
                     b.Property<string>("CourseName");
 
                     b.Property<int>("NumberOfHoles");
+
+                    b.Property<string>("PlayerId");
 
                     b.Property<string>("PlayerName");
 
@@ -63,6 +65,8 @@ namespace GolfBag.Migrations
                     b.Property<int>("CourseId");
 
                     b.Property<DateTime>("Date");
+
+                    b.Property<string>("PlayerId");
 
                     b.Property<string>("PlayerName");
 
@@ -135,7 +139,7 @@ namespace GolfBag.Migrations
                         .IsConcurrencyToken();
 
                     b.Property<string>("Email")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
 
@@ -148,10 +152,10 @@ namespace GolfBag.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.Property<string>("NormalizedUserName")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash");
 
@@ -164,7 +168,7 @@ namespace GolfBag.Migrations
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.HasKey("Id");
 
@@ -186,10 +190,10 @@ namespace GolfBag.Migrations
                         .IsConcurrencyToken();
 
                     b.Property<string>("Name")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.Property<string>("NormalizedName")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.HasKey("Id");
 
