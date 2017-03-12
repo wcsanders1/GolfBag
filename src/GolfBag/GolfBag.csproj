@@ -11,6 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\images\favicon.ico" />
+    <Content Include="wwwroot\images\favicon.png" />
+    <Content Include="wwwroot\images\golfer-icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="wwwroot\**\*;Views\**\*">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>

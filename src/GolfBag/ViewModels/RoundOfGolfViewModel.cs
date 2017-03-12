@@ -76,14 +76,14 @@ namespace GolfBag.ViewModels
             Course course, 
             string playerName)
         {         
-            var roundOfGolfViewModel = new RoundOfGolfViewModel();
-            Dictionary<string, List<int>> frontAndBackNineScores = GetFrontAndBackNineScores(roundOfGolf);
-            Dictionary<string, List<string>> frontAndBackNineScoreNames = GetFrontAndBackNineScoreNames(roundOfGolf.Scores, course.CourseHoles);
-            Dictionary<string, object> priorAndSubsequentRounds = GetPriorAndSubsequentRounds(roundsOfGolf, roundOfGolf);
-            var priorRound = priorAndSubsequentRounds["priorRound"];
-            var subsequentRound = priorAndSubsequentRounds["subsequentRound"];
-            Type priorRoundType = priorRound.GetType();
-            Type subsequentRoundType = subsequentRound.GetType();
+            var roundOfGolfViewModel       = new RoundOfGolfViewModel();
+            var frontAndBackNineScores     = GetFrontAndBackNineScores(roundOfGolf);
+            var frontAndBackNineScoreNames = GetFrontAndBackNineScoreNames(roundOfGolf.Scores, course.CourseHoles);
+            var priorAndSubsequentRounds   = GetPriorAndSubsequentRounds(roundsOfGolf, roundOfGolf);
+            var priorRound                 = priorAndSubsequentRounds["priorRound"];
+            var subsequentRound            = priorAndSubsequentRounds["subsequentRound"];
+            var priorRoundType             = priorRound.GetType();
+            var subsequentRoundType        = subsequentRound.GetType();
 
             roundOfGolfViewModel.Pars = MapPars(roundOfGolf, course.CourseHoles);
             roundOfGolfViewModel.Handicaps = MapHandicaps(course);
@@ -119,6 +119,43 @@ namespace GolfBag.ViewModels
             roundOfGolf.Scores = MapScores();
 
             return roundOfGolf;
+        }
+
+        public bool IsValid()
+        {
+            if (DateOfRound == null)
+            {
+                return false;
+            }
+
+            if (FrontNineScores == null && BackNineScores == null)
+            {
+                return false;
+            }
+
+            if (FrontNineScores != null)
+            {
+                foreach (var score in FrontNineScores)
+                {
+                    if (score < 1 || score > 99)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            if (BackNineScoreNames != null)
+            {
+                foreach (var score in BackNineScores)
+                {
+                    if (score < 1 || score > 99)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
         private List<Score> MapScores()
@@ -265,15 +302,15 @@ namespace GolfBag.ViewModels
 
         private static Dictionary<string, object> GetPriorAndSubsequentRounds(List<RoundOfGolf> roundsOfGolf, RoundOfGolf roundOfGolf)
         {
-            int idOfPriorRound = 0;
-            int idOfSubsequentRound = 0;
-            var dateOfPriorRound = new DateTime();
-            var dateOfSubsequentRound = new DateTime();
+            int idOfPriorRound           = 0;
+            int idOfSubsequentRound      = 0;
+            var dateOfPriorRound         = new DateTime();
+            var dateOfSubsequentRound    = new DateTime();
             var priorAndSubsequentRounds = new Dictionary<string, object>();
 
             for (int i = 0; i < roundsOfGolf.Count; i++)
             {
-                if (roundsOfGolf[i].Date == roundOfGolf.Date)
+                if (roundsOfGolf[i].Id == roundOfGolf.Id)
                 {
                     if (i == 0)
                     {

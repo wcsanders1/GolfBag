@@ -477,11 +477,11 @@ var teeboxValidator = {
         });
 
         requiredArray.sort(function (a, b) {
-            return a.index - b.index;
+            return a - b;
         });
 
         rangeArray.sort(function (a, b) {
-            return a.index - b.index;
+            return a - b;
         });
 
         if (requiredArray.length > 0) {

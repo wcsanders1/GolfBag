@@ -70,8 +70,14 @@ namespace GolfBag.Controllers
         [HttpPost]
         public IActionResult EnterScore(RoundOfGolfViewModel model, string courseName)
         {
+            if (!model.IsValid())
+            {
+                ViewBag.Message = "Data Invalid";
+                return View("Error");
+            }
+
             int courseId = _roundOfGolf.GetCourseId(courseName);
-            
+           
             RoundOfGolf roundOfGolf = model.MapViewModelToRoundOfGolf(courseName, courseId, User.Identity.Name);
             roundOfGolf.PlayerId = GetCurrentUserAsync().Result.Id;
 
@@ -306,10 +312,10 @@ namespace GolfBag.Controllers
         
         private RoundOfGolfViewModel GetRoundOfGolfViewModel(int id)
         {
-            RoundOfGolf roundOfGolf = _roundOfGolf.GetRound(id);
-            List<RoundOfGolf> roundsOfGolf = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id).ToList();
-            Course course = _roundOfGolf.GetCourse(roundOfGolf.CourseId);
-            RoundOfGolfViewModel roundOfGolfViewModel = RoundOfGolfViewModel.MapRoundOfGolfToRoundOfGolfViewModel(
+            RoundOfGolf roundOfGolf                     = _roundOfGolf.GetRound(id);
+            List<RoundOfGolf> roundsOfGolf              = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id).ToList();
+            Course course                               = _roundOfGolf.GetCourse(roundOfGolf.CourseId);
+            RoundOfGolfViewModel roundOfGolfViewModel   = RoundOfGolfViewModel.MapRoundOfGolfToRoundOfGolfViewModel(
                                                             roundOfGolf,
                                                             roundsOfGolf,
                                                             course,

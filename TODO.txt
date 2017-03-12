@@ -1,0 +1,11 @@
+1. Fix the problem of multiple rounds with same date. These cannot be viewed properly. -- FIXED
+
+2. Add graphs of statistics.
+
+3. Make stuff look better, i.e., better colors, better sizing, etc.
+
+4. Add server-side validation.
+
+5. Organize CSS
+
+6. Fix icon
