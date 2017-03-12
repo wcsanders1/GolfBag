@@ -176,6 +176,9 @@ BundleArtifacts/
 Package.StoreAssociation.xml
 _pkginfo.txt
 
+# Bootstrap
+wwwroot/lib/bootstrap
+
 # Visual Studio cache files
 # files ending in .cache can be ignored
 *.[Cc]ache
@@ -880,3 +883,23 @@ paket-files/
 /GolfBag.Tests/GolfBag.Tests.csproj
 
 /src/GolfBag/appsettings.json
+/src/GolfBag/wwwroot/lib/bootstrap/docs
+/src/GolfBag/wwwroot/lib/bootstrap/docs/assets/brand/bootstrap-solid.svg
+/src/GolfBag/wwwroot/lib/bootstrap/docs/assets/brand/bootstrap-punchout.svg
+/src/GolfBag/wwwroot/lib/bootstrap/docs/assets/brand/bootstrap-outline.svg
+/src/GolfBag/wwwroot/lib/bootstrap/docs/assets/brand/bootstrap-solid.svg
+/src/GolfBag/wwwroot/lib/bootstrap/docs/assets/brand/bootstrap-punchout.svg
+/src/GolfBag/wwwroot/lib/bootstrap/docs/assets/brand/bootstrap-outline.svg
+/src/GolfBag/wwwroot/lib/bootstrap/docs/assets/brand/bootstrap-punchout.svg
+*.svg
+/src/GolfBag/wwwroot/lib/bootstrap/docs/assets/brand/bootstrap-outline.svg
+/src/GolfBag/wwwroot/lib/bootstrap/docs/assets/brand/bootstrap-solid.svg
+/src/GolfBag/wwwroot/lib/bootstrap/docs/assets/brand/bootstrap-punchout.svg
+/src/GolfBag/wwwroot/lib/bootstrap/docs/assets/brand/bootstrap-outline.svg
+/src/GolfBag/wwwroot/lib/bootstrap/docs/assets/css/src/docs.css
+/src/GolfBag/wwwroot/lib/bootstrap/docs/assets/css/docs.min.css.map
+/src/GolfBag/wwwroot/lib/bootstrap/docs/assets/css/docs.min.css
+/src/GolfBag/wwwroot/lib/bootstrap/docs/assets/js/vendor/anchor.min.js
+/src/GolfBag/wwwroot/lib/bootstrap/docs/assets/css/src/docs.css
+/src/GolfBag/wwwroot/lib/bootstrap/docs/assets/brand/bootstrap-outline.svg
+/src/GolfBag/wwwroot/lib/bootstrap/CONTRIBUTING.md
