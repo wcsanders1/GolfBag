@@ -14,6 +14,8 @@
     <Content Include="wwwroot\images\favicon.ico" />
     <Content Include="wwwroot\images\favicon.png" />
     <Content Include="wwwroot\images\golfer-icon.png" />
+    <Content Include="wwwroot\js\AnimatedHeader\cbpAnimatedHeader.js" />
+    <Content Include="wwwroot\js\AnimatedHeader\classie.js" />
   </ItemGroup>
 
   <ItemGroup>

@@ -34,7 +34,7 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top cbp-af-header">
         <div class="container-fluid">
             <div id="loginlogout" class="navbar">
                 @await Component.InvokeAsync("LoginLogout")
@@ -50,6 +50,8 @@
     </footer>
 
     @RenderSection("Scripts", false)
-</body>
 
+    <script type="text/javascript" src="~/js/AnimatedHeader/classie.js"></script>
+    <script type="text/javascript" src="~/js/AnimatedHeader/cbpAnimatedHeader.js"></script>
+</body>
 </html>

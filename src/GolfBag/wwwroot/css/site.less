@@ -9,8 +9,27 @@
 
 
 /*********************************************************************************************
-                        GLOBAL ELEMENT STYLES
+                        GENERAL ELEMENT STYLES
 *********************************************************************************************/
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    background: @prevalantColor;
+    font-family: @mainSiteFont;
+    font-size: 2rem;
+    margin-bottom: 60px; // This margin exists to accommodate the sticky footer
+}
+
+#main-content {
+    padding-top: 210px;
+    @media (min-width: @defaultBootstrapCollapseSize) {
+        padding-top: 180px;
+    }
+}
 
 a {
     text-decoration: none;
@@ -47,14 +66,126 @@ li {
     margin-bottom: 1rem;
 }
 
-.comment-box {
-    width: 100%;
+/********************************************
+        _Layout
+********************************************/
+#title-and-welcome {
+    display: flex;
+    flex-direction: column;
+    float: none;
+
+    @media (min-width: @defaultBootstrapCollapseSize) {
+        float: left;
+    }
 }
 
-.datepicker {
-    cursor: pointer;
-    width: 25rem;
+#site-title {
+    font-family: @mainSiteFont;
+    font-size: 5rem;
+    color: #14A647;
+    padding-left: 0;
+    margin: 0 0 10px 0;
+    position: relative;
+    z-index: 5;
+}
+
+#welcome-nav {
+    font-family: @mainSiteFont;
+    font-size: 3rem;
+    margin: 0;
+}
+
+/********************************************
+        <LoginLogout> Default
+********************************************/
+
+#navbar-toggler {
+    background-color: chocolate;
+}
+
+#main-collapsing-navbar {
+    margin: 0;
+}
+
+#logout-button {
+    margin-top: 10px;
+}
+
+#logout-button-a {
+    color: @redText;
+}
+
+/********************************************
+        Footer
+********************************************/
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #000;
+    color: #FFF;
+}
+
+
+
+/*********************************************************************************************
+                        NAVIGATION & NAV PILLS
+*********************************************************************************************/
+
+.navpill-header {
+    padding: 10px 15px 0 15px;
     margin-right: 5rem;
+}
+
+.nav-pills li {
+    min-height: 7rem;
+
+    a {
+        padding-bottom: 0;
+    }
+
+    @media (min-width: @defaultBootstrapCollapseSize) {
+        min-height: 10rem;
+    }
+}
+
+.navbar {
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.cbp-af-header-shrink {
+    opacity: 0.9;
+    .navbar {
+        margin-bottom: 5px;
+    }
+}
+
+.teebox-toggler-icon {
+    width: 100%;
+    text-align: center;
+    color: @yellow;
+    font-size: 1.5rem;
+
+    @media (min-width: @defaultBootstrapCollapseSize) {
+        font-size: 2rem;
+    }
+}
+
+.panel-title {
+    text-align: center;
+    font-size: 2rem;
+
+    @media (min-width: @defaultBootstrapCollapseSize) {
+        font-size: 3rem;
+    }
+}
+
+.nav .dropdown:hover .dropdown-menu {
+    @media (min-width: @defaultBootstrapCollapseSize) {
+        display: block;
+    }
 }
 
 .dropdown-menu {
@@ -79,29 +210,11 @@ li {
     align-items: center;
 }
 
-.error-container {
-    padding: 0;
-    color: darken(@redText, 20%);
-    font-size: 2rem;
-    p {
-        margin: 0;
-    }
-}
 
-.invalid-score,
-.invalid-course-name,
-.invalid-par,
-.invalid-handicap,
-.invalid-teebox-name,
-.invalid-teebox {
-    border-color: @redText;
-}
 
-.nav .dropdown:hover .dropdown-menu {
-    @media (min-width: @defaultBootstrapCollapseSize) {
-        display: block;
-    }
-}
+/*********************************************************************************************
+                        SCORECARDS
+*********************************************************************************************/
 
 .table {
     margin-bottom: 1rem;
@@ -119,10 +232,92 @@ li {
     }
 }
 
+.comment-box {
+    width: 100%;
+}
 
-/*****************************
-            Score Colors
-*****************************/
+.datepicker {
+    cursor: pointer;
+    width: 25rem;
+    margin-right: 5rem;
+}
+
+.error-container {
+    padding: 0;
+    color: darken(@redText, 20%);
+    font-size: 2rem;
+
+    p {
+        margin: 0;
+    }
+}
+
+.scorecard {
+    font-family: 'Suez One', serif;
+
+    @media (min-width: @defaultBootstrapCollapseSize) {
+        font-size: 2rem;
+    }
+
+    td:not(:first-child),
+    th:not(:first-child) {
+        text-align: center;
+    }
+}
+
+.number-input,
+.number-input input {
+    width: 5rem;
+    text-align: center;
+    -webkit-appearance: none;
+}
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+    .remove-number-spinners;
+}
+
+.teebox-played {
+    font-weight: bold;
+    background-color: #2AC930;
+}
+
+.teebox-not-played,
+.faded-font {
+    color: @fadedFontColor;
+}
+
+.teebox-to-delete {
+    text-decoration: line-through;
+}
+
+.delete-teebox,
+.undo-delete {
+    cursor: pointer;
+
+    &.faded-font {
+        cursor: default;
+    }
+}
+
+.table-row-striped {
+    background-color: @tableStripeColor;
+}
+
+
+
+/*********************************************
+            Scorecard Colors and borders
+*********************************************/
+
+.invalid-score,
+.invalid-course-name,
+.invalid-par,
+.invalid-handicap,
+.invalid-teebox-name,
+.invalid-teebox {
+    border-color: @redText;
+}
 
 .table > tbody > tr >td.hole-score {
     font-family: @scorecardNumberFont;
@@ -142,261 +337,34 @@ li {
     }
 }
 
-.table > tbody > tr > td.birdie-score {
-    color: @redText;
-}
-
-.table > tbody > tr > td.eagle-score {
-    color: @blueText;
-}
-
-.table > tbody > tr > td.albatross-score {
-    color: @purpleText;
-}
-
-.table > tbody > tr > td.bogie-score {
-    .bogie-box {
-        border: 1px black solid;
-    }
-}
-
-.table > tbody > tr > td.double-bogie-score {
-    .bogie-box {
-        border: 3px black solid;
-    }
-}
-
-.table > tbody > tr > td.other-score {
-    .bogie-box {
-        border: 4px black double;
-    }
-}
-
-
-/*********************************************************************************************
-                        HTML, BODY, & @RenderBody container div, i.e., #main-content
-*********************************************************************************************/
-
-html {
-    position: relative;
-    min-height: 100%;
-}
-
-body {
-    background: @prevalantColor;
-    font-family: @mainSiteFont;
-    font-size: 2rem;
-    margin-bottom: 60px;  // This margin exists to accommodate the sticky footer; see below
-}
-
-#main-content {
-    padding-top: 210px;
-    @media (min-width: @defaultBootstrapCollapseSize) {
-        padding-top: 180px;
-    }
-}
-
-
-
-
-/*********************************************************************************************
-                        NAVIGATION & NAV PILLS
-*********************************************************************************************/
-
-/********************************************
-        Generally
-********************************************/
-
-.navpill-header {
-    padding: 10px 15px 0 15px;
-    margin-right: 5rem;
-}
-
-.nav-pills li {
-    min-height: 7rem;
-    a {
-        padding-bottom: 0;
-    }
-    @media (min-width: @defaultBootstrapCollapseSize) {
-        min-height: 10rem;
-    }
-}
-
-.teebox-toggler-icon {
-    width: 100%;
-    text-align: center;
-    color: @yellow;
-    font-size: 1.5rem;
-    @media (min-width: @defaultBootstrapCollapseSize) {
-        font-size: 2rem;
-    }
-}
-
-.panel-title {
-    text-align: center;
-    font-size: 2rem;
-    @media (min-width: @defaultBootstrapCollapseSize) {
-        font-size: 3rem;
-    }
-}
-
-
-/********************************************
-        _Layout
-********************************************/
-
-#title-and-welcome {
-    display: flex;
-    flex-direction: column;
-    float: none;
-    @media (min-width: @defaultBootstrapCollapseSize) {
-        float: left;
-    }
-}
-
-#site-title {
-    font-family: @mainSiteFont;
-    font-size: 5rem;
-    color: #14A647;
-    padding-left: 0;
-    margin: 0 0 10px 0;
-    position: relative;
-    z-index: 5;
-}
-
-#welcome-nav {
-    font-family: @mainSiteFont;
-    font-size: 3rem;
-    margin: 0;
-}
-
-
-/********************************************
-        <LoginLogout> Default
-********************************************/
-
-#navbar-toggler {
-    background-color: chocolate;
-}
-
-#main-collapsing-navbar {
-    margin: 0;
-}
-
-#logout-button {
-    margin-top: 10px;
-}
-
-#logout-button-a {
-    color: @redText;
-}
-
-
-
-
-/*********************************************************************************************
-                        SCORECARDS
-*********************************************************************************************/
-
-/********************************************
-        Generally
-********************************************/
-
-.scorecard {
-   font-family: 'Suez One', serif;
-   @media (min-width: @defaultBootstrapCollapseSize) {
-        font-size: 2rem;
-    }
-   td:not(:first-child),
-   th:not(:first-child) {
-       text-align: center;
-   }
-}
-
-.number-input,
-.number-input input {
-    width: 5rem;
-    text-align: center;
-    -webkit-appearance: none;
-}
-
-input::-webkit-inner-spin-button,
-input::-webkit-outer-spin-button {
-        .remove-number-spinners;
+.table > tbody > tr {
+    td.birdie-score {
+        color: @redText;
     }
 
-.teebox-played {
-    font-weight: bold;
-    background-color: #2AC930;
-}
-
-.teebox-not-played,
-.faded-font {
-    color: @fadedFontColor;
-}
-
-.teebox-to-delete {
-    text-decoration: line-through;
-}
-
-.delete-teebox,
-.undo-delete {
-    cursor: pointer;
-    &.faded-font {
-        cursor: default;
+    td.eagle-score {
+        color: @blueText;
     }
-}
 
-.table-row-striped {
-    background-color: @tableStripeColor;
-}
+    td.ablatross-score {
+        color: @purpleText;
+    }
 
-/*********************************************************************************************
-                        FOOTER
-*********************************************************************************************/
-
-/********************************************
-        _Layout
-********************************************/
-
-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 60px;
-    background-color: #000;
-    color: #FFF;
-}
-
-
-
-
-/*********************************************************************************************
-                        MISC. COMMENTS
-*********************************************************************************************/
-/*h1 {
-    font-size: @baseSize + 10px;
-}
-
-h2 {
-    font-size: @baseSize + 6px;
-}
-
-label {
-    background-color: lighten(@mainColor, 30%);
-}
-
-/*div {
-    .display-flexbox;
-}*/
-
-/*nav {               // example of nested rules
-    font-size: @baseSize;
-    ul {
-        font-size: @baseSize - 1;
-        li {
-            color: darken(@mainColor, 20%);
+    td.bogie-score {
+        .bogie-box {
+            border: 1px black solid;
         }
     }
-}*/
 
+    td.double-bogie-score {
+        .bogie-box {
+            border: 3px black solid;
+        }
+    }
+
+    td.other-score {
+        .bogie-box {
+            border: 4px black double;
+        }
+    }
+}
