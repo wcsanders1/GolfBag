@@ -66,11 +66,12 @@ $(function () {
     // to force datepicker to be in correct place on resize
     $(window).resize(function () {
         var field = $(document.activeElement);
-        if (field.is('.hasDatepicker')) {
-            field.datepicker('hide').datepicker('show');
+        if (field.is(".hasDatepicker")) {
+            field.datepicker("hide").datepicker("show");
         }
     });
 });
+
 
 
 

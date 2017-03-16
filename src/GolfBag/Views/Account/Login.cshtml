@@ -5,36 +5,53 @@
 
 <h1>@ViewBag.Message</h1>
 
-<h2 class="form-header">Login</h2>
 
-<form class="account-form" method="post" asp-antiforgery="true">
-    <div asp-validation-summary="ModelOnly"></div>
-    <div class="form-group">
-        <label asp-for="Username">User Name</label>
-        <input asp-for="Username" class="form-control" placeholder="User Name" />
-        <span asp-validation-for="Username"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Password"></label>
-        <input asp-for="Password" class="form-control"/>
-        <span asp-validation-for="Password"></span>
-    </div>
-    <div class="checkbox">
-        <label asp-for="RememberMe">
-            <input asp-for="RememberMe" /> Remember Me
-        </label>
-        <span asp-validation-for="RememberMe"></span>
-    </div>
-    <input type="submit" value="Login" class="btn btn-success"/>
-</form>
 
-<h2>Reset Password</h2>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6 col-xs-12">
+            <h2 class="form-header">Login</h2>
+            <form class="account-form" method="post" asp-antiforgery="true">
+                <div asp-validation-summary="ModelOnly"></div>
 
-<form class="account-form" asp-action="SendPasswordResetLink" asp-controller="Account"
-       asp-antiforgery="true" method="post">
-    <div class="form-group">
-        <label asp-for="Username">User Name:</label>
-        <input asp-for="Username" class="form-control" />
+                <div class="field">
+                    <label class="field-label" asp-for="Username">User Name</label>
+                    <input class="field-input" asp-for="Username" placeholder="User Name" />
+                </div>
+                <span asp-validation-for="Username"></span>
+
+                <div class="field">
+                    <label class="field-label" asp-for="Password"></label>
+                    <input class="field-input" asp-for="Password" placeholder="Password" type="password" />
+                </div>
+                <span asp-validation-for="Password"></span>
+
+                <div class="checkbox">
+                    <label asp-for="RememberMe">
+                        <input asp-for="RememberMe" /> Remember Me
+                    </label>
+                    <span asp-validation-for="RememberMe"></span>
+                </div>
+
+                <input type="submit" value="Login" class="btn btn-success" />
+            </form>
+        </div>
+
+        <div class="col-sm-6 col-xs-12">
+            <div class="reset-form"></div>
+            <h2 class="form-header">Reset Password</h2>
+            <form class="account-form" asp-action="SendPasswordResetLink" asp-controller="Account"
+                  asp-antiforgery="true" method="post">
+
+                <div class="field">
+                    <label class="field-label" asp-for="Username">User Name</label>
+                    <input class="field-input" asp-for="Username" placeholder="User Name" />
+                </div>
+
+                <input type="submit" value="Reset Password" class="btn btn-success" />
+            </form>
+        </div>
     </div>
-    <input type="submit" value="Reset Password" class="btn btn-success" />
-</form>
+</div>
+
+<script type="text/javascript" src="~/js/Login.js"></script>

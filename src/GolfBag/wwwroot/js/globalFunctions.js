@@ -16,3 +16,14 @@ var stripeRow = function ($teebox) {
         });
     });
 };
+
+var configureFloatingInputs = function ($input) {
+    "use strict";
+
+    var $field = $input.closest(".field");
+    if ($input.val() != "") {
+        $field.addClass("field-not-empty");
+    } else {
+        $field.removeClass("field-not-empty");
+    }
+};

@@ -46,7 +46,7 @@ var customValidations = {
         for (var i = 0; i < array.length; i++) {
             message += " " + array[i];
             if (i < array.length - 1) {
-                message += ","
+                message += ",";
             }          
         }
         return message;
@@ -67,7 +67,7 @@ var customValidations = {
         var $message = "";  //"<div class='" + errorClass + "'>";
 
         for (var i = 0; i < messages.length; i++) {
-            $message += "<p>" + messages[i] + "</p>"
+            $message += "<p>" + messages[i] + "</p>";
         }
 
         $errorElement.empty();
@@ -171,9 +171,9 @@ var courseNameValidator = {
             if ($(this).hasClass("invalid-course-name")) {
                 var error = $(this).siblings(".field-validation-error").find("span").text();
                 if (error == "required") {
-                    requiredMessage = "Please enter the name of the course."
+                    requiredMessage = "Please enter the name of the course.";
                 } else if (error == "maxlength") {
-                    rangeMessage = "The course name cannot be more than 50 characters long."
+                    rangeMessage = "The course name cannot be more than 50 characters long.";
                 }
             }
         });
@@ -394,9 +394,9 @@ var teeboxNameValidator = {
             if ($(this).hasClass("invalid-teebox-name")) {
                 var error = $(this).siblings(".field-validation-error").find("span").text();
                 if (error == "required") {
-                    requiredMessage = "All teeboxes must have a name."
+                    requiredMessage = "All teeboxes must have a name.";
                 } else if (error == "maxlength") {
-                    rangeMessage = "Teebox names cannot be more than 20 characters long."
+                    rangeMessage = "Teebox names cannot be more than 20 characters long.";
                 }
             }
         });

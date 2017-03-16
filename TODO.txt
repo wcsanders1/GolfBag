@@ -9,3 +9,5 @@
 5. Organize CSS
 
 6. Fix icon
+
+7: Add floating labels to all account forms
