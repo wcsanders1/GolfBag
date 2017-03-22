@@ -6,8 +6,10 @@
 </div>
 
 <form novalidate class="writable-scorecard" method="post" asp-antiforgery="true" asp-controller="RoundOfGolf" asp-action="EnterCourse">
-    <label asp-for="CourseName">Course Name</label>
-    <input class="course-name" asp-for="CourseName" />
+    <div class="field">
+        <label class="field-label" asp-for="CourseName">Course Name</label>
+        <input class="field-input course-name" asp-for="CourseName" placeholder="Course Name"/>
+    </div>
     @Html.ValidationMessageFor(m => m.CourseName, null, new { style = "display: none" })
 
     <label asp-for="NumberOfHoles">Number of Holes</label>
@@ -128,3 +130,4 @@
 <div class="error-container"></div>
 
 <script type="text/javascript" src="~/js/EnterCourse.js"></script>
+<script type="text/javascript" src="~/js/FloatingLabels.js"></script>

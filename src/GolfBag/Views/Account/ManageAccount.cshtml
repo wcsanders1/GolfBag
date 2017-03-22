@@ -4,27 +4,33 @@
     ViewBag.Title = "ManageAccount";
 }
 
-<h1>Manage Account</h1>
+<h1 class="form-header">Manage Account</h1>
 
 <form class="account-form" method="post" asp-antiforgery="true" asp-controller="Account" asp-action="SaveChanges">
     <div asp-validation-summary="ModelOnly"></div>
-    <div class="form-group">
-        <label asp-for="FirstName"></label>
-        <input asp-for="FirstName" class="form-control" value="@Model.FirstName" />
-        <span asp-validation-for="FirstName"></span>
+    
+    <div class="field">
+        <label class="field-label" asp-for="FirstName">First Name</label>
+        <input class="field-input" asp-for="FirstName" value="@Model.FirstName" placeholder="First Name" />
     </div>
-    <div class="form-group">
-        <label asp-for="LastName"></label>
-        <input asp-for="LastName" class="form-control" value="@Model.LastName" />
-        <span asp-validation-for="LastName"></span>
+    <span asp-validation-for="FirstName"></span>
+    
+    <div class="field">
+        <label class="field-label" asp-for="LastName">Last Name</label>
+        <input class="field-input" asp-for="LastName" value="@Model.LastName" placeholder="Last Name" />
     </div>
-    <div class="form-group">
-        <label asp-for="UserName"></label>
-        <input asp-for="UserName" class="form-control" value="@Model.UserName" />
-        <span asp-validation-for="UserName"></span>
+    <span asp-validation-for="LastName"></span>
+    
+    <div class="field">
+        <label class="field-label" asp-for="UserName">User Name</label>
+        <input class="field-input" asp-for="UserName" value="@Model.UserName" placeholder="User Name" />
     </div>
+    <span asp-validation-for="UserName"></span>
+
     <div>
         <input type="submit" value="Save Changes" class="btn btn-success" />
         <a class="btn btn-default" href="/">Cancel</a>
     </div>
 </form>
+
+<script type="text/javascript" src="~/js/FloatingLabels.js"></script>

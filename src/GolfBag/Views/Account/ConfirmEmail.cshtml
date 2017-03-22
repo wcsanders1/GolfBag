@@ -7,10 +7,15 @@
 <h1>@ViewBag.Message</h1>
 
 <h3>If you would like to change your email, please do so in the box below, then press the "Change Email" button.</h3>
-<h3>Pressing the "Change Email" button will send a confirmation link to the email in the box.</h3>
+<h3 class="form-header">Pressing the "Change Email" button will send a confirmation link to the email in the box.</h3>
 
-<form method="post" asp-antiforgery="true" asp-controller="Account" asp-action="ChangeEmail">
+<form class="account-form" method="post" asp-antiforgery="true" asp-controller="Account" asp-action="ChangeEmail">
     @Html.HiddenFor(m => m.UserId)
-    <input asp-for="Email" type="email" />
+    <div class="field">
+        <label class="field-label" asp-for="Email">New Email</label>
+        <input class="field-input" asp-for="Email" type="email" placeholder="New Email" />
+    </div>
     <input class="btn btn-primary" type="submit" value="Change Email" />
 </form>
+
+<script type="text/javascript" src="~/js/FloatingLabels.js"></script>

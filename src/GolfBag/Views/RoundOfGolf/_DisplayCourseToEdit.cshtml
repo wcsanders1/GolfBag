@@ -5,11 +5,12 @@
     @Html.HiddenFor(m => m.Id)
     @Html.HiddenFor(m => m.NumberOfTeeBoxes)
     @Html.HiddenFor(m => m.NumberOfHoles)
-
-    <h1>
-        <input class="course-name" asp-for="CourseName" />
-        @Html.ValidationMessageFor(m => m.CourseName, null, new { style = "display: none" })
-    </h1>
+  
+    <div class="field">
+        <label class="field-label" asp-for="CourseName">Course Name</label>
+        <input class="field-input course-name" asp-for="CourseName" placeholder="Course Name" />
+    </div>
+    @Html.ValidationMessageFor(m => m.CourseName, null, new { style = "display: none" })
 
     <div class="table-responsive">
         <table id="front-nine-table" class="table table-bordered table-striped scorecard">
@@ -161,7 +162,6 @@
                                 <td class="number-input">
                                     <input class="number-input teebox" data-hole-number="@holeNumber" asp-for="NewTeeBoxes[i].Tees[x].Yardage" />
                                     @Html.ValidationMessageFor(m => m.NewTeeBoxes[i].Tees[x].Yardage, null, new { style = "display: none" })
-                                    @*@Html.EditorFor(m => m.NewTeeBoxes[i].Tees[x].Yardage)*@
                                 </td>
                             }
                         </tr>
@@ -214,3 +214,5 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="~/js/FloatingLabels.js"></script>

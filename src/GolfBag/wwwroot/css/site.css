@@ -274,6 +274,15 @@ footer {
     font-size: 2rem;
   }
 }
+.pager {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+@media (min-width: 480px) {
+  .pager {
+    margin-top: -40px;
+  }
+}
 .panel-title {
   text-align: center;
   font-size: 2rem;

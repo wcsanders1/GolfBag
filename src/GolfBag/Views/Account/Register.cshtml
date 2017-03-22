@@ -4,41 +4,50 @@
     ViewBag.Title = "Register";
 }
 
-<h1>Register</h1>
+<h1 class="form-header">Register</h1>
 
 <form class="account-form" method="post" asp-antiforgery="true">
     <div asp-validation-summary="ModelOnly"></div>
-    <div class="form-group">
-        <label asp-for="Username"></label>
-        <input asp-for="Username" class="form-control"/>
-        <span asp-validation-for="Username"></span>
+
+    <div class="field">
+        <label class="field-label" asp-for="Username">User Name</label>
+        <input class="field-input" asp-for="Username" placeholder="User Name"/>  
     </div>
-    <div class="form-group">
-        <label asp-for="Password"></label>
-        <input asp-for="Password" class="form-control"/>
-        <span asp-validation-for="Password"></span>
+    <span asp-validation-for="Username"></span>
+
+    <div class="field">
+        <label class="field-label" asp-for="Password">Password</label>
+        <input class="field-input" asp-for="Password" placeholder="Password"/>
     </div>
-    <div class="form-group">
-        <label asp-for="ConfirmPassword"></label>
-        <input asp-for="ConfirmPassword" class="form-control"/>
-        <span asp-validation-for="ConfirmPassword"></span>
+    <span asp-validation-for="Password"></span>
+
+    <div class="field">
+        <label class="field-label" asp-for="ConfirmPassword">Confirm Password</label>
+        <input class="field-input" asp-for="ConfirmPassword" placeholder="Confirm Password"/>
     </div>
-    <div class="form-group">
-        <label asp-for="Email"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email"></span>
+    <span asp-validation-for="ConfirmPassword"></span>
+
+    <div class="field">
+        <label class="field-label" asp-for="Email">Email</label>
+        <input class="field-input" asp-for="Email" placeholder="Email"/>
     </div>
-    <div class="form-group">
-        <label asp-for="FirstName"></label>
-        <input asp-for="FirstName" class="form-control" />
-        <span asp-validation-for="FirstName"></span>
+    <span asp-validation-for="Email"></span>
+
+    <div class="field">
+        <label class="field-label" asp-for="FirstName">First Name</label>
+        <input class="field-input" asp-for="FirstName" placeholder="First Name"/>
     </div>
-    <div class="form-group">
-        <label asp-for="LastName"></label>
-        <input asp-for="LastName" class="form-control" />
-        <span asp-validation-for="LastName"></span>
+    <span asp-validation-for="FirstName"></span>
+
+    <div class="field">
+        <label class="field-label" asp-for="LastName">Last Name</label>
+        <input  class="field-input" asp-for="LastName" placeholder="Last Name"/>
     </div>
+    <span asp-validation-for="LastName"></span>
+
     <div>
         <input type="submit" value="Register" class="btn btn-success" />
     </div>
 </form>
+
+<script type="text/javascript" src="~/js/FloatingLabels.js"></script>
