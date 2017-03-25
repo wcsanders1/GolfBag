@@ -25,9 +25,9 @@ body {
 }
 
 #main-content {
-    padding-top: 210px;
+    padding-top: @paddingXS;
     @media (min-width: @bootstrapSM) {
-        padding-top: 180px;
+        padding-top: @paddingSM;
     }
 }
 
@@ -42,7 +42,7 @@ a {
 li {
     font-size: 2rem;
     @media (min-width: @bootstrapSM) {
-        font-size: 3rem;
+        font-size: 2.5rem;
     }
     li {
         font-size: 1.5rem;
@@ -165,6 +165,10 @@ li {
     }
 }
 
+#main-body {
+    padding: 20px;
+}
+
 #site-title {
     font-family: @mainSiteFont;
     font-size: 5rem;
@@ -173,6 +177,14 @@ li {
     margin: 0 0 10px 0;
     position: relative;
     z-index: 5;
+}
+
+.sidebar {
+    background-color: @black;
+    min-height: 100%;
+    @media (min-width: @bootstrapMD) {
+        top: -@paddingXS;
+    }
 }
 
 #welcome-nav {
@@ -225,14 +237,10 @@ footer {
 }
 
 .nav-pills li {
-    min-height: 7rem;
+    min-height: 6.5rem;
 
     a {
         padding-bottom: 0;
-    }
-
-    @media (min-width: @bootstrapSM) {
-        min-height: 10rem;
     }
 }
 
@@ -273,7 +281,7 @@ footer {
     font-size: 2rem;
 
     @media (min-width: @bootstrapSM) {
-        font-size: 3rem;
+        font-size: 2.5rem;
     }
 }
 

@@ -81,7 +81,7 @@ li {
 }
 @media (min-width: 768px) {
   li {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
 }
 li li {
@@ -195,6 +195,9 @@ li li a {
     float: left;
   }
 }
+#main-body {
+  padding: 20px;
+}
 #site-title {
   font-family: 'Cormorant Garamond', serif;
   font-size: 5rem;
@@ -203,6 +206,15 @@ li li a {
   margin: 0 0 10px 0;
   position: relative;
   z-index: 5;
+}
+.sidebar {
+  background-color: #000;
+  min-height: 100%;
+}
+@media (min-width: 992px) {
+  .sidebar {
+    top: -210px;
+  }
 }
 #welcome-nav {
   font-family: 'Cormorant Garamond', serif;
@@ -243,15 +255,10 @@ footer {
   margin-right: 5rem;
 }
 .nav-pills li {
-  min-height: 7rem;
+  min-height: 6.5rem;
 }
 .nav-pills li a {
   padding-bottom: 0;
-}
-@media (min-width: 768px) {
-  .nav-pills li {
-    min-height: 10rem;
-  }
 }
 .navbar {
   -webkit-transition: all 0.5s;
@@ -289,7 +296,7 @@ footer {
 }
 @media (min-width: 768px) {
   .panel-title {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
 }
 @media (min-width: 768px) {

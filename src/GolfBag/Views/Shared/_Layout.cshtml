@@ -41,8 +41,20 @@
             </div>
         </div>
     </nav>
-    <div id="main-content" class="container">
-        @RenderBody()
+    <div id="main-content" class="row">
+        
+        <div id="main-body" class="col-md-8 col-md-push-2">
+            @RenderBody()
+        </div>
+                
+        <div id="left-top" class="col-md-2 col-md-pull-8 sidebar">
+
+        </div>
+        
+        <div id="right-bottom" class="col-md-2 sidebar">
+
+        </div>
+
     </div>
     <footer>
         @RenderSection("footer", required: false)
