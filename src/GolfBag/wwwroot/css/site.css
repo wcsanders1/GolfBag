@@ -51,6 +51,24 @@
 /*********************************************************************************************
                         GENERAL ELEMENT STYLES
 *********************************************************************************************/
+#screen-size-detector {
+  height: 1px;
+}
+@media (min-width: 768px) {
+  #screen-size-detector {
+    height: 2px;
+  }
+}
+@media (min-width: 992px) {
+  #screen-size-detector {
+    height: 3px;
+  }
+}
+@media (min-width: 1200px) {
+  #screen-size-detector {
+    height: 4px;
+  }
+}
 html {
   position: relative;
   min-height: 100%;
@@ -68,6 +86,11 @@ body {
   #main-content {
     padding-top: 180px;
   }
+}
+.row {
+  max-width: 100%;
+  margin: 0;
+  margin-top: -8px;
 }
 a {
   text-decoration: none;
@@ -209,11 +232,28 @@ li li a {
 }
 .sidebar {
   background-color: #000;
-  min-height: 100%;
+}
+@media (max-width: 992px) {
+  .sidebar {
+    min-height: 200px;
+    margin: 10px 20px;
+  }
 }
 @media (min-width: 992px) {
   .sidebar {
-    top: -210px;
+    margin-top: -200px;
+    height: 100%;
+    position: absolute;
+  }
+}
+@media (min-width: 992px) {
+  #left-sidebar {
+    left: 0;
+  }
+}
+@media (min-width: 992px) {
+  #right-sidebar {
+    right: 0;
   }
 }
 #welcome-nav {

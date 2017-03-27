@@ -12,6 +12,22 @@
                         GENERAL ELEMENT STYLES
 *********************************************************************************************/
 
+#screen-size-detector {
+    height: 1px;
+
+    @media (min-width: @bootstrapSM) {
+        height: 2px;
+    }
+
+    @media (min-width: @bootstrapMD) {
+        height: 3px;
+    }
+
+    @media (min-width: @bootstrapLG) {
+        height: 4px;
+    }
+}
+
 html {
     position: relative;
     min-height: 100%;
@@ -29,6 +45,12 @@ body {
     @media (min-width: @bootstrapSM) {
         padding-top: @paddingSM;
     }
+}
+
+.row {
+    max-width: 100%;
+    margin: 0;
+    margin-top: -8px;   // this is necessary or it scrolls a little bit up and down for some reason
 }
 
 a {
@@ -181,9 +203,27 @@ li {
 
 .sidebar {
     background-color: @black;
-    min-height: 100%;
+
+    @media (max-width: @bootstrapMD) {
+        min-height: 200px;
+        margin: 10px 20px;
+    }
     @media (min-width: @bootstrapMD) {
-        top: -@paddingXS;
+        margin-top: -@paddingXS + 10px;
+        height: 100%;
+        position: absolute;
+    }
+}
+
+#left-sidebar {
+    @media (min-width: @bootstrapMD) {
+        left: 0;
+    }
+}
+
+#right-sidebar {
+    @media (min-width: @bootstrapMD) {
+        right: 0;
     }
 }
 
@@ -192,282 +232,271 @@ li {
     font-size: 3rem;
     margin: 0;
 }
-
-/********************************************
+    /********************************************
         <LoginLogout> Default
 ********************************************/
-
-#navbar-toggler {
-    background-color: chocolate;
-}
-
-#main-collapsing-navbar {
-    margin: 0;
-}
-
-#logout-button {
-    margin-top: 10px;
-}
-
-#logout-button-a {
-    color: @redText;
-}
-
-/********************************************
-        Footer
-********************************************/
-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 60px;
-    background-color: #000;
-    color: #FFF;
-}
-
-
-
-/*********************************************************************************************
-                        NAVIGATION & NAV PILLS
-*********************************************************************************************/
-
-.navpill-header {
-    padding: 10px 15px 0 15px;
-    margin-right: 5rem;
-}
-
-.nav-pills li {
-    min-height: 6.5rem;
-
-    a {
-        padding-bottom: 0;
+    #navbar-toggler {
+        background-color: chocolate;
     }
-}
 
-.navbar {
-    -webkit-transition: all 0.5s;
-    transition: all 0.5s;
-}
-
-.cbp-af-header-shrink {
-    opacity: 0.9;
-    .navbar {
-        margin-bottom: 5px;
-    }
-}
-
-.teebox-toggler-icon {
-    width: 100%;
-    text-align: center;
-    color: @yellow;
-    font-size: 1.5rem;
-
-    @media (min-width: @bootstrapSM) {
-        font-size: 2rem;
-    }
-}
-
-.pager {
-    margin-bottom: 0;
-    margin-top: 0;
-
-    @media (min-width: @bootstrapXS) {
-        margin-top: -40px;
-    }
-}
-
-.panel-title {
-    text-align: center;
-    font-size: 2rem;
-
-    @media (min-width: @bootstrapSM) {
-        font-size: 2.5rem;
-    }
-}
-
-.nav .dropdown:hover .dropdown-menu {
-    @media (min-width: @bootstrapSM) {
-        display: block;
-    }
-}
-
-.dropdown-menu {
-    max-height: 40rem;
-    overflow-y: auto;
-}
-
-.dropdown-menu > li > a {
-    display: flex;
-    justify-content: space-between;
-    padding-left: 0;
-    padding-right: 0;
-    font-size: 1.5rem;
-    @media (min-width: @bootstrapSM) {
-        font-size: 2rem;
-    }
-}
-
-.dropdown-menu > li > a > span {
-    margin-left: 1rem;
-    display: flex;
-    align-items: center;
-}
-
-
-
-/*********************************************************************************************
-                        SCORECARDS
-*********************************************************************************************/
-
-.table {
-    margin-bottom: 1rem;
-}
-
-.table-responsive {
-    margin-bottom: 3rem;
-}
-
-.account-form {
-    input[type="text"],
-    input[type="password"],
-    input[type="email"] {
-        max-width: 45rem;
-    }
-}
-
-.comment-box {
-    width: 100%;
-}
-
-.datepicker {
-    cursor: pointer;
-    width: 25rem;
-    margin-right: 5rem;
-}
-
-.error-container {
-    padding: 0;
-    color: darken(@redText, 20%);
-    font-size: 2rem;
-
-    p {
+    #main-collapsing-navbar {
         margin: 0;
     }
-}
 
-.scorecard {
-    font-family: 'Suez One', serif;
-
-    @media (min-width: @bootstrapSM) {
-        font-size: 2rem;
+    #logout-button {
+        margin-top: 10px;
     }
 
-    td:not(:first-child),
-    th:not(:first-child) {
-        text-align: center;
-    }
-}
-
-.number-input,
-.number-input input {
-    width: 5rem;
-    text-align: center;
-    -webkit-appearance: none;
-}
-
-input::-webkit-inner-spin-button,
-input::-webkit-outer-spin-button {
-    .remove-number-spinners;
-}
-
-.teebox-played {
-    font-weight: bold;
-    background-color: #2AC930;
-}
-
-.teebox-not-played,
-.faded-font {
-    color: @fadedFontColor;
-}
-
-.teebox-to-delete {
-    text-decoration: line-through;
-}
-
-.delete-teebox,
-.undo-delete {
-    cursor: pointer;
-
-    &.faded-font {
-        cursor: default;
-    }
-}
-
-.table-row-striped {
-    background-color: @tableStripeColor;
-}
-
-
-
-/*********************************************
-            Scorecard Colors and borders
-*********************************************/
-
-.invalid-score,
-.invalid-course-name,
-.invalid-par,
-.invalid-handicap,
-.invalid-teebox-name,
-.invalid-teebox {
-    border-color: @redText;
-}
-
-.table > tbody > tr >td.hole-score {
-    font-family: @scorecardNumberFont;
-    text-align: center;
-    vertical-align: baseline;                                   
-}
-
-.bogie-box {
-    text-align: center;   
-    margin: 0 auto;
-    width: 100%;
-    @media (min-width: @bootstrapMD) {
-        width: 75%;
-    }
-    @media (min-width: @bootstrapLG) {
-        width: 50%;
-    }
-}
-
-.table > tbody > tr {
-    td.birdie-score {
+    #logout-button-a {
         color: @redText;
     }
-
-    td.eagle-score {
-        color: @blueText;
+    /********************************************
+        Footer
+********************************************/
+    footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 60px;
+        background-color: #000;
+        color: #FFF;
+    }
+    /*********************************************************************************************
+                        NAVIGATION & NAV PILLS
+*********************************************************************************************/
+    .navpill-header {
+        padding: 10px 15px 0 15px;
+        margin-right: 5rem;
     }
 
-    td.ablatross-score {
-        color: @purpleText;
-    }
+    .nav-pills li {
+        min-height: 6.5rem;
 
-    td.bogie-score {
-        .bogie-box {
-            border: 1px black solid;
+        a {
+            padding-bottom: 0;
         }
     }
 
-    td.double-bogie-score {
-        .bogie-box {
-            border: 3px black solid;
+    .navbar {
+        -webkit-transition: all 0.5s;
+        transition: all 0.5s;
+    }
+
+    .cbp-af-header-shrink {
+        opacity: 0.9;
+
+        .navbar {
+            margin-bottom: 5px;
         }
     }
 
-    td.other-score {
-        .bogie-box {
-            border: 4px black double;
+    .teebox-toggler-icon {
+        width: 100%;
+        text-align: center;
+        color: @yellow;
+        font-size: 1.5rem;
+
+        @media (min-width: @bootstrapSM) {
+            font-size: 2rem;
         }
     }
-}
+
+    .pager {
+        margin-bottom: 0;
+        margin-top: 0;
+
+        @media (min-width: @bootstrapXS) {
+            margin-top: -40px;
+        }
+    }
+
+    .panel-title {
+        text-align: center;
+        font-size: 2rem;
+
+        @media (min-width: @bootstrapSM) {
+            font-size: 2.5rem;
+        }
+    }
+
+    .nav .dropdown:hover .dropdown-menu {
+        @media (min-width: @bootstrapSM) {
+            display: block;
+        }
+    }
+
+    .dropdown-menu {
+        max-height: 40rem;
+        overflow-y: auto;
+    }
+
+    .dropdown-menu > li > a {
+        display: flex;
+        justify-content: space-between;
+        padding-left: 0;
+        padding-right: 0;
+        font-size: 1.5rem;
+
+        @media (min-width: @bootstrapSM) {
+            font-size: 2rem;
+        }
+    }
+
+    .dropdown-menu > li > a > span {
+        margin-left: 1rem;
+        display: flex;
+        align-items: center;
+    }
+    /*********************************************************************************************
+                        SCORECARDS
+*********************************************************************************************/
+    .table {
+        margin-bottom: 1rem;
+    }
+
+    .table-responsive {
+        margin-bottom: 3rem;
+    }
+
+    .account-form {
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            max-width: 45rem;
+        }
+    }
+
+    .comment-box {
+        width: 100%;
+    }
+
+    .datepicker {
+        cursor: pointer;
+        width: 25rem;
+        margin-right: 5rem;
+    }
+
+    .error-container {
+        padding: 0;
+        color: darken(@redText, 20%);
+        font-size: 2rem;
+
+        p {
+            margin: 0;
+        }
+    }
+
+    .scorecard {
+        font-family: 'Suez One', serif;
+
+        @media (min-width: @bootstrapSM) {
+            font-size: 2rem;
+        }
+
+        td:not(:first-child),
+        th:not(:first-child) {
+            text-align: center;
+        }
+    }
+
+    .number-input,
+    .number-input input {
+        width: 5rem;
+        text-align: center;
+        -webkit-appearance: none;
+    }
+
+    input::-webkit-inner-spin-button,
+    input::-webkit-outer-spin-button {
+        .remove-number-spinners;
+    }
+
+    .teebox-played {
+        font-weight: bold;
+        background-color: #2AC930;
+    }
+
+    .teebox-not-played,
+    .faded-font {
+        color: @fadedFontColor;
+    }
+
+    .teebox-to-delete {
+        text-decoration: line-through;
+    }
+
+    .delete-teebox,
+    .undo-delete {
+        cursor: pointer;
+
+        &.faded-font {
+            cursor: default;
+        }
+    }
+
+    .table-row-striped {
+        background-color: @tableStripeColor;
+    }
+    /*********************************************
+            Scorecard Colors and borders
+*********************************************/
+    .invalid-score,
+    .invalid-course-name,
+    .invalid-par,
+    .invalid-handicap,
+    .invalid-teebox-name,
+    .invalid-teebox {
+        border-color: @redText;
+    }
+
+    .table > tbody > tr > td.hole-score {
+        font-family: @scorecardNumberFont;
+        text-align: center;
+        vertical-align: baseline;
+    }
+
+    .bogie-box {
+        text-align: center;
+        margin: 0 auto;
+        width: 100%;
+
+        @media (min-width: @bootstrapMD) {
+            width: 75%;
+        }
+
+        @media (min-width: @bootstrapLG) {
+            width: 50%;
+        }
+    }
+
+    .table > tbody > tr {
+        td.birdie-score {
+            color: @redText;
+        }
+
+        td.eagle-score {
+            color: @blueText;
+        }
+
+        td.ablatross-score {
+            color: @purpleText;
+        }
+
+        td.bogie-score {
+            .bogie-box {
+                border: 1px black solid;
+            }
+        }
+
+        td.double-bogie-score {
+            .bogie-box {
+                border: 3px black solid;
+            }
+        }
+
+        td.other-score {
+            .bogie-box {
+                border: 4px black double;
+            }
+        }
+    }

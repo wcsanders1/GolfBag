@@ -30,10 +30,10 @@
 
     <script type="text/javascript" src="~/js/validator.js"></script>
     <script type="text/javascript" src="~/js/globalFunctions.js"></script>
-    <script type="text/javascript" src="~/js/site.js"></script>
-
+    
 </head>
 <body>
+    <div id="screen-size-detector" class="hidden"></div>
     <nav class="navbar navbar-default navbar-fixed-top cbp-af-header">
         <div class="container-fluid">
             <div id="loginlogout" class="navbar">
@@ -47,13 +47,14 @@
             @RenderBody()
         </div>
                 
-        <div id="left-top" class="col-md-2 col-md-pull-8 sidebar">
+        <div id="left-sidebar" class="col-md-2 col-md-pull-8 sidebar">
 
         </div>
-        
-        <div id="right-bottom" class="col-md-2 sidebar">
+
+        <div id="right-sidebar" class="col-md-2 sidebar">
 
         </div>
+
 
     </div>
     <footer>
@@ -63,6 +64,7 @@
 
     @RenderSection("Scripts", false)
 
+    <script type="text/javascript" src="~/js/site.js"></script>
     <script type="text/javascript" src="~/js/AnimatedHeader/classie.js"></script>
     <script type="text/javascript" src="~/js/AnimatedHeader/cbpAnimatedHeader.js"></script>
 </body>
