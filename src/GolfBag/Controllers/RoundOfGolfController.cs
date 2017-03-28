@@ -77,7 +77,7 @@ namespace GolfBag.Controllers
             }
 
             int courseId = _roundOfGolf.GetCourseId(courseName);
-           
+
             RoundOfGolf roundOfGolf = model.MapViewModelToRoundOfGolf(courseName, courseId, User.Identity.Name);
             roundOfGolf.PlayerId = GetCurrentUserAsync().Result.Id;
 

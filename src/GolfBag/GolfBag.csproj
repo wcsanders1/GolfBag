@@ -54,8 +54,7 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Views\Shared\Components\LeftTop\" />
-    <Folder Include="Views\Shared\Components\RightBottom\" />
+    <Folder Include="Views\Shared\Components\RightBottomSidebar\" />
   </ItemGroup>
 
 </Project>

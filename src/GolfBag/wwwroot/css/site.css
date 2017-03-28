@@ -80,11 +80,11 @@ body {
   margin-bottom: 60px;
 }
 #main-content {
-  padding-top: 210px;
+  padding-top: 130px;
 }
 @media (min-width: 768px) {
   #main-content {
-    padding-top: 180px;
+    padding-top: 100px;
   }
 }
 .row {
@@ -241,9 +241,10 @@ li li a {
 }
 @media (min-width: 992px) {
   .sidebar {
-    margin-top: -200px;
+    margin-top: -120px;
     height: 100%;
     position: absolute;
+    padding-top: 100px;
   }
 }
 @media (min-width: 992px) {
@@ -372,7 +373,7 @@ footer {
   margin-bottom: 1rem;
 }
 .table-responsive {
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 }
 .account-form input[type="text"],
 .account-form input[type="password"],
@@ -440,6 +441,14 @@ input::-webkit-outer-spin-button {
 }
 .table-row-striped {
   background-color: #F9F9F9;
+}
+.table > tbody > tr > td,
+.table > tbody > tr > th,
+.table > tfoot > tr > td,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > thead > tr > th {
+  padding: 4px;
 }
 /*********************************************
             Scorecard Colors and borders

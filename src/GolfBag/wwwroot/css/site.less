@@ -212,6 +212,7 @@ li {
         margin-top: -@paddingXS + 10px;
         height: 100%;
         position: absolute;
+        padding-top: 100px;
     }
 }
 
@@ -232,7 +233,9 @@ li {
     font-size: 3rem;
     margin: 0;
 }
-    /********************************************
+
+
+/********************************************
         <LoginLogout> Default
 ********************************************/
     #navbar-toggler {
@@ -355,7 +358,7 @@ li {
     }
 
     .table-responsive {
-        margin-bottom: 3rem;
+        margin-bottom: 1rem;
     }
 
     .account-form {
@@ -437,17 +440,24 @@ li {
     .table-row-striped {
         background-color: @tableStripeColor;
     }
-    /*********************************************
+
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    padding: 4px;
+}
+
+
+
+/*********************************************
             Scorecard Colors and borders
 *********************************************/
-    .invalid-score,
-    .invalid-course-name,
-    .invalid-par,
-    .invalid-handicap,
-    .invalid-teebox-name,
-    .invalid-teebox {
-        border-color: @redText;
-    }
+.invalid-score,
+.invalid-course-name,
+.invalid-par,
+.invalid-handicap,
+.invalid-teebox-name,
+.invalid-teebox {
+    border-color: @redText;
+}
 
     .table > tbody > tr > td.hole-score {
         font-family: @scorecardNumberFont;

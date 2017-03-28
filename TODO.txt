@@ -11,3 +11,5 @@
 6. Fix icon
 
 7: Add floating labels to all account forms
+
+8. Add ability to track putts

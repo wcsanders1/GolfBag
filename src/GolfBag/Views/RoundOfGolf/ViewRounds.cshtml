@@ -6,27 +6,30 @@
 }
 else
 {
-    <div class="dropdown page-header">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-            Choose A Round
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu list-group">
+    @section leftSidebar {
+        <div class="dropdown page-header">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                Choose A Round
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu list-group">
 
-            @foreach (var round in Model.ViewRounds)
-            {
-                <li class="list-group-item">
-                    <a data-ajax="true" data-target="#display-round"
-                       data-action="@Url.Action("DisplayRound", "RoundOfGolf",
-             new { id = round.RoundId })">
-                        @round.CourseName
-                        <span class="badge">@round.RoundDate.Date.ToString("MMMM d, yyyy")</span>
-                    </a>
-                </li>
-            }
+                @foreach (var round in Model.ViewRounds)
+                {
+                    <li class="list-group-item">
+                        <a data-ajax="true" data-target="#display-round"
+                           data-action="@Url.Action("DisplayRound", "RoundOfGolf",
+                     new { id = round.RoundId })">
+                            @round.CourseName
+                            <span class="badge">@round.RoundDate.Date.ToString("MMMM d, yyyy")</span>
+                        </a>
+                    </li>
+                }
 
-        </ul>
-    </div>
+            </ul>
+        </div>
+    }
+    
 
     <div id="display-round"></div>
 

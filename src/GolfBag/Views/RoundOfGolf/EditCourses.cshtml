@@ -1,25 +1,29 @@
 ﻿@model Dictionary<int, string>
 
-<div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-        Choose A Course To Edit
-        <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu list-group">
 
-        @foreach (var course in Model)
-        {
-            <li class="list-group-item">
-                <a data-ajax="true" data-target="#display-course-to-edit"
-                   data-action="@Url.Action("EditCourse", "RoundOfGolf",
-                                new { courseId = course.Key })">
-                    @course.Value
-                </a>
-            </li>
-        }
+@section leftSidebar {
+    <div class="dropdown page-header">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+            Choose A Course To Edit
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu list-group">
 
-    </ul>
-</div>
+            @foreach (var course in Model)
+            {
+                <li class="list-group-item">
+                    <a data-ajax="true" data-target="#display-course-to-edit"
+                       data-action="@Url.Action("EditCourse", "RoundOfGolf",
+                                    new { courseId = course.Key })">
+                        @course.Value
+                    </a>
+                </li>
+            }
+
+        </ul>
+    </div>
+}
+
 
 <h1>@ViewBag.Message</h1>
 
