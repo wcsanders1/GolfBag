@@ -84,6 +84,18 @@
                         }
                     </tr>
 
+                    <tr>
+                        <td>Putts</td>
+                        @for (int i = 0; i < 9; i++)
+                        {
+                            int holeNumber = i + 1;
+                            <td>
+                                <input class="number-input putt" data-hole-number="@holeNumber" />
+                                @*add validation message*@
+                            </td>
+                        }
+                    </tr>
+
                 </tbody>
             </table>
         </div>
@@ -169,6 +181,18 @@
                             <td>
                                 <input class="number-input score" data-hole-number="@holeNumber" asp-for="BackNineScores[i]" />
                                 @Html.ValidationMessageFor(m => m.BackNineScores[i], null, new { style = "display: none" })
+                            </td>
+                        }
+                    </tr>
+
+                    <tr>
+                        <td>Putts</td>
+                        @for (int i = 0; i < 9; i++)
+                        {
+                            int holeNumber = i + 10;
+                            <td>
+                                <input class="number-input putt" data-hole-number="@holeNumber" />
+                                @*add validation message*@
                             </td>
                         }
                     </tr>

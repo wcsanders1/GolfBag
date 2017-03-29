@@ -18,6 +18,10 @@ namespace GolfBag.ViewModels
 
         public List<string> BackNineScoreNames { get; set; }
 
+        public List<int> FrontNinePutts { get; set; }
+
+        public List<int> BackNinePutts { get; set; }
+
         public string CourseName { get; set; }
 
         public int IdOfCourse { get; set; }
@@ -47,9 +51,9 @@ namespace GolfBag.ViewModels
 
         public List<TeeBox> TeeBoxes { get; set; }
 
-        public List<int> Pars { get; set; }
-
         public List<int> Handicaps { get; set; }
+
+        public List<int> Pars { get; set; }
 
         public RoundOfGolfViewModel()
         {
@@ -85,24 +89,24 @@ namespace GolfBag.ViewModels
             var priorRoundType             = priorRound.GetType();
             var subsequentRoundType        = subsequentRound.GetType();
 
-            roundOfGolfViewModel.Pars = MapPars(roundOfGolf, course.CourseHoles);
-            roundOfGolfViewModel.Handicaps = MapHandicaps(course);
-            roundOfGolfViewModel.TeeBoxes = course.TeeBoxes;
-            roundOfGolfViewModel.FrontNineScores = frontAndBackNineScores["frontNineScores"];
-            roundOfGolfViewModel.BackNineScores = frontAndBackNineScores["backNineScores"];
-            roundOfGolfViewModel.FrontNineScoreNames = frontAndBackNineScoreNames["frontNineScoreNames"];
-            roundOfGolfViewModel.BackNineScoreNames = frontAndBackNineScoreNames["backNineScoreNames"];
-            roundOfGolfViewModel.IdOfPriorRound = (int)priorRoundType.GetProperty("id").GetValue(priorRound, null);
-            roundOfGolfViewModel.IdOfSubsequentRound = (int)subsequentRoundType.GetProperty("id").GetValue(subsequentRound, null);
-            roundOfGolfViewModel.DateOfPriorRound = (DateTime)priorRoundType.GetProperty("date").GetValue(priorRound, null);
-            roundOfGolfViewModel.DateOfSubsequentRound = (DateTime)subsequentRoundType.GetProperty("date").GetValue(subsequentRound, null);
-            roundOfGolfViewModel.CourseName = course.CourseName;
-            roundOfGolfViewModel.IdOfCourse = course.Id;
-            roundOfGolfViewModel.NumberOfHoles = roundOfGolf.Scores.Count();
-            roundOfGolfViewModel.DateOfRound = roundOfGolf.Date;
-            roundOfGolfViewModel.Comment = roundOfGolf.Comment;
-            roundOfGolfViewModel.Id = roundOfGolf.Id;
-            roundOfGolfViewModel.IdOfTeeBoxPlayed = roundOfGolf.TeeBoxPlayed;
+            roundOfGolfViewModel.Pars                   = MapPars(roundOfGolf, course.CourseHoles);
+            roundOfGolfViewModel.Handicaps              = MapHandicaps(course);
+            roundOfGolfViewModel.TeeBoxes               = course.TeeBoxes;
+            roundOfGolfViewModel.FrontNineScores        = frontAndBackNineScores["frontNineScores"];
+            roundOfGolfViewModel.BackNineScores         = frontAndBackNineScores["backNineScores"];
+            roundOfGolfViewModel.FrontNineScoreNames    = frontAndBackNineScoreNames["frontNineScoreNames"];
+            roundOfGolfViewModel.BackNineScoreNames     = frontAndBackNineScoreNames["backNineScoreNames"];
+            roundOfGolfViewModel.IdOfPriorRound         = (int)priorRoundType.GetProperty("id").GetValue(priorRound, null);
+            roundOfGolfViewModel.IdOfSubsequentRound    = (int)subsequentRoundType.GetProperty("id").GetValue(subsequentRound, null);
+            roundOfGolfViewModel.DateOfPriorRound       = (DateTime)priorRoundType.GetProperty("date").GetValue(priorRound, null);
+            roundOfGolfViewModel.DateOfSubsequentRound  = (DateTime)subsequentRoundType.GetProperty("date").GetValue(subsequentRound, null);
+            roundOfGolfViewModel.CourseName             = course.CourseName;
+            roundOfGolfViewModel.IdOfCourse             = course.Id;
+            roundOfGolfViewModel.NumberOfHoles          = roundOfGolf.Scores.Count();
+            roundOfGolfViewModel.DateOfRound            = roundOfGolf.Date;
+            roundOfGolfViewModel.Comment                = roundOfGolf.Comment;
+            roundOfGolfViewModel.Id                     = roundOfGolf.Id;
+            roundOfGolfViewModel.IdOfTeeBoxPlayed       = roundOfGolf.TeeBoxPlayed;
 
             return roundOfGolfViewModel;
         }

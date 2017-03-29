@@ -3,7 +3,7 @@
 @if (Model.TeeBoxes.Count > 1)
 {
     <ul class="nav nav-pills navbar-default">
-        <li class="navpill-header">Show and Hide Tee Boxes:</li>
+        <li class="navpill-header">Show and Hide Tee Boxes and Putts:</li>
         @foreach (var teeBox in Model.TeeBoxes)
         {
             if (teeBox.Id != Model.IdOfTeeBoxPlayed)
@@ -12,9 +12,13 @@
                     <a class="teebox-toggler" href=".@teeBox.Id" data-toggle="collapse">@teeBox.Name</a>
                     <i class="fa fa-lightbulb-o teebox-toggler-icon hidden" data-teebox-id="@teeBox.Id"></i>
                 </li>
-
             }
         }
+
+        <li>
+            <a class="teebox-toggler" href=".putt-row" data-toggle="collapse">Putts</a>
+            <i class="fa fa-lightbulb-o teebox-toggler-icon hidden" data-teebox-id="putt-row"></i>
+        </li>
 
     </ul>
 }
@@ -145,6 +149,21 @@
                             }
                         </tr>
 
+                        <tr class="collapse teebox-not-played putt-row" data-teebox-id="putt-row">  @*teebox-not-played necessary to get lightbulb to toggle witout having to change js too much*@
+                            <td>Putts</td>
+                            @{ 
+                                int totalPutts = 0;
+                                for (int i = 0; i < 9; i++)
+                                {
+                                    <td class="hole-putts">
+                                        @*put putts here*@
+                                    </td>
+                                    totalPutts += 0; @*calculate total putts*@
+                                }
+                                <td>@*total putts*@</td>
+                            }
+                        </tr>
+
                     </tbody>
 
                 </table>
@@ -239,6 +258,21 @@
                                     totalScore += Model.BackNineScores[i];
                                 }
                                 <td class="hole-score">@totalScore</td>
+                            }
+                        </tr>
+
+                        <tr class="collapse teebox-not-played putt-row" data-teebox-id="putt-row">
+                            <td>Putts</td>
+                            @{
+                                int totalPutts = 0;
+                                for (int i = 9; i < 18; i++)
+                                {
+                                    <td class="hole-putts">
+                                        @*put putts here*@
+                                    </td>
+                                    totalPutts += 0; @*calculate total putts*@
+                                }
+                                <td>@*total putts*@</td>
                             }
                         </tr>
                     </tbody>

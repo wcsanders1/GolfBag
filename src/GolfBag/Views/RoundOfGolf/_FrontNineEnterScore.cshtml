@@ -61,6 +61,19 @@
                     </td>
                 }
             </tr>
+
+            <tr>
+                <td>Enter Putts</td>
+                @for (int i = 0; i < 9; i++)
+                {
+                    int holeNumber = i + 1;
+                    <td>
+                        <input class="number-input putt" data-hole-number="@holeNumber" />
+                        @*add validation message*@
+                    </td>
+                }
+            </tr>
+
         </tbody>
 
 

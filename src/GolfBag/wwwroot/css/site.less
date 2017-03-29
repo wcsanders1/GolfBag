@@ -204,15 +204,25 @@ li {
 .sidebar {
     background-color: @black;
 
-    @media (max-width: @bootstrapMD) {
+    .dropdown-menu > li > a {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    @media (max-width: @bootstrapLG) {
         min-height: 200px;
         margin: 10px 20px;
     }
-    @media (min-width: @bootstrapMD) {
+
+    @media (min-width: @bootstrapLG) {
         margin-top: -@paddingXS + 10px;
         height: 100%;
         position: absolute;
         padding-top: 100px;
+
+        .dropdown-menu {
+            width: 100%;
+        }
     }
 }
 
@@ -256,101 +266,117 @@ li {
     /********************************************
         Footer
 ********************************************/
-    footer {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        height: 60px;
-        background-color: #000;
-        color: #FFF;
-    }
-    /*********************************************************************************************
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #000;
+    color: #FFF;
+}
+
+
+/*********************************************************************************************
                         NAVIGATION & NAV PILLS
 *********************************************************************************************/
-    .navpill-header {
-        padding: 10px 15px 0 15px;
-        margin-right: 5rem;
-    }
+.navpill-header {
+    padding: 10px 15px 0 15px;
+    margin-right: 5rem;
+}
 
-    .nav-pills li {
+.nav-pills {
+    width: 100%;
+    li:last-child {
+        font-weight: bolder;
+    }
+    @media (min-width: @bootstrapSM)
+    {
+        display: inline-flex;
+
+        li:last-child {
+            margin-left: auto;
+            margin-right: 6rem;
+        }
+    }
+    li {
         min-height: 6.5rem;
 
         a {
             padding-bottom: 0;
         }
     }
+}
+
+.navbar {
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.cbp-af-header-shrink {
+    opacity: 0.9;
 
     .navbar {
-        -webkit-transition: all 0.5s;
-        transition: all 0.5s;
+        margin-bottom: 5px;
     }
+}
 
-    .cbp-af-header-shrink {
-        opacity: 0.9;
+.teebox-toggler-icon {
+    width: 100%;
+    text-align: center;
+    color: @yellow;
+    font-size: 1.5rem;
 
-        .navbar {
-            margin-bottom: 5px;
-        }
-    }
-
-    .teebox-toggler-icon {
-        width: 100%;
-        text-align: center;
-        color: @yellow;
-        font-size: 1.5rem;
-
-        @media (min-width: @bootstrapSM) {
-            font-size: 2rem;
-        }
-    }
-
-    .pager {
-        margin-bottom: 0;
-        margin-top: 0;
-
-        @media (min-width: @bootstrapXS) {
-            margin-top: -40px;
-        }
-    }
-
-    .panel-title {
-        text-align: center;
+    @media (min-width: @bootstrapSM) {
         font-size: 2rem;
-
-        @media (min-width: @bootstrapSM) {
-            font-size: 2.5rem;
-        }
     }
+}
 
-    .nav .dropdown:hover .dropdown-menu {
-        @media (min-width: @bootstrapSM) {
-            display: block;
-        }
+.pager {
+    margin-bottom: 0;
+    margin-top: 0;
+
+    @media (min-width: @bootstrapXS) {
+        margin-top: -40px;
     }
+}
 
-    .dropdown-menu {
-        max-height: 40rem;
-        overflow-y: auto;
+.panel-title {
+    text-align: center;
+    font-size: 2rem;
+
+    @media (min-width: @bootstrapSM) {
+        font-size: 2.5rem;
     }
+}
 
-    .dropdown-menu > li > a {
-        display: flex;
-        justify-content: space-between;
-        padding-left: 0;
-        padding-right: 0;
-        font-size: 1.5rem;
-
-        @media (min-width: @bootstrapSM) {
-            font-size: 2rem;
-        }
+.nav .dropdown:hover .dropdown-menu {
+    @media (min-width: @bootstrapSM) {
+        display: block;
     }
+}
 
-    .dropdown-menu > li > a > span {
-        margin-left: 1rem;
-        display: flex;
-        align-items: center;
+.dropdown-menu {
+    max-height: 30rem;
+    overflow-y: auto;
+}
+
+.dropdown-menu > li > a {
+    display: flex;
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 1.75rem;
+
+    @media (min-width: @bootstrapSM) {
+        font-size: 2rem;
     }
-    /*********************************************************************************************
+}
+
+.dropdown-menu > li > a > span {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+/*********************************************************************************************
                         SCORECARDS
 *********************************************************************************************/
     .table {

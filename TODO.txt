@@ -1,15 +1,17 @@
-1. Fix the problem of multiple rounds with same date. These cannot be viewed properly. -- FIXED
+Add graphs of statistics.
 
-2. Add graphs of statistics.
+Make stuff look better, i.e., better colors, better sizing, etc.
 
-3. Make stuff look better, i.e., better colors, better sizing, etc.
+Add server-side validation.
 
-4. Add server-side validation.
+Organize CSS
 
-5. Organize CSS
+Fix icon
 
-6. Fix icon
+Add ability to track putts
+	- add putts to database and update database
+	- add putts to mapper method
+	- add client- and server-side validation for putts
+	- add add total generator for putts
 
-7: Add floating labels to all account forms
-
-8. Add ability to track putts
+Make 18-hole totals for scorecards for pars, yardages, scores, and putts

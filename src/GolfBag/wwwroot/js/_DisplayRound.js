@@ -1,5 +1,5 @@
 ﻿/*********************************************************************************************
-               TOGGLES LIGHTBULB ICON AND STRIPES SCORECARD WHEN TOGGLING TEEBOXES
+          TOGGLES LIGHTBULB ICON AND STRIPES SCORECARD WHEN TOGGLING TEEBOXES AND PUTTS
 *********************************************************************************************/
 $(function () {
     "use strict";
