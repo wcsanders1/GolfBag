@@ -2,16 +2,11 @@ Add graphs of statistics.
 
 Make stuff look better, i.e., better colors, better sizing, etc.
 
-Add server-side validation.
-
 Organize CSS
 
 Fix icon
 
-Add ability to track putts
-	- add putts to database and update database
-	- add add total generator for putts
-
 Make 18-hole totals for scorecards for pars, yardages, scores, and putts
 
 Add to validation that putt can't be greater than score
+	- http://stackoverflow.com/questions/29451507/how-to-use-jquery-validator-to-determine-value-of-one-field-is-greater-than-anot
