@@ -65,10 +65,10 @@
                 <td>Enter Putts</td>
                 @for (int i = 0; i < 9; i++)
                 {
-                    int holeNumber = i + 1;
+                    int holeNumber = i + 10;
                     <td>
-                        <input class="number-input putt" data-hole-number="@holeNumber" />
-                        @*add validation message*@
+                        <input class="number-input putt" data-hole-number="@holeNumber" asp-for="BackNinePutts[i]" />
+                        @Html.ValidationMessageFor(m => m.BackNinePutts[i], null, new { style = "display: none" })
                     </td>
                 }
             </tr>

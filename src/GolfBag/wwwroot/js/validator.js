@@ -154,6 +154,84 @@ var scoreValidator = {
 };
 
 
+/*****************************************
+    PUTT VALIDATOR
+*****************************************/
+
+var puttValidator = {
+    makeAndShowErrorMessages: function () {
+        var requiredArray = [],
+            rangeArray = [],
+            messageArray = [],
+            requiredMessage = "",
+            rangeMessage = "";
+
+        $(".putt-errors").empty();
+
+        $(".putt").each(function () {
+            if ($(this).hasClass("invalid-putt")) {
+                var error = $(this).siblings(".field-validation-error").find("span").text(),
+                    holeNumber = $(this).data("hole-number");
+                if (error == "required") {
+                    requiredArray.push(holeNumber);
+                } else if (error == "range") {
+                    rangeArray.push(holeNumber);
+                }
+            }
+        });
+
+        if (requiredArray.length > 0) {
+            if (requiredArray.length == 1) {
+                requiredMessage = "Enter a putt for the following hole:" + customValidations.turnArrayToMessage(requiredArray);
+            } else {
+                requiredMessage = "Enter a putt for the following holes:" + customValidations.turnArrayToMessage(requiredArray);
+            }
+            messageArray.push(requiredMessage);
+        }
+
+        if (rangeArray.length > 0) {
+            if (rangeArray.length == 1) {
+                rangeMessage = "The putt for the following hole must be between 0 and 9:" + customValidations.turnArrayToMessage(rangeArray);
+            } else {
+                rangeMessage = "Putts for the following holes must be between 0 and 9:" + customValidations.turnArrayToMessage(rangeArray);
+            }
+            messageArray.push(rangeMessage);
+        }
+
+        if (messageArray.length > 0) {
+            customValidations.showMessages(messageArray, $(".putt-errors"));
+        }
+    },
+    validatePutts: function ($form, makeMessagesNow) {
+        "use strict";
+
+        var makeRules = function ($form) {
+            $(".putt").each(function () {
+                var $element = $(this);
+
+                $element.rules("add", {
+                    required: true,
+                    range: [0, 9],
+                    messages: {
+                        required: "required",
+                        range: "range"
+                    }
+                });
+                customValidations.bindValidationToElement($element, "invalid-putt", puttValidator.makeAndShowErrorMessages);
+            });
+            customValidations.bindValidationToSubmit($form, $(".putt"), "invalid-putt", puttValidator.makeAndShowErrorMessages);
+        };
+
+        makeRules($form);
+        $(".error-container").append("<div class='putt-errors'></div>");
+
+        if (makeMessagesNow) {
+            puttValidator.makeAndShowErrorMessages();
+        }
+    }
+};
+
+
 
 /*****************************************
     COURSE NAME VALIDATOR
@@ -583,6 +661,10 @@ var validateForm = function ($form, makeMessagesNow, turnOff) {
 
     if ($form.find(".teebox").length != 0) {
         teeboxValidator.validateTeeboxes($form, makeMessagesNow);
+    }
+
+    if ($form.find(".putt").length != 0) {
+        puttValidator.validatePutts($form, makeMessagesNow);
     }
 };
 

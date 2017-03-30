@@ -479,7 +479,8 @@ input::-webkit-outer-spin-button {
 .invalid-par,
 .invalid-handicap,
 .invalid-teebox-name,
-.invalid-teebox {
+.invalid-teebox,
+.invalid-putt {
   border-color: #F2112B;
 }
 .table > tbody > tr > td.hole-score {

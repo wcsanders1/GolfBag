@@ -10,8 +10,8 @@ Fix icon
 
 Add ability to track putts
 	- add putts to database and update database
-	- add putts to mapper method
-	- add client- and server-side validation for putts
 	- add add total generator for putts
 
 Make 18-hole totals for scorecards for pars, yardages, scores, and putts
+
+Add to validation that putt can't be greater than score

@@ -244,6 +244,7 @@ namespace GolfBag.Controllers
                 if (score.HoleNumber < 10)
                 {
                     score.HoleScore = round.FrontNineScores[i];
+                    score.HolePutt  = round.FrontNinePutts[i];
                     i++;
                 }
             }
@@ -254,6 +255,7 @@ namespace GolfBag.Controllers
                 if (score.HoleNumber >= 10)
                 {
                     score.HoleScore = round.BackNineScores[i];
+                    score.HolePutt  = round.BackNinePutts[i];
                     i++;
                 }
             }

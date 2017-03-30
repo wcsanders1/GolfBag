@@ -64,12 +64,12 @@ namespace GolfBag.ViewModels
         {
             var roundOfGolfViewModel = new RoundOfGolfViewModel();
 
-            roundOfGolfViewModel.Pars = MapPars(course);
-            roundOfGolfViewModel.Handicaps = MapHandicaps(course);
-            roundOfGolfViewModel.CourseName = course.CourseName;
-            roundOfGolfViewModel.IdOfCourse = course.Id;
+            roundOfGolfViewModel.Pars          = MapPars(course);
+            roundOfGolfViewModel.Handicaps     = MapHandicaps(course);
+            roundOfGolfViewModel.CourseName    = course.CourseName;
+            roundOfGolfViewModel.IdOfCourse    = course.Id;
             roundOfGolfViewModel.NumberOfHoles = course.NumberOfHoles;
-            roundOfGolfViewModel.TeeBoxes = course.TeeBoxes;
+            roundOfGolfViewModel.TeeBoxes      = course.TeeBoxes;
 
             return roundOfGolfViewModel;
         }
@@ -81,8 +81,9 @@ namespace GolfBag.ViewModels
             string playerName)
         {         
             var roundOfGolfViewModel       = new RoundOfGolfViewModel();
-            var frontAndBackNineScores     = GetFrontAndBackNineScores(roundOfGolf);
+            var frontAndBackNineScores     = GetFrontAndBackNineScores(roundOfGolf.Scores);
             var frontAndBackNineScoreNames = GetFrontAndBackNineScoreNames(roundOfGolf.Scores, course.CourseHoles);
+            var frontAndBackNinePutts      = GetFrontAndBackNinePutts(roundOfGolf.Scores);
             var priorAndSubsequentRounds   = GetPriorAndSubsequentRounds(roundsOfGolf, roundOfGolf);
             var priorRound                 = priorAndSubsequentRounds["priorRound"];
             var subsequentRound            = priorAndSubsequentRounds["subsequentRound"];
@@ -96,6 +97,8 @@ namespace GolfBag.ViewModels
             roundOfGolfViewModel.BackNineScores         = frontAndBackNineScores["backNineScores"];
             roundOfGolfViewModel.FrontNineScoreNames    = frontAndBackNineScoreNames["frontNineScoreNames"];
             roundOfGolfViewModel.BackNineScoreNames     = frontAndBackNineScoreNames["backNineScoreNames"];
+            roundOfGolfViewModel.FrontNinePutts         = frontAndBackNinePutts["frontNinePutts"];
+            roundOfGolfViewModel.BackNinePutts          = frontAndBackNinePutts["backNinePutts"];
             roundOfGolfViewModel.IdOfPriorRound         = (int)priorRoundType.GetProperty("id").GetValue(priorRound, null);
             roundOfGolfViewModel.IdOfSubsequentRound    = (int)subsequentRoundType.GetProperty("id").GetValue(subsequentRound, null);
             roundOfGolfViewModel.DateOfPriorRound       = (DateTime)priorRoundType.GetProperty("date").GetValue(priorRound, null);
@@ -115,12 +118,12 @@ namespace GolfBag.ViewModels
         {
             var roundOfGolf = new RoundOfGolf();
 
-            roundOfGolf.PlayerName = playerName;
-            roundOfGolf.Comment = Comment;
-            roundOfGolf.Date = DateOfRound;
-            roundOfGolf.CourseId = courseId;
+            roundOfGolf.PlayerName   = playerName;
+            roundOfGolf.Comment      = Comment;
+            roundOfGolf.Date         = DateOfRound;
+            roundOfGolf.CourseId     = courseId;
             roundOfGolf.TeeBoxPlayed = IdOfTeeBoxPlayed;
-            roundOfGolf.Scores = MapScores();
+            roundOfGolf.Scores       = MapScores();
 
             return roundOfGolf;
         }
@@ -132,7 +135,8 @@ namespace GolfBag.ViewModels
                 return false;
             }
 
-            if (FrontNineScores == null && BackNineScores == null)
+            if (FrontNineScores == null && BackNineScores == null ||
+                FrontNinePutts == null && BackNinePutts == null)
             {
                 return false;
             }
@@ -152,7 +156,29 @@ namespace GolfBag.ViewModels
             {
                 foreach (var score in BackNineScores)
                 {
-                    if (score < 1 || score > 99)
+                    if (score < 1|| score > 99)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            if (FrontNinePutts != null)
+            {
+                foreach (var putt in FrontNinePutts)
+                {
+                    if (putt < 0 || putt > 9)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            if (BackNinePutts != null)
+            {
+                foreach (var putt in BackNinePutts)
+                {
+                    if (putt < 0 || putt > 9)
                     {
                         return false;
                     }
@@ -171,7 +197,8 @@ namespace GolfBag.ViewModels
                 for (int i = 0; i < 9; i++)
                 {
                     var score = new Score();
-                    score.HoleScore = FrontNineScores[i];
+                    score.HoleScore  = FrontNineScores[i];
+                    score.HolePutt   = FrontNinePutts[i];
                     score.HoleNumber = i + 1;
                     scores.Add(score);
                 }
@@ -182,7 +209,8 @@ namespace GolfBag.ViewModels
                 for (int i = 0; i < 9; i++)
                 {
                     var score = new Score();
-                    score.HoleScore = BackNineScores[i];
+                    score.HoleScore  = BackNineScores[i];
+                    score.HolePutt   = BackNinePutts[i];
                     score.HoleNumber = i + 10;
                     scores.Add(score);
                 }
@@ -234,37 +262,65 @@ namespace GolfBag.ViewModels
             return pars;
         }
 
-        private static Dictionary<string, List<int>> GetFrontAndBackNineScores(RoundOfGolf roundOfGolf)
+        private static Dictionary<string, List<int>> GetFrontAndBackNineScores(List<Score> scores)
         {
             var frontAndBackNineScores = new Dictionary<string, List<int>>();
-            var frontNineScores = new List<int>();
-            var backNineScores = new List<int>();
-            for (int i = 0; i < roundOfGolf.Scores.Count; i++)
+            var frontNineScores        = new List<int>();
+            var backNineScores         = new List<int>();
+
+            foreach (var score in scores)
             {
-                if (roundOfGolf.Scores[i].HoleNumber < 10)
+                if (score.HoleNumber < 10)
                 {
-                    frontNineScores.Add(roundOfGolf.Scores[i].HoleScore);
+                    frontNineScores.Add(score.HoleScore);
                 }
-                else if (roundOfGolf.Scores[i].HoleNumber >= 10)
+                else if (score.HoleNumber >= 10)
                 {
-                    backNineScores.Add(roundOfGolf.Scores[i].HoleScore);
+                    backNineScores.Add(score.HoleScore);
                 }
             }
+
             frontAndBackNineScores.Add("frontNineScores", frontNineScores);
             frontAndBackNineScores.Add("backNineScores", backNineScores);
+
             return frontAndBackNineScores;
+        }
+
+        private static Dictionary<string, List<int>> GetFrontAndBackNinePutts(List<Score> scores)
+        {
+            var frontAndBackNinePutts = new Dictionary<string, List<int>>();
+            var frontNinePutts        = new List<int>();
+            var backNinePutts         = new List<int>();
+
+            foreach (var score in scores)
+            {
+                if (score.HoleNumber < 10)
+                {
+                    frontNinePutts.Add(score.HolePutt);
+                }
+                else if (score.HoleNumber >= 10)
+                {
+                    backNinePutts.Add(score.HolePutt);
+                }
+            }
+
+            frontAndBackNinePutts.Add("frontNinePutts", frontNinePutts);
+            frontAndBackNinePutts.Add("backNinePutts", backNinePutts);
+
+            return frontAndBackNinePutts;
         }
 
         private static Dictionary<string, List<string>> GetFrontAndBackNineScoreNames(List<Score> scores, List<CourseHole> courseHoles)
         {
             var frontAndBackNineScoreNames = new Dictionary<string, List<string>>();
-            var frontNineScoreNames = new List<string>();
-            var backNineScoreNames = new List<string>();
+            var frontNineScoreNames        = new List<string>();
+            var backNineScoreNames         = new List<string>();
 
             for (int i = 0; i < scores.Count; i++)
             {
                 string name;
                 int difference = scores[i].HoleScore - courseHoles[scores[i].HoleNumber - 1].Par;
+
                 switch (difference)
                 {
                     case -3:
@@ -301,6 +357,7 @@ namespace GolfBag.ViewModels
             }
             frontAndBackNineScoreNames.Add("frontNineScoreNames", frontNineScoreNames);
             frontAndBackNineScoreNames.Add("backNineScoreNames", backNineScoreNames);
+
             return frontAndBackNineScoreNames;
         }
 
@@ -339,6 +396,7 @@ namespace GolfBag.ViewModels
             }
             priorAndSubsequentRounds.Add("priorRound", new { id = idOfPriorRound, date = dateOfPriorRound });
             priorAndSubsequentRounds.Add("subsequentRound", new { id = idOfSubsequentRound, date = dateOfSubsequentRound });
+
             return priorAndSubsequentRounds;
         }
     }

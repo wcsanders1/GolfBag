@@ -156,11 +156,11 @@
                                 for (int i = 0; i < 9; i++)
                                 {
                                     <td class="hole-putts">
-                                        @*put putts here*@
+                                        @Model.FrontNinePutts[i]
                                     </td>
-                                    totalPutts += 0; @*calculate total putts*@
+                                    totalPutts += Model.FrontNinePutts[i];
                                 }
-                                <td>@*total putts*@</td>
+                                <td class="hole-putts">@totalPutts</td>
                             }
                         </tr>
 
@@ -265,14 +265,14 @@
                             <td>Putts</td>
                             @{
                                 int totalPutts = 0;
-                                for (int i = 9; i < 18; i++)
+                                for (int i = 0; i < 9; i++)
                                 {
                                     <td class="hole-putts">
-                                        @*put putts here*@
+                                        @Model.BackNinePutts[i]
                                     </td>
-                                    totalPutts += 0; @*calculate total putts*@
+                                    totalPutts += @Model.BackNinePutts[i];
                                 }
-                                <td>@*total putts*@</td>
+                                <td class="hole-putts">@totalPutts</td>
                             }
                         </tr>
                     </tbody>

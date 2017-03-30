@@ -68,8 +68,8 @@
                 {
                     int holeNumber = i + 1;
                     <td>
-                        <input class="number-input putt" data-hole-number="@holeNumber" />
-                        @*add validation message*@
+                        <input class="number-input putt" data-hole-number="@holeNumber" asp-for="FrontNinePutts[i]" />
+                        @Html.ValidationMessageFor(m => m.FrontNinePutts[i], null, new { style = "display: none" })
                     </td>
                 }
             </tr>
