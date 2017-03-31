@@ -162,9 +162,11 @@ var puttValidator = {
     makeAndShowErrorMessages: function () {
         var requiredArray = [],
             rangeArray = [],
+            lessThanArray = [],
             messageArray = [],
             requiredMessage = "",
-            rangeMessage = "";
+            rangeMessage = "",
+            lessThanMessage = "";
 
         $(".putt-errors").empty();
 
@@ -176,6 +178,8 @@ var puttValidator = {
                     requiredArray.push(holeNumber);
                 } else if (error == "range") {
                     rangeArray.push(holeNumber);
+                } else if (error == "lessThan") {
+                    lessThanArray.push(holeNumber);
                 }
             }
         });
@@ -198,6 +202,15 @@ var puttValidator = {
             messageArray.push(rangeMessage);
         }
 
+        if (lessThanArray.length > 0) {
+            if (lessThanArray.length == 1) {
+                lessThanMessage = "The putts for the following hole must be less than the score for that hole:" + customValidations.turnArrayToMessage(lessThanArray);
+            } else {
+                lessThanMessage = "Putts for the following holes must be less than the scores for those holes:" + customValidations.turnArrayToMessage(lessThanArray);
+            }
+            messageArray.push(lessThanMessage);
+        }
+
         if (messageArray.length > 0) {
             customValidations.showMessages(messageArray, $(".putt-errors"));
         }
@@ -205,19 +218,38 @@ var puttValidator = {
     validatePutts: function ($form, makeMessagesNow) {
         "use strict";
 
+        $.validator.addMethod("lessThan", function (value, element, param) {
+            var $score = $(param).val();
+            return parseInt(value) < parseInt($score);
+        });
+
         var makeRules = function ($form) {
             $(".putt").each(function () {
-                var $element = $(this);
+                var $element = $(this),
+                    $scoreElement = $form.find(".score[data-hole-number=" + $element.data("hole-number") + "]");
 
                 $element.rules("add", {
                     required: true,
                     range: [0, 9],
+                    lessThan: $scoreElement,
                     messages: {
                         required: "required",
-                        range: "range"
+                        range: "range",
+                        lessThan: "lessThan"
                     }
                 });
                 customValidations.bindValidationToElement($element, "invalid-putt", puttValidator.makeAndShowErrorMessages);
+
+                // validate putt input when score for that hole changes as long as there are putts entered
+                $scoreElement.on("focusout keyup", function (e) {
+                    if ($element.val() != "") {
+                        var code = e.keyCode || e.which;
+                        if (code != 9) {                        //RETURNS FALSE IF TAB KEY
+                            customValidations.validateElement($element, "invalid-putt");
+                            puttValidator.makeAndShowErrorMessages();
+                        }
+                    }
+                });
             });
             customValidations.bindValidationToSubmit($form, $(".putt"), "invalid-putt", puttValidator.makeAndShowErrorMessages);
         };

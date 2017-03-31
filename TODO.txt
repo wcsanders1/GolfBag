@@ -7,6 +7,3 @@ Organize CSS
 Fix icon
 
 Make 18-hole totals for scorecards for pars, yardages, scores, and putts
-
-Add to validation that putt can't be greater than score
-	- http://stackoverflow.com/questions/29451507/how-to-use-jquery-validator-to-determine-value-of-one-field-is-greater-than-anot
