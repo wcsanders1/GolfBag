@@ -55,6 +55,43 @@ namespace GolfBag.ViewModels
 
         public List<int> Pars { get; set; }
 
+        public int SumAllPars
+        {
+            get
+            {
+                if (Pars != null)
+                {
+                    return Pars.Sum();
+                }
+                return 0;
+            }
+        }
+
+        public int SumAllScores
+        {
+            get
+            {
+                if (FrontNineScores != null && BackNineScores != null)
+                {
+                    return FrontNineScores.Sum() + BackNineScores.Sum();
+                }
+                return 0;
+            }
+        }
+
+        public int SumAllPutts
+        {
+            get
+            {
+                if (FrontNinePutts != null && BackNinePutts != null)
+                {
+                    return FrontNinePutts.Sum() + BackNinePutts.Sum();
+                }
+                return 0;
+            }
+        }
+
+
         public RoundOfGolfViewModel()
         {
             CurrentDate = DateTime.Today.Date.ToString("D");
@@ -90,7 +127,7 @@ namespace GolfBag.ViewModels
             var priorRoundType             = priorRound.GetType();
             var subsequentRoundType        = subsequentRound.GetType();
 
-            roundOfGolfViewModel.Pars                   = MapPars(roundOfGolf, course.CourseHoles);
+            roundOfGolfViewModel.Pars                   = MapPars(roundOfGolf.Scores, course.CourseHoles);
             roundOfGolfViewModel.Handicaps              = MapHandicaps(course);
             roundOfGolfViewModel.TeeBoxes               = course.TeeBoxes;
             roundOfGolfViewModel.FrontNineScores        = frontAndBackNineScores["frontNineScores"];
@@ -238,18 +275,19 @@ namespace GolfBag.ViewModels
             return handicaps;
         }
 
-        private static List<int> MapPars(RoundOfGolf roundOfGolf, List<CourseHole> courseHoles)
+        private static List<int> MapPars(List<Score> scores, List<CourseHole> courseHoles)
         {
             var pars = new List<int>();
-            for (int i = 0; i < roundOfGolf.Scores.Count; i++)
+            
+            for (int i = 0; i < scores.Count; i++)
             {
-                if (roundOfGolf.Scores[i].HoleNumber < 10)
+                if (scores[i].HoleNumber < 10)
                 {                   
                     pars.Add(courseHoles[i].Par);
                 }
-                else if (roundOfGolf.Scores[i].HoleNumber >= 10)
+                else if (scores[i].HoleNumber >= 10)
                 {
-                    if (roundOfGolf.Scores.Count < 10)
+                    if (scores.Count < 10)
                     {
                         pars.Add(courseHoles[i + 9].Par);
                     }

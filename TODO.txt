@@ -6,4 +6,4 @@ Organize CSS
 
 Fix icon
 
-Make 18-hole totals for scorecards for pars, yardages, scores, and putts
+Make 18-hole totals for scorecards for yardages

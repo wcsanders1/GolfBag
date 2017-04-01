@@ -204,7 +204,14 @@
                                         totalPar += Model.Pars[i];
                                     }
                                 }
-                                <td>@totalPar</td>
+                                if (Model.FrontNineScores.Count == 0)
+                                {
+                                    <td>@totalPar</td>
+                                }
+                                else
+                                {
+                                    <td>@totalPar / @Model.SumAllPars</td>
+                                }
                             }
                         </tr>
                         <tr class="table-row-striped">
@@ -257,7 +264,15 @@
                                     </td>
                                     totalScore += Model.BackNineScores[i];
                                 }
-                                <td class="hole-score">@totalScore</td>
+
+                                if (Model.FrontNineScores.Count == 0)
+                                {
+                                    <td class="hole-score">@totalScore</td>
+                                }
+                                else
+                                {
+                                    <td class="hole-score">@totalScore / @Model.SumAllScores</td>                                
+                                }
                             }
                         </tr>
 
@@ -272,7 +287,15 @@
                                     </td>
                                     totalPutts += @Model.BackNinePutts[i];
                                 }
-                                <td class="hole-putts">@totalPutts</td>
+
+                                if (Model.FrontNineScores.Count == 0)
+                                {
+                                    <td class="hole-putts">@totalPutts</td>
+                                }
+                                else
+                                {
+                                    <td class="hole-putts">@totalPutts / @Model.SumAllPutts</td>
+                                }
                             }
                         </tr>
                     </tbody>
