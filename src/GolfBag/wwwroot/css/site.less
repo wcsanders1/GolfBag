@@ -501,54 +501,68 @@ input::-webkit-outer-spin-button {
     border-color: @redText;
 }
 
-    .table > tbody > tr > td.hole-score {
-        font-family: @scorecardNumberFont;
-        text-align: center;
-        vertical-align: baseline;
+.table > tbody > tr > td.hole-score {
+    font-family: @scorecardNumberFont;
+    text-align: center;
+    vertical-align: baseline;
+}
+
+.bogie-box {
+    text-align: center;
+    margin: 0 auto;
+    width: 100%;
+
+    @media (min-width: @bootstrapMD) {
+        width: 75%;
     }
 
-    .bogie-box {
-        text-align: center;
-        margin: 0 auto;
-        width: 100%;
+    @media (min-width: @bootstrapLG) {
+        width: 50%;
+    }
+}
 
-        @media (min-width: @bootstrapMD) {
-            width: 75%;
-        }
+.table > tbody > tr {
+    td.birdie-score {
+        color: @redText;
+    }
 
-        @media (min-width: @bootstrapLG) {
-            width: 50%;
+    td.eagle-score {
+        color: @blueText;
+    }
+
+    td.ablatross-score {
+        color: @purpleText;
+    }
+
+    td.bogie-score {
+        .bogie-box {
+            border: 1px black solid;
         }
     }
 
-    .table > tbody > tr {
-        td.birdie-score {
-            color: @redText;
-        }
-
-        td.eagle-score {
-            color: @blueText;
-        }
-
-        td.ablatross-score {
-            color: @purpleText;
-        }
-
-        td.bogie-score {
-            .bogie-box {
-                border: 1px black solid;
-            }
-        }
-
-        td.double-bogie-score {
-            .bogie-box {
-                border: 3px black solid;
-            }
-        }
-
-        td.other-score {
-            .bogie-box {
-                border: 4px black double;
-            }
+    td.double-bogie-score {
+        .bogie-box {
+            border: 3px black solid;
         }
     }
+
+    td.other-score {
+        .bogie-box {
+            border: 4px black double;
+        }
+    }
+}
+
+
+
+/*********************************************************************************************
+                        SCORECARDS
+*********************************************************************************************/
+
+#bar-chart {
+    width: 33%;
+
+    @media (min-width: @bootstrapLG) {
+        width: 95%;
+    }
+}

@@ -534,3 +534,14 @@ input::-webkit-outer-spin-button {
 .table > tbody > tr td.other-score .bogie-box {
   border: 4px black double;
 }
+/*********************************************************************************************
+                        SCORECARDS
+*********************************************************************************************/
+#bar-chart {
+  width: 33%;
+}
+@media (min-width: 1200px) {
+  #bar-chart {
+    width: 95%;
+  }
+}

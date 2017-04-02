@@ -16,6 +16,8 @@
     <Content Include="wwwroot\js\AnimatedHeader\classie.js" />
     <Content Include="wwwroot\js\FloatingLabels.js" />
     <Content Include="wwwroot\js\Login.js" />
+    <Content Include="wwwroot\js\Statistics\GeneralStats.js" />
+    <Content Include="wwwroot\lib\animatecss\animate.css" />
   </ItemGroup>
 
   <ItemGroup>

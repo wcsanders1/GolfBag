@@ -7,3 +7,5 @@ Organize CSS
 Fix icon
 
 Ensure that program won't crash if user screws around with url.
+
+Make teebox labels appear on back nine when entering or editing a course.
