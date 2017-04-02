@@ -235,7 +235,17 @@
                                         <td>@teeBox.Tees[i].Yardage</td>
                                         totalYardage += teeBox.Tees[i].Yardage;
                                     }
-                                    <td>@totalYardage</td>
+                                    @{
+                                        if (Model.FrontNineScores.Count == 0)
+                                        {
+                                            <td>@totalYardage</td>
+                                        }
+                                        else
+                                        {
+                                            <td>@totalYardage / @teeBox.TotalYardage</td>
+                                        }
+                                    }
+                                    
                                 </tr>
                             }
                             else
@@ -247,7 +257,18 @@
                                         <td class="teebox-played">@teeBox.Tees[i].Yardage</td>
                                         totalYardage += teeBox.Tees[i].Yardage;
                                     }
-                                    <td class="teebox-played">@totalYardage</td>
+                                    @{
+                                        if (Model.FrontNineScores.Count == 0)
+                                        {
+                                            <td class="teebox-played">@totalYardage</td>
+                                        }
+                                        else
+                                        {
+                                            <td>@totalYardage / @teeBox.TotalYardage</td>
+
+                                        }
+                                    }
+                                    
                                 </tr>
                             }
                         }

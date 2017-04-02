@@ -5,5 +5,3 @@ Make stuff look better, i.e., better colors, better sizing, etc.
 Organize CSS
 
 Fix icon
-
-Make 18-hole totals for scorecards for yardages

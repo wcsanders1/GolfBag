@@ -91,7 +91,6 @@ namespace GolfBag.ViewModels
             }
         }
 
-
         public RoundOfGolfViewModel()
         {
             CurrentDate = DateTime.Today.Date.ToString("D");
