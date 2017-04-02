@@ -210,7 +210,14 @@
                                 }
                                 else
                                 {
-                                    <td>@totalPar / @Model.SumAllPars</td>
+                                    <td class="eighteen-hole-total">
+                                        <div>
+                                            @totalPar
+                                        </div>
+                                        <div>
+                                            @Model.SumAllPars
+                                        </div>
+                                    </td>                                    
                                 }
                             }
                         </tr>
@@ -242,7 +249,14 @@
                                         }
                                         else
                                         {
-                                            <td>@totalYardage / @teeBox.TotalYardage</td>
+                                            <td class="eighteen-hole-total">
+                                                <div>
+                                                    @totalYardage
+                                                </div>
+                                                <div>
+                                                    @teeBox.TotalYardage
+                                                </div>
+                                            </td>
                                         }
                                     }
                                     
@@ -264,8 +278,14 @@
                                         }
                                         else
                                         {
-                                            <td>@totalYardage / @teeBox.TotalYardage</td>
-
+                                            <td class="eighteen-hole-total">
+                                                <div>
+                                                    @totalYardage
+                                                </div>
+                                                <div>
+                                                    @teeBox.TotalYardage
+                                                </div>
+                                            </td>                                           
                                         }
                                     }
                                     
@@ -292,7 +312,14 @@
                                 }
                                 else
                                 {
-                                    <td class="hole-score">@totalScore / @Model.SumAllScores</td>                                
+                                    <td class="hole-score eighteen-hole-total">
+                                        <div>
+                                            @totalScore
+                                        </div>
+                                        <div>
+                                            @Model.SumAllScores
+                                        </div>
+                                    </td>                                
                                 }
                             }
                         </tr>
@@ -315,7 +342,14 @@
                                 }
                                 else
                                 {
-                                    <td class="hole-putts">@totalPutts / @Model.SumAllPutts</td>
+                                    <td class="eighteen-hole-total">
+                                        <div>
+                                            @totalPutts
+                                        </div>
+                                        <div>
+                                            @Model.SumAllPutts
+                                        </div>
+                                    </td>
                                 }
                             }
                         </tr>

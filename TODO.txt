@@ -5,3 +5,5 @@ Make stuff look better, i.e., better colors, better sizing, etc.
 Organize CSS
 
 Fix icon
+
+Ensure that program won't crash if user screws around with url.

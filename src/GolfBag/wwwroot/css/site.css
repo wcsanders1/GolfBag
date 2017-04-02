@@ -471,6 +471,19 @@ input::-webkit-outer-spin-button {
 .table > thead > tr > th {
   padding: 4px;
 }
+.eighteen-hole-total {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.eighteen-hole-total div {
+  border: none;
+  margin: 0 6px;
+  display: inline-flex;
+  flex-grow: 0;
+  flex-basis: 50%;
+  justify-content: center;
+}
 /*********************************************
             Scorecard Colors and borders
 *********************************************/

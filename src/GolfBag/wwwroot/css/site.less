@@ -379,96 +379,111 @@ footer {
 /*********************************************************************************************
                         SCORECARDS
 *********************************************************************************************/
-    .table {
-        margin-bottom: 1rem;
-    }
+.table {
+    margin-bottom: 1rem;
+}
 
-    .table-responsive {
-        margin-bottom: 1rem;
-    }
+.table-responsive {
+    margin-bottom: 1rem;
+}
 
-    .account-form {
-        input[type="text"],
-        input[type="password"],
-        input[type="email"] {
-            max-width: 45rem;
-        }
+.account-form {
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+        max-width: 45rem;
     }
+}
 
-    .comment-box {
-        width: 100%;
+.comment-box {
+    width: 100%;
+}
+
+.datepicker {
+    cursor: pointer;
+    width: 25rem;
+    margin-right: 5rem;
+}
+
+.error-container {
+    padding: 0;
+    color: darken(@redText, 20%);
+    font-size: 2rem;
+
+    p {
+        margin: 0;
     }
+}
 
-    .datepicker {
-        cursor: pointer;
-        width: 25rem;
-        margin-right: 5rem;
-    }
+.scorecard {
+    font-family: 'Suez One', serif;
 
-    .error-container {
-        padding: 0;
-        color: darken(@redText, 20%);
+    @media (min-width: @bootstrapSM) {
         font-size: 2rem;
-
-        p {
-            margin: 0;
-        }
     }
 
-    .scorecard {
-        font-family: 'Suez One', serif;
-
-        @media (min-width: @bootstrapSM) {
-            font-size: 2rem;
-        }
-
-        td:not(:first-child),
-        th:not(:first-child) {
-            text-align: center;
-        }
-    }
-
-    .number-input,
-    .number-input input {
-        width: 5rem;
+    td:not(:first-child),
+    th:not(:first-child) {
         text-align: center;
-        -webkit-appearance: none;
     }
+}
 
-    input::-webkit-inner-spin-button,
-    input::-webkit-outer-spin-button {
-        .remove-number-spinners;
+.number-input,
+.number-input input {
+    width: 5rem;
+    text-align: center;
+    -webkit-appearance: none;
+}
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+    .remove-number-spinners;
+}
+
+.teebox-played {
+    font-weight: bold;
+    background-color: #2AC930;
+}
+
+.teebox-not-played,
+.faded-font {
+    color: @fadedFontColor;
+}
+
+.teebox-to-delete {
+    text-decoration: line-through;
+}
+
+.delete-teebox,
+.undo-delete {
+    cursor: pointer;
+
+    &.faded-font {
+        cursor: default;
     }
+}
 
-    .teebox-played {
-        font-weight: bold;
-        background-color: #2AC930;
-    }
-
-    .teebox-not-played,
-    .faded-font {
-        color: @fadedFontColor;
-    }
-
-    .teebox-to-delete {
-        text-decoration: line-through;
-    }
-
-    .delete-teebox,
-    .undo-delete {
-        cursor: pointer;
-
-        &.faded-font {
-            cursor: default;
-        }
-    }
-
-    .table-row-striped {
-        background-color: @tableStripeColor;
-    }
+.table-row-striped {
+    background-color: @tableStripeColor;
+}
 
 .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
     padding: 4px;
+}
+
+.eighteen-hole-total {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    div {
+        border: none;
+        margin: 0 6px;
+        display: inline-flex;
+        flex-grow: 0;
+        flex-basis: 50%;
+        justify-content: center;
+    }
 }
 
 

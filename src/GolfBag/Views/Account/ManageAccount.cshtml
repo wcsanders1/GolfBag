@@ -27,6 +27,12 @@
     </div>
     <span asp-validation-for="UserName"></span>
 
+    <div class="field">
+        <label class="field-label" asp-for="Email">Email</label>
+        <input class="field-input" asp-for="Email" value="@Model.Email" placeholder="Email" />
+    </div>
+    <span asp-validation-for="Email"></span>
+
     <div>
         <input type="submit" value="Save Changes" class="btn btn-success" />
         <a class="btn btn-default" href="/">Cancel</a>
