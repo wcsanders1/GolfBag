@@ -7,7 +7,6 @@
             dataset = [5, 10, 14, 20, 25, 11, 25, 22, 18, 7],
             chart = d3.select("#left-sidebar")
                 .append("svg")
-                //.attr("width", "95%")
                 .attr("id", "bar-chart")
                 .attr("height", h);
 
@@ -19,6 +18,26 @@
             } else if (v > 20) {
                 return "#F03";
             }
+        };
+
+        var getScores = function () {
+            var options = {
+                type: "GET",
+                url: "/Statistics/GetScores",
+                data: "{}",
+                dataType: "json",
+            }
+
+            var onSuccess = function (data) {
+                console.log(data);
+                return data;
+            };
+
+            $.ajax(options).done(function (data) {
+                if (data != null && data != undefined) {
+                    onSuccess(data);
+                }
+            });     
         };
 
         chart.selectAll("rect")
@@ -48,6 +67,10 @@
             });
 
         $("#bar-chart").addClass("animated bounceInLeft");
+
+        var scores = getScores(function () {
+            console.log(scores);
+        });
 
     };
 

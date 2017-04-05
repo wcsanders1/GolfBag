@@ -22,17 +22,17 @@ namespace GolfBag.Controllers
 
         public JsonResult GetScores()
         {
-            var scores = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id)
-                                        .SelectMany(x => x.Scores);
+            var rounds = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id);
                
-            var holeScores = new List<int>();
+            var scores = new List<int>();
 
-            foreach (var score in scores)
+            foreach (var round in rounds)
             {
-                holeScores.Add(score.HoleScore);
+                var score = round.Scores.Sum(x => x.HoleScore);
+                scores.Add(score);
             }
 
-            return Json(holeScores);
+            return Json(scores);
         }
 
         private async Task<User> GetCurrentUserAsync()
