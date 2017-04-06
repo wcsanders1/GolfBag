@@ -1,11 +1,9 @@
-﻿$(function () {
-    "use strict";
-
-    var renderBarChart = function () {
+﻿var renderChartsAndGraphs = {
+    barChart: function (data, $location, animation = false) {
         var h = 150,
             padding = 2,
-            dataset = [5, 10, 14, 20, 25, 11, 25, 22, 18, 7],
-            chart = d3.select("#left-sidebar")
+            dataset = data,
+            chart = d3.select($location)
                 .append("svg")
                 .attr("id", "bar-chart")
                 .attr("height", h);
@@ -18,26 +16,6 @@
             } else if (v > 20) {
                 return "#F03";
             }
-        };
-
-        var getScores = function () {
-            var options = {
-                type: "GET",
-                url: "/Statistics/GetScores",
-                data: "{}",
-                dataType: "json",
-            }
-
-            var onSuccess = function (data) {
-                console.log(data);
-                return data;
-            };
-
-            $.ajax(options).done(function (data) {
-                if (data != null && data != undefined) {
-                    onSuccess(data);
-                }
-            });     
         };
 
         chart.selectAll("rect")
@@ -66,31 +44,30 @@
                 "fill": "#fff"
             });
 
-        $("#bar-chart").addClass("animated bounceInLeft");
+        $("#bar-chart").css({ top: 50, position: "relative" });
 
-        var scores = getScores(function () {
-            console.log(scores);
-        });
+        if (animation) {
+            $("#bar-chart")
+                .addClass("animated")
+                .addClass(animation);
+        }
+    }     
+};
 
-    };
-
-    var resizeChart = function () {
-        var barChart = d3.select("#bar-chart"),
+var resizeChartsAndGraphs = {
+    barChart: function (data) {
+        var chart = d3.select("#bar-chart"),
             w = $("#bar-chart").width(),
-            dataset = [5, 10, 14, 20, 25, 11, 25, 22, 18, 7],
+            dataset = data,
             padding = 2;
 
-        barChart.selectAll("rect")
+        chart.selectAll("rect")
             .attrs({
                 x: function (d, i) { return i * (w / dataset.length); },
                 width: w / dataset.length - padding,
             });
 
-        barChart.selectAll("text")
+        chart.selectAll("text")
             .attr("x", function (d, i) { return i * (w / dataset.length) + (w / dataset.length - padding) / 2; });
-    };
-
-    $(document).ready(renderBarChart());
-
-    $(window).resize(resizeChart);
-});
+    }
+};
