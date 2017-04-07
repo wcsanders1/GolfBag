@@ -9,3 +9,11 @@ Fix icon
 Ensure that program won't crash if user screws around with url.
 
 Make teebox labels appear on back nine when entering or editing a course.
+
+In score bar chart, under the score number, put how much over or under par, e.g., +4.
+
+Other overall stats:
+	- 18-hole scores
+	- average over past year (line graph)
+	- putts (bar chart?)
+	- birdies, pars, bogies, etc (pie chart)

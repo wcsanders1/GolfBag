@@ -1,6 +1,6 @@
 ﻿var renderChartsAndGraphs = {
     barChart: function (data, $location, animation = false) {
-        var h = 150,
+        var h = 175,
             padding = 2,
             dataset = data,
             chart = d3.select($location)
@@ -24,9 +24,9 @@
             .append("rect")
             .attrs({
                 x: function (d, i) { return i * (w / dataset.length); },
-                y: function (d) { return h - (d * 4); },
+                y: function (d) { return h - (d * 2); },
                 width: w / dataset.length - padding,
-                height: function (d) { return d * 4; },
+                height: function (d) { return d * 2; },
                 fill: function (d) { return colorPicker(d); }
             });
 
@@ -38,13 +38,13 @@
             .attrs({
                 "text-anchor": "middle",
                 x: function (d, i) { return i * (w / dataset.length) + (w / dataset.length - padding) / 2; },
-                y: function (d) { return h - (d * 4) + 14; },
+                y: function (d) { return h - (d * 2) + 14; },
                 "font-family": "sans-serif",
                 "font-size": 12,
                 "fill": "#fff"
             });
 
-        $("#bar-chart").css({ top: 50, position: "relative" });
+       // $("#bar-chart").css({ top: 50, position: "relative" });
 
         if (animation) {
             $("#bar-chart")

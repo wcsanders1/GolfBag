@@ -254,6 +254,10 @@ li li a {
     width: 100%;
   }
 }
+.sidebar h3 {
+  text-align: center;
+  color: #8614DE;
+}
 @media (min-width: 992px) {
   #left-sidebar {
     left: 0;
