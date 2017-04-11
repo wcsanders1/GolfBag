@@ -17,3 +17,5 @@ Other overall stats:
 	- average over past year (line graph)
 	- putts (bar chart?)
 	- birdies, pars, bogies, etc (pie chart)
+
+Add labels to stat charts

@@ -1,5 +1,5 @@
 ﻿var renderChartsAndGraphs = {
-    barChart: function (data, $location, animation = false) {
+    barChart: function (data, $location, label, animation = false) {
         var h = 175,
             padding = 2,
             dataset = data,
