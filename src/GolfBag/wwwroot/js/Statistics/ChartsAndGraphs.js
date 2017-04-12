@@ -1,11 +1,12 @@
 ﻿var renderChartsAndGraphs = {
-    barChart: function (data, $location, label, animation = false) {
+    barChart: function (data, $location, animation = false) {
         var h = 175,
             padding = 2,
             dataset = data,
             chart = d3.select($location)
                 .append("svg")
                 .attr("id", "bar-chart")
+                .attr("class", "stat-chart")
                 .attr("height", h);
 
         var w = $("#bar-chart").width();
@@ -44,11 +45,17 @@
                 "fill": "#fff"
             });
 
+        $label = $("<h6>Your Last Ten 9-Hole Rounds</h6>");
+        $("#bar-chart").after($label);
+
        // $("#bar-chart").css({ top: 50, position: "relative" });
 
         if (animation) {
             $("#bar-chart")
                 .addClass("animated")
+                .addClass(animation);
+
+            $label.addClass("animated")
                 .addClass(animation);
         }
     }     
