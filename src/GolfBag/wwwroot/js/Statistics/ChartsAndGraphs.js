@@ -1,15 +1,15 @@
 ﻿var renderChartsAndGraphs = {
-    barChart: function (data, $location, animation = false) {
+    barChart: function (data, id, $location, animation = false) {
         var h = 175,
             padding = 2,
             dataset = data,
             chart = d3.select($location)
                 .append("svg")
-                .attr("id", "bar-chart")
+                .attr("id", id)
                 .attr("class", "stat-chart")
                 .attr("height", h);
 
-        var w = $("#bar-chart").width();
+        var w = $("#" + id).width();
 
         var colorPicker = function (v) {
             if (v <= 20) {
@@ -46,12 +46,12 @@
             });
 
         $label = $("<h6>Your Last Ten 9-Hole Rounds</h6>");
-        $("#bar-chart").after($label);
+        $("#" + id).after($label);
 
        // $("#bar-chart").css({ top: 50, position: "relative" });
 
         if (animation) {
-            $("#bar-chart")
+            $("#" + id)
                 .addClass("animated")
                 .addClass(animation);
 
@@ -62,9 +62,9 @@
 };
 
 var resizeChartsAndGraphs = {
-    barChart: function (data) {
-        var chart = d3.select("#bar-chart"),
-            w = $("#bar-chart").width(),
+    barChart: function (id, data) {
+        var chart = d3.select("#" + id),
+            w = $("#" + id).width(),
             dataset = data,
             padding = 2;
 

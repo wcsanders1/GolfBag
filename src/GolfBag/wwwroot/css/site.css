@@ -279,6 +279,14 @@ li li a {
 .stat-chart + h6 {
   color: white;
 }
+.stat-chart {
+  width: 33%;
+}
+@media (min-width: 1200px) {
+  .stat-chart {
+    width: 95%;
+  }
+}
 /********************************************
         <LoginLogout> Default
 ********************************************/
@@ -543,15 +551,4 @@ input::-webkit-outer-spin-button {
 }
 .table > tbody > tr td.other-score .bogie-box {
   border: 4px black double;
-}
-/*********************************************************************************************
-                        SCORECARDS
-*********************************************************************************************/
-#bar-chart {
-  width: 33%;
-}
-@media (min-width: 1200px) {
-  #bar-chart {
-    width: 95%;
-  }
 }

@@ -257,6 +257,14 @@ li {
     color: white;
 }
 
+.stat-chart {
+    width: 33%;
+
+    @media (min-width: @bootstrapLG) {
+        width: 95%;
+    }
+}
+
 
 /********************************************
         <LoginLogout> Default
@@ -563,19 +571,5 @@ input::-webkit-outer-spin-button {
         .bogie-box {
             border: 4px black double;
         }
-    }
-}
-
-
-
-/*********************************************************************************************
-                        SCORECARDS
-*********************************************************************************************/
-
-#bar-chart {
-    width: 33%;
-
-    @media (min-width: @bootstrapLG) {
-        width: 95%;
     }
 }

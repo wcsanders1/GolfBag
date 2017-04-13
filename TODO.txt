@@ -18,4 +18,5 @@ Other overall stats:
 	- putts (bar chart?)
 	- birdies, pars, bogies, etc (pie chart)
 
-Add labels to stat charts
+Fix labels on stat charts
+	- make them state what the chart actually is
