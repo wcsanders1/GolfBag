@@ -2,6 +2,7 @@
 
 var renderChartsAndGraphs = {
     barChart: function (data, id, numOfHoles, $location, animation) {
+        console.log(data);
         const HEIGHT_INCREASE = 1.5;
         var h = statCalculations.getHighestScore(data) * HEIGHT_INCREASE,
             padding = 2,
@@ -28,21 +29,21 @@ var renderChartsAndGraphs = {
             .append("rect")
             .attrs({
                 x: function (d, i) { return i * (w / dataset.length); },
-                y: function (d) { return h - (d * HEIGHT_INCREASE); },
+                y: function (d) { return h - (d.roundScore * HEIGHT_INCREASE); },
                 width: w / dataset.length - padding,
-                height: function (d) { return d * HEIGHT_INCREASE; },
-                fill: function (d) { return colorPicker(d); }
+                height: function (d) { return d.roundScore * HEIGHT_INCREASE; },
+                fill: function (d) { return colorPicker(d.roundScore); }
             });
 
         chart.selectAll("text")
             .data(dataset)
             .enter()
             .append("text")
-            .text(function (d) { return d; })
+            .text(function (d) { return d.roundScore; })
             .attrs({
                 "text-anchor": "middle",
                 x: function (d, i) { return i * (w / dataset.length) + (w / dataset.length - padding) / 2; },
-                y: function (d) { return h - (d * HEIGHT_INCREASE) + 14; },
+                y: function (d) { return h - (d.roundScore * HEIGHT_INCREASE) + 14; },
                 "font-family": "sans-serif",
                 "font-size": 12,
                 "fill": "#fff"
@@ -84,8 +85,8 @@ var statCalculations = {
     getHighestScore: function (data) {
         var highestScore = 0;
         for (var i = 0; i < data.length; i++) {
-            if (data[i] > highestScore) {
-                highestScore = data[i];
+            if (data[i].roundScore > highestScore) {
+                highestScore = data[i].roundScore;
             }
         }
         return highestScore;

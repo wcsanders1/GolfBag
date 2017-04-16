@@ -9,8 +9,6 @@ using GolfBag.Entities;
 using GolfBag.Services;
 using Microsoft.AspNetCore.Identity;
 
-// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace GolfBag.Controllers
 {
     public class RoundOfGolfController : Controller
