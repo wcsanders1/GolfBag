@@ -51,8 +51,6 @@ var renderChartsAndGraphs = {
         var $label = $("<h6>Your Latest " + numOfHoles + "-Hole Rounds</h6>");
         $("#" + id).after($label);
 
-       // $("#bar-chart").css({ top: 50, position: "relative" });
-
         if (animation != undefined) {
             $("#" + id)
                 .addClass("animated")
