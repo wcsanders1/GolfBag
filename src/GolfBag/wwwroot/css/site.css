@@ -232,6 +232,7 @@ li li a {
 }
 .sidebar {
   background-color: #000;
+  overflow-y: auto;
 }
 .sidebar .dropdown-menu > li > a {
   flex-direction: column;
@@ -258,12 +259,12 @@ li li a {
   text-align: center;
   color: #8614DE;
 }
-@media (min-width: 992px) {
+@media (min-width: 1200px) {
   #left-sidebar {
     left: 0;
   }
 }
-@media (min-width: 992px) {
+@media (min-width: 1200px) {
   #right-sidebar {
     right: 0;
   }
@@ -280,11 +281,34 @@ li li a {
   color: white;
 }
 .stat-chart {
-  width: 33%;
+  width: 95%;
+}
+.stat-chart-container {
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .stat-chart-container {
+    width: 50%;
+  }
 }
 @media (min-width: 1200px) {
-  .stat-chart {
-    width: 95%;
+  .stat-chart-container {
+    width: 100%;
+  }
+}
+.stat-chart-container-container {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+}
+@media (min-width: 768px) {
+  .stat-chart-container-container {
+    flex-direction: row;
+  }
+}
+@media (min-width: 1200px) {
+  .stat-chart-container-container {
+    flex-direction: column;
   }
 }
 /********************************************

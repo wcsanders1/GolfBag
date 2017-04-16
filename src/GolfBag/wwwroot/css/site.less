@@ -203,6 +203,7 @@ li {
 
 .sidebar {
     background-color: @black;
+    overflow-y: auto;
 
     .dropdown-menu > li > a {
         flex-direction: column;
@@ -232,13 +233,13 @@ li {
 }
 
 #left-sidebar {
-    @media (min-width: @bootstrapMD) {
+    @media (min-width: @bootstrapLG) {
         left: 0;
     }
 }
 
 #right-sidebar {
-    @media (min-width: @bootstrapMD) {
+    @media (min-width: @bootstrapLG) {
         right: 0;
     }
 }
@@ -258,10 +259,32 @@ li {
 }
 
 .stat-chart {
-    width: 33%;
+    width: 95%;
+}
+
+.stat-chart-container {
+    width: 100%;
+
+    @media (min-width: @bootstrapSM) {
+        width: 50%;
+    }
 
     @media (min-width: @bootstrapLG) {
-        width: 95%;
+        width: 100%;
+    }
+}
+
+.stat-chart-container-container {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+
+    @media (min-width: @bootstrapSM) {
+        flex-direction: row;
+    }
+
+    @media (min-width: @bootstrapLG) {
+        flex-direction: column;
     }
 }
 
@@ -269,9 +292,9 @@ li {
 /********************************************
         <LoginLogout> Default
 ********************************************/
-    #navbar-toggler {
-        background-color: chocolate;
-    }
+#navbar-toggler {
+    background-color: chocolate;
+}
 
     #main-collapsing-navbar {
         margin: 0;

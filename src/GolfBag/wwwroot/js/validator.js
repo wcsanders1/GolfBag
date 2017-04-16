@@ -113,9 +113,9 @@ var scoreValidator = {
 
         if (rangeArray.length > 0) {
             if (rangeArray.length == 1) {
-                rangeMessage = "The score for the following hole must be between 1 and 99:" + customValidations.turnArrayToMessage(rangeArray);
+                rangeMessage = "The score for the following hole must be between 1 and 15:" + customValidations.turnArrayToMessage(rangeArray);
             } else {
-                rangeMessage = "Scores for the following holes must be between 1 and 99:" + customValidations.turnArrayToMessage(rangeArray);
+                rangeMessage = "Scores for the following holes must be between 1 and 15:" + customValidations.turnArrayToMessage(rangeArray);
             } 
             messageArray.push(rangeMessage);
         }
@@ -133,7 +133,7 @@ var scoreValidator = {
 
                 $element.rules("add", {
                     required: true,
-                    range: [1, 99],
+                    range: [1, 15],
                     messages: {
                         required: "required",
                         range: "range"
@@ -195,9 +195,9 @@ var puttValidator = {
 
         if (rangeArray.length > 0) {
             if (rangeArray.length == 1) {
-                rangeMessage = "The putt for the following hole must be between 0 and 9:" + customValidations.turnArrayToMessage(rangeArray);
+                rangeMessage = "The putt for the following hole must be 0 and 14:" + customValidations.turnArrayToMessage(rangeArray);
             } else {
-                rangeMessage = "Putts for the following holes must be between 0 and 9:" + customValidations.turnArrayToMessage(rangeArray);
+                rangeMessage = "Putts for the following holes must be between 0 and 14:" + customValidations.turnArrayToMessage(rangeArray);
             }
             messageArray.push(rangeMessage);
         }
@@ -230,7 +230,7 @@ var puttValidator = {
 
                 $element.rules("add", {
                     required: true,
-                    range: [0, 9],
+                    range: [0, 14],
                     lessThan: $scoreElement,
                     messages: {
                         required: "required",

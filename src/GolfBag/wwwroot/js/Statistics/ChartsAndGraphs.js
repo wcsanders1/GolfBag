@@ -1,6 +1,9 @@
-﻿var renderChartsAndGraphs = {
-    barChart: function (data, id, $location, animation = false) {
-        var h = 175,
+﻿"use strict";
+
+var renderChartsAndGraphs = {
+    barChart: function (data, id, numOfHoles, $location, animation) {
+        const HEIGHT_INCREASE = 1.5;
+        var h = statCalculations.getHighestScore(data) * HEIGHT_INCREASE,
             padding = 2,
             dataset = data,
             chart = d3.select($location)
@@ -25,9 +28,9 @@
             .append("rect")
             .attrs({
                 x: function (d, i) { return i * (w / dataset.length); },
-                y: function (d) { return h - (d * 2); },
+                y: function (d) { return h - (d * HEIGHT_INCREASE); },
                 width: w / dataset.length - padding,
-                height: function (d) { return d * 2; },
+                height: function (d) { return d * HEIGHT_INCREASE; },
                 fill: function (d) { return colorPicker(d); }
             });
 
@@ -39,18 +42,18 @@
             .attrs({
                 "text-anchor": "middle",
                 x: function (d, i) { return i * (w / dataset.length) + (w / dataset.length - padding) / 2; },
-                y: function (d) { return h - (d * 2) + 14; },
+                y: function (d) { return h - (d * HEIGHT_INCREASE) + 14; },
                 "font-family": "sans-serif",
                 "font-size": 12,
                 "fill": "#fff"
             });
 
-        $label = $("<h6>Your Last Ten 9-Hole Rounds</h6>");
+        var $label = $("<h6>Your Latest " + numOfHoles + "-Hole Rounds</h6>");
         $("#" + id).after($label);
 
        // $("#bar-chart").css({ top: 50, position: "relative" });
 
-        if (animation) {
+        if (animation != undefined) {
             $("#" + id)
                 .addClass("animated")
                 .addClass(animation);
@@ -78,3 +81,15 @@ var resizeChartsAndGraphs = {
             .attr("x", function (d, i) { return i * (w / dataset.length) + (w / dataset.length - padding) / 2; });
     }
 };
+
+var statCalculations = {
+    getHighestScore: function (data) {
+        var highestScore = 0;
+        for (var i = 0; i < data.length; i++) {
+            if (data[i] > highestScore) {
+                highestScore = data[i];
+            }
+        }
+        return highestScore;
+    }
+}

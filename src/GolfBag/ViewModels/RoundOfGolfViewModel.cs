@@ -181,7 +181,7 @@ namespace GolfBag.ViewModels
             {
                 foreach (var score in FrontNineScores)
                 {
-                    if (score < 1 || score > 99)
+                    if (score < 1 || score > 15)
                     {
                         return false;
                     }
@@ -192,7 +192,7 @@ namespace GolfBag.ViewModels
             {
                 foreach (var score in BackNineScores)
                 {
-                    if (score < 1|| score > 99)
+                    if (score < 1|| score > 15)
                     {
                         return false;
                     }
@@ -203,7 +203,7 @@ namespace GolfBag.ViewModels
             {
                 foreach (var putt in FrontNinePutts)
                 {
-                    if (putt < 0 || putt > 9)
+                    if (putt < 0 || putt > 14)
                     {
                         return false;
                     }
@@ -214,7 +214,7 @@ namespace GolfBag.ViewModels
             {
                 foreach (var putt in BackNinePutts)
                 {
-                    if (putt < 0 || putt > 9)
+                    if (putt < 0 || putt > 14)
                     {
                         return false;
                     }
