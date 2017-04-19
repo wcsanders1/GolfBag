@@ -63,7 +63,7 @@ namespace GolfBag.Controllers
 
                     barChartRound.RoundScore = round.Scores.Select(x => x.HoleScore).Sum();
                     barChartRound.RoundId    = round.Id;
-                    barChartRound.RoundDate  = round.Date;
+                    barChartRound.RoundDate  = round.Date.ToString("MMMM d, yyyy");
                     barChartRound.CourseName = _roundOfGolf.GetCourse(round.CourseId).CourseName;
                     scores.Add(barChartRound);
                 }
@@ -74,11 +74,11 @@ namespace GolfBag.Controllers
 
                     frontNineBarChartRound.RoundScore = round.Scores.Select(x => x.HoleScore).Take(NINE).Sum();
                     frontNineBarChartRound.RoundId    = round.Id;
-                    frontNineBarChartRound.RoundDate  = round.Date;
+                    frontNineBarChartRound.RoundDate  = round.Date.ToString("MMMM d, yyyy");
                     frontNineBarChartRound.CourseName = _roundOfGolf.GetCourse(round.CourseId).CourseName;
                     backNineBarChartRound.RoundScore  = round.Scores.Select(x => x.HoleScore).Skip(NINE).Sum();
                     backNineBarChartRound.RoundId     = round.Id;
-                    backNineBarChartRound.RoundDate   = round.Date;
+                    backNineBarChartRound.RoundDate   = round.Date.ToString("MMMM d, yyyy");
                     backNineBarChartRound.CourseName  = _roundOfGolf.GetCourse(round.CourseId).CourseName;
                     scores.Add(frontNineBarChartRound);
                     scores.Add(backNineBarChartRound);

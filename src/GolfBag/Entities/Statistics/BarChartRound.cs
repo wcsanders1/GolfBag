@@ -10,6 +10,6 @@ namespace GolfBag.Entities.Statistics
         public int RoundScore { get; set; }
         public int RoundId { get; set; }
         public string CourseName { get; set; }
-        public DateTime RoundDate { get; set; }
+        public string RoundDate { get; set; }
     }
 }

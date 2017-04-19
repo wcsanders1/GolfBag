@@ -28,6 +28,8 @@ var renderChartsAndGraphs = {
             .enter()
             .append("rect")
             .attrs({
+                "data-toggle": "tooltip",
+                "title": function (d) { return d.courseName + "<br>" + d.roundDate; },
                 x: function (d, i) { return i * (w / dataset.length); },
                 y: function (d) { return h - (d.roundScore * HEIGHT_INCREASE); },
                 width: w / dataset.length - padding,
@@ -60,6 +62,11 @@ var renderChartsAndGraphs = {
             $label.addClass("animated")
                 .addClass(animation);
         }
+
+        $("rect").tooltip({
+            "container": "body",
+            html: true
+        });
     }     
 };
 
