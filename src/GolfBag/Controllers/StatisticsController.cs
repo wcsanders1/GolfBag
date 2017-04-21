@@ -98,6 +98,9 @@ namespace GolfBag.Controllers
                 {
                     var barChartRound = new BarChartRound();
                     barChartRound.RoundScore = round.Scores.Select(x => x.HoleScore).Sum();
+                    barChartRound.RoundId    = round.Id;
+                    barChartRound.RoundDate  = round.Date.ToString("MMMM d, yyyy");
+                    barChartRound.CourseName = _roundOfGolf.GetCourse(round.CourseId).CourseName;
                     scores.Add(barChartRound);
                 }
             }

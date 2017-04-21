@@ -34,7 +34,10 @@ var renderChartsAndGraphs = {
                 y: function (d) { return h - (d.roundScore * HEIGHT_INCREASE); },
                 width: w / dataset.length - padding,
                 height: function (d) { return d.roundScore * HEIGHT_INCREASE; },
-                fill: function (d) { return colorPicker(d.roundScore); }
+                fill: function (d) { return colorPicker(d.roundScore); },
+                "class": "btn",
+                "data-target": "#display-round",
+                "onclick": "testClick()"
             });
 
         chart.selectAll("text")
@@ -99,3 +102,7 @@ var statCalculations = {
         return highestScore;
     }
 }
+
+var testClick = function () {
+    console.log("clicking");
+};
