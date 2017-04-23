@@ -17,7 +17,7 @@ $(function () {
                 options = {
                     async: false,
                     url: "/RoundOfGolf/DatesPlayedTeebox/" + $id,
-                    type: "GET",
+                    type: "GET"
                 };
 
             var getDatesPlayed = function (dateData) {
@@ -25,7 +25,7 @@ $(function () {
                 
                 for (var i = 0; i < dateData.length; i++) {
                     var date = "";
-                    while (dateData.charAt(i) != ":") {
+                    while (dateData.charAt(i) !== ":") {
                         date += dateData.charAt(i);
                         i++;
                     }
@@ -89,7 +89,7 @@ $(function () {
                 }
             });
 
-            if (numberOfTeeboxesToDelete >= (numberOfTeeboxes - 1)) {
+            if (numberOfTeeboxesToDelete >= numberOfTeeboxes - 1) {
                 showModal();
                 return true;
             } else {
@@ -125,7 +125,7 @@ $(function () {
 
         var addDeletedTeeboxToListOfDeletedTeeboxes = function () {
             $(".deleted-teebox-input").each(function (i) {
-                if ($(this).val() == 0) {
+                if ($(this).val() === 0) {
                     $(this).val($id);
                     return false;
                 }
@@ -173,7 +173,7 @@ $(function () {
 
         var removeTeeboxFromList = function () {
             $(".deleted-teebox-input").each(function (i) {
-                if ($(this).val() == $id) {
+                if ($(this).val() === $id) {
                     $(this).val(0);
                     return false;
                 }
@@ -273,7 +273,7 @@ $(function () {
         };
 
         for (var i = $frontNineNewTeeboxRows.length - 1; i >= 0; i--) {
-            if (!($frontNineNewTeeboxRows.eq(i).hasClass("hidden"))) {
+            if (!$frontNineNewTeeboxRows.eq(i).hasClass("hidden")) {
                 $frontNineNewTeeboxRows.eq(i).addClass("hidden");
                 hideBackNineNewTeebox($frontNineNewTeeboxRows.eq(i).attr("data-new-teebox-num"));
                 setButtonStatus($frontNineNewTeeboxRows, $addTeeboxBtn, $removeNewTeeboxBtn);
@@ -282,7 +282,7 @@ $(function () {
                 return false;
             }
         }
-    }
+    };
 
     $(document).on("click", "#add-teebox-btn", showNewTeebox);
     $(document).on("click", "#remove-new-teebox", removeNewTeebox);
@@ -307,7 +307,7 @@ $(function () {
                 options = {
                     async: false,
                     url: "/RoundOfGolf/DatesPlayedCourse/" + $courseId,
-                    type: "GET",
+                    type: "GET"
                 };
 
             var getDatesPlayed = function (dateData) {
@@ -315,7 +315,7 @@ $(function () {
 
                 for (var i = 0; i < dateData.length; i++) {
                     var date = "";
-                    while (dateData.charAt(i) != ":") {
+                    while (dateData.charAt(i) !== ":") {
                         date += dateData.charAt(i);
                         i++;
                     }

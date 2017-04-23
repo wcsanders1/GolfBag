@@ -11,7 +11,7 @@ var customValidations = {
     validateElement: function ($element, validationClassName) {
         "use strict";
 
-        if (!($element.valid())) {
+        if (!$element.valid()) {
             $element.addClass(validationClassName);
         } else {
             $element.removeClass(validationClassName);
@@ -22,7 +22,7 @@ var customValidations = {
 
         $element.on("focusout keyup", function (e) {
             var code = e.keyCode || e.which;
-            if (code != 9) {                        //RETURNS FALSE IF TAB KEY
+            if (code !== 9) {                        //RETURNS FALSE IF TAB KEY
                 customValidations.validateElement($element, validationClassName);
                 messageFunction();
             }
@@ -55,7 +55,7 @@ var customValidations = {
         "use strict";
 
         for (var i = 0; i < array.length; i++) {
-            if (array[i] == item) {
+            if (array[i] === item) {
                 return true;
             }
         }
@@ -94,16 +94,16 @@ var scoreValidator = {
             if ($(this).hasClass("invalid-score")) {
                 var error = $(this).siblings(".field-validation-error").find("span").text(),
                     holeNumber = $(this).data("hole-number");
-                if (error == "required") {
+                if (error === "required") {
                     requiredArray.push(holeNumber);
-                } else if (error == "range") {
+                } else if (error === "range") {
                     rangeArray.push(holeNumber);
                 }               
             }
         });
 
         if (requiredArray.length > 0) {
-            if (requiredArray.length == 1) {
+            if (requiredArray.length === 1) {
                 requiredMessage = "Enter a score for the following hole:" + customValidations.turnArrayToMessage(requiredArray);
             } else {
                 requiredMessage = "Enter a score for the following holes:" + customValidations.turnArrayToMessage(requiredArray);
@@ -112,7 +112,7 @@ var scoreValidator = {
         }
 
         if (rangeArray.length > 0) {
-            if (rangeArray.length == 1) {
+            if (rangeArray.length === 1) {
                 rangeMessage = "The score for the following hole must be between 1 and 15:" + customValidations.turnArrayToMessage(rangeArray);
             } else {
                 rangeMessage = "Scores for the following holes must be between 1 and 15:" + customValidations.turnArrayToMessage(rangeArray);
@@ -174,18 +174,18 @@ var puttValidator = {
             if ($(this).hasClass("invalid-putt")) {
                 var error = $(this).siblings(".field-validation-error").find("span").text(),
                     holeNumber = $(this).data("hole-number");
-                if (error == "required") {
+                if (error === "required") {
                     requiredArray.push(holeNumber);
-                } else if (error == "range") {
+                } else if (error === "range") {
                     rangeArray.push(holeNumber);
-                } else if (error == "lessThan") {
+                } else if (error === "lessThan") {
                     lessThanArray.push(holeNumber);
                 }
             }
         });
 
         if (requiredArray.length > 0) {
-            if (requiredArray.length == 1) {
+            if (requiredArray.length === 1) {
                 requiredMessage = "Enter a putt for the following hole:" + customValidations.turnArrayToMessage(requiredArray);
             } else {
                 requiredMessage = "Enter a putt for the following holes:" + customValidations.turnArrayToMessage(requiredArray);
@@ -194,7 +194,7 @@ var puttValidator = {
         }
 
         if (rangeArray.length > 0) {
-            if (rangeArray.length == 1) {
+            if (rangeArray.length === 1) {
                 rangeMessage = "The putt for the following hole must be 0 and 14:" + customValidations.turnArrayToMessage(rangeArray);
             } else {
                 rangeMessage = "Putts for the following holes must be between 0 and 14:" + customValidations.turnArrayToMessage(rangeArray);
@@ -203,7 +203,7 @@ var puttValidator = {
         }
 
         if (lessThanArray.length > 0) {
-            if (lessThanArray.length == 1) {
+            if (lessThanArray.length === 1) {
                 lessThanMessage = "The putts for the following hole must be less than the score for that hole:" + customValidations.turnArrayToMessage(lessThanArray);
             } else {
                 lessThanMessage = "Putts for the following holes must be less than the scores for those holes:" + customValidations.turnArrayToMessage(lessThanArray);
@@ -242,9 +242,9 @@ var puttValidator = {
 
                 // validate putt input when score for that hole changes as long as there are putts entered
                 $scoreElement.on("focusout keyup", function (e) {
-                    if ($element.val() != "") {
+                    if ($element.val() !== "") {
                         var code = e.keyCode || e.which;
-                        if (code != 9) {                        //RETURNS FALSE IF TAB KEY
+                        if (code !== 9) {                        //RETURNS FALSE IF TAB KEY
                             customValidations.validateElement($element, "invalid-putt");
                             puttValidator.makeAndShowErrorMessages();
                         }
@@ -280,19 +280,19 @@ var courseNameValidator = {
         $(".course-name").each(function () {
             if ($(this).hasClass("invalid-course-name")) {
                 var error = $(this).siblings(".field-validation-error").find("span").text();
-                if (error == "required") {
+                if (error === "required") {
                     requiredMessage = "Please enter the name of the course.";
-                } else if (error == "maxlength") {
+                } else if (error === "maxlength") {
                     rangeMessage = "The course name cannot be more than 50 characters long.";
                 }
             }
         });
 
-        if (requiredMessage != "") {
+        if (requiredMessage !== "") {
             messageArray.push(requiredMessage);
         }
 
-        if (rangeMessage != "") {
+        if (rangeMessage !== "") {
             messageArray.push(rangeMessage);
         }
 
@@ -348,16 +348,16 @@ var parValidator = {
             if ($(this).hasClass("invalid-par")) {
                 var error = $(this).siblings(".field-validation-error").find("span").text(),
                     holeNumber = $(this).data("hole-number");
-                if (error == "required") {
+                if (error === "required") {
                     requiredArray.push(holeNumber);
-                } else if (error == "range") {
+                } else if (error === "range") {
                     rangeArray.push(holeNumber);
                 }
             }
         });
 
         if (requiredArray.length > 0) {
-            if (requiredArray.length == 1) {
+            if (requiredArray.length === 1) {
                 requiredMessage = "Enter a par for the following hole:" + customValidations.turnArrayToMessage(requiredArray);
             } else {
                 requiredMessage = "Enter a par for the following holes:" + customValidations.turnArrayToMessage(requiredArray);
@@ -366,7 +366,7 @@ var parValidator = {
         }
 
         if (rangeArray.length > 0) {
-            if (rangeArray.length == 1) {
+            if (rangeArray.length === 1) {
                 rangeMessage = "The par for the following hole must be between 1 and 9:" + customValidations.turnArrayToMessage(rangeArray);
             } else {
                 rangeMessage = "Pars for the following holes must be between 1 and 9:" + customValidations.turnArrayToMessage(rangeArray);
@@ -427,16 +427,16 @@ var handicapValidator = {
             if ($(this).hasClass("invalid-handicap")) {
                 var error = $(this).siblings(".field-validation-error").find("span").text(),
                     holeNumber = $(this).data("hole-number");
-                if (error == "required") {
+                if (error === "required") {
                     requiredArray.push(holeNumber);
-                } else if (error == "range") {
+                } else if (error === "range") {
                     rangeArray.push(holeNumber);
                 }
             }
         });
 
         if (requiredArray.length > 0) {
-            if (requiredArray.length == 1) {
+            if (requiredArray.length === 1) {
                 requiredMessage = "Enter a handicap for the following hole:" + customValidations.turnArrayToMessage(requiredArray);
             } else {
                 requiredMessage = "Enter a handicap for the following holes:" + customValidations.turnArrayToMessage(requiredArray);
@@ -445,7 +445,7 @@ var handicapValidator = {
         }
 
         if (rangeArray.length > 0) {
-            if (rangeArray.length == 1) {
+            if (rangeArray.length === 1) {
                 rangeMessage = "The handicap for the following hole must be between 1 and 18:" + customValidations.turnArrayToMessage(rangeArray);
             } else {
                 rangeMessage = "Handicaps for the following holes must be between 1 and 18:" + customValidations.turnArrayToMessage(rangeArray);
@@ -503,19 +503,19 @@ var teeboxNameValidator = {
         $(".teebox-name").each(function () {
             if ($(this).hasClass("invalid-teebox-name")) {
                 var error = $(this).siblings(".field-validation-error").find("span").text();
-                if (error == "required") {
+                if (error === "required") {
                     requiredMessage = "All teeboxes must have a name.";
-                } else if (error == "maxlength") {
+                } else if (error === "maxlength") {
                     rangeMessage = "Teebox names cannot be more than 20 characters long.";
                 }
             }
         });
 
-        if (requiredMessage != "") {
+        if (requiredMessage !== "") {
             messageArray.push(requiredMessage);
         }
 
-        if (rangeMessage != "") {
+        if (rangeMessage !== "") {
             messageArray.push(rangeMessage);
         }
 
@@ -530,7 +530,7 @@ var teeboxNameValidator = {
             $(".teebox-name").each(function () {
                 var $element = $(this);
 
-                if (!($element.parents("tr").hasClass("hidden"))) {
+                if (!$element.parents("tr").hasClass("hidden")) {
                     $element.rules("add", {
                         required: true,
                         maxlength: 20,
@@ -578,9 +578,9 @@ var teeboxValidator = {
             if ($(this).hasClass("invalid-teebox")) {
                 var error = $(this).siblings(".field-validation-error").find("span").text(),
                     holeNumber = $(this).data("hole-number");
-                if (error == "required" && (!customValidations.isDuplicate(requiredArray, holeNumber))) {
+                if (error === "required" && !customValidations.isDuplicate(requiredArray, holeNumber)) {
                     requiredArray.push(holeNumber);
-                } else if (error == "range" && (!customValidations.isDuplicate(rangeArray, holeNumber))) {
+                } else if (error === "range" && !customValidations.isDuplicate(rangeArray, holeNumber)) {
                     rangeArray.push(holeNumber);
                 }             
             }
@@ -595,7 +595,7 @@ var teeboxValidator = {
         });
 
         if (requiredArray.length > 0) {
-            if (requiredArray.length == 1) {
+            if (requiredArray.length === 1) {
                 requiredMessage = "Enter a yardage for the following hole:" + customValidations.turnArrayToMessage(requiredArray);
             } else {
                 requiredMessage = "Enter a yardage for the following holes:" + customValidations.turnArrayToMessage(requiredArray);
@@ -604,7 +604,7 @@ var teeboxValidator = {
         }
 
         if (rangeArray.length > 0) {
-            if (rangeArray.length == 1) {
+            if (rangeArray.length === 1) {
                 rangeMessage = "The yardage for the following hole must be between 1 and 1000:" + customValidations.turnArrayToMessage(rangeArray);
             } else {
                 rangeMessage = "Yardages for the following holes must be between 1 and 1000:" + customValidations.turnArrayToMessage(rangeArray);
@@ -623,7 +623,7 @@ var teeboxValidator = {
             $(".teebox").each(function () {
                 var $element = $(this);
 
-                if (!($element.parents("tr").hasClass("hidden"))) {
+                if (!$element.parents("tr").hasClass("hidden")) {
                     $element.rules("add", {
                         required: true,
                         range: [1, 1000],
@@ -671,37 +671,37 @@ var validateForm = function ($form, makeMessagesNow, turnOff) {
     $.validator.unobtrusive.parse($form);
     $errorContainer.empty();
 
-    if ($form.find(".score").length != 0) {
+    if ($form.find(".score").length !== 0) {
         scoreValidator.validateScores($form, makeMessagesNow);
     }
 
-    if ($form.find(".course-name").length != 0) {
+    if ($form.find(".course-name").length !== 0) {
         courseNameValidator.validateCourseNames($form, makeMessagesNow);
     }
 
-    if ($form.find(".par").length != 0) {
+    if ($form.find(".par").length !== 0) {
         parValidator.validatePars($form, makeMessagesNow);
     }
 
-    if ($form.find(".handicap").length != 0) {
+    if ($form.find(".handicap").length !== 0) {
         handicapValidator.validateHandicaps($form, makeMessagesNow);
     }
 
-    if ($form.find(".teebox-name").length != 0) {
+    if ($form.find(".teebox-name").length !== 0) {
         teeboxNameValidator.validateTeeboxNames($form, makeMessagesNow);
     }
 
-    if ($form.find(".teebox").length != 0) {
+    if ($form.find(".teebox").length !== 0) {
         teeboxValidator.validateTeeboxes($form, makeMessagesNow);
     }
 
-    if ($form.find(".putt").length != 0) {
+    if ($form.find(".putt").length !== 0) {
         puttValidator.validatePutts($form, makeMessagesNow);
     }
 };
 
 var validateCustom = function ($form) {
-    if ($(".error-container").has("p").length != 0) {
+    if ($(".error-container").has("p").length !== 0) {
         return false;
     } else {
         $form.submit();

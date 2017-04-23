@@ -38,7 +38,7 @@
                 data: $radioButton.serialize()
             };
 
-        if ($radioButton.val() == 18) {
+        if ($radioButton.val() === 18) {
             $.ajax(options).done(function (data) {
                 var $newHtml = $(data);
                 $target.html($newHtml);

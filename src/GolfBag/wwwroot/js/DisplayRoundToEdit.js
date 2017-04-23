@@ -6,7 +6,7 @@ $(function () {
 
     var stripe = function () {
         stripeRow($(this));
-    }
+    };
 
     $(document).on("change", ".teebox-selector", stripe);
 });

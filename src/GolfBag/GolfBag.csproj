@@ -15,7 +15,6 @@
     <Content Include="wwwroot\js\AnimatedHeader\cbpAnimatedHeader.js" />
     <Content Include="wwwroot\js\AnimatedHeader\classie.js" />
     <Content Include="wwwroot\js\FloatingLabels.js" />
-    <Content Include="wwwroot\js\Login.js" />
     <Content Include="wwwroot\js\Statistics\ChartsAndGraphs.js" />
     <Content Include="wwwroot\js\Statistics\HomePageStats.js" />
     <Content Include="wwwroot\lib\animatecss\animate.css" />

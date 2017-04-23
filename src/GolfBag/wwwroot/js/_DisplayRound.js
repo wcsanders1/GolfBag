@@ -19,7 +19,7 @@ $(function () {
 
         $.each(shownTeeboxes, function (i) {
             $(".teebox-toggler-icon").each(function () {
-                if ($(this).attr("data-teebox-id") == shownTeeboxes[i]) {
+                if ($(this).attr("data-teebox-id") === shownTeeboxes[i]) {
                     $(this).removeClass("hidden");
                 }
             });
@@ -31,12 +31,12 @@ $(function () {
             var x = 2;
             $(this).find("tr").each(function (i) {
                 $(this).removeClass("table-row-striped");
-                if ((!($(this).hasClass("collapse")) && (x % 2 === 0))
-                        || ($(this).hasClass("in")) && (x % 2 === 0)) {
+                if (!$(this).hasClass("collapse") && x % 2 === 0
+                        || $(this).hasClass("in") && x % 2 === 0) {
                     $(this).addClass("table-row-striped");
                     x++;
-                } else if ((!($(this).hasClass("collapse")))
-                        || ($(this).hasClass("in"))) {
+                } else if (!$(this).hasClass("collapse")
+                        || $(this).hasClass("in")) {
                     x++;
                 }
             });

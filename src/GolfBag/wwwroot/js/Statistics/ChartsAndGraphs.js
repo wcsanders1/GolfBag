@@ -2,7 +2,6 @@
 
 var renderChartsAndGraphs = {
     barChart: function (data, id, numOfHoles, $location, animation) {
-        console.log(data);
         const HEIGHT_INCREASE = 1.5;
         var h = statCalculations.getHighestScore(data) * HEIGHT_INCREASE,
             padding = 2,
@@ -31,13 +30,12 @@ var renderChartsAndGraphs = {
                 "data-toggle": "tooltip",
                 "title": function (d) { return d.courseName + "<br>" + d.roundDate; },
                 x: function (d, i) { return i * (w / dataset.length); },
-                y: function (d) { return h - (d.roundScore * HEIGHT_INCREASE); },
+                y: function (d) { return h - d.roundScore * HEIGHT_INCREASE; },
                 width: w / dataset.length - padding,
                 height: function (d) { return d.roundScore * HEIGHT_INCREASE; },
                 fill: function (d) { return colorPicker(d.roundScore); },
                 "class": "btn",
-                "data-target": "#display-round",
-                "onclick": "testClick()"
+                "data-round-id": function (d) { return d.roundId; }
             });
 
         chart.selectAll("text")
@@ -48,7 +46,7 @@ var renderChartsAndGraphs = {
             .attrs({
                 "text-anchor": "middle",
                 x: function (d, i) { return i * (w / dataset.length) + (w / dataset.length - padding) / 2; },
-                y: function (d) { return h - (d.roundScore * HEIGHT_INCREASE) + 14; },
+                y: function (d) { return h - d.roundScore * HEIGHT_INCREASE + 14; },
                 "font-family": "sans-serif",
                 "font-size": 12,
                 "fill": "#fff"
@@ -57,7 +55,7 @@ var renderChartsAndGraphs = {
         var $label = $("<h6>Your Latest " + numOfHoles + "-Hole Rounds</h6>");
         $("#" + id).after($label);
 
-        if (animation != undefined) {
+        if (animation !== undefined) {
             $("#" + id)
                 .addClass("animated")
                 .addClass(animation);
@@ -83,7 +81,7 @@ var resizeChartsAndGraphs = {
         chart.selectAll("rect")
             .attrs({
                 x: function (d, i) { return i * (w / dataset.length); },
-                width: w / dataset.length - padding,
+                width: w / dataset.length - padding
             });
 
         chart.selectAll("text")
@@ -101,8 +99,16 @@ var statCalculations = {
         }
         return highestScore;
     }
-}
-
-var testClick = function () {
-    console.log("clicking");
 };
+
+$(function () {
+    "use strict";
+
+    var showRound = function () {
+        var $round = $(this);
+
+        window.location.href = "RoundOfGolf/ViewRounds?selectedRound=" + $round.data("round-id");
+    };    
+
+    $(document).on("click", "rect", showRound);
+});
