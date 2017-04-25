@@ -68,7 +68,48 @@ var renderChartsAndGraphs = {
             "container": "body",
             html: true
         });
-    }     
+    },
+
+    // this needs lots of work
+    pieChart: function (data, id, $location, animation) {
+        var dataset = [
+            { label: 'Abulia', count: 10 },
+            { label: 'Betelgeuse', count: 20 },
+            { label: 'Cantaloupe', count: 30 },
+            { label: 'Dijkstra', count: 40 }
+        ],
+            color = d3.scaleOrdinal(d3.schemeCategory20b),
+            chart = d3.select($location)
+                .append("svg")
+                .attr("id", id)
+                .attr("height", "300px")
+                .attr("class", "stat-chart")
+                .append("g"),
+            w = $("#" + id).width(),
+            h = $("#" + id).width(),
+            pie = d3.pie()
+                .value(function (d) { return d.count; })
+                .sort(null);
+
+        chart.attr("transform", "translate(" + (w / 2) + "," + (h / 2) + ")")
+            .attr("width", w)
+            .attr("height", h * 2);
+
+        var radius = Math.min(w, h) / 2,
+            arc = d3.arc()
+                .innerRadius(0)
+                .outerRadius(radius);
+
+
+        chart.selectAll("path")
+            .data(pie(dataset))
+            .enter()
+            .append("path")
+            .attr("d", arc)
+            .attr("fill", function (d) {
+                return color(d.data.label);
+            });
+    }
 };
 
 var resizeChartsAndGraphs = {
