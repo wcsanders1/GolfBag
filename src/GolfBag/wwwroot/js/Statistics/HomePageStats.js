@@ -32,6 +32,7 @@
             dataType: "json",
             success: function (data) {
                 renderChartsAndGraphs.pieChart(data, id, $location, animation);
+                
             }
         };
 
@@ -46,4 +47,11 @@
 
         renderChartsAndGraphs.pieChart("fakeData", "score-to-par-piechart", "#score-to-par-piechart-container", "bounceInLeft");
     });
+
+
+
+});
+
+$(window).resize(function () {
+    resizeChartsAndGraphs.pieChart("fakeData", "score-to-par-piechart", "#score-to-par-piechart-container");
 });
