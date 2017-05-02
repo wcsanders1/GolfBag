@@ -25,9 +25,10 @@ namespace GolfBag.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetScores(int holes, int mostRecentScores = 0)
-        {            
-            var rounds = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id).ToList();            
+        public IActionResult GetScores(int holes, int mostRecentScores = 0)
+        {
+            var rounds = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id).ToList();
+
             var scores = new List<BarChartRound>();
 
             switch (holes)
@@ -49,6 +50,25 @@ namespace GolfBag.Controllers
             }
 
             return Json(scores);
+        }
+
+        [HttpGet]
+        public IActionResult GetScoresToPar(int mostRecentScores = 0)
+        {
+            IEnumerable<RoundOfGolf> rounds;
+
+            if (mostRecentScores > 0)
+            {
+                var roundList = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id)
+                    .ToList();
+                rounds = roundList.Skip(roundList.Count - mostRecentScores);
+            }
+            else
+            {
+                rounds = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id).ToList();
+            }
+
+            return Json(CalculateScoresToPar(rounds));
         }
 
         private List<BarChartRound> GetNineHoleScores(IEnumerable<RoundOfGolf> rounds)
@@ -106,6 +126,89 @@ namespace GolfBag.Controllers
             }
 
             return scores;
+        }
+
+        private List<ScoreToPar> CalculateScoresToPar(IEnumerable<RoundOfGolf> rounds)
+        {
+            int eagles = 0;
+            int birdies = 0;
+            int pars = 0;
+            int bogies = 0;
+            int doubleBogies = 0;
+            int others = 0;
+            int totalHoles = 0;
+
+            foreach (var round in rounds)
+            {
+                var course = _roundOfGolf.GetCourse(round.CourseId);
+
+                foreach (var score in round.Scores)
+                {
+                    int par = course.CourseHoles
+                        .Where(x => x.HoleNumber == score.HoleNumber)
+                        .FirstOrDefault()
+                        .Par;
+
+                    int difference = score.HoleScore - par;
+
+                    switch (difference)
+                    {
+                        case -2:
+                            eagles++;
+                            break;
+                        case -1:
+                            birdies++;
+                            break;
+                        case 0:
+                            pars++;
+                            break;
+                        case 1:
+                            bogies++;
+                            break;
+                        case 2:
+                            doubleBogies++;
+                            break;
+                        default:
+                            others++;
+                            break;
+                    }
+                    totalHoles++;
+                }
+            }
+
+            var scoresToPar = new List<ScoreToPar>();
+            scoresToPar.Add(new ScoreToPar
+            {
+                ScoreName = ScoreName.Eagle,
+                Percentage = eagles / totalHoles * 100
+            });
+            scoresToPar.Add(new ScoreToPar
+            {
+                ScoreName = ScoreName.Birdie,
+                Percentage = birdies / totalHoles * 100
+            });
+            scoresToPar.Add(new ScoreToPar
+            {
+                ScoreName = ScoreName.Par,
+                Percentage = pars / totalHoles * 100
+            });
+            scoresToPar.Add(new ScoreToPar
+            {
+                ScoreName = ScoreName.Bogie,
+                Percentage = bogies / totalHoles * 100
+            });
+            scoresToPar.Add(new ScoreToPar
+            {
+                ScoreName = ScoreName.DoubleBogie,
+                Percentage = doubleBogies / totalHoles * 100
+            });
+            scoresToPar.Add(new ScoreToPar
+            {
+                ScoreName = ScoreName.Other,
+                Percentage = others / totalHoles * 100
+            });
+
+            return scoresToPar;
         }
 
         private async Task<User> GetCurrentUserAsync()
