@@ -72,12 +72,13 @@ var renderChartsAndGraphs = {
 
     // this needs lots of work
     pieChart: function (data, id, $location, animation) {
-        var dataset = [
-            { label: 'Abulia', count: 10 },
-            { label: 'Betelgeuse', count: 20 },
-            { label: 'Cantaloupe', count: 30 },
-            { label: 'Dijkstra', count: 40 }
-        ],
+        //var dataset = [
+        //    { label: 'Abulia', count: 10 },
+        //    { label: 'Betelgeuse', count: 20 },
+        //    { label: 'Cantaloupe', count: 30 },
+        //    { label: 'Dijkstra', count: 40 }
+        //],
+        var dataset = data,
             color = d3.scaleOrdinal(d3.schemeCategory20b),
             chart = d3.select($location)
                 .append("svg")
@@ -88,7 +89,7 @@ var renderChartsAndGraphs = {
             w = $("#" + id).width(),
             h = $("#" + id).width(),
             pie = d3.pie()
-                .value(function (d) { return d.count; })
+                .value(function (data) { return data.percentage; })
                 .sort(null);
 
         chart.attr("transform", "translate(" + (w / 2) + "," + (h / 2) + ")")
@@ -100,15 +101,21 @@ var renderChartsAndGraphs = {
                 .innerRadius(0)
                 .outerRadius(radius);
 
-
         chart.selectAll("path")
-            .data(pie(dataset))
+            .data(pie(data))
             .enter()
             .append("path")
-            .attr("d", arc)
-            .attr("fill", function (d) {
-                return color(d.data.label);
-            });
+            .attr("d", arc);
+
+        chart.selectAll("path")
+            .data(dataset)
+            .attr("class", function (dataset) { console.log(dataset.scoreName); return dataset.scoreName; })
+
+        if (animation !== undefined) {
+            $("#" + id)
+                .addClass("animated")
+                .addClass(animation);
+        }
     }
 };
 
@@ -129,16 +136,16 @@ var resizeChartsAndGraphs = {
             .attr("x", function (d, i) { return i * (w / dataset.length) + (w / dataset.length - padding) / 2; });
     },
     // this is very bad; much repetition
-    pieChart: function (data, id, $location) {
+    pieChart: function (id, data, $location) {
         $("#score-to-par-piechart-container").empty();
-
-        var dataset = [
-            { label: 'Abulia', count: 10 },
-            { label: 'Betelgeuse', count: 20 },
-            { label: 'Cantaloupe', count: 30 },
-            { label: 'Dijkstra', count: 40 }
-        ],
-            color = d3.scaleOrdinal(d3.schemeCategory20b),
+        
+        //var dataset = [
+        //    { label: 'Abulia', count: 10 },
+        //    { label: 'Betelgeuse', count: 20 },
+        //    { label: 'Cantaloupe', count: 30 },
+        //    { label: 'Dijkstra', count: 40 }
+        //],
+        var color = d3.scaleOrdinal(d3.schemeCategory20b),
             chart = d3.select($location)
                 .append("svg")
                 .attr("id", id)
@@ -148,7 +155,7 @@ var resizeChartsAndGraphs = {
             w = $("#" + id).width(),
             h = $("#" + id).width(),
             pie = d3.pie()
-                .value(function (d) { return d.count; })
+                .value(function (data) { return data.percentage; })
                 .sort(null);
 
         chart.attr("transform", "translate(" + (w / 2) + "," + (h / 2) + ")")
@@ -161,12 +168,12 @@ var resizeChartsAndGraphs = {
                 .outerRadius(radius);
 
         chart.selectAll("path")
-            .data(pie(dataset))
+            .data(pie(data))
             .enter()
             .append("path")
             .attr("d", arc)
-            .attr("fill", function (d) {
-                return color(d.data.label);
+            .attr("class", function (data) {
+                return data.scoreName;
             });
     }
 };

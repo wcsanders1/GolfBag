@@ -7,7 +7,7 @@ namespace GolfBag.Entities.Statistics
 {
     public class ScoreToPar
     {
-        public ScoreName ScoreName { get; set; }
-        public int Percentage { get; set; }
+        public string ScoreName { get; set; }
+        public float Percentage { get; set; }
     }
 }

@@ -26,13 +26,14 @@
             type: "GET",
             url: "/Statistics/GetScoresToPar",
             data: {
-                holes: numOfHoles,
-                mostRecentScores, mostRecentRounds
+                mostRecentScores: mostRecentRounds
             },
             dataType: "json",
             success: function (data) {
                 renderChartsAndGraphs.pieChart(data, id, $location, animation);
-                
+                $(window).resize(function () {
+                    resizeChartsAndGraphs.pieChart("score-to-par-piechart", data, "#score-to-par-piechart-container");
+                });
             }
         };
 
@@ -44,14 +45,11 @@
         // ID of the chart, the most recent number of rounds the chart will represent, and any animation
         makeScoreBarChart("#nine-hole-score-barchart-container", "nine-hole-score-barchart", 9, 10, "bounceInLeft");
         makeScoreBarChart("#eighteen-hole-score-barchart-container", "eighteen-hole-score-barchart", 18, 10, "bounceInLeft");
+        makeScoreToParPieChart("#score-to-par-piechart-container", "score-to-par-piechart", 10, "bounceInLeft");
 
-        renderChartsAndGraphs.pieChart("fakeData", "score-to-par-piechart", "#score-to-par-piechart-container", "bounceInLeft");
+        //renderChartsAndGraphs.pieChart("fakeData", "score-to-par-piechart", "#score-to-par-piechart-container", "bounceInLeft");
     });
 
 
 
-});
-
-$(window).resize(function () {
-    resizeChartsAndGraphs.pieChart("fakeData", "score-to-par-piechart", "#score-to-par-piechart-container");
 });

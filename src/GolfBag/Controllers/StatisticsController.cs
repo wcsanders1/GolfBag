@@ -130,13 +130,13 @@ namespace GolfBag.Controllers
 
         private List<ScoreToPar> CalculateScoresToPar(IEnumerable<RoundOfGolf> rounds)
         {
-            int eagles = 0;
-            int birdies = 0;
-            int pars = 0;
-            int bogies = 0;
-            int doubleBogies = 0;
-            int others = 0;
-            int totalHoles = 0;
+            float eagles = 0;
+            float birdies = 0;
+            float pars = 0;
+            float bogies = 0;
+            float doubleBogies = 0;
+            float others = 0;
+            float totalHoles = 0;
 
             foreach (var round in rounds)
             {
@@ -179,32 +179,32 @@ namespace GolfBag.Controllers
             var scoresToPar = new List<ScoreToPar>();
             scoresToPar.Add(new ScoreToPar
             {
-                ScoreName = ScoreName.Eagle,
+                ScoreName = "eagle",
                 Percentage = eagles / totalHoles * 100
             });
             scoresToPar.Add(new ScoreToPar
             {
-                ScoreName = ScoreName.Birdie,
+                ScoreName = "birdie",
                 Percentage = birdies / totalHoles * 100
             });
             scoresToPar.Add(new ScoreToPar
             {
-                ScoreName = ScoreName.Par,
+                ScoreName = "par",
                 Percentage = pars / totalHoles * 100
             });
             scoresToPar.Add(new ScoreToPar
             {
-                ScoreName = ScoreName.Bogie,
+                ScoreName = "bogie",
                 Percentage = bogies / totalHoles * 100
             });
             scoresToPar.Add(new ScoreToPar
             {
-                ScoreName = ScoreName.DoubleBogie,
+                ScoreName = "double-bogie",
                 Percentage = doubleBogies / totalHoles * 100
             });
             scoresToPar.Add(new ScoreToPar
             {
-                ScoreName = ScoreName.Other,
+                ScoreName = "other",
                 Percentage = others / totalHoles * 100
             });
 

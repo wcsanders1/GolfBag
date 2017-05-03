@@ -311,6 +311,24 @@ li li a {
     flex-direction: column;
   }
 }
+#score-to-par-piechart .eagle {
+  fill: red;
+}
+#score-to-par-piechart .birdie {
+  fill: purple;
+}
+#score-to-par-piechart .par {
+  fill: blue;
+}
+#score-to-par-piechart .bogie {
+  fill: yellow;
+}
+#score-to-par-piechart .double-bogie {
+  fill: pink;
+}
+#score-to-par-piechart .other {
+  fill: green;
+}
 /********************************************
         <LoginLogout> Default
 ********************************************/
