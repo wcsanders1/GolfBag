@@ -4,7 +4,6 @@
 
 $(function () {
     "use strict";
-
     var ajaxGetCourse = function () {
         var $course = $(this),
             options = {

@@ -1,7 +1,7 @@
 ﻿$(function () {
     "use strict";
 
-    var makeScoreBarChart = function ($location, id, numOfHoles, mostRecentRounds, animation) {
+    var makeScoreBarChart = function (id, $location, numOfHoles, mostRecentRounds, animation) {
         var options = {
             type: "GET",
             url: "/Statistics/GetScores",
@@ -21,7 +21,7 @@
         $.ajax(options);
     };
 
-    var makeScoreToParPieChart = function ($location, id, mostRecentRounds, animation) {
+    var makeScoreToParPieChart = function (id, $location, mostRecentRounds, animation) {
         var options = {
             type: "GET",
             url: "/Statistics/GetScoresToPar",
@@ -43,13 +43,8 @@
     $(document).ready(function () {
         // pass in the div you want the chart appended to, the number of holes the chart will represent,
         // ID of the chart, the most recent number of rounds the chart will represent, and any animation
-        makeScoreBarChart("#nine-hole-score-barchart-container", "nine-hole-score-barchart", 9, 10, "bounceInLeft");
-        makeScoreBarChart("#eighteen-hole-score-barchart-container", "eighteen-hole-score-barchart", 18, 10, "bounceInLeft");
-        makeScoreToParPieChart("#score-to-par-piechart-container", "score-to-par-piechart", 10, "bounceInLeft");
-
-        //renderChartsAndGraphs.pieChart("fakeData", "score-to-par-piechart", "#score-to-par-piechart-container", "bounceInLeft");
+        makeScoreBarChart("nine-hole-score-barchart", "#nine-hole-score-barchart-container", 9, 10, "bounceInLeft");
+        makeScoreBarChart("eighteen-hole-score-barchart", "#eighteen-hole-score-barchart-container", 18, 10, "bounceInLeft");
+        makeScoreToParPieChart("score-to-par-piechart", "#score-to-par-piechart-container", 10, "bounceInLeft");
     });
-
-
-
 });

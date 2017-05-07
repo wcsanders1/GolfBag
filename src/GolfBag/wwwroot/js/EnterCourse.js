@@ -38,7 +38,8 @@
                 data: $radioButton.serialize()
             };
 
-        if ($radioButton.val() === 18) {
+        if (parseInt($radioButton.val()) === 18) {
+            console.log("DDD");
             $.ajax(options).done(function (data) {
                 var $newHtml = $(data);
                 $target.html($newHtml);

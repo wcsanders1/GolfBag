@@ -1,12 +1,12 @@
 ﻿"use strict";
 
 var renderChartsAndGraphs = {
-    barChart: function (data, id, numOfHoles, $location, animation) {
+    barChart: function (data, id, numOfHoles, location, animation) {
         const HEIGHT_INCREASE = 1.5;
         var h = statCalculations.getHighestScore(data) * HEIGHT_INCREASE,
             padding = 2,
             dataset = data,
-            chart = d3.select($location)
+            chart = d3.select(location)
                 .append("svg")
                 .attr("id", id)
                 .attr("class", "stat-chart")
@@ -69,32 +69,22 @@ var renderChartsAndGraphs = {
             html: true
         });
     },
+    pieChart: function (data, id, location, animation) {
 
-    // this needs lots of work
-    pieChart: function (data, id, $location, animation) {
-        //var dataset = [
-        //    { label: 'Abulia', count: 10 },
-        //    { label: 'Betelgeuse', count: 20 },
-        //    { label: 'Cantaloupe', count: 30 },
-        //    { label: 'Dijkstra', count: 40 }
-        //],
         var dataset = data,
-            color = d3.scaleOrdinal(d3.schemeCategory20b),
-            chart = d3.select($location)
+            chart = d3.select(location)
                 .append("svg")
                 .attr("id", id)
-                .attr("height", "300px")
+                .attr("height", $(location).width())
                 .attr("class", "stat-chart")
-                .append("g"),
+                .append("g"),           
             w = $("#" + id).width(),
-            h = $("#" + id).width(),
+            h = $("#" + id).height(),
             pie = d3.pie()
                 .value(function (data) { return data.percentage; })
                 .sort(null);
 
-        chart.attr("transform", "translate(" + (w / 2) + "," + (h / 2) + ")")
-            .attr("width", w)
-            .attr("height", h * 2);
+        chart.attr("transform", "translate(" + (w / 2) + "," + (h / 2) + ")");
 
         var radius = Math.min(w, h) / 2,
             arc = d3.arc()
@@ -109,7 +99,7 @@ var renderChartsAndGraphs = {
 
         chart.selectAll("path")
             .data(dataset)
-            .attr("class", function (dataset) { console.log(dataset.scoreName); return dataset.scoreName; })
+            .attr("class", function (dataset) { return dataset.scoreName; });
 
         if (animation !== undefined) {
             $("#" + id)
@@ -135,46 +125,9 @@ var resizeChartsAndGraphs = {
         chart.selectAll("text")
             .attr("x", function (d, i) { return i * (w / dataset.length) + (w / dataset.length - padding) / 2; });
     },
-    // this is very bad; much repetition
     pieChart: function (id, data, $location) {
         $("#score-to-par-piechart-container").empty();
-        
-        //var dataset = [
-        //    { label: 'Abulia', count: 10 },
-        //    { label: 'Betelgeuse', count: 20 },
-        //    { label: 'Cantaloupe', count: 30 },
-        //    { label: 'Dijkstra', count: 40 }
-        //],
-        var color = d3.scaleOrdinal(d3.schemeCategory20b),
-            chart = d3.select($location)
-                .append("svg")
-                .attr("id", id)
-                .attr("height", "300px")
-                .attr("class", "stat-chart")
-                .append("g"),
-            w = $("#" + id).width(),
-            h = $("#" + id).width(),
-            pie = d3.pie()
-                .value(function (data) { return data.percentage; })
-                .sort(null);
-
-        chart.attr("transform", "translate(" + (w / 2) + "," + (h / 2) + ")")
-            .attr("width", w)
-            .attr("height", h * 2);
-
-        var radius = Math.min(w, h) / 2,
-            arc = d3.arc()
-                .innerRadius(0)
-                .outerRadius(radius);
-
-        chart.selectAll("path")
-            .data(pie(data))
-            .enter()
-            .append("path")
-            .attr("d", arc)
-            .attr("class", function (data) {
-                return data.scoreName;
-            });
+        renderChartsAndGraphs.pieChart(data, id, $location);
     }
 };
 
