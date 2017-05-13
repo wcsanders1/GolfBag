@@ -289,6 +289,18 @@ li {
     }
 }
 
+// bootstrap's tooltip incompatible with svg on scroll
+.svg-tooltip {
+    position: absolute;
+    max-width: 100px;
+    height: auto;
+    padding: 5px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+}
+
 #score-to-par-piechart {
     .eagle {
         fill: red;

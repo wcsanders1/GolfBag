@@ -1,5 +1,10 @@
 ﻿"use strict";
 
+var svgtooltip = d3.select("body")
+    .append("div")
+    .attr("class", "svg-tooltip")
+    .style("opacity", 0);
+
 var renderChartsAndGraphs = {
     barChart: function (data, id, numOfHoles, location, animation) {
         const HEIGHT_INCREASE = 1.5;
@@ -27,8 +32,6 @@ var renderChartsAndGraphs = {
             .enter()
             .append("rect")
             .attrs({
-                "data-toggle": "tooltip",
-                "title": function (d) { return d.courseName + "<br>" + d.roundDate; },
                 x: function (d, i) { return i * (w / dataset.length); },
                 y: function (d) { return h - d.roundScore * HEIGHT_INCREASE; },
                 width: w / dataset.length - padding,
@@ -36,6 +39,19 @@ var renderChartsAndGraphs = {
                 fill: function (d) { return colorPicker(d.roundScore); },
                 "class": "btn",
                 "data-round-id": function (d) { return d.roundId; }
+            })
+            .on("mouseover", function (d) {
+                svgtooltip.transition()
+                    .duration(200)
+                    .style("opacity", .85)
+                svgtooltip.html(d.courseName + "<br>" + d.roundDate)
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px");
+            })
+            .on("mouseout", function (d) {
+                svgtooltip.transition()
+                    .duration(200)
+                    .style("opacity", 0);
             });
 
         chart.selectAll("text")
@@ -63,21 +79,18 @@ var renderChartsAndGraphs = {
             $label.addClass("animated")
                 .addClass(animation);
         }
-
-        $("rect").tooltip({
-            "container": "body",
-            html: true
-        });
     },
     pieChart: function (data, id, location, animation) {
 
         var dataset = data,
             chart = d3.select(location)
                 .append("svg")
-                .attr("id", id)
-                .attr("height", $(location).width())
-                .attr("class", "stat-chart")
-                .append("g"),           
+                    .attr("id", id)
+                    .attr("class", "stat-chart")
+                    .attr("height", $(location).width())
+                    .append("g")
+                        .attr("height", $(location).width())
+                        .attr("height", $(location).width()),
             w = $("#" + id).width(),
             h = $("#" + id).height(),
             pie = d3.pie()
