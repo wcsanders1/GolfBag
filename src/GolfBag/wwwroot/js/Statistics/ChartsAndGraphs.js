@@ -5,6 +5,8 @@ var svgtooltip = d3.select("body")
     .attr("class", "svg-tooltip")
     .style("opacity", 0);
 
+
+
 var renderChartsAndGraphs = {
     barChart: function (data, id, numOfHoles, location, animation) {
         const HEIGHT_INCREASE = 1.5;
@@ -50,10 +52,11 @@ var renderChartsAndGraphs = {
             })
             .on("mouseout", function (d) {
                 svgtooltip.transition()
-                    .duration(200)
+                    .duration(0)
                     .style("opacity", 0);
-            });
-
+                svgtooltip.style("left", 0 + "px");
+                svgtooltip.style("top", 0 + "px");             
+        });
         chart.selectAll("text")
             .data(dataset)
             .enter()
