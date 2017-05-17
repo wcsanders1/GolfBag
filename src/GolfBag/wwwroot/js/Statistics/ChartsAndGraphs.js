@@ -117,6 +117,22 @@ var renderChartsAndGraphs = {
             .data(dataset)
             .attr("class", function (dataset) { return dataset.scoreName; });
 
+        var makeBarChartLabel = function (labels) {
+            var $label = "<div>";
+
+            $.each(labels, function (index, label) {
+                $label += "<div class='labelDiv'><h6>" + label.scoreName + "</h6></div>";  //change name of class
+                console.log(label);
+            });
+
+            $label += "</div>";
+
+            return $label;
+        };
+
+        var $barChartLabel = makeBarChartLabel(dataset);
+        $("#" + id).after($barChartLabel);
+
         if (animation !== undefined) {
             $("#" + id)
                 .addClass("animated")
