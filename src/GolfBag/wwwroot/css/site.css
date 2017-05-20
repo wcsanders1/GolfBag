@@ -49,6 +49,39 @@
     }
 }*/
 /*********************************************************************************************
+                        PAGE SIZE DETECTOR
+*********************************************************************************************/
+#page-size {
+  position: absolute;
+  visibility: hidden;
+  width: 0;
+}
+@media (min-width: 480px) {
+  #page-size {
+    height: 1px;
+  }
+}
+@media (min-width: 768px) {
+  #page-size {
+    height: 2px;
+  }
+}
+@media (min-width: 992px) {
+  #page-size {
+    height: 3px;
+  }
+}
+@media (min-width: 1200px) {
+  #page-size {
+    height: 4px;
+  }
+}
+@media (min-width: 1450px) {
+  #page-size {
+    height: 5px;
+  }
+}
+/*********************************************************************************************
                         GENERAL ELEMENT STYLES
 *********************************************************************************************/
 #screen-size-detector {
@@ -230,6 +263,22 @@ li li a {
   position: relative;
   z-index: 5;
 }
+.sidebar::-webkit-scrollbar {
+  width: 12px;
+  background: #DDEEDF;
+}
+@media (min-width: 1200px) {
+  .sidebar::-webkit-scrollbar-track {
+    border-radius: 10px;
+    margin-top: 120px;
+    margin-bottom: 50px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+}
+.sidebar::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
 .sidebar {
   background-color: #000;
   overflow-y: auto;
@@ -250,6 +299,7 @@ li li a {
     height: 100%;
     position: absolute;
     padding-top: 100px;
+    padding-bottom: 75px;
   }
   .sidebar .dropdown-menu {
     width: 100%;
@@ -257,7 +307,11 @@ li li a {
 }
 .sidebar h3 {
   text-align: center;
-  color: #8614DE;
+  color: #DDEEDF;
+  font-size: 3rem;
+}
+.sidebar h6 {
+  font-size: 1.75rem;
 }
 @media (min-width: 1200px) {
   #left-sidebar {
@@ -296,10 +350,34 @@ li li a {
     width: 100%;
   }
 }
+.stat-chart-container .eagle {
+  fill: #F45;
+  color: #F45;
+}
+.stat-chart-container .birdie {
+  fill: #D2EA9B;
+  color: #D2EA9B;
+}
+.stat-chart-container .par {
+  fill: #C0D9E5;
+  color: #C0D9E5;
+}
+.stat-chart-container .bogie {
+  fill: #FCC314;
+  color: #FCC314;
+}
+.stat-chart-container .double-bogie {
+  fill: #F2DEA8;
+  color: #F2DEA8;
+}
+.stat-chart-container .other {
+  fill: #1FAD9F;
+  color: #1FAD9F;
+}
 .stat-chart-container-container {
   display: flex;
   flex-direction: column;
-  align-items: baseline;
+  align-items: flex-end;
 }
 @media (min-width: 768px) {
   .stat-chart-container-container {
@@ -321,23 +399,13 @@ li li a {
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
   pointer-events: none;
 }
-#score-to-par-piechart .eagle {
-  fill: red;
+.pie-chart-label-container {
+  display: flex;
+  flex-wrap: wrap;
 }
-#score-to-par-piechart .birdie {
-  fill: purple;
-}
-#score-to-par-piechart .par {
-  fill: blue;
-}
-#score-to-par-piechart .bogie {
-  fill: yellow;
-}
-#score-to-par-piechart .double-bogie {
-  fill: pink;
-}
-#score-to-par-piechart .other {
-  fill: green;
+.pie-chart-label-container .pie-chart-label {
+  width: 50%;
+  color: #FFF;
 }
 /********************************************
         <LoginLogout> Default
@@ -362,7 +430,7 @@ footer {
   bottom: 0;
   width: 100%;
   height: 60px;
-  background-color: #000;
+  background-color: #639A67;
   color: #FFF;
 }
 /*********************************************************************************************

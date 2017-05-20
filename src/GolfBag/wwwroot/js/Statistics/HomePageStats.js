@@ -1,7 +1,7 @@
 ﻿$(function () {
     "use strict";
 
-    var makeScoreBarChart = function (id, $location, numOfHoles, mostRecentRounds, animation) {
+    var makeScoreBarChart = function (id, location, numOfHoles, mostRecentRounds, animation) {
         var options = {
             type: "GET",
             url: "/Statistics/GetScores",
@@ -11,17 +11,24 @@
             },
             dataType: "json",
             success: function (data) {
-                renderChartsAndGraphs.barChart(data, id, numOfHoles, $location, animation);
+                renderChartsAndGraphs.barChart(data, id, numOfHoles, location, animation);
                 $(window).resize(function () {
-                    resizeChartsAndGraphs.barChart(id, data);
+                    resizeChartsAndGraphs.barChart(data, id, numOfHoles, location);
                 });
+                //  This timeout resizing is necessary so that in a large screen the rendering of the barcharts doesn't conflict with bootstrap
+                setTimeout(
+                    function () {
+                        resizeChartsAndGraphs.barChart(data, id, numOfHoles, location, animation);
+                    },
+                    750
+                );
             }
         };
 
         $.ajax(options);
     };
 
-    var makeScoreToParPieChart = function (id, $location, mostRecentRounds, animation) {
+    var makeScoreToParPieChart = function (id, location, mostRecentRounds, animation) {
         var options = {
             type: "GET",
             url: "/Statistics/GetScoresToPar",
@@ -30,9 +37,9 @@
             },
             dataType: "json",
             success: function (data) {
-                renderChartsAndGraphs.pieChart(data, id, $location, animation);
+                renderChartsAndGraphs.pieChart(data, id, location, animation);
                 $(window).resize(function () {
-                    resizeChartsAndGraphs.pieChart("score-to-par-piechart", data, "#score-to-par-piechart-container");
+                    resizeChartsAndGraphs.pieChart(data, id, location);
                 });
             }
         };

@@ -5,12 +5,42 @@ var svgtooltip = d3.select("body")
     .attr("class", "svg-tooltip")
     .style("opacity", 0);
 
+const WIDTH_DECREASE_FOR_SCROLLBAR = 20;   //subtract 20 so that container scrollbar doesn't cut off chart
 
+/**********************************************************************************
+            SCREEN-SIZE DETECTOR:
+                - Each of the below constants correspond to the z-index of #page-size,
+                    which alters according to bootstraps breakpoints
+                - This allows js to sync with bootstraps breakpoints
+**********************************************************************************/
+
+const SCREEN_XS = 1;
+const SCREEN_SM = 2;
+const SCREEN_MD = 3;
+const SCREEN_LG = 4;
+const SCREEN_XL = 5;
+
+var getScreenSize = function () {
+    return $("#page-size").height();
+};
+
+
+ /**********************************************************************************/
 
 var renderChartsAndGraphs = {
     barChart: function (data, id, numOfHoles, location, animation) {
-        const HEIGHT_INCREASE = 1.5;
-        var h = statCalculations.getHighestScore(data) * HEIGHT_INCREASE,
+        var screenSize = getScreenSize();
+        var heightIncrease;
+
+        console.log(screenSize);
+
+        if (screenSize >= SCREEN_SM && screenSize <= SCREEN_MD) {
+            heightIncrease = 3;
+        } else {
+            heightIncrease = 1.5;
+        }
+
+        var h = statCalculations.getHighestScore(data) * heightIncrease,
             padding = 2,
             dataset = data,
             chart = d3.select(location)
@@ -19,13 +49,13 @@ var renderChartsAndGraphs = {
                 .attr("class", "stat-chart")
                 .attr("height", h);
 
-        var w = $("#" + id).width();
+        var w = $("#" + id).width() - WIDTH_DECREASE_FOR_SCROLLBAR;
 
-        var colorPicker = function (v) {
+        var colorPicker = function (v) {  //this is wrong; has no application to this application
             if (v <= 20) {
                 return "#666";
             } else if (v > 20) {
-                return "#F03";
+                return "#9E3668";
             }
         };
 
@@ -35,9 +65,9 @@ var renderChartsAndGraphs = {
             .append("rect")
             .attrs({
                 x: function (d, i) { return i * (w / dataset.length); },
-                y: function (d) { return h - d.roundScore * HEIGHT_INCREASE; },
+                y: function (d) { return h - d.roundScore * heightIncrease; },
                 width: w / dataset.length - padding,
-                height: function (d) { return d.roundScore * HEIGHT_INCREASE; },
+                height: function (d) { return d.roundScore * heightIncrease; },
                 fill: function (d) { return colorPicker(d.roundScore); },
                 "class": "btn",
                 "data-round-id": function (d) { return d.roundId; }
@@ -45,7 +75,7 @@ var renderChartsAndGraphs = {
             .on("mouseover", function (d) {
                 svgtooltip.transition()
                     .duration(200)
-                    .style("opacity", .85)
+                    .style("opacity", .85);
                 svgtooltip.html(d.courseName + "<br>" + d.roundDate)
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 28) + "px");
@@ -65,7 +95,7 @@ var renderChartsAndGraphs = {
             .attrs({
                 "text-anchor": "middle",
                 x: function (d, i) { return i * (w / dataset.length) + (w / dataset.length - padding) / 2; },
-                y: function (d) { return h - d.roundScore * HEIGHT_INCREASE + 14; },
+                y: function (d) { return h - d.roundScore * heightIncrease + 14; },
                 "font-family": "sans-serif",
                 "font-size": 12,
                 "fill": "#fff"
@@ -92,9 +122,8 @@ var renderChartsAndGraphs = {
                     .attr("class", "stat-chart")
                     .attr("height", $(location).width())
                     .append("g")
-                        .attr("height", $(location).width())
                         .attr("height", $(location).width()),
-            w = $("#" + id).width(),
+            w = $("#" + id).width() - WIDTH_DECREASE_FOR_SCROLLBAR, 
             h = $("#" + id).height(),
             pie = d3.pie()
                 .value(function (data) { return data.percentage; })
@@ -118,10 +147,14 @@ var renderChartsAndGraphs = {
             .attr("class", function (dataset) { return dataset.scoreName; });
 
         var makeBarChartLabel = function (labels) {
-            var $label = "<div>";
+            var $label = "<div class='pie-chart-label-container'>";
 
             $.each(labels, function (index, label) {
-                $label += "<div class='labelDiv'><h6>" + label.scoreName + "</h6></div>";  //change name of class
+                var text = label.scoreName.toLowerCase().replace(/\b[a-z]/g, function (letter) {
+                    return letter.toUpperCase();
+                }) + "s: " + Math.floor(label.percentage) + "%";
+
+                $label += "<div class='pie-chart-label'><h6 class='" + label.scoreName + "'>" + text + "</h6></div>";
                 console.log(label);
             });
 
@@ -137,29 +170,22 @@ var renderChartsAndGraphs = {
             $("#" + id)
                 .addClass("animated")
                 .addClass(animation);
+
+            $(".pie-chart-label")
+                .addClass("animated")
+                .addClass(animation);
         }
     }
 };
 
 var resizeChartsAndGraphs = {
-    barChart: function (id, data) {
-        var chart = d3.select("#" + id),
-            w = $("#" + id).width(),
-            dataset = data,
-            padding = 2;
-
-        chart.selectAll("rect")
-            .attrs({
-                x: function (d, i) { return i * (w / dataset.length); },
-                width: w / dataset.length - padding
-            });
-
-        chart.selectAll("text")
-            .attr("x", function (d, i) { return i * (w / dataset.length) + (w / dataset.length - padding) / 2; });
+    barChart: function (data, id, numOfHoles, location, animation) {
+        $(location).empty();
+        renderChartsAndGraphs.barChart(data, id, numOfHoles, location);
     },
-    pieChart: function (id, data, $location) {
-        $("#score-to-par-piechart-container").empty();
-        renderChartsAndGraphs.pieChart(data, id, $location);
+    pieChart: function (data, id, location, animation) {
+        $(location).empty();
+        renderChartsAndGraphs.pieChart(data, id, location, animation);
     }
 };
 

@@ -6,6 +6,34 @@
 @import "mixins";
 
 
+/*********************************************************************************************
+                        PAGE SIZE DETECTOR
+*********************************************************************************************/
+#page-size {
+    position: absolute;
+    visibility: hidden;
+    width: 0;
+
+    @media (min-width: @bootstrapXS) {
+        height: 1px;
+    }
+
+    @media (min-width: @bootstrapSM) {
+        height: 2px;
+    }
+
+    @media (min-width: @bootstrapMD) {
+        height: 3px;
+    }
+
+    @media (min-width: @bootstrapLG) {
+        height: 4px;
+    }
+
+    @media (min-width: @bootstrapXL) {
+        height: 5px;
+    }
+}
 
 
 /*********************************************************************************************
@@ -201,6 +229,25 @@ li {
     z-index: 5;
 }
 
+.sidebar::-webkit-scrollbar {
+    width: 12px;
+    background: @sidebarHeaderColor;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    @media (min-width: @bootstrapLG) {
+        border-radius: 10px;
+        margin-top: @paddingXS - 10;
+        margin-bottom: 50px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    }
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
 .sidebar {
     background-color: @black;
     overflow-y: auto;
@@ -220,6 +267,7 @@ li {
         height: 100%;
         position: absolute;
         padding-top: 100px;
+        padding-bottom: 75px;
 
         .dropdown-menu {
             width: 100%;
@@ -228,7 +276,12 @@ li {
 
     h3 {
         text-align: center;
-        color: @purpleText;
+        color: @sidebarHeaderColor;
+        font-size: 3rem;
+    }
+
+    h6 {
+        font-size: 1.75rem;
     }
 }
 
@@ -273,12 +326,42 @@ li {
     @media (min-width: @bootstrapLG) {
         width: 100%;
     }
+
+    .eagle {
+        fill: @orange;
+        color: @orange;
+    }
+
+    .birdie {
+        fill: @lightGreen;
+        color: @lightGreen;
+    }
+
+    .par {
+        fill: @lightBlue;
+        color: @lightBlue;
+    }
+
+    .bogie {
+        fill: @darkYellow;
+        color: @darkYellow;
+    }
+
+    .double-bogie {
+        fill: @lightBrown;
+        color: @lightBrown;
+    }
+
+    .other {
+        fill: @aqua;
+        color: @aqua;
+    }
 }
 
 .stat-chart-container-container {
     display: flex;
     flex-direction: column;
-    align-items: baseline;
+    align-items: flex-end;
 
     @media (min-width: @bootstrapSM) {
         flex-direction: row;
@@ -301,24 +384,14 @@ li {
     pointer-events: none;
 }
 
-#score-to-par-piechart {
-    .eagle {
-        fill: red;
-    }
-    .birdie {
-        fill: purple;
-    }
-    .par {
-        fill: blue;
-    }
-    .bogie {
-        fill: yellow;
-    } 
-    .double-bogie {
-        fill: pink;
-    }
-    .other {
-        fill: green;
+
+.pie-chart-label-container {
+    display: flex;
+    flex-wrap: wrap;
+
+    .pie-chart-label {
+        width: 50%;
+        color: @white;
     }
 }
 
@@ -349,7 +422,7 @@ footer {
     bottom: 0;
     width: 100%;
     height: 60px;
-    background-color: #000;
+    background-color: @footerColor;
     color: #FFF;
 }
 
