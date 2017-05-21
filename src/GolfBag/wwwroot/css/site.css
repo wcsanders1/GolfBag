@@ -82,6 +82,28 @@
   }
 }
 /*********************************************************************************************
+                        CUSTOMIZE SCROLL BARS
+*********************************************************************************************/
+body::-webkit-scrollbar,
+.sidebar::-webkit-scrollbar,
+.table-responsive::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+  background: #DDEEDF;
+}
+body::-webkit-scrollbar-track,
+.sidebar::-webkit-scrollbar-track,
+.table-responsive::-webkit-scrollbar-track {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+body::-webkit-scrollbar-thumb,
+.sidebar::-webkit-scrollbar-thumb,
+.table-responsive::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+/*********************************************************************************************
                         GENERAL ELEMENT STYLES
 *********************************************************************************************/
 #screen-size-detector {
@@ -263,21 +285,11 @@ li li a {
   position: relative;
   z-index: 5;
 }
-.sidebar::-webkit-scrollbar {
-  width: 12px;
-  background: #DDEEDF;
-}
 @media (min-width: 1200px) {
   .sidebar::-webkit-scrollbar-track {
-    border-radius: 10px;
     margin-top: 120px;
     margin-bottom: 50px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   }
-}
-.sidebar::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 .sidebar {
   background-color: #000;
@@ -299,7 +311,6 @@ li li a {
     height: 100%;
     position: absolute;
     padding-top: 100px;
-    padding-bottom: 75px;
   }
   .sidebar .dropdown-menu {
     width: 100%;
@@ -387,6 +398,7 @@ li li a {
 @media (min-width: 1200px) {
   .stat-chart-container-container {
     flex-direction: column;
+    padding-bottom: 75px;
   }
 }
 .svg-tooltip {
@@ -430,7 +442,7 @@ footer {
   bottom: 0;
   width: 100%;
   height: 60px;
-  background-color: #639A67;
+  background-color: #8C7676;
   color: #FFF;
 }
 /*********************************************************************************************
@@ -499,6 +511,36 @@ footer {
   .panel-title {
     font-size: 2.5rem;
   }
+}
+.panel-primary {
+  background-color: #639A67;
+  border: none;
+}
+.panel-primary .panel-heading {
+  background-color: #205D67;
+}
+#display-round {
+  -webkit-box-shadow: 2px 2px 4px 5px #000;
+  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow: 2px 2px 4px 5px #000;
+  /* Firefox 3.5 - 3.6 */
+  box-shadow: 2px 2px 4px 5px #000;
+}
+#display-round .navbar-default {
+  background-color: #639A67;
+}
+#display-round tr {
+  background-color: #D9BF77;
+}
+#display-round .table-row-striped {
+  background-color: #b79433;
+}
+#display-round .teebox-played,
+#display-round .well {
+  background-color: #D8EBB5;
+}
+#display-round .btn {
+  background-color: #D2D4D6;
 }
 @media (min-width: 768px) {
   .nav .dropdown:hover .dropdown-menu {
@@ -597,9 +639,6 @@ input::-webkit-outer-spin-button {
 .delete-teebox.faded-font,
 .undo-delete.faded-font {
   cursor: default;
-}
-.table-row-striped {
-  background-color: #F9F9F9;
 }
 .table > tbody > tr > td,
 .table > tbody > tr > th,

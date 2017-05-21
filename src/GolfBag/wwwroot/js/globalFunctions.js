@@ -10,7 +10,7 @@ var stripeRow = function ($teebox) {
         $(this).find("tr").each(function (i) {
             $(this).removeClass("teebox-played");
             $(this).children().removeClass("teebox-played");
-            if ($(this).data("teebox-id") === $selectedTeeBoxId) {
+            if ($(this).data("teebox-id") === parseInt($selectedTeeBoxId)) {
                 $(this).children().addClass("teebox-played");
             }
         });

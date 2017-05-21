@@ -77,8 +77,8 @@ var renderChartsAndGraphs = {
                     .duration(200)
                     .style("opacity", .85);
                 svgtooltip.html(d.courseName + "<br>" + d.roundDate)
-                    .style("left", (d3.event.pageX) + "px")
-                    .style("top", (d3.event.pageY - 28) + "px");
+                    .style("left", d3.event.pageX + "px")
+                    .style("top", d3.event.pageY - 28 + "px");
             })
             .on("mouseout", function (d) {
                 svgtooltip.transition()
@@ -129,7 +129,7 @@ var renderChartsAndGraphs = {
                 .value(function (data) { return data.percentage; })
                 .sort(null);
 
-        chart.attr("transform", "translate(" + (w / 2) + "," + (h / 2) + ")");
+        chart.attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
 
         var radius = Math.min(w, h) / 2,
             arc = d3.arc()
