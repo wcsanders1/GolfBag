@@ -483,6 +483,9 @@ footer {
 .cbp-af-header-shrink .navbar {
   margin-bottom: 5px;
 }
+.teebox-toggler {
+  color: #FFF;
+}
 .teebox-toggler-icon {
   width: 100%;
   text-align: center;
@@ -541,6 +544,9 @@ footer {
 }
 #display-round .btn {
   background-color: #D2D4D6;
+}
+.teebox-played {
+  font-weight: bold;
 }
 @media (min-width: 768px) {
   .nav .dropdown:hover .dropdown-menu {
@@ -620,14 +626,6 @@ input::-webkit-outer-spin-button {
   -moz-appearance: none;
   -webkit-appearance: none;
   margin: 0;
-}
-.teebox-played {
-  font-weight: bold;
-  background-color: #2AC930;
-}
-.teebox-not-played,
-.faded-font {
-  color: #B8BEBF;
 }
 .teebox-to-delete {
   text-decoration: line-through;
