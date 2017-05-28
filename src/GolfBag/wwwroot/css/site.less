@@ -428,7 +428,8 @@ li {
     #logout-button-a {
         color: @redText;
     }
-    /********************************************
+
+/********************************************
         Footer
 ********************************************/
 footer {
@@ -437,7 +438,19 @@ footer {
     width: 100%;
     height: 60px;
     background-color: @footerColor;
-    color: #FFF;
+    color: @white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    h5 {
+        margin: 5px 0;
+    }
+
+    a {
+        color: @white;
+    }
 }
 
 

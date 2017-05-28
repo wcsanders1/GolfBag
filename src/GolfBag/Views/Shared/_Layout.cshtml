@@ -35,7 +35,7 @@
     
 </head>
 <body>
-    <div id="page-size"></div>   @*This is an invisible div whose height changes according to screen size, which js uses to determine page size*@
+    <div id="page-size"></div>   @*This is an invisible div whose height changes according to screen size, which is used to coordinate js with css*@
     <div id="screen-size-detector" class="hidden"></div>
     <nav class="navbar navbar-default navbar-fixed-top cbp-af-header">
         <div class="container-fluid">
@@ -57,12 +57,12 @@
         <div id="right-sidebar" class="col-lg-2 sidebar">
             @RenderSection("rightSidebar", required: false)
         </div>
-
-
     </div>
+
     <footer>
-        @RenderSection("footer", required: false)
         @await Component.InvokeAsync("Greeting")
+        <h5><a href="mailto:golfbagonline@gmail.com">golfbagonline@gmail.com</a></h5>
+        <h5>&copy; @DateTime.Now.Year - Bill Sanders</h5>
     </footer>
 
     @RenderSection("Scripts", false)

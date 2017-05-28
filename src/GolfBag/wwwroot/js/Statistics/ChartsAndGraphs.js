@@ -29,27 +29,28 @@ var getScreenSize = function () {
 
 var renderChartsAndGraphs = {
     barChart: function (data, id, numOfHoles, location, animation) {
-        var screenSize = getScreenSize();
-        var heightIncrease;
-
-        console.log(screenSize);
+        var screenSize = getScreenSize(),
+            svgHeight,
+            differential;
 
         if (screenSize >= SCREEN_SM && screenSize <= SCREEN_MD) {
-            heightIncrease = 3;
+            svgHeight = 400;
+            differential = 5;
         } else {
-            heightIncrease = 1.5;
+            svgHeight = 150;
+            differential = 2;
         }
 
-        var h = statCalculations.getHighestScore(data) * heightIncrease,
+        var h = svgHeight,
+            highestScore = statCalculations.getHighestScore(data),
             padding = 2,
             dataset = data,
             chart = d3.select(location)
                 .append("svg")
                 .attr("id", id)
                 .attr("class", "stat-chart")
-                .attr("height", h);
-
-        var w = $("#" + id).width() - WIDTH_DECREASE_FOR_SCROLLBAR;
+                .attr("height", h),
+            w = $("#" + id).width() - WIDTH_DECREASE_FOR_SCROLLBAR;
 
         var colorPicker = function (v) {  //this is wrong; has no application to this application
             if (v <= 20) {
@@ -65,9 +66,9 @@ var renderChartsAndGraphs = {
             .append("rect")
             .attrs({
                 x: function (d, i) { return i * (w / dataset.length); },
-                y: function (d) { return h - d.roundScore * heightIncrease; },
+                y: function (d) { return differential * (highestScore - d.roundScore); },
                 width: w / dataset.length - padding,
-                height: function (d) { return d.roundScore * heightIncrease; },
+                height: function (d) { return h - differential * (highestScore - d.roundScore); },
                 fill: function (d) { return colorPicker(d.roundScore); },
                 "class": "btn",
                 "data-round-id": function (d) { return d.roundId; }
@@ -95,7 +96,7 @@ var renderChartsAndGraphs = {
             .attrs({
                 "text-anchor": "middle",
                 x: function (d, i) { return i * (w / dataset.length) + (w / dataset.length - padding) / 2; },
-                y: function (d) { return h - d.roundScore * heightIncrease + 14; },
+                y: function (d) { return differential * (highestScore - d.roundScore) + 14; },
                 "font-family": "sans-serif",
                 "font-size": 12,
                 "fill": "#fff"
@@ -110,6 +111,61 @@ var renderChartsAndGraphs = {
                 .addClass(animation);
 
             $label.addClass("animated")
+                .addClass(animation);
+        }
+    },
+    lineGraph: function (data, id, location, animation) {
+        var screenSize = getScreenSize(),
+            svgHeight,
+            differential;
+
+        if (screenSize >= SCREEN_SM && screenSize <= SCREEN_MD) {
+            svgHeight = 400;
+            differential = 5;
+        } else {
+            svgHeight = 150;
+            differential = 2;
+        }
+
+        var lnGraph = d3.select(location)
+            .append("svg")
+            .attr("id", id)
+            .attr("class", "stat-chart")
+            .attr("height", svgHeight);
+
+        var w = $("#" + id).width() - WIDTH_DECREASE_FOR_SCROLLBAR;
+
+        var line = d3.line()
+            .x(function (d, i) { return i * (w / (data.length)); })
+            .y(function (d) { return svgHeight - d.putts; })
+            .curve(d3.curveLinear);
+
+        var viz = lnGraph.append("path")
+            .attrs({
+                d: line(data),
+                "stroke": "purple",
+                "stroke-width": 2,
+                "fill": "none"
+            });
+
+        var labels = lnGraph.selectAll("text")
+            .data(data)
+            .enter()
+            .append("text")
+            .text(function (d) { return d.putts; })
+            .attrs({
+                x: function (d, i) { return i * (w / data.length); },
+                y: function (d) { return svgHeight - d.putts + 10; },
+                "font-family": "sans-serif",
+                "font-size": "12px",
+                "fill": "#666",
+                "text-anchor": "start",
+                "dy": ".35em"
+            });
+
+        if (animation !== undefined) {
+            $("#" + id)
+                .addClass("animated")
                 .addClass(animation);
         }
     },
@@ -155,7 +211,6 @@ var renderChartsAndGraphs = {
                 }) + "s: " + Math.floor(label.percentage) + "%";
 
                 $label += "<div class='pie-chart-label'><h6 class='" + label.scoreName + "'>" + text + "</h6></div>";
-                console.log(label);
             });
 
             $label += "</div>";

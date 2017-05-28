@@ -26,16 +26,17 @@
         <h3>and you shot a @Model.ScoreOfLastRound<span>.</span></h3>
 
         @section leftSidebar {
-            <h3>Overall Statistics</h3>
+            <h3>Statistics</h3>
             <div class="stat-chart-container-container">
                 <div id="nine-hole-score-barchart-container" class="stat-chart-container"></div>
-                <div id="eighteen-hole-score-barchart-container" class="stat-chart-container"></div>
+                <div id="nine-hole-putts-linegraph-container" class="stat-chart-container"></div>
                 <div id="score-to-par-piechart-container" class="stat-chart-container"></div>
             </div>
         }
 
         @section rightSidebar {
-            <h3>Course Statistics</h3>
+            <h3>Statistics</h3>
+            <div id="eighteen-hole-score-barchart-container" class="stat-chart-container"></div>
         }
         
         <script type="text/javascript" src="~/js/Statistics/HomePageStats.js"></script>
@@ -53,7 +54,3 @@
     <h4>Register to get started!</h4>
     }
 </div>
-
-@section footer{
-    <div>This is the footer.</div>
-}
