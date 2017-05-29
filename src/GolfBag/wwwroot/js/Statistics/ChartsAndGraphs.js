@@ -56,7 +56,7 @@ var renderChartsAndGraphs = {
             if (v <= 20) {
                 return "#666";
             } else if (v > 20) {
-                return "#9E3668";
+                return "#9F1E49";
             }
         };
 
@@ -105,7 +105,7 @@ var renderChartsAndGraphs = {
         var $label = $("<h6>Your Latest " + numOfHoles + "-Hole Rounds</h6>");
         $("#" + id).after($label);
 
-        if (animation !== undefined) {
+        if (animation !== undefined && screenSize >= SCREEN_LG) {
             $("#" + id)
                 .addClass("animated")
                 .addClass(animation);
@@ -114,18 +114,20 @@ var renderChartsAndGraphs = {
                 .addClass(animation);
         }
     },
-    lineGraph: function (data, id, location, animation) {
+    lineGraph: function (data, id, numOfHoles, location, animation) {
         var screenSize = getScreenSize(),
+            highestPutts = statCalculations.getHighestPutts(data),
             svgHeight,
-            differential;
+            differential,
+            buffer = 30;
 
         if (screenSize >= SCREEN_SM && screenSize <= SCREEN_MD) {
             svgHeight = 400;
-            differential = 5;
         } else {
             svgHeight = 150;
-            differential = 2;
         }
+
+        differential = statCalculations.getPuttsDifferential(data, svgHeight - buffer);
 
         var lnGraph = d3.select(location)
             .append("svg")
@@ -136,14 +138,14 @@ var renderChartsAndGraphs = {
         var w = $("#" + id).width() - WIDTH_DECREASE_FOR_SCROLLBAR;
 
         var line = d3.line()
-            .x(function (d, i) { return i * (w / (data.length)); })
-            .y(function (d) { return svgHeight - d.putts; })
+            .x(function (d, i) { return i * (w / data.length); })
+            .y(function (d) { return differential * (highestPutts - d.putts); })
             .curve(d3.curveLinear);
 
         var viz = lnGraph.append("path")
             .attrs({
                 d: line(data),
-                "stroke": "purple",
+                "stroke": "#FF771B",
                 "stroke-width": 2,
                 "fill": "none"
             });
@@ -155,23 +157,30 @@ var renderChartsAndGraphs = {
             .text(function (d) { return d.putts; })
             .attrs({
                 x: function (d, i) { return i * (w / data.length); },
-                y: function (d) { return svgHeight - d.putts + 10; },
+                y: function (d) { return differential * (highestPutts - d.putts) + 10; },
                 "font-family": "sans-serif",
                 "font-size": "12px",
-                "fill": "#666",
+                "fill": "#FFF",
                 "text-anchor": "start",
                 "dy": ".35em"
             });
 
-        if (animation !== undefined) {
+        var $label = $("<h6>Putts In Your Latest " + numOfHoles + "-Hole Rounds</h6>");
+        $("#" + id).after($label);
+
+        if (animation !== undefined && screenSize >= SCREEN_LG) {
             $("#" + id)
                 .addClass("animated")
+                .addClass(animation);
+
+            $label.addClass("animated")
                 .addClass(animation);
         }
     },
     pieChart: function (data, id, location, animation) {
 
         var dataset = data,
+            screenSize = getScreenSize(),
             chart = d3.select(location)
                 .append("svg")
                     .attr("id", id)
@@ -221,7 +230,7 @@ var renderChartsAndGraphs = {
         var $barChartLabel = makeBarChartLabel(dataset);
         $("#" + id).after($barChartLabel);
 
-        if (animation !== undefined) {
+        if (animation !== undefined && screenSize >= SCREEN_LG) {
             $("#" + id)
                 .addClass("animated")
                 .addClass(animation);
@@ -241,6 +250,10 @@ var resizeChartsAndGraphs = {
     pieChart: function (data, id, location, animation) {
         $(location).empty();
         renderChartsAndGraphs.pieChart(data, id, location, animation);
+    },
+    lineGraph: function (data, id, numOfHoles, location, animation) {
+        $(location).empty();
+        renderChartsAndGraphs.lineGraph(data, id, numOfHoles, location, animation);
     }
 };
 
@@ -253,6 +266,29 @@ var statCalculations = {
             }
         }
         return highestScore;
+    },
+    getPuttsDifferential: function (data, range) {
+        var highestPutts = statCalculations.getHighestPutts(data),
+            lowestPutts = statCalculations.getLowestPutts(data);
+        return range / (highestPutts - lowestPutts);
+    },
+    getHighestPutts: function (data) {
+        var highestPutts = 0;
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].putts > highestPutts) {
+                highestPutts = data[i].putts;
+            }
+        }
+        return highestPutts;
+    },
+    getLowestPutts: function (data) {
+        var lowestPutts = data[0].putts;
+        for (var i = 1; i < data.length; i++) {
+            if (data[i].putts < lowestPutts) {
+                lowestPutts = data[i].putts;
+            }
+        }
+        return lowestPutts;
     }
 };
 

@@ -16,7 +16,7 @@ namespace GolfBag.Controllers
         private UserManager<User> _userManager;
 
         private const int NINE      = 9;
-        private const int EIGHTTEEN = 18;
+        private const int EIGHTEEN = 18;
 
         public StatisticsController(IRoundOfGolf roundOfGolf, UserManager<User> userManager)
         {
@@ -36,8 +36,8 @@ namespace GolfBag.Controllers
                 case NINE:
                     scores = GetNineHoleScores(rounds);
                     break;
-                case EIGHTTEEN:
-                    scores = GetEightteenHoleScores(rounds);
+                case EIGHTEEN:
+                    scores = GetEighteenHoleScores(rounds);
                     break;
                 default:
                     scores = null;
@@ -71,6 +71,34 @@ namespace GolfBag.Controllers
             return Json(CalculateScoresToPar(rounds));
         }
 
+        [HttpGet]
+        public IActionResult GetPutts(int holes, int mostRecentScores = 0)
+        {
+            var rounds = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id).ToList();
+
+            var putts = new List<LineGraphPutts>();
+
+            switch (holes)
+            {
+                case NINE:
+                    putts = GetNineHolePutts(rounds);
+                    break;
+                case EIGHTEEN:
+                    putts = GetEighteenHolePutts(rounds);
+                    break;
+                default:
+                    putts = null;
+                    break;
+            }
+
+            if (putts.Count > mostRecentScores)
+            {
+                return Json(putts.Skip(putts.Count - mostRecentScores));
+            }
+
+            return Json(putts);
+        }
+
         private List<BarChartRound> GetNineHoleScores(IEnumerable<RoundOfGolf> rounds)
         {
             var scores = new List<BarChartRound>();
@@ -87,7 +115,7 @@ namespace GolfBag.Controllers
                     barChartRound.CourseName = _roundOfGolf.GetCourse(round.CourseId).CourseName;
                     scores.Add(barChartRound);
                 }
-                else if (round.Scores.Count == EIGHTTEEN)
+                else if (round.Scores.Count == EIGHTEEN)
                 {
                     var frontNineBarChartRound = new BarChartRound();
                     var backNineBarChartRound  = new BarChartRound();
@@ -108,13 +136,13 @@ namespace GolfBag.Controllers
             return scores;
         }
 
-        private List<BarChartRound> GetEightteenHoleScores(IEnumerable<RoundOfGolf> rounds)
+        private List<BarChartRound> GetEighteenHoleScores(IEnumerable<RoundOfGolf> rounds)
         {
             var scores = new List<BarChartRound>();
 
             foreach (var round in rounds)
             {
-                if (round.Scores.Count == EIGHTTEEN)
+                if (round.Scores.Count == EIGHTEEN)
                 {
                     var barChartRound = new BarChartRound();
                     barChartRound.RoundScore = round.Scores.Select(x => x.HoleScore).Sum();
@@ -126,6 +154,68 @@ namespace GolfBag.Controllers
             }
 
             return scores;
+        }
+
+        private List<LineGraphPutts> GetNineHolePutts(IEnumerable<RoundOfGolf> rounds)
+        {
+            var putts = new List<LineGraphPutts>();
+
+            foreach (var round in rounds)
+            {
+                if (round.Scores.Count == NINE)
+                {
+                    var lineGraphPutts = new LineGraphPutts
+                    {
+                        Putts      = round.Scores.Select(x => x.HolePutt).Sum(),
+                        RoundId    = round.Id,
+                        RoundDate  = round.Date.ToString("MMMM d, yyyy"),
+                        CourseName = _roundOfGolf.GetCourse(round.CourseId).CourseName,
+                    };
+                    putts.Add(lineGraphPutts);
+                }
+                else if (round.Scores.Count == EIGHTEEN)
+                {
+                    var frontNineLineGraphPutts = new LineGraphPutts
+                    {
+                        Putts      = round.Scores.Select(x => x.HolePutt).Take(NINE).Sum(),
+                        RoundId    = round.Id,
+                        RoundDate  = round.Date.ToString("MMMM d, yyyy"),
+                        CourseName = _roundOfGolf.GetCourse(round.CourseId).CourseName,
+                    };
+
+                    var backNineLineGraphPutts = new LineGraphPutts
+                    {
+                        Putts      = round.Scores.Select(x => x.HolePutt).Skip(NINE).Sum(),
+                        RoundId    = round.Id,
+                        RoundDate  = round.Date.ToString("MMMM d, yyyy"),
+                        CourseName = _roundOfGolf.GetCourse(round.CourseId).CourseName,
+                    };
+                    putts.Add(frontNineLineGraphPutts);
+                    putts.Add(backNineLineGraphPutts);
+                }
+            }
+            return putts;
+        }
+
+        private List<LineGraphPutts> GetEighteenHolePutts(IEnumerable<RoundOfGolf> rounds)
+        {
+            var putts = new List<LineGraphPutts>();
+
+            foreach (var round in rounds)
+            {
+                if (round.Scores.Count == EIGHTEEN)
+                {
+                    var lineGraphPutts = new LineGraphPutts
+                    {
+                        Putts      = round.Scores.Select(x => x.HolePutt).Sum(),
+                        RoundId    = round.Id,
+                        RoundDate  = round.Date.ToString("MMMM d, yyyy"),
+                        CourseName = _roundOfGolf.GetCourse(round.CourseId).CourseName,
+                    };
+                    putts.Add(lineGraphPutts);
+                }
+            }
+            return putts;
         }
 
         private List<ScoreToPar> CalculateScoresToPar(IEnumerable<RoundOfGolf> rounds)
