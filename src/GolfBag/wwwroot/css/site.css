@@ -184,6 +184,15 @@ li li a {
 .btn-group {
   margin-bottom: 1rem;
 }
+.btn-success {
+  background-color: #127C56;
+}
+.btn-default {
+  background-color: #D0DD97;
+}
+.btn-danger {
+  background-color: #B90B0B;
+}
 /********************************************
         Forms
 ********************************************/
@@ -361,23 +370,28 @@ li li a {
     width: 100%;
   }
 }
-.stat-chart-container .eagle {
+.stat-chart-container .eagle,
+.stat-chart-container .chip-in {
   fill: #F45;
   color: #F45;
 }
-.stat-chart-container .birdie {
+.stat-chart-container .birdie,
+.stat-chart-container .one-putt {
   fill: #D2EA9B;
   color: #D2EA9B;
 }
-.stat-chart-container .par {
+.stat-chart-container .par,
+.stat-chart-container .two-putt {
   fill: #C0D9E5;
   color: #C0D9E5;
 }
-.stat-chart-container .bogie {
+.stat-chart-container .bogie,
+.stat-chart-container .three-putt {
   fill: #FCC314;
   color: #FCC314;
 }
-.stat-chart-container .double-bogie {
+.stat-chart-container .double-bogie,
+.stat-chart-container .four-putt {
   fill: #F2DEA8;
   color: #F2DEA8;
 }
@@ -400,6 +414,9 @@ li li a {
     flex-direction: column;
     padding-bottom: 75px;
   }
+}
+path ~ text {
+  cursor: pointer;
 }
 .svg-tooltip {
   position: absolute;
@@ -557,6 +574,29 @@ footer a {
 }
 .teebox-played {
   font-weight: bold;
+  background-color: #127C56;
+}
+.scorecard-form {
+  -webkit-box-shadow: 2px 2px 4px 5px #000;
+  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow: 2px 2px 4px 5px #000;
+  /* Firefox 3.5 - 3.6 */
+  box-shadow: 2px 2px 4px 5px #000;
+  background-color: #3A4750;
+}
+.scorecard-form .table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #B7B56E;
+}
+.scorecard-form .table-striped > tbody > tr:nth-of-type(even) {
+  background-color: #E9EAB4;
+}
+.scorecard-form input,
+.scorecard-form textarea,
+.scorecard-form select {
+  background-color: #F2E9D0;
+}
+.scorecard-form label {
+  color: #CDCDCD;
 }
 @media (min-width: 768px) {
   .nav .dropdown:hover .dropdown-menu {

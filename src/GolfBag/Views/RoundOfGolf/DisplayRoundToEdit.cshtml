@@ -2,7 +2,7 @@
 
 <h1>@Model.CourseName</h1>
 
-<form novalidate class="writable-scorecard" method="post" asp-antiforgery="true"
+<form novalidate class="writable-scorecard scorecard-form" method="post" asp-antiforgery="true"
       asp-action="SaveRoundChanges" asp-controller="RoundOfGolf">
     @Html.HiddenFor(m => m.Id)
     @Html.HiddenFor(m => m.IdOfCourse)

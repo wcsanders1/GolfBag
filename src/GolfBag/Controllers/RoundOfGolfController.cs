@@ -31,7 +31,7 @@ namespace GolfBag.Controllers
         [HttpPost]
         public IActionResult EnterCourse(CourseViewModel model)
         {
-            Course course = model.MapViewModelToCourse(User.Identity.Name);
+            Course course   = model.MapViewModelToCourse(User.Identity.Name);
             course.PlayerId = GetCurrentUserAsync().Result.Id;
 
             if (course != null)
@@ -141,8 +141,24 @@ namespace GolfBag.Controllers
 
         public IActionResult DisplayRound(int id)
         {
-            RoundOfGolfViewModel roundOfGolfViewModel = GetRoundOfGolfViewModel(id);
-            return PartialView("_DisplayRound", roundOfGolfViewModel);
+            RoundOfGolf round;
+            try
+            {
+                round = _roundOfGolf.GetRound(id);
+                if (round.PlayerId != GetCurrentUserAsync().Result.Id)
+                {
+                    ViewBag.Message = "An Error Occurred";
+                    return PartialView("~/Views/Shared/Error.cshtml");
+                }
+
+                RoundOfGolfViewModel roundOfGolfViewModel = GetRoundOfGolfViewModel(round);
+                return PartialView("_DisplayRound", roundOfGolfViewModel);
+            }
+            catch
+            {
+                ViewBag.Message = "An Error Occurred";
+                return PartialView("~/Views/Shared/Error.cshtml");
+            }
         }
 
         public IActionResult EditCourses()
@@ -219,13 +235,27 @@ namespace GolfBag.Controllers
 
             _roundOfGolf.SaveCourseEdits(courseToSave, model.ListOfDeletedTeeBoxes);
             return RedirectToAction("EditCourses");
-
         }
 
         public IActionResult EditRound(int id)
         {
-            RoundOfGolfViewModel roundOfGolfViewModel = GetRoundOfGolfViewModel(id);
-            return View("DisplayRoundToEdit", roundOfGolfViewModel);
+            RoundOfGolf round;
+            try
+            {
+                round = _roundOfGolf.GetRound(id);
+                if (round.PlayerId != GetCurrentUserAsync().Result.Id)
+                {
+                    ViewBag.Message = "An Error Occurred";
+                    return PartialView("~/Views/Shared/Error.cshtml");
+                }
+                RoundOfGolfViewModel roundOfGolfViewModel = GetRoundOfGolfViewModel(round);
+                return View("DisplayRoundToEdit", roundOfGolfViewModel);
+            }
+            catch
+            {
+                ViewBag.Message = "An Error Occurred";
+                return PartialView("~/Views/Shared/Error.cshtml");
+            }
         }
 
         public IActionResult SaveRoundChanges(RoundOfGolfViewModel round)
@@ -310,9 +340,8 @@ namespace GolfBag.Controllers
                                             PRIVATE METHODS
 **********************************************************************************************************************************/
         
-        private RoundOfGolfViewModel GetRoundOfGolfViewModel(int id)
+        private RoundOfGolfViewModel GetRoundOfGolfViewModel(RoundOfGolf roundOfGolf)
         {
-            RoundOfGolf roundOfGolf                     = _roundOfGolf.GetRound(id);
             List<RoundOfGolf> roundsOfGolf              = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id).ToList();
             Course course                               = _roundOfGolf.GetCourse(roundOfGolf.CourseId);
             RoundOfGolfViewModel roundOfGolfViewModel   = RoundOfGolfViewModel.MapRoundOfGolfToRoundOfGolfViewModel(

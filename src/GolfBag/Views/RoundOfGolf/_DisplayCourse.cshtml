@@ -4,7 +4,7 @@
 
 @if (Model.NumberOfHoles == 9)
 {
-    <form novalidate class="writable-scorecard" method="post" asp-antiforgery="true"
+    <form novalidate class="writable-scorecard scorecard-form" method="post" asp-antiforgery="true"
           asp-action="EnterScore" asp-controller="RoundOfGolf"
           asp-route-courseName="@Model.CourseName">
         @Html.HiddenFor(m => m.IdOfCourse)

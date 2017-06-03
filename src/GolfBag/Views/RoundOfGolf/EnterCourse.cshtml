@@ -5,7 +5,7 @@
     <h1>@ViewBag.Message</h1>
 </div>
 
-<form novalidate class="writable-scorecard" method="post" asp-antiforgery="true" asp-controller="RoundOfGolf" asp-action="EnterCourse">
+<form novalidate class="writable-scorecard scorecard-form" method="post" asp-antiforgery="true" asp-controller="RoundOfGolf" asp-action="EnterCourse">
     <div class="field">
         <label class="field-label" asp-for="CourseName">Course Name</label>
         <input class="field-input course-name" asp-for="CourseName" placeholder="Course Name"/>

@@ -52,12 +52,8 @@ var renderChartsAndGraphs = {
                 .attr("height", h),
             w = $("#" + id).width() - WIDTH_DECREASE_FOR_SCROLLBAR;
 
-        var colorPicker = function (v) {  //this is wrong; has no application to this application
-            if (v <= 20) {
-                return "#666";
-            } else if (v > 20) {
-                return "#9F1E49";
-            }
+        var colorPicker = function (v) {
+            return "#9F1E49";
         };
 
         chart.selectAll("rect")
@@ -143,6 +139,7 @@ var renderChartsAndGraphs = {
             .curve(d3.curveLinear);
 
         var viz = lnGraph.append("path")
+            .data(data)
             .attrs({
                 d: line(data),
                 "stroke": "#FF771B",
@@ -162,7 +159,24 @@ var renderChartsAndGraphs = {
                 "font-size": "12px",
                 "fill": "#FFF",
                 "text-anchor": "start",
-                "dy": ".35em"
+                "dy": ".35em",
+                "data-round-id": function (d) { return d.roundId; },
+                "class": "link-label"
+            })
+            .on("mouseover", function (d) {
+                svgtooltip.transition()
+                    .duration(200)
+                    .style("opacity", .85);
+                svgtooltip.html(d.courseName + "<br>" + d.roundDate)
+                    .style("left", d3.event.pageX + "px")
+                    .style("top", d3.event.pageY - 28 + "px");
+            })
+            .on("mouseout", function (d) {
+                svgtooltip.transition()
+                    .duration(0)
+                    .style("opacity", 0);
+                svgtooltip.style("left", 0 + "px");
+                svgtooltip.style("top", 0 + "px");
             });
 
         var $label = $("<h6>Putts In Your Latest " + numOfHoles + "-Hole Rounds</h6>");
@@ -301,5 +315,5 @@ $(function () {
         window.location.href = "RoundOfGolf/ViewRounds?selectedRound=" + $round.data("round-id");
     };    
 
-    $(document).on("click", "rect", showRound);
+    $(document).on("click", "rect, .link-label", showRound);
 });

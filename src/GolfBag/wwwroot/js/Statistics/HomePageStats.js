@@ -67,6 +67,25 @@
         $.ajax(options);
     };
 
+    var makePuttToTwoPieChart = function (id, location, mostRecentRounds, animation) {
+        var options = {
+            type: "GET",
+            url: "/Statistics/GetPuttsToTwo",
+            data: {
+                mostRecentRounds: mostRecentRounds
+            },
+            dataType: "json",
+            success: function (data) {
+                renderChartsAndGraphs.pieChart(data, id, location, animation);
+                $(window).resize(function () {
+                    resizeChartsAndGraphs.pieChart(data, id, location);
+                });
+            }
+        };
+
+        $.ajax(options);
+    };
+
     $(document).ready(function () {
         // pass in the div you want the chart appended to, the number of holes the chart will represent,
         // ID of the chart, the most recent number of rounds the chart will represent, and any animation
@@ -75,5 +94,6 @@
         makeScoreToParPieChart("score-to-par-piechart", "#score-to-par-piechart-container", 10, "bounceInLeft");
         makeScoreBarChart("eighteen-hole-score-barchart", "#eighteen-hole-score-barchart-container", 18, 10, "bounceInRight");
         makePuttsLineGraph("eighteen-hole-putts-linegraph", "#eighteen-hole-putts-linegraph-container", 18, 10, "bounceInRight");
+        makePuttToTwoPieChart("score-to-two-piechart", "#score-to-two-piechart-container", 10, "bounceInRight");
     });
 });

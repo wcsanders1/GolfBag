@@ -142,6 +142,19 @@ li {
     margin-bottom: 1rem;
 }
 
+
+.btn-success {
+    background-color: #127C56;
+}
+
+.btn-default {
+    background-color: #D0DD97;
+}
+
+.btn-danger {
+    background-color: #B90B0B;
+}
+
 /********************************************
         Forms
 ********************************************/
@@ -340,27 +353,32 @@ li {
         width: 100%;
     }
 
-    .eagle {
+    .eagle,
+    .chip-in {
         fill: @orange;
         color: @orange;
     }
 
-    .birdie {
+    .birdie,
+    .one-putt {
         fill: @lightGreen;
         color: @lightGreen;
     }
 
-    .par {
+    .par,
+    .two-putt {
         fill: @lightBlue;
         color: @lightBlue;
     }
 
-    .bogie {
+    .bogie,
+    .three-putt {
         fill: @darkYellow;
         color: @darkYellow;
     }
 
-    .double-bogie {
+    .double-bogie,
+    .four-putt {
         fill: @lightBrown;
         color: @lightBrown;
     }
@@ -384,6 +402,10 @@ li {
         flex-direction: column;
         padding-bottom: 75px;
     }
+}
+
+path ~ text {
+    cursor: pointer;
 }
 
 // bootstrap's tooltip incompatible with svg on scroll
@@ -569,6 +591,32 @@ footer {
 
 .teebox-played {
     font-weight: bold;
+    background-color: #127C56;
+}
+
+.scorecard-form {
+    -webkit-box-shadow: 2px 2px 4px 5px @black; /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow: 2px 2px 4px 5px @black; /* Firefox 3.5 - 3.6 */
+    box-shadow: 2px 2px 4px 5px @black;
+    background-color: #3A4750;
+
+    .table-striped > tbody > tr:nth-of-type(odd) {
+        background-color: #B7B56E;
+    }
+
+    .table-striped > tbody > tr:nth-of-type(even) {
+        background-color: #E9EAB4;
+    }
+
+    input,
+    textarea,
+    select {
+        background-color: #F2E9D0;
+    }
+
+    label {
+        color: #CDCDCD;
+    }
 }
 
 .nav .dropdown:hover .dropdown-menu {

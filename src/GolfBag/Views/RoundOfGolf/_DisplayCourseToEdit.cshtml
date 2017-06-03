@@ -1,6 +1,6 @@
 ﻿@model CourseViewModel
 
-<form novalidate class="writable-scorecard" method="post" asp-antiforgery="true"
+<form novalidate class="writable-scorecard scorecard-form" method="post" asp-antiforgery="true"
       asp-action="SaveCourseChanges" asp-controller="RoundOfGolf">
     @Html.HiddenFor(m => m.Id)
     @Html.HiddenFor(m => m.NumberOfTeeBoxes)

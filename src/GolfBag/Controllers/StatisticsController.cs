@@ -99,6 +99,25 @@ namespace GolfBag.Controllers
             return Json(putts);
         }
 
+        [HttpGet]
+        public IActionResult GetPuttsToTwo(int mostRecentScores)
+        {
+            IEnumerable<RoundOfGolf> rounds;
+
+            if (mostRecentScores > 0)
+            {
+                var roundList = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id)
+                    .ToList();
+                rounds = roundList.Skip(roundList.Count - mostRecentScores);
+            }
+            else
+            {
+                rounds = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id).ToList();
+            }
+
+            return Json(CalculatePuttsToTwo(rounds));
+        }
+
         private List<BarChartRound> GetNineHoleScores(IEnumerable<RoundOfGolf> rounds)
         {
             var scores = new List<BarChartRound>();
@@ -220,13 +239,13 @@ namespace GolfBag.Controllers
 
         private List<ScoreToPar> CalculateScoresToPar(IEnumerable<RoundOfGolf> rounds)
         {
-            float eagles = 0;
-            float birdies = 0;
-            float pars = 0;
-            float bogies = 0;
+            float eagles       = 0;
+            float birdies      = 0;
+            float pars         = 0;
+            float bogies       = 0;
             float doubleBogies = 0;
-            float others = 0;
-            float totalHoles = 0;
+            float others       = 0;
+            float totalHoles   = 0;
 
             foreach (var round in rounds)
             {
@@ -269,36 +288,110 @@ namespace GolfBag.Controllers
             var scoresToPar = new List<ScoreToPar>();
             scoresToPar.Add(new ScoreToPar
             {
-                ScoreName = "eagle",
+                ScoreName  = "eagle",
                 Percentage = eagles / totalHoles * 100
             });
             scoresToPar.Add(new ScoreToPar
             {
-                ScoreName = "birdie",
+                ScoreName  = "birdie",
                 Percentage = birdies / totalHoles * 100
             });
             scoresToPar.Add(new ScoreToPar
             {
-                ScoreName = "par",
+                ScoreName  = "par",
                 Percentage = pars / totalHoles * 100
             });
             scoresToPar.Add(new ScoreToPar
             {
-                ScoreName = "bogie",
+                ScoreName  = "bogie",
                 Percentage = bogies / totalHoles * 100
             });
             scoresToPar.Add(new ScoreToPar
             {
-                ScoreName = "double-bogie",
+                ScoreName  = "double-bogie",
                 Percentage = doubleBogies / totalHoles * 100
             });
             scoresToPar.Add(new ScoreToPar
             {
-                ScoreName = "other",
+                ScoreName  = "other",
                 Percentage = others / totalHoles * 100
             });
 
             return scoresToPar;
+        }
+
+        private List<PuttToTwo> CalculatePuttsToTwo(IEnumerable<RoundOfGolf> rounds)
+        {
+            float chipIns    = 0;
+            float onePutts   = 0;
+            float twoPutts   = 0;
+            float threePutts = 0;
+            float fourPutts  = 0;
+            float otherPutts = 0;
+            float totalHoles = 0;
+
+            foreach (var round in rounds)
+            {
+                foreach (var score in round.Scores)
+                {
+                    switch (score.HolePutt)
+                    {
+                        case 0:
+                            chipIns++;
+                            break;
+                        case 1:
+                            onePutts++;
+                            break;
+                        case 2:
+                            twoPutts++;
+                            break;
+                        case 3:
+                            threePutts++;
+                            break;
+                        case 4:
+                            fourPutts++;
+                            break;
+                        default:
+                            otherPutts++;
+                            break;
+                    }
+                    totalHoles++;
+                }
+            }
+
+            var puttsToTwo = new List<PuttToTwo>();
+            puttsToTwo.Add(new PuttToTwo
+            {
+                PuttName = "chip-in",
+                Percentage = chipIns / totalHoles * 100
+            });
+            puttsToTwo.Add(new PuttToTwo
+            {
+                PuttName = "one-putt",
+                Percentage = onePutts / totalHoles * 100
+            });
+            puttsToTwo.Add(new PuttToTwo
+            {
+                PuttName = "two-putt",
+                Percentage = twoPutts / totalHoles * 100
+            });
+            puttsToTwo.Add(new PuttToTwo
+            {
+                PuttName = "three-putt",
+                Percentage = threePutts / totalHoles * 100
+            });
+            puttsToTwo.Add(new PuttToTwo
+            {
+                PuttName = "four-putt",
+                Percentage = fourPutts/ totalHoles * 100
+            });
+            puttsToTwo.Add(new PuttToTwo
+            {
+                PuttName = "other",
+                Percentage = otherPutts / totalHoles * 100
+            });
+
+            return puttsToTwo;
         }
 
         private async Task<User> GetCurrentUserAsync()
