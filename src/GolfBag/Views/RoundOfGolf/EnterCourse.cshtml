@@ -9,9 +9,9 @@
     <div class="field">
         <label class="field-label" asp-for="CourseName">Course Name</label>
         <input class="field-input course-name" asp-for="CourseName" placeholder="Course Name"/>
+        @Html.ValidationMessageFor(m => m.CourseName, null, new { style = "display: none" })
     </div>
-    @Html.ValidationMessageFor(m => m.CourseName, null, new { style = "display: none" })
-
+    
     <label asp-for="NumberOfHoles">Number of Holes</label>
     <div class="btn-group btn-group-sm">
         <label class="btn btn-success">

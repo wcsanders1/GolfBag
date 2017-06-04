@@ -278,6 +278,21 @@ li {
 .sidebar {
     background-color: @black;
     overflow-y: auto;
+    padding-top: 10px;
+
+    .dropdown-menu {
+        z-index: 0;
+        min-height: 90%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .dropdown.open {
+
+        @media (min-width: @bootstrapMD) {
+            margin-top: 20px;
+        }
+    }
 
     .dropdown-menu > li > a {
         flex-direction: column;
@@ -293,10 +308,24 @@ li {
         margin-top: -@paddingXS + 10px;
         height: 100%;
         position: absolute;
-        padding-top: 100px;
+        padding-top: 125px;
 
         .dropdown-menu {
             width: 100%;
+            margin-top: 0;
+            margin-bottom: 100px;
+        }
+    }
+
+    @media (max-width: @bootstrapSM) {
+        .dropdown-menu {
+            width: 100%;
+        }
+    }
+
+    @media (min-width: @bootstrapSM) and (max-width: @bootstrapLG) {
+        .list-group-item {
+            display: inline-block;
         }
     }
 
@@ -626,7 +655,6 @@ footer {
 }
 
 .dropdown-menu {
-    max-height: 30rem;
     overflow-y: auto;
 }
 
