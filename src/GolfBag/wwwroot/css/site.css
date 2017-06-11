@@ -193,6 +193,9 @@ li li a {
 .btn-danger {
   background-color: #B90B0B;
 }
+.list-group-item {
+  background-color: #D2D4D6;
+}
 /********************************************
         Forms
 ********************************************/
@@ -353,6 +356,8 @@ li li a {
   text-align: center;
   color: #DDEEDF;
   font-size: 3rem;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 .sidebar h6 {
   font-size: 1.75rem;

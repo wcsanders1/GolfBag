@@ -28,26 +28,18 @@ namespace GolfBag.Controllers
         public IActionResult GetScores(int holes, int mostRecentScores = 0)
         {
             var rounds = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id).ToList();
+            var scores = GetBarChartRounds(holes, rounds, mostRecentScores);
 
-            var scores = new List<BarChartRound>();
+            return Json(scores);
+        }
 
-            switch (holes)
-            {
-                case NINE:
-                    scores = GetNineHoleScores(rounds);
-                    break;
-                case EIGHTEEN:
-                    scores = GetEighteenHoleScores(rounds);
-                    break;
-                default:
-                    scores = null;
-                    break;
-            }
-
-            if (scores.Count > mostRecentScores)
-            {
-                return Json(scores.Skip(scores.Count - mostRecentScores));
-            }
+        [HttpGet]
+        public IActionResult GetScoresByCourse(int holes, long courseId, int mostRecentScores = 0)
+        {
+            var rounds = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id)
+                .Where(x => x.CourseId == courseId)
+                .ToList();
+            var scores = GetBarChartRounds(holes, rounds, mostRecentScores);
 
             return Json(scores);
         }
@@ -116,6 +108,30 @@ namespace GolfBag.Controllers
             }
 
             return Json(CalculatePuttsToTwo(rounds));
+        }
+
+        private List<BarChartRound> GetBarChartRounds(int holes, List<RoundOfGolf> rounds, int mostRecentScores)
+        {
+            List<BarChartRound> scores;
+            switch (holes)
+            {
+                case NINE:
+                    scores = GetNineHoleScores(rounds);
+                    break;
+                case EIGHTEEN:
+                    scores = GetEighteenHoleScores(rounds);
+                    break;
+                default:
+                    scores = null;
+                    break;
+            }
+
+            if (scores.Count > mostRecentScores)
+            {
+                return scores.Skip(scores.Count - mostRecentScores).ToList(); ;
+            }
+
+            return scores;
         }
 
         private List<BarChartRound> GetNineHoleScores(IEnumerable<RoundOfGolf> rounds)

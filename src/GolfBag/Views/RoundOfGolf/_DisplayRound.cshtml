@@ -23,6 +23,9 @@
     </ul>
 }
 
+@Html.HiddenFor(m => m.IdOfCourse, new { id = "course-id" })
+@Html.HiddenFor(m => m.CourseName, new { id = "course-name" })
+
 <div class="panel panel-primary">
     <div class="panel-heading">
         <h1 class="panel-title">@Model.CourseName</h1>
@@ -362,3 +365,5 @@
     <a asp-action="EditRound" asp-controller="RoundOfGolf"
        asp-route-id="@Model.Id" class="btn panel-footer">Edit Round</a>
 </div>
+
+<script type="text/javascript" src="~/js/Statistics/DisplayRoundPageStats.js"></script>

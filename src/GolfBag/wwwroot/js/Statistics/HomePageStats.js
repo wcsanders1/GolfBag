@@ -97,3 +97,15 @@
         makePuttToTwoPieChart("score-to-two-piechart", "#score-to-two-piechart-container", 10, "bounceInRight");
     });
 });
+
+$(function () {
+    "use strict";
+
+    var showRound = function () {
+        var $round = $(this);
+
+        window.location.href = "RoundOfGolf/ViewRounds?selectedRound=" + $round.data("round-id");
+    };
+
+    $(document).on("click", "rect, .link-label", showRound);
+});
