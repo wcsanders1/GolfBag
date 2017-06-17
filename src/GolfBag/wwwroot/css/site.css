@@ -307,6 +307,7 @@ li li a {
   background-color: #000;
   overflow-y: auto;
   padding-top: 10px;
+  text-align: center;
 }
 .sidebar .dropdown-menu {
   z-index: 0;
@@ -326,7 +327,8 @@ li li a {
 @media (max-width: 1200px) {
   .sidebar {
     min-height: 200px;
-    margin: 10px 20px;
+    margin: 20px;
+    box-shadow: 2px 2px 4px 5px #000;
   }
 }
 @media (min-width: 1200px) {

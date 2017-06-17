@@ -64,29 +64,44 @@ namespace GolfBag.Controllers
         }
 
         [HttpGet]
+        public IActionResult GetScoresToParByCourse(long courseId, int mostRecentScores = 0)
+        {
+            IEnumerable<RoundOfGolf> rounds;
+
+            if (mostRecentScores > 0)
+            {
+                var roundList = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id)
+                    .Where(x => x.CourseId == courseId)
+                    .ToList();
+                rounds = roundList.Skip(roundList.Count - mostRecentScores);
+            }
+            else
+            {
+                rounds = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id)
+                    .Where(x => x.CourseId == courseId)
+                    .ToList();
+            }
+
+            return Json(CalculateScoresToPar(rounds));
+        }
+
+        [HttpGet]
         public IActionResult GetPutts(int holes, int mostRecentScores = 0)
         {
             var rounds = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id).ToList();
+            var putts = GetLineGraphPutts(holes, rounds, mostRecentScores);
 
-            var putts = new List<LineGraphPutts>();
+            return Json(putts);
+        }
 
-            switch (holes)
-            {
-                case NINE:
-                    putts = GetNineHolePutts(rounds);
-                    break;
-                case EIGHTEEN:
-                    putts = GetEighteenHolePutts(rounds);
-                    break;
-                default:
-                    putts = null;
-                    break;
-            }
+        [HttpGet]
+        public IActionResult GetPuttsByCourse(int holes, long courseId, int mostRecentScores = 0)
+        {
+            var rounds = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id)
+                .Where(x => x.CourseId == courseId)
+                .ToList();
 
-            if (putts.Count > mostRecentScores)
-            {
-                return Json(putts.Skip(putts.Count - mostRecentScores));
-            }
+            var putts = GetLineGraphPutts(holes, rounds, mostRecentScores);
 
             return Json(putts);
         }
@@ -250,6 +265,31 @@ namespace GolfBag.Controllers
                     putts.Add(lineGraphPutts);
                 }
             }
+            return putts;
+        }
+
+        private List<LineGraphPutts> GetLineGraphPutts(int holes, List<RoundOfGolf> rounds, int mostRecentScores)
+        {
+            var putts = new List<LineGraphPutts>();
+
+            switch (holes)
+            {
+                case NINE:
+                    putts = GetNineHolePutts(rounds);
+                    break;
+                case EIGHTEEN:
+                    putts = GetEighteenHolePutts(rounds);
+                    break;
+                default:
+                    putts = null;
+                    break;
+            }
+
+            if (putts.Count > mostRecentScores)
+            {
+                return putts.Skip(putts.Count - mostRecentScores).ToList();
+            }
+
             return putts;
         }
 

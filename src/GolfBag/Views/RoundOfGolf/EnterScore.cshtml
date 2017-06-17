@@ -8,34 +8,31 @@
     <script src="~/js/AngularControllers/enterScoreController.js"></script>
 }*@
 
-<div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-        Choose A Course
-        <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu list-group">
+@section leftSidebar {
+    <h3>Enter New Score</h3>
+    <div class="dropdown open">
+        <ul class="dropdown-menu list-group">
 
-        @foreach (var course in Model)
-        {
-            <li class="list-group-item">
-                <a data-ajax="true" data-target="#display-course"
-                   data-action="@Url.Action("DisplayCourse", "RoundOfGolf",
+            @foreach (var course in Model)
+            {
+                <li class="list-group-item">
+                    <a data-ajax="true" data-target="#display-course"
+                       data-action="@Url.Action("DisplayCourse", "RoundOfGolf",
                                 new { courseId = course.Key })">
-                    @course.Value
-                </a>
-            </li>
-        }
+                        @course.Value
+                    </a>
+                </li>
+            }
 
-    </ul>
-    <a class="btn btn-primary" asp-action="EnterCourse" asp-controller="RoundOfGolf">Enter Another Course</a>
-    <a class="btn btn-primary" asp-action="EditCourses" asp-controller="RoundOfGolf">Edit Courses</a>
-</div>
+        </ul>
+    </div>
+}
 
 @*<div ng-app="app-enter-score">
-    <div ng-controller="enterScoreController as vm">
-        {{vm.name}}
-    </div>
-</div>*@
+        <div ng-controller="enterScoreController as vm">
+            {{vm.name}}
+        </div>
+    </div>*@
 
 <div id="display-course"></div>
 

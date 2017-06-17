@@ -42,6 +42,7 @@ var renderChartsAndGraphs = {
         }
 
         var h = svgHeight,
+            w,
             highestScore = statCalculations.getHighestScore(data),
             padding = 2,
             dataset = data,
@@ -49,8 +50,13 @@ var renderChartsAndGraphs = {
                 .append("svg")
                 .attr("id", id)
                 .attr("class", "stat-chart")
-                .attr("height", h),
+                .attr("height", h);
+
+        if (screenSize < SCREEN_LG) {
+            w = $("#" + id).width();
+        } else {
             w = $("#" + id).width() - WIDTH_DECREASE_FOR_SCROLLBAR;
+        }
 
         var colorPicker = function (v) {
             return "#9F1E49";
@@ -131,8 +137,14 @@ var renderChartsAndGraphs = {
             .attr("class", "stat-chart")
             .attr("height", svgHeight);
 
-        var w = $("#" + id).width() - WIDTH_DECREASE_FOR_SCROLLBAR;
+        var w;
 
+        if (screenSize < SCREEN_LG) {
+            w = $("#" + id).width();
+        } else {
+            w = $("#" + id).width() - WIDTH_DECREASE_FOR_SCROLLBAR;
+        }
+               
         var line = d3.line()
             .x(function (d, i) { return i * (w / data.length); })
             .y(function (d) { return differential * (highestPutts - d.putts); })
@@ -202,11 +214,17 @@ var renderChartsAndGraphs = {
                     .attr("height", $(location).width())
                     .append("g")
                         .attr("height", $(location).width()),
-            w = $("#" + id).width() - WIDTH_DECREASE_FOR_SCROLLBAR, 
+            w, 
             h = $("#" + id).height(),
             pie = d3.pie()
                 .value(function (data) { return data.percentage; })
                 .sort(null);
+
+        if (screenSize < SCREEN_LG) {
+            w = $("#" + id).width();
+        } else {
+            w = $("#" + id).width() - WIDTH_DECREASE_FOR_SCROLLBAR;
+        }
 
         chart.attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
 

@@ -2,7 +2,11 @@
     "use strict";
 
     var emptyStatContainers = function () {
-        $("#nine-hole-score-by-course-barchart-container").empty();
+        $("#nine-hole-score-by-course-barchart-container").show().empty();
+        $("#eighteen-hole-score-by-course-barchart-container").show().empty();
+        $("#nine-hole-putts-by-course-linegraph-container").show().empty();
+        $("#eighteen-hole-putts-by-course-linegraph-container").show().empty();
+        $("#score-to-par-piechart-container").show().empty();
     };
 
     var displayCourseName = function () {
@@ -21,11 +25,70 @@
             },
             dataType: "json",
             success: function (data) {
+                if (data.length < 2) {
+                    $(location).hide();
+                    return;
+                }
+                $(location).show();
                 renderChartsAndGraphs.barChart(data, id, numOfHoles, location, animation);
                 $(window).resize(function () {
                     resizeChartsAndGraphs.barChart(data, id, numOfHoles, location);
                 });
-            }
+            },
+            error: {}
+        };
+
+        $.ajax(options);
+    };
+
+    var makePuttsLineGraph = function (id, location, numOfHoles, mostRecentRounds, courseId, animation) {
+        var options = {
+            type: "GET",
+            url: "/Statistics/GetPuttsByCourse",
+            data: {
+                holes: numOfHoles,
+                courseId: courseId,
+                mostRecentScores: mostRecentRounds
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.length < 2) {
+                    $(location).hide();
+                    return;
+                }
+                $(location).show();
+                renderChartsAndGraphs.lineGraph(data, id, numOfHoles, location, animation);
+                $(window).resize(function () {
+                    resizeChartsAndGraphs.lineGraph(data, id, numOfHoles, location);
+                });
+            },
+            error: {}
+        };
+
+        $.ajax(options);
+    };
+
+    var makeScoreToParPieChart = function (id, location, mostRecentRounds, courseId, animation) {
+        var options = {
+            type: "GET",
+            url: "/Statistics/GetScoresToParByCourse",
+            data: {
+                courseId: courseId,
+                mostRecentScores: mostRecentRounds
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.length < 2) {
+                    $(location).hide();
+                    return;
+                }
+                $(location).show();
+                renderChartsAndGraphs.pieChart(data, id, location, animation);
+                $(window).resize(function () {
+                    resizeChartsAndGraphs.pieChart(data, id, location);
+                });
+            },
+            error: {}
         };
 
         $.ajax(options);
@@ -34,9 +97,11 @@
     $(document).ready(function () {
         emptyStatContainers();
         displayCourseName();
-        // pass in the div you want the chart appended to, the number of holes the chart will represent,
-        // ID of the chart, the most recent number of rounds the chart will represent, the course id, and any animation
         makeScoreBarChart("nine-hole-score-by-course-barchart", "#nine-hole-score-by-course-barchart-container", 9, 10, $("#course-id").val(), "fadeIn");
+        makeScoreBarChart("eighteen-hole-score-by-course-barchart", "#eighteen-hole-score-by-course-barchart-container", 18, 10, $("#course-id").val(), "fadeIn");
+        makePuttsLineGraph("nine-hole-putts-by-course-linegraph", "#nine-hole-putts-by-course-linegraph-container", 9, 10, $("#course-id").val(), "fadeIn");
+        makePuttsLineGraph("eighteen-hole-putts-by-course-linegraph", "#eighteen-hole-putts-by-course-linegraph-container", 18, 10, $("#course-id").val(), "fadeIn");
+        makeScoreToParPieChart("score-to-par-piechart", "#score-to-par-piechart-container", 10, $("#course-id").val(), "fadeIn");
     });
 });
 

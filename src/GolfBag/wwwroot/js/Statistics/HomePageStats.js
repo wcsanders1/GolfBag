@@ -11,6 +11,9 @@
             },
             dataType: "json",
             success: function (data) {
+                if (data.length < 2) {
+                    return;
+                }
                 renderChartsAndGraphs.barChart(data, id, numOfHoles, location, animation);
                 $(window).resize(function () {
                     resizeChartsAndGraphs.barChart(data, id, numOfHoles, location);
@@ -38,11 +41,15 @@
             },
             dataType: "json",
             success: function (data) {
+                if (data.length < 2) {
+                    return;
+                }
                 renderChartsAndGraphs.lineGraph(data, id, numOfHoles, location, animation);
                 $(window).resize(function () {
                     resizeChartsAndGraphs.lineGraph(data, id, numOfHoles, location);
                 });
-            }
+            },
+            error: {}
         };
 
         $.ajax(options);
@@ -57,11 +64,15 @@
             },
             dataType: "json",
             success: function (data) {
+                if (data.length < 2) {
+                    return;
+                }
                 renderChartsAndGraphs.pieChart(data, id, location, animation);
                 $(window).resize(function () {
                     resizeChartsAndGraphs.pieChart(data, id, location);
                 });
-            }
+            },
+            error: {}
         };
 
         $.ajax(options);
@@ -76,19 +87,21 @@
             },
             dataType: "json",
             success: function (data) {
+                if (data.length < 2) {
+                    return;
+                }
                 renderChartsAndGraphs.pieChart(data, id, location, animation);
                 $(window).resize(function () {
                     resizeChartsAndGraphs.pieChart(data, id, location);
                 });
-            }
+            },
+            error: {}
         };
 
         $.ajax(options);
     };
 
     $(document).ready(function () {
-        // pass in the div you want the chart appended to, the number of holes the chart will represent,
-        // ID of the chart, the most recent number of rounds the chart will represent, and any animation
         makeScoreBarChart("nine-hole-score-barchart", "#nine-hole-score-barchart-container", 9, 10, "bounceInLeft");
         makePuttsLineGraph("nine-hole-putts-linegraph", "#nine-hole-putts-linegraph-container", 9, 10, "bounceInLeft");
         makeScoreToParPieChart("score-to-par-piechart", "#score-to-par-piechart-container", 10, "bounceInLeft");
