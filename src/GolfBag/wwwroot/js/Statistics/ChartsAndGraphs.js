@@ -7,23 +7,6 @@ var svgtooltip = d3.select("body")
 
 const WIDTH_DECREASE_FOR_SCROLLBAR = 20;   //subtract 20 so that container scrollbar doesn't cut off chart
 
-/**********************************************************************************
-            SCREEN-SIZE DETECTOR:
-                - Each of the below constants correspond to the z-index of #page-size,
-                    which alters according to bootstraps breakpoints
-                - This allows js to sync with bootstraps breakpoints
-**********************************************************************************/
-
-const SCREEN_XS = 1;
-const SCREEN_SM = 2;
-const SCREEN_MD = 3;
-const SCREEN_LG = 4;
-const SCREEN_XL = 5;
-
-var getScreenSize = function () {
-    return $("#page-size").height();
-};
-
 
  /**********************************************************************************/
 

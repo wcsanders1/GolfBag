@@ -46,9 +46,7 @@
                 if (i >= 3)
                 {
                     <tr class="back-nine-tee-box-input hidden">
-                        <td>
-                            <label></label>   @*need to make this change when name entered in front nine*@
-                        </td>
+                        <td id="teebox-name@(i)"></td>
                         @for (int x = 9; x < 18; x++)
                         {
                             int holeNumber = x + 1;
@@ -62,9 +60,7 @@
                 else
                 {
                     <tr class="back-nine-tee-box-input">
-                        <td>
-                            <label></label>     @*need to make this change when name entered in front nine*@
-                        </td>
+                        <td id="teebox-name@(i)"></td>
                         @for (int x = 9; x < 18; x++)
                         {
                             int holeNumber = x + 1;

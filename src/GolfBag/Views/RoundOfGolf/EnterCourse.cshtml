@@ -35,7 +35,7 @@
         <option value="6">Six</option>
     </select>
 
-    <div class="table-responsive">
+    <div id="nine-hole-table" class="table-responsive">
         <table class="table table-bordered table-striped scorecard">
             <tbody>
                 <tr>
@@ -82,7 +82,7 @@
                     {
                         <tr class="tee-box-input hidden">
                             <td>
-                                <input class="teebox-name" asp-for="TeeBoxes[i].Name" />
+                                <input type="text" maxlength="30" class="teebox-name" asp-for="TeeBoxes[i].Name" data-teebox-number="@i" />
                                 @Html.ValidationMessageFor(m => m.TeeBoxes[i].Name, null, new { style = "display: none" })
                             </td>
                             @for (int x = 0; x < 9; x++)
@@ -99,7 +99,7 @@
                     {
                         <tr class="tee-box-input">
                             <td>
-                                <input class="teebox-name" asp-for="TeeBoxes[i].Name" />
+                                <input type="text" maxlength="30" class="teebox-name" asp-for="TeeBoxes[i].Name" data-teebox-number="@i" />
                                 @Html.ValidationMessageFor(m => m.TeeBoxes[i].Name, null, new { style = "display: none" })
                             </td>
                             @for (int x = 0; x < 9; x++)

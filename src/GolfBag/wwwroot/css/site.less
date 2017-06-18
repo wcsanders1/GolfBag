@@ -600,10 +600,6 @@ footer {
 }
 
 #display-round {
-    -webkit-box-shadow: 2px 2px 4px 5px @black; /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-    -moz-box-shadow: 2px 2px 4px 5px @black; /* Firefox 3.5 - 3.6 */
-    box-shadow: 2px 2px 4px 5px @black;
-
     .navbar-default {
         background-color: #639A67;
     }
@@ -624,6 +620,12 @@ footer {
     .btn {
         background-color: @buttonColor;
     }
+}
+
+#display-round:not(:empty) {
+    box-shadow: 2px 2px 4px 5px @black;
+    -webkit-box-shadow: 2px 2px 4px 5px @black; /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow: 2px 2px 4px 5px @black; /* Firefox 3.5 - 3.6 */
 }
 
 .teebox-played {
@@ -653,6 +655,13 @@ footer {
 
     label {
         color: #CDCDCD;
+    }
+}
+
+#nine-hole-table,
+#eighteen-hole-table {
+    td {
+        width: 1px; // Otherwise, empty tds are rendered too wide
     }
 }
 

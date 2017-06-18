@@ -39,7 +39,6 @@
             };
 
         if (parseInt($radioButton.val()) === 18) {
-            console.log("DDD");
             $.ajax(options).done(function (data) {
                 var $newHtml = $(data);
                 $target.html($newHtml);
@@ -76,4 +75,20 @@ $(function () {
     };
 
     $(document).on("click", ".custom-submit", validateThis);
+});
+
+
+
+/*********************************************************************************************
+               MAKE TEEBOX NAME LABELS MATCH WHEN ENTERING NEW COURSE
+*********************************************************************************************/
+
+$(function () {
+    "use strict";
+
+    $(".teebox-name").on("keyup keydown", function () {
+        var $curInput = $(this);
+        $("#teebox-name" + $curInput.data("teebox-number")).text($curInput.val());
+    });
+
 });

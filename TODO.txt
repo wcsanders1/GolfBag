@@ -1,22 +1,9 @@
-Add graphs of statistics.
+Make the tee-name labels when editing course change properly if tee name changed.
 
-Make stuff look better, i.e., better colors, better sizing, etc.
-
-Organize CSS
+Make sure all inputs have proper limits on length and type of input
 
 Fix icon
 
 Ensure that program won't crash if user screws around with url.
 
-Make teebox labels appear on back nine when entering or editing a course.
-
 In score bar chart, under the score number, put how much over or under par, e.g., +4.
-
-Other overall stats:
-	- 18-hole scores
-	- average over past year (line graph)
-	- putts (bar chart?)
-	- birdies, pars, bogies, etc (pie chart)
-
-Fix labels on stat charts
-	- make them state what the chart actually is

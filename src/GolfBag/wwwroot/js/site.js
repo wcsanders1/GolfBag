@@ -1,4 +1,21 @@
-﻿/***********************************************************************************
+﻿/**********************************************************************************
+            SCREEN-SIZE DETECTOR:
+                - Each of the below constants correspond to the z-index of #page-size,
+                    which alters according to bootstraps breakpoints
+                - This allows js to sync with bootstraps breakpoints
+**********************************************************************************/
+
+const SCREEN_XS = 1;
+const SCREEN_SM = 2;
+const SCREEN_MD = 3;
+const SCREEN_LG = 4;
+const SCREEN_XL = 5;
+
+var getScreenSize = function () {
+    return $("#page-size").height();
+};
+
+/***********************************************************************************
                         AJAX AND JQUERY FORM VALIDATION CALL
  **********************************************************************************/
 
@@ -72,5 +89,31 @@ $(function () {
 });
 
 
+/***********************************************************************************
+                REMOVE SIDEBAR IF EMPTY AND SCREEN NOT FULL SIZE
+                (cannot use CSS :empty because @RenderSection makes witespace)
+***********************************************************************************/
+
+var hideEmptySideBar = function () {
+    if (getScreenSize() < SCREEN_LG) {
+        $(".sidebar").each(function () {
+            if ($(this).children().length < 1) {
+                $(this).hide();
+            }
+        });
+    } else {
+        $(".sidebar").each(function () {
+            $(this).show();
+        });
+    }
+};
+
+$(document).ready(function () {
+    hideEmptySideBar();
+});
+
+$(window).resize(function () {
+    hideEmptySideBar();
+});
 
 // $("#carousel").carousel();  this will activate a carousel
