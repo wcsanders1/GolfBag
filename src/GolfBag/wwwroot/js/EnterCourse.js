@@ -1,4 +1,11 @@
-﻿$(function () {
+﻿var makeTeeboxNamesCorrespond = function () {
+    $(".teebox-name-input").each(function () {
+        var $curInput = $(this);
+        $(".teebox-name-label" + $curInput.data("teebox-number")).text($curInput.val());
+    });
+};
+
+$(function () {
     "use strict";
 
     var configureTeeBoxes = function () {
@@ -13,6 +20,14 @@
         });
 
         $(".back-nine-tee-box-input").each(function (index) {
+            if (index < $numberOfTeeBoxes) {
+                $(this).removeClass("hidden");
+            } else {
+                $(this).addClass("hidden");
+            }
+        });
+
+        $(".course-slope-input").each(function (index) {
             if (index < $numberOfTeeBoxes) {
                 $(this).removeClass("hidden");
             } else {
@@ -44,6 +59,7 @@
                 $target.html($newHtml);
                 $(".custom-submit").off();
                 validateForm($(".writable-scorecard"), true, false);
+                makeTeeboxNamesCorrespond();
             });
         } else {
             $target.empty();
@@ -86,9 +102,7 @@ $(function () {
 $(function () {
     "use strict";
 
-    $(".teebox-name").on("keyup keydown", function () {
-        var $curInput = $(this);
-        $("#teebox-name" + $curInput.data("teebox-number")).text($curInput.val());
+    $(".teebox-name-input").on("keyup keydown click", function () {
+        makeTeeboxNamesCorrespond();
     });
-
 });

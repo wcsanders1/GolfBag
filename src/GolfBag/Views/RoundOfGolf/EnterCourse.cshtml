@@ -8,12 +8,12 @@
 <form novalidate class="writable-scorecard scorecard-form" method="post" asp-antiforgery="true" asp-controller="RoundOfGolf" asp-action="EnterCourse">
     <div class="field">
         <label class="field-label" asp-for="CourseName">Course Name</label>
-        <input class="field-input course-name" asp-for="CourseName" placeholder="Course Name"/>
+        <input class="field-input course-name" asp-for="CourseName" placeholder="Course Name" />
         @Html.ValidationMessageFor(m => m.CourseName, null, new { style = "display: none" })
     </div>
     
     <label asp-for="NumberOfHoles">Number of Holes</label>
-    <div class="btn-group btn-group-sm">
+    <div class="btn-group btn-group-sm number-of-holes-picker">
         <label class="btn btn-success">
             <input id="input-nine" data-target="#back-nine" checked="checked" asp-for="NumberOfHoles" type="radio" value="9" />
             <span>9</span>
@@ -82,7 +82,7 @@
                     {
                         <tr class="tee-box-input hidden">
                             <td>
-                                <input type="text" maxlength="30" class="teebox-name" asp-for="TeeBoxes[i].Name" data-teebox-number="@i" />
+                                <input type="text" maxlength="30" class="teebox-name-input" asp-for="TeeBoxes[i].Name" data-teebox-number="@i" />
                                 @Html.ValidationMessageFor(m => m.TeeBoxes[i].Name, null, new { style = "display: none" })
                             </td>
                             @for (int x = 0; x < 9; x++)
@@ -99,7 +99,7 @@
                     {
                         <tr class="tee-box-input">
                             <td>
-                                <input type="text" maxlength="30" class="teebox-name" asp-for="TeeBoxes[i].Name" data-teebox-number="@i" />
+                                <input type="text" maxlength="30" class="teebox-name-input" asp-for="TeeBoxes[i].Name" data-teebox-number="@i" />
                                 @Html.ValidationMessageFor(m => m.TeeBoxes[i].Name, null, new { style = "display: none" })
                             </td>
                             @for (int x = 0; x < 9; x++)
@@ -121,10 +121,57 @@
 
     <div id="back-nine"></div>
 
-    <div class="btn-group">
-        <button class="btn btn-success custom-submit" type="button">Save</button>
-        <a class="btn btn-default" href="javascript:void(0);" onclick="history.go(-1);">Cancel</a>
+    <div class="scorecard-top">
+        <div class="table-responsive course-slope-rating-table">
+            <table class="table table-bordered table-striped scorecard">
+                <tbody>
+                    <tr>
+                        <td>Teebox</td>
+                        <td>Course Rating</td>
+                        <td>Slope Rating</td>
+                    </tr>
+
+                    @for (int i = 0; i < 6; i++)
+                    {
+                        if (i >= 3)
+                        {
+                            <tr class="course-slope-input hidden">
+                                <td class="teebox-name-label@(i)"></td>
+                                <td class="number-input">
+                                    <input class="number-input" asp-for="TeeBoxes[i].CourseRating"/>
+                                    @Html.ValidationMessageFor(m => m.TeeBoxes[i].CourseRating, null, new { style = "display: none" })
+                                </td>
+                                <td class="number-input">
+                                    <input class="number-input" asp-for="TeeBoxes[i].SlopeRating" />
+                                    @Html.ValidationMessageFor(m => m.TeeBoxes[i].SlopeRating, null, new { style = "display: none" })
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr class="course-slope-input">
+                                <td class="teebox-name-label@(i)"></td>
+                                <td class="number-input">
+                                    <input class="number-input" asp-for="TeeBoxes[i].CourseRating" />
+                                    @Html.ValidationMessageFor(m => m.TeeBoxes[i].CourseRating, null, new { style = "display: none" })
+                                </td>
+                                <td class="number-input">
+                                    <input class="number-input" asp-for="TeeBoxes[i].SlopeRating" />
+                                    @Html.ValidationMessageFor(m => m.TeeBoxes[i].SlopeRating, null, new { style = "display: none" })
+                                </td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
     </div>
+
+        <div class="btn-group">
+            <button class="btn btn-success custom-submit" type="button">Save</button>
+            <a class="btn btn-default" href="javascript:void(0);" onclick="history.go(-1);">Cancel</a>
+        </div>
 </form>
 
 <div class="error-container"></div>

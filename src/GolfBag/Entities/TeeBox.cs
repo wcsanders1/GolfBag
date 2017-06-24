@@ -10,6 +10,10 @@ namespace GolfBag.Entities
 
         public string Name { get; set; }
 
+        public decimal SlopeRating { get; set; }
+
+        public decimal CourseRating { get; set; }
+
         public List<Tee> Tees { get; set; }
 
         [NotMapped]

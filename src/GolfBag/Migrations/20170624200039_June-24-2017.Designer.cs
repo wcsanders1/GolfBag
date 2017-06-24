@@ -8,9 +8,10 @@ using GolfBag.Entities;
 namespace GolfBag.Migrations
 {
     [DbContext(typeof(ScoreCardDbContext))]
-    partial class ScoreCardDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170624200039_June-24-2017")]
+    partial class June242017
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.3")

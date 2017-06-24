@@ -11,6 +11,10 @@ namespace GolfBag.ViewModels
 
         public string Name { get; set; }
 
+        public decimal  CourseRating { get; set; }
+
+        public decimal SlopeRating { get; set; }
+
         public List<ViewTee> Tees { get; set; }
 
         public ViewTeeBox()
