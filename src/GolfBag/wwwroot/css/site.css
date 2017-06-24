@@ -248,11 +248,11 @@ li li a {
   padding-bottom: 2px;
   padding-top: 18px;
 }
-.scorecard-top {
+.course-slope-rating-table {
   width: 100%;
 }
 @media (min-width: 1200px) {
-  .scorecard-top {
+  .course-slope-rating-table {
     width: 40%;
   }
 }

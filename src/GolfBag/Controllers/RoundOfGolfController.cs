@@ -207,6 +207,8 @@ namespace GolfBag.Controllers
             for (int i = 0; i < courseToSave.TeeBoxes.Count; i++)
             {
                 courseToSave.TeeBoxes[i].Name = model.TeeBoxes[i].Name;
+                courseToSave.TeeBoxes[i].CourseRating = Convert.ToDecimal(model.TeeBoxes[i].CourseRating);
+                courseToSave.TeeBoxes[i].SlopeRating = model.TeeBoxes[i].SlopeRating;
                 for (int x = 0; x < courseToSave.TeeBoxes[i].Tees.Count; x++)
                 {
                     courseToSave.TeeBoxes[i].Tees[x].Yardage = model.TeeBoxes[i].Tees[x].Yardage;
@@ -220,6 +222,8 @@ namespace GolfBag.Controllers
                     var teebox = new TeeBox();
                     var tees = new List<Tee>();
                     teebox.Name = newTeebox.Name;
+                    teebox.CourseRating = Convert.ToDecimal(newTeebox.CourseRating);
+                    teebox.SlopeRating = newTeebox.SlopeRating;
 
                     for (int i = 0; i < newTeebox.Tees.Count; i++)
                     {

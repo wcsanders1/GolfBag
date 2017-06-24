@@ -111,7 +111,7 @@ namespace GolfBag.ViewModels
                 var teeBox = new TeeBox();
                 var tees = new List<Tee>();
                 teeBox.Name = TeeBoxes[i].Name;
-                teeBox.CourseRating = TeeBoxes[i].CourseRating;
+                teeBox.CourseRating = Convert.ToDecimal(TeeBoxes[i].CourseRating);
                 teeBox.SlopeRating = TeeBoxes[i].SlopeRating;
 
                 for (int x = 0; x < NumberOfHoles; x++)
@@ -154,7 +154,7 @@ namespace GolfBag.ViewModels
 
                 viewTeebox.Id = course.TeeBoxes[i].Id;
                 viewTeebox.Name = course.TeeBoxes[i].Name;
-                viewTeebox.CourseRating = course.TeeBoxes[i].CourseRating;
+                viewTeebox.CourseRating = course.TeeBoxes[i].CourseRating.ToString("N1");
                 viewTeebox.SlopeRating = course.TeeBoxes[i].SlopeRating;
 
                 for (int x = 0; x < course.TeeBoxes[i].Tees.Count; x++)

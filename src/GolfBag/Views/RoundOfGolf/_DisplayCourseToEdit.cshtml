@@ -56,7 +56,6 @@
                         <td>
                             <input class="teebox-name" asp-for="TeeBoxes[i].Name" />
                             @Html.ValidationMessageFor(m => m.TeeBoxes[i].Name, null, new { style = "display: none" })
-                            @*@Html.EditorFor(m => m.TeeBoxes[i].Name)*@
                             <i class="fa fa-trash delete-teebox" data-toggle="tooltip"
                                title="Delete @Model.TeeBoxes[i].Name Teebox"></i>
                             <span class="undo-delete hidden">Undo Delete <i class="fa fa-undo"></i></span>
@@ -68,7 +67,6 @@
                             <td class="number-input">
                                 <input class="number-input teebox" data-hole-number="@holeNumber" asp-for="TeeBoxes[i].Tees[x].Yardage" />
                                 @Html.ValidationMessageFor(m => m.TeeBoxes[i].Tees[x].Yardage, null, new { style = "display: none" })
-                                @*@Html.EditorFor(m => m.TeeBoxes[i].Tees[x].Yardage)*@
                             </td>
                         }
                     </tr>
@@ -80,7 +78,6 @@
                         <td>
                             <input class="teebox-name" asp-for="NewTeeBoxes[i].Name" />
                             @Html.ValidationMessageFor(m => m.NewTeeBoxes[i].Name, null, new { style = "display: none" })
-                            @*@Html.EditorFor(m => m.NewTeeBoxes[i].Name)*@
                         </td>
 
                         @for (int x = 0; x < 9; x++)
@@ -89,7 +86,6 @@
                             <td class="number-input">
                                 <input class="number-input teebox" data-hole-number="@holeNumber" asp-for="NewTeeBoxes[i].Tees[x].Yardage" />
                                 @Html.ValidationMessageFor(m => m.NewTeeBoxes[i].Tees[x].Yardage, null, new { style = "display: none" })
-                                @*@Html.EditorFor(m => m.NewTeeBoxes[i].Tees[x].Yardage)*@
                             </td>
                         }
                     </tr>
@@ -145,7 +141,6 @@
                                 <td class="number-input">
                                     <input class="number-input teebox" data-hole-number="@holeNumber" asp-for="TeeBoxes[i].Tees[x].Yardage" />
                                     @Html.ValidationMessageFor(m => m.TeeBoxes[i].Tees[x].Yardage, null, new { style = "display: none" })
-                                    @*@Html.EditorFor(m => m.TeeBoxes[i].Tees[x].Yardage)*@
                                 </td>
                             }
                         </tr>
@@ -177,6 +172,35 @@
             @Html.HiddenFor(m => m.ListOfDeletedTeeBoxes[i], new { @class = "deleted-teebox-input" });
         }
     }
+
+    <div class="table-responsive course-slope-rating-table">
+        <table class="table table-bordered table-striped scorecard">
+            <tbody>
+                <tr>
+                    <td>Teebox</td>
+                    <td>Course Rating</td>
+                    <td>Slope Rating</td>
+                </tr>
+
+                @for (int i = 0; i < Model.TeeBoxes.Count; i++)
+                {
+                    <tr class="course-slope-input">
+                        <td class="teebox-name-label@(i)">@Model.TeeBoxes[i].Name</td>
+                        <td class="number-input">
+                            @Html.EditorFor(m => m.TeeBoxes[i].CourseRating, "{0:.#}")
+                            @*<input class="number-input course-slope-input-box" asp-for="TeeBoxes[i].CourseRating" />*@
+                            @Html.ValidationMessageFor(m => m.TeeBoxes[i].CourseRating, null, new { style = "display: none" })
+                        </td>
+                        <td class="number-input">
+                            <input class="number-input course-slope-input-box" asp-for="TeeBoxes[i].SlopeRating" />
+                            @Html.ValidationMessageFor(m => m.TeeBoxes[i].SlopeRating, null, new { style = "display: none" })
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
 
     @if (Model.NewTeeBoxes.Count > 0)
     {

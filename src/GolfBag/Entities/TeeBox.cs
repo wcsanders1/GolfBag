@@ -10,7 +10,7 @@ namespace GolfBag.Entities
 
         public string Name { get; set; }
 
-        public decimal SlopeRating { get; set; }
+        public int SlopeRating { get; set; }
 
         public decimal CourseRating { get; set; }
 
