@@ -173,7 +173,7 @@
         }
     }
 
-    <div class="table-responsive course-slope-rating-table">
+    <div class="table-responsive course-slope-rating-table" id="course-slope-rating-table">
         <table class="table table-bordered table-striped scorecard">
             <tbody>
                 <tr>
@@ -184,16 +184,32 @@
 
                 @for (int i = 0; i < Model.TeeBoxes.Count; i++)
                 {
-                    <tr class="course-slope-input">
-                        <td class="teebox-name-label@(i)">@Model.TeeBoxes[i].Name</td>
+                    <tr class="course-slope-input teebox-row" data-teebox-id="@Model.TeeBoxes[i].Id">
+                        <td class="teebox-name-label@(i)">
+                            <p>@Model.TeeBoxes[i].Name</p>
+                        </td>
                         <td class="number-input">
-                            @Html.EditorFor(m => m.TeeBoxes[i].CourseRating, "{0:.#}")
-                            @*<input class="number-input course-slope-input-box" asp-for="TeeBoxes[i].CourseRating" />*@
+                            <input class="number-input course-slope-input-box" asp-for="TeeBoxes[i].CourseRating" />
                             @Html.ValidationMessageFor(m => m.TeeBoxes[i].CourseRating, null, new { style = "display: none" })
                         </td>
                         <td class="number-input">
                             <input class="number-input course-slope-input-box" asp-for="TeeBoxes[i].SlopeRating" />
                             @Html.ValidationMessageFor(m => m.TeeBoxes[i].SlopeRating, null, new { style = "display: none" })
+                        </td>
+                    </tr>
+                }
+
+                @for (int i = 0; i < Model.NewTeeBoxes.Count; i++)
+                {
+                    <tr class="course-slope-input new-teebox-row hidden" data-new-teebox-num="@i">
+                        <td class="teebox-name-label"></td>
+                        <td class="number-input">
+                            <input class="number-input course-slope-input-box" asp-for="NewTeeBoxes[i].CourseRating" />
+                            @Html.ValidationMessageFor(m => m.NewTeeBoxes[i].CourseRating, null, new { style = "display: none" })
+                        </td>
+                        <td class="number-input">
+                            <input class="number-input course-slope-input-box" asp-for="NewTeeBoxes[i].SlopeRating" />
+                            @Html.ValidationMessageFor(m => m.NewTeeBoxes[i].SlopeRating, null, new { style = "display: none" })
                         </td>
                     </tr>
                 }

@@ -1,5 +1,5 @@
 ﻿/********************************************************************************************************
-                    DELETES AND UN-DELEETES EXISTING TEE BOXES
+                    DELETES AND UN-DELETES EXISTING TEE BOXES
 ********************************************************************************************************/
 
 $(function () {
@@ -230,11 +230,12 @@ $(function () {
     var showNewTeebox = function () {
         var $frontNineNewTeeboxRows = $("#front-nine-table").find(".new-teebox-row"),
             $backNineNewTeeboxRows = $("#back-nine-table").find(".new-teebox-row"),
+            $courseSlopeRatingNewTeeboxRows = $("#course-slope-rating-table").find(".new-teebox-row"),
             $addTeeboxBtn = $("#add-teebox-btn"),
             $removeNewTeeboxBtn = $("#remove-new-teebox");
 
         var showBackNineNewTeebox = function (newTeeboxNum) {
-            $backNineNewTeeboxRows.each(function (i) {
+            $backNineNewTeeboxRows.each(function () {
                 if ($(this).attr("data-new-teebox-num") === newTeeboxNum) {
                     $(this).removeClass("hidden");
                     return false;
@@ -242,11 +243,23 @@ $(function () {
             });
         };
 
-        $frontNineNewTeeboxRows.each(function (i) {
+        var showRatingNewTeebox = function (newTeeboxNum) {
+            $courseSlopeRatingNewTeeboxRows.each(function () {
+                if ($(this).attr("data-new-teebox-num") === newTeeboxNum) {
+                    $(this).removeClass("hidden");
+                    return false;
+                }
+            });
+        };
+
+        $frontNineNewTeeboxRows.each(function () {
             if ($(this).hasClass("hidden")) {
                 $(this).removeClass("hidden");
                 if ($backNineNewTeeboxRows.length > 0) {
                     showBackNineNewTeebox($(this).attr("data-new-teebox-num"));
+                }
+                if ($courseSlopeRatingNewTeeboxRows.length > 0) {
+                    showRatingNewTeebox($(this).attr("data-new-teebox-num"));
                 }
                 setButtonStatus($frontNineNewTeeboxRows, $addTeeboxBtn, $removeNewTeeboxBtn);
                 $(".custom-submit").off();
