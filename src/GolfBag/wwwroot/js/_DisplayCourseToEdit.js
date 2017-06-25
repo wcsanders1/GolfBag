@@ -17,7 +17,8 @@ $(function () {
                 options = {
                     async: false,
                     url: "/RoundOfGolf/DatesPlayedTeebox/" + $id,
-                    type: "GET"
+                    type: "GET",
+                    cache: false
                 };
 
             var getDatesPlayed = function (dateData) {
@@ -125,7 +126,8 @@ $(function () {
 
         var addDeletedTeeboxToListOfDeletedTeeboxes = function () {
             $(".deleted-teebox-input").each(function (i) {
-                if ($(this).val() === 0) {
+                console.log($id);
+                if (parseInt($(this).val()) === 0) {
                     $(this).val($id);
                     return false;
                 }
@@ -173,7 +175,7 @@ $(function () {
 
         var removeTeeboxFromList = function () {
             $(".deleted-teebox-input").each(function (i) {
-                if ($(this).val() === $id) {
+                if (parseInt($(this).val()) === $id) {
                     $(this).val(0);
                     return false;
                 }
@@ -273,6 +275,7 @@ $(function () {
     var removeNewTeebox = function () {
         var $frontNineNewTeeboxRows = $("#front-nine-table").find(".new-teebox-row"),
             $backNineNewTeeboxRows = $("#back-nine-table").find(".new-teebox-row"),
+            $courseSlopeRatingNewTeeboxRows = $("#course-slope-rating-table").find(".new-teebox-row"),
             $addTeeboxBtn = $("#add-teebox-btn"),
             $removeNewTeeboxBtn = $("#remove-new-teebox");
 
@@ -285,10 +288,20 @@ $(function () {
             }
         };
 
+        var hideRatingNewTeebox = function (newTeeboxNum) {
+            for (var i = $courseSlopeRatingNewTeeboxRows.length - 1; i >= 0; i--) {
+                if ($courseSlopeRatingNewTeeboxRows.eq(i).attr("data-new-teebox-num") === newTeeboxNum) {
+                    $courseSlopeRatingNewTeeboxRows.eq(i).addClass("hidden");
+                    return false;
+                }
+            }
+        };
+
         for (var i = $frontNineNewTeeboxRows.length - 1; i >= 0; i--) {
             if (!$frontNineNewTeeboxRows.eq(i).hasClass("hidden")) {
                 $frontNineNewTeeboxRows.eq(i).addClass("hidden");
                 hideBackNineNewTeebox($frontNineNewTeeboxRows.eq(i).attr("data-new-teebox-num"));
+                hideRatingNewTeebox($frontNineNewTeeboxRows.eq(i).attr("data-new-teebox-num"));
                 setButtonStatus($frontNineNewTeeboxRows, $addTeeboxBtn, $removeNewTeeboxBtn);
                 $(".custom-submit").off();
                 validateForm($(".writable-scorecard"), true, true);
@@ -320,7 +333,8 @@ $(function () {
                 options = {
                     async: false,
                     url: "/RoundOfGolf/DatesPlayedCourse/" + $courseId,
-                    type: "GET"
+                    type: "GET",
+                    cache: false
                 };
 
             var getDatesPlayed = function (dateData) {
@@ -403,4 +417,21 @@ $(function () {
     };
 
     $(document).on("click", ".custom-submit", validateThis);
+});
+
+
+/*********************************************************************************************
+               MAKE TEEBOX NAME LABELS MATCH WHEN EDITING COURSE
+*********************************************************************************************/
+
+$(function () {
+    "use strict";
+
+    $(document).on("keyup keydown click", ".teebox-name-input", function () {
+        makeTeeboxNamesCorrespond();
+    });
+
+    $(document).on("keyup keydown click", ".new-teebox-name-input", function () {
+        makeNewTeeboxNamesCorrespond();
+    });
 });

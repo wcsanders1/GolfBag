@@ -1,6 +1,4 @@
-Make the tee-name labels when editing course change properly if tee name changed.
-
-Make sure all inputs have proper limits on length and type of input
+Make sure all inputs have proper limits on length and type of input; i.e., put max and min values in html inputs where possible
 
 Fix icon
 
@@ -8,11 +6,6 @@ Ensure that program won't crash if user screws around with url.
 
 In score bar chart, under the score number, put how much over or under par, e.g., +4.
 
-Complete functionality of course and slope ratings when editing courses:
-	- must be able to get rid of new ones added
-	- text must appear in the course rating initially
-	- teebox names must change in the labels
-
-Add validation to the course and slope ratings
-
 Add handicap calculation functionality.
+
+Remove Angular

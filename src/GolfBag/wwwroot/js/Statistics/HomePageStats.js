@@ -10,6 +10,7 @@
                 mostRecentScores: mostRecentRounds
             },
             dataType: "json",
+            cache: false,
             success: function (data) {
                 if (data.length < 2) {
                     return;
@@ -40,6 +41,7 @@
                 mostRecentScores: mostRecentRounds
             },
             dataType: "json",
+            cache: false,
             success: function (data) {
                 if (data.length < 2) {
                     return;
@@ -86,6 +88,7 @@
                 mostRecentRounds: mostRecentRounds
             },
             dataType: "json",
+            cache: false,
             success: function (data) {
                 if (data.length < 2) {
                     return;

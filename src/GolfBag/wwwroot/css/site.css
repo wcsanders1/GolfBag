@@ -719,6 +719,9 @@ input::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+input[type=number] {
+  -moz-appearance: textfield;
+}
 .teebox-to-delete {
   text-decoration: line-through;
 }
@@ -760,7 +763,9 @@ input::-webkit-outer-spin-button {
 .invalid-handicap,
 .invalid-teebox-name,
 .invalid-teebox,
-.invalid-putt {
+.invalid-putt,
+.invalid-course-rating,
+.invalid-slope-rating {
   border-color: #F2112B;
 }
 .table > tbody > tr > td.hole-score {

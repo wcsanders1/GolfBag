@@ -13,7 +13,8 @@ $(function () {
             options = {
                 url: $checkbox.attr("data-action"),
                 type: "GET",
-                data: $checkbox.serialize()
+                data: $checkbox.serialize(),
+                cache: false
             };
 
         if ($checkbox.prop("checked")) {
