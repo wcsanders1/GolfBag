@@ -6,7 +6,8 @@
             options = {
                 url: "/RoundOfGolf/DisplayRound/" + selectedRound,
                 type: "GET",
-                data: $course.serialize()
+                data: $course.serialize(),
+                cache: false
             };
 
         $.ajax(options).done(function (data) {

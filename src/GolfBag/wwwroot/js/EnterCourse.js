@@ -1,11 +1,4 @@
-﻿var makeTeeboxNamesCorrespond = function () {
-    $(".teebox-name-input").each(function () {
-        var $curInput = $(this);
-        $(".teebox-name-label" + $curInput.data("teebox-number")).text($curInput.val());
-    });
-};
-
-$(function () {
+﻿$(function () {
     "use strict";
 
     var configureTeeBoxes = function () {
@@ -50,7 +43,8 @@ $(function () {
                 async: false,
                 url: $radioButton.attr("data-action"),
                 type: "GET",
-                data: $radioButton.serialize()
+                data: $radioButton.serialize(),
+                cache: false
             };
 
         if (parseInt($radioButton.val()) === 18) {

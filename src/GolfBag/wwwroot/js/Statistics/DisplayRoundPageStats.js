@@ -24,6 +24,7 @@
                 mostRecentScores: mostRecentRounds
             },
             dataType: "json",
+            cache: false,
             success: function (data) {
                 if (data.length < 2) {
                     $(location).hide();
@@ -51,6 +52,7 @@
                 mostRecentScores: mostRecentRounds
             },
             dataType: "json",
+            cache: false,
             success: function (data) {
                 if (data.length < 2) {
                     $(location).hide();
@@ -77,6 +79,7 @@
                 mostRecentScores: mostRecentRounds
             },
             dataType: "json",
+            cache: false,
             success: function (data) {
                 if (data.length < 2) {
                     $(location).hide();

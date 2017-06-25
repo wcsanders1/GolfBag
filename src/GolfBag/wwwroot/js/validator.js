@@ -653,6 +653,148 @@ var teeboxValidator = {
 
 
 /*****************************************
+    COURSE RATING VALIDATOR
+*****************************************/
+
+var courseRatingValidator = {
+    makeAndShowErrorMessages: function () {
+        var messageArray = [],
+            requiredMessage = "",
+            rangeMessage = "";
+
+        $(".course-rating-errors").empty();
+
+        $(".course-rating").each(function () {
+            if ($(this).hasClass("invalid-course-rating")) {
+                var error = $(this).siblings(".field-validation-error").find("span").text();
+                if (error === "required") {
+                    requiredMessage = "All teeboxes must have a course rating.";
+                } else if (error === "range") {
+                    rangeMessage = "Course ratings must be between 1 and 300.";
+                }
+            }
+        });
+
+        if (requiredMessage !== "") {
+            messageArray.push(requiredMessage);
+        }
+
+        if (rangeMessage !== "") {
+            messageArray.push(rangeMessage);
+        }
+
+        if (messageArray.length > 0) {
+            customValidations.showMessages(messageArray, $(".course-rating-errors"));
+        }
+    },
+    validateCourseRatings: function ($form, makeMessagesNow) {
+        "use strict";
+
+        var makeRules = function ($form) {
+            $(".course-rating").each(function () {
+                var $element = $(this);
+
+                if (!$element.parents("tr").hasClass("hidden")) {
+                    $element.rules("add", {
+                        required: true,
+                        range: [1, 300],
+                        messages: {
+                            required: "required",
+                            range: "range"
+                        }
+                    });
+                    customValidations.bindValidationToElement($element, "invalid-course-rating", courseRatingValidator.makeAndShowErrorMessages);
+                    customValidations.bindValidationToSubmit($form, $(".course-rating"), "invalid-course-rating", courseRatingValidator.makeAndShowErrorMessages);
+                } else {
+                    $element.off();
+                    $element.removeClass("invalid-course-rating");
+                }
+            });
+
+        };
+
+        makeRules($form);
+        $(".error-container").append("<div class='course-rating-errors'></div>");
+
+        if (makeMessagesNow) {
+            courseRatingValidator.makeAndShowErrorMessages();
+        }
+    }
+};
+
+
+/*****************************************
+    SLOPE RATING VALIDATOR
+*****************************************/
+
+var slopeRatingValidator = {
+    makeAndShowErrorMessages: function () {
+        var messageArray = [],
+            requiredMessage = "",
+            rangeMessage = "";
+
+        $(".slope-rating-errors").empty();
+
+        $(".slope-rating").each(function () {
+            if ($(this).hasClass("invalid-slope-rating")) {
+                var error = $(this).siblings(".field-validation-error").find("span").text();
+                if (error === "required") {
+                    requiredMessage = "All teeboxes must have a slope rating.";
+                } else if (error === "range") {
+                    rangeMessage = "Slope ratings must be between 1 and 300.";
+                }
+            }
+        });
+
+        if (requiredMessage !== "") {
+            messageArray.push(requiredMessage);
+        }
+
+        if (rangeMessage !== "") {
+            messageArray.push(rangeMessage);
+        }
+
+        if (messageArray.length > 0) {
+            customValidations.showMessages(messageArray, $(".slope-rating-errors"));
+        }
+    },
+    validateSlopeRatings: function ($form, makeMessagesNow) {
+        "use strict";
+
+        var makeRules = function ($form) {
+            $(".slope-rating").each(function () {
+                var $element = $(this);
+
+                if (!$element.parents("tr").hasClass("hidden")) {
+                    $element.rules("add", {
+                        required: true,
+                        range: [1, 300],
+                        messages: {
+                            required: "required",
+                            range: "range"
+                        }
+                    });
+                    customValidations.bindValidationToElement($element, "invalid-slope-rating", slopeRatingValidator.makeAndShowErrorMessages);
+                    customValidations.bindValidationToSubmit($form, $(".slope-rating"), "invalid-slope-rating", slopeRatingValidator.makeAndShowErrorMessages);
+                } else {
+                    $element.off();
+                    $element.removeClass("invalid-slope-rating");
+                }
+            });
+
+        };
+
+        makeRules($form);
+        $(".error-container").append("<div class='slope-rating-errors'></div>");
+
+        if (makeMessagesNow) {
+            slopeRatingValidator.makeAndShowErrorMessages();
+        }
+    }
+};
+
+
+/*****************************************
     VALIDATOR
 *****************************************/
 
@@ -697,6 +839,14 @@ var validateForm = function ($form, makeMessagesNow, turnOff) {
 
     if ($form.find(".putt").length !== 0) {
         puttValidator.validatePutts($form, makeMessagesNow);
+    }
+
+    if ($form.find(".course-rating").length !== 0) {
+        courseRatingValidator.validateCourseRatings($form, makeMessagesNow);
+    }
+
+    if ($form.find(".slope-rating").length !== 0) {
+        slopeRatingValidator.validateSlopeRatings($form, makeMessagesNow);
     }
 };
 

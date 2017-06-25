@@ -1,8 +1,8 @@
 ﻿/**********************************************************************************
             SCREEN-SIZE DETECTOR:
                 - Each of the below constants correspond to the z-index of #page-size,
-                    which alters according to bootstraps breakpoints
-                - This allows js to sync with bootstraps breakpoints
+                    which alters according to bootstrap's breakpoints
+                - This allows js to sync with bootstrap's breakpoints
 **********************************************************************************/
 
 const SCREEN_XS = 1;
@@ -15,6 +15,27 @@ var getScreenSize = function () {
     return $("#page-size").height();
 };
 
+
+/***********************************************************************************
+                USED TO MAKE TEEBOX NAMES CORRESPOND WHEN ENTERING AND
+                EDITING COURSES
+***********************************************************************************/
+
+var makeTeeboxNamesCorrespond = function () {
+    $(".teebox-name-input").each(function () {
+        var $curInput = $(this);
+        $(".teebox-name-label" + $curInput.data("teebox-number")).text($curInput.val());
+    });
+};
+
+var makeNewTeeboxNamesCorrespond = function () {
+    $(".new-teebox-name-input").each(function () {
+        var $curInput = $(this);
+        $(".new-teebox-name-label" + $curInput.data("new-teebox-num")).text($curInput.val());
+    });
+};
+
+
 /***********************************************************************************
                         AJAX AND JQUERY FORM VALIDATION CALL
  **********************************************************************************/
@@ -26,7 +47,8 @@ $(function () {
             options = {
                 url: $course.attr("data-action"),
                 type: "GET",
-                data: $course.serialize()
+                data: $course.serialize(),
+                cache: false
             };
 
         $.ajax(options).done(function (data) {
@@ -115,5 +137,6 @@ $(document).ready(function () {
 $(window).resize(function () {
     hideEmptySideBar();
 });
+
 
 // $("#carousel").carousel();  this will activate a carousel

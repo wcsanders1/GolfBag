@@ -154,7 +154,7 @@ namespace GolfBag.ViewModels
 
                 viewTeebox.Id = course.TeeBoxes[i].Id;
                 viewTeebox.Name = course.TeeBoxes[i].Name;
-                viewTeebox.CourseRating = course.TeeBoxes[i].CourseRating.ToString("N1");
+                viewTeebox.CourseRating = course.TeeBoxes[i].CourseRating.ToString("N1") ?? "0";
                 viewTeebox.SlopeRating = course.TeeBoxes[i].SlopeRating;
 
                 for (int x = 0; x < course.TeeBoxes[i].Tees.Count; x++)
