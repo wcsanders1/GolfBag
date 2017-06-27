@@ -23,7 +23,7 @@
                 {
                     int holeNumber = i + 1;
                     <td class="number-input">
-                        <input class="number-input par" data-hole-number="@holeNumber" asp-for="Pars[i]" />
+                        <input class="number-input par element-to-validate" data-hole-number="@holeNumber" asp-for="Pars[i]" />
                         @Html.ValidationMessageFor(m => m.Pars[i], null, new { style = "display: none" })
                     </td>
                 }
@@ -35,7 +35,7 @@
                 {
                     int holeNumber = i + 1;
                     <td>
-                        <input class="number-input handicap" data-hole-number="@holeNumber" asp-for="Handicaps[i]" />
+                        <input class="number-input handicap element-to-validate" data-hole-number="@holeNumber" asp-for="Handicaps[i]" />
                         @Html.ValidationMessageFor(m => m.Handicaps[i], null, new { style = "display: none" })
                     </td>
                 }
@@ -51,7 +51,7 @@
                         {
                             int holeNumber = x + 1;
                             <td class="number-input">
-                                <input class="number-input teebox" data-hole-number="@holeNumber" asp-for="TeeBoxes[i].Tees[x].Yardage" />
+                                <input class="number-input teebox element-to-validate" data-hole-number="@holeNumber" asp-for="TeeBoxes[i].Tees[x].Yardage" />
                                 @Html.ValidationMessageFor(m => m.TeeBoxes[i].Tees[x].Yardage, null, new { style = "display: none" })
                             </td>
                         }
@@ -65,7 +65,7 @@
                         {
                             int holeNumber = x + 1;
                             <td class="number-input">
-                                <input class="number-input teebox" data-hole-number="@holeNumber" asp-for="TeeBoxes[i].Tees[x].Yardage" />
+                                <input class="number-input teebox element-to-validate" data-hole-number="@holeNumber" asp-for="TeeBoxes[i].Tees[x].Yardage" />
                                 @Html.ValidationMessageFor(m => m.TeeBoxes[i].Tees[x].Yardage, null, new { style = "display: none" })
                             </td>
                         }

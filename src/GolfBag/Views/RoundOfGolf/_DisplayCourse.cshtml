@@ -81,7 +81,7 @@
                         {
                             int holeNumber = i + 1;
                             <td>
-                                <input class="number-input score" data-hole-number="@holeNumber" asp-for="FrontNineScores[i]" />
+                                <input class="number-input score element-to-validate" data-hole-number="@holeNumber" asp-for="FrontNineScores[i]" />
                                 @Html.ValidationMessageFor(m => m.FrontNineScores[i], null, new { style = "display: none" })
                             </td>
                         }
@@ -93,7 +93,7 @@
                         {
                             int holeNumber = i + 1;
                             <td>
-                                <input class="number-input putt" data-hole-number="@holeNumber" asp-for="FrontNinePutts[i]" />
+                                <input class="number-input putt element-to-validate" data-hole-number="@holeNumber" asp-for="FrontNinePutts[i]" />
                                 @Html.ValidationMessageFor(m => m.FrontNinePutts[i], null, new { style = "display: none" })
                             </td>
                         }

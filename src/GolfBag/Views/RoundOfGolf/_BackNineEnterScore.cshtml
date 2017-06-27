@@ -55,7 +55,7 @@
                 {
                     int holeNumber = i + 10;
                     <td>
-                        <input class="number-input score" data-hole-number="@holeNumber" asp-for="BackNineScores[i]" />
+                        <input class="number-input score element-to-validate" data-hole-number="@holeNumber" asp-for="BackNineScores[i]" />
                         @Html.ValidationMessageFor(m => m.BackNineScores[i], null, new { style = "display: none" })
                     </td>
                 }
@@ -67,7 +67,7 @@
                 {
                     int holeNumber = i + 10;
                     <td>
-                        <input class="number-input putt" data-hole-number="@holeNumber" asp-for="BackNinePutts[i]" />
+                        <input class="number-input putt element-to-validate" data-hole-number="@holeNumber" asp-for="BackNinePutts[i]" />
                         @Html.ValidationMessageFor(m => m.BackNinePutts[i], null, new { style = "display: none" })
                     </td>
                 }

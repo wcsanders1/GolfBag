@@ -8,7 +8,7 @@
   
     <div class="field">
         <label class="field-label" asp-for="CourseName">Course Name</label>
-        <input class="field-input course-name" asp-for="CourseName" placeholder="Course Name" />
+        <input class="field-input course-name element-to-validate" asp-for="CourseName" placeholder="Course Name" />
         @Html.ValidationMessageFor(m => m.CourseName, null, new { style = "display: none" })
     </div>
     
@@ -30,7 +30,7 @@
                     {
                         int holeNumber = i + 1;
                         <td>
-                            <input class="number-input par" data-hole-number="@holeNumber" asp-for="Pars[i]" />
+                            <input class="number-input par element-to-validate" data-hole-number="@holeNumber" asp-for="Pars[i]" />
                             @Html.ValidationMessageFor(m => m.Pars[i], null, new { style = "display: none" })
                         </td>
                     }
@@ -42,7 +42,7 @@
                     {
                         int holeNumber = i + 1;
                         <td>
-                            <input class="number-input handicap" data-hole-number="@holeNumber" asp-for="Handicaps[i]" />
+                            <input class="number-input handicap element-to-validate" data-hole-number="@holeNumber" asp-for="Handicaps[i]" />
                             @Html.ValidationMessageFor(m => m.Handicaps[i], null, new { style = "display: none" })
                         </td>
                     }
@@ -54,7 +54,7 @@
 
                     <tr class="teebox-row" data-teebox-id="@Model.TeeBoxes[i].Id" data-teebox-name="@Model.TeeBoxes[i].Name">
                         <td>
-                            <input class="teebox-name teebox-name-input" asp-for="TeeBoxes[i].Name" data-teebox-number="@i" />
+                            <input class="teebox-name teebox-name-input element-to-validate" asp-for="TeeBoxes[i].Name" data-teebox-number="@i" />
                             @Html.ValidationMessageFor(m => m.TeeBoxes[i].Name, null, new { style = "display: none" })
                             <i class="fa fa-trash delete-teebox" data-toggle="tooltip"
                                title="Delete @Model.TeeBoxes[i].Name Teebox"></i>
@@ -65,7 +65,7 @@
                         {
                             int holeNumber = x + 1;
                             <td class="number-input">
-                                <input class="number-input teebox" data-hole-number="@holeNumber" asp-for="TeeBoxes[i].Tees[x].Yardage" />
+                                <input class="number-input teebox element-to-validate" data-hole-number="@holeNumber" asp-for="TeeBoxes[i].Tees[x].Yardage" />
                                 @Html.ValidationMessageFor(m => m.TeeBoxes[i].Tees[x].Yardage, null, new { style = "display: none" })
                             </td>
                         }
@@ -76,7 +76,7 @@
                 {
                     <tr class="new-teebox-row hidden" data-new-teebox-num="@i">
                         <td>
-                            <input class="teebox-name new-teebox-name-input" asp-for="NewTeeBoxes[i].Name" data-new-teebox-num="@i" />
+                            <input class="teebox-name new-teebox-name-input element-to-validate" asp-for="NewTeeBoxes[i].Name" data-new-teebox-num="@i" />
                             @Html.ValidationMessageFor(m => m.NewTeeBoxes[i].Name, null, new { style = "display: none" })
                         </td>
 
@@ -84,7 +84,7 @@
                         {
                             int holeNumber = x + 1;
                             <td class="number-input">
-                                <input class="number-input teebox" data-hole-number="@holeNumber" asp-for="NewTeeBoxes[i].Tees[x].Yardage" />
+                                <input class="number-input teebox element-to-validate" data-hole-number="@holeNumber" asp-for="NewTeeBoxes[i].Tees[x].Yardage" />
                                 @Html.ValidationMessageFor(m => m.NewTeeBoxes[i].Tees[x].Yardage, null, new { style = "display: none" })
                             </td>
                         }
@@ -113,7 +113,7 @@
                         {
                             int holeNumber = i + 1;
                             <td>
-                                <input class="number-input par" data-hole-number="@holeNumber" asp-for="Pars[i]" />
+                                <input class="number-input par element-to-validate" data-hole-number="@holeNumber" asp-for="Pars[i]" />
                                 @Html.ValidationMessageFor(m => m.Pars[i], null, new { style = "display: none" })
                             </td>
                         }
@@ -125,7 +125,7 @@
                         {
                             int holeNumber = i + 1;
                             <td>
-                                <input class="number-input handicap" data-hole-number="@holeNumber" asp-for="Handicaps[i]" />
+                                <input class="number-input handicap element-to-validate" data-hole-number="@holeNumber" asp-for="Handicaps[i]" />
                                 @Html.ValidationMessageFor(m => m.Handicaps[i], null, new { style = "display: none" })
                             </td>
                         }
@@ -139,7 +139,7 @@
                             {
                                 int holeNumber = x + 1;
                                 <td class="number-input">
-                                    <input class="number-input teebox" data-hole-number="@holeNumber" asp-for="TeeBoxes[i].Tees[x].Yardage" />
+                                    <input class="number-input teebox element-to-validate" data-hole-number="@holeNumber" asp-for="TeeBoxes[i].Tees[x].Yardage" />
                                     @Html.ValidationMessageFor(m => m.TeeBoxes[i].Tees[x].Yardage, null, new { style = "display: none" })
                                 </td>
                             }
@@ -156,7 +156,7 @@
                             {
                                 int holeNumber = x + 1;
                                 <td class="number-input">
-                                    <input class="number-input teebox" data-hole-number="@holeNumber" asp-for="NewTeeBoxes[i].Tees[x].Yardage" />
+                                    <input class="number-input teebox element-to-validate" data-hole-number="@holeNumber" asp-for="NewTeeBoxes[i].Tees[x].Yardage" />
                                     @Html.ValidationMessageFor(m => m.NewTeeBoxes[i].Tees[x].Yardage, null, new { style = "display: none" })
                                 </td>
                             }
@@ -189,11 +189,11 @@
                             <p>@Model.TeeBoxes[i].Name</p>
                         </td>
                         <td class="number-input">
-                            <input class="number-input course-slope-input-box course-rating" asp-for="TeeBoxes[i].CourseRating" />
+                            <input class="number-input course-slope-input-box course-rating element-to-validate" asp-for="TeeBoxes[i].CourseRating" />
                             @Html.ValidationMessageFor(m => m.TeeBoxes[i].CourseRating, null, new { style = "display: none" })
                         </td>
                         <td class="number-input">
-                            <input class="number-input course-slope-input-box slope-rating" asp-for="TeeBoxes[i].SlopeRating" />
+                            <input class="number-input course-slope-input-box slope-rating element-to-validate" asp-for="TeeBoxes[i].SlopeRating" />
                             @Html.ValidationMessageFor(m => m.TeeBoxes[i].SlopeRating, null, new { style = "display: none" })
                         </td>
                     </tr>
@@ -206,11 +206,11 @@
                             <p class="new-teebox-name-label@(i)"></p>
                         </td>
                         <td class="number-input">
-                            <input class="number-input course-slope-input-box course-rating" asp-for="NewTeeBoxes[i].CourseRating" value="0.0" />
+                            <input class="number-input course-slope-input-box course-rating element-to-validate" asp-for="NewTeeBoxes[i].CourseRating" value="0.0" />
                             @Html.ValidationMessageFor(m => m.NewTeeBoxes[i].CourseRating, null, new { style = "display: none" })
                         </td>
                         <td class="number-input">
-                            <input class="number-input course-slope-input-box slope-rating" asp-for="NewTeeBoxes[i].SlopeRating" />
+                            <input class="number-input course-slope-input-box slope-rating element-to-validate" asp-for="NewTeeBoxes[i].SlopeRating" />
                             @Html.ValidationMessageFor(m => m.NewTeeBoxes[i].SlopeRating, null, new { style = "display: none" })
                         </td>
                     </tr>
