@@ -34,35 +34,55 @@ namespace GolfBag.Controllers
             Course course   = model.MapViewModelToCourse(User.Identity.Name);
             course.PlayerId = GetCurrentUserAsync().Result.Id;
 
-            if (course != null)
+            if (course == null)
+            {
+                ViewBag.Message = "Failed to save course";
+                return View();
+            }
+
+            try
             {
                 _roundOfGolf.AddCourse(course);
-                var newCourseInList = new List<Course>();
-                newCourseInList.Add(course);
-                return RedirectToAction("EnterScore");
             }
-            ViewBag.Message = "Failed to save course";
-            return View();
+            catch
+            {
+                ViewBag.Message = "Error saving course.";
+                return View();
+            }
+            
+            var newCourseInList = new List<Course>();
+            newCourseInList.Add(course);
+            return RedirectToAction("EnterScore");
         }
 
         [HttpGet]
         public IActionResult EnterScore()
         {
-            IEnumerable<Course> courses = _roundOfGolf.GetAllCourses(GetCurrentUserAsync().Result.Id);
-
-            if (courses.Count() > 0)
+            IEnumerable<Course> courses = null;
+            try
             {
-                var courseDictionary = new Dictionary<int, string>();
-
-                foreach (var course in courses)
-                {
-                    courseDictionary.Add(course.Id, course.CourseName);
-                }
-
-                return View(courseDictionary);
+                courses = _roundOfGolf.GetAllCourses(GetCurrentUserAsync().Result.Id);
             }
-            ViewBag.Message = "You have no courses saved. Please enter a course before entering a score.";
-            return View("EnterCourse");
+            catch
+            {
+                ViewBag.Message = "There was an error retrieving your courses.";
+                return View("EnterCourse");
+            }
+
+            if (courses == null || courses.Count() < 1)
+            {
+                ViewBag.Message = "You have no courses saved. Please enter a course before entering a score.";
+                return View("EnterCourse");
+            }
+
+            var courseDictionary = new Dictionary<int, string>();
+
+            foreach (var course in courses)
+            {
+                courseDictionary.Add(course.Id, course.CourseName);
+            }
+
+            return View(courseDictionary);            
         }
 
         [HttpPost]
@@ -74,17 +94,38 @@ namespace GolfBag.Controllers
                 return View("Error");
             }
 
-            int courseId = _roundOfGolf.GetCourseId(courseName);
+            int courseId = 0;
+            try
+            {
+                courseId = _roundOfGolf.GetCourseId(courseName);
+            }
+            catch
+            {
+                ViewBag.Message = "Error retrieving course";
+                return View("Error");
+            }
 
             RoundOfGolf roundOfGolf = model.MapViewModelToRoundOfGolf(courseName, courseId, User.Identity.Name);
             roundOfGolf.PlayerId = GetCurrentUserAsync().Result.Id;
 
-            if (roundOfGolf != null)
-            { 
-                _roundOfGolf.AddRound(roundOfGolf);
-                return RedirectToAction("Index", "Home", "");
+            if (roundOfGolf == null)
+            {
+                ViewBag.Message = "There was an error";
+                return View("Error");
             }
-            return View();
+
+            try
+            {
+                _roundOfGolf.AddRound(roundOfGolf);
+            }
+            catch
+            {
+                ViewBag.Message = "Error saving round";
+                return View("Error");
+            }
+            
+            return RedirectToAction("Index", "Home", "");
+
         }
 
         public IActionResult DisplayCourse(int courseId)
@@ -303,7 +344,6 @@ namespace GolfBag.Controllers
             return RedirectToAction("ViewRounds");
         }
 
-        //[HttpPost]
         public IActionResult DeleteCourse(int courseId)
         {
             var course = _roundOfGolf.GetCourse(courseId);

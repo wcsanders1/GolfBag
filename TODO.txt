@@ -2,10 +2,8 @@ Make sure all inputs have proper limits on length and type of input; i.e., put m
 
 Fix icon
 
-Ensure that program won't crash if user screws around with url.
+Ensure that program won't crash if user screws around with url (wrap calls to repo in try/cathes).
 
 In score bar chart, under the score number, put how much over or under par, e.g., +4.
 
 Add handicap calculation functionality.
-
-Remove Angular

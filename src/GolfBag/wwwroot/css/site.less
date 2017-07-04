@@ -297,7 +297,6 @@ li {
     }
 
     .dropdown.open {
-
         @media (min-width: @bootstrapMD) {
             margin-top: 20px;
         }
@@ -309,7 +308,7 @@ li {
     }
 
     @media (max-width: @bootstrapLG) {
-        min-height: 200px;
+        min-height: 500px;
         margin: 20px;
         box-shadow: 2px 2px 4px 5px #000;
     }
@@ -715,6 +714,12 @@ footer {
     cursor: pointer;
     width: 25rem;
     margin-right: 5rem;
+}
+
+#ui-datepicker-div {
+    @media (max-width: @bootstrapSM) {
+        font-size: 11px;
+    }
 }
 
 .error-container {

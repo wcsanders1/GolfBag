@@ -334,7 +334,7 @@ li li a {
 }
 @media (max-width: 1200px) {
   .sidebar {
-    min-height: 200px;
+    min-height: 500px;
     margin: 20px;
     box-shadow: 2px 2px 4px 5px #000;
   }
@@ -686,6 +686,11 @@ footer a {
   cursor: pointer;
   width: 25rem;
   margin-right: 5rem;
+}
+@media (max-width: 768px) {
+  #ui-datepicker-div {
+    font-size: 11px;
+  }
 }
 .error-container {
   padding: 0;
