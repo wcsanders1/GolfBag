@@ -249,607 +249,628 @@ li {
         visibility: hidden;
     }
 }
-    /********************************************
+/********************************************
         _Layout
 ********************************************/
-    #title-and-welcome {
-        display: flex;
-        flex-direction: column;
-        float: none;
+#title-and-welcome {
+    display: flex;
+    flex-direction: column;
+    float: none;
 
-        @media (min-width: @bootstrapSM) {
-            float: left;
-        }
+    @media (min-width: @bootstrapSM) {
+        float: left;
     }
+}
 
-    #main-body {
-        padding: 20px;
+#main-body {
+    padding: 20px;
+}
+
+#site-title {
+    font-family: @mainSiteFont;
+    font-size: 5rem;
+    color: #14A647;
+    padding-left: 0;
+    margin: 0 0 10px 0;
+    position: relative;
+    z-index: 5;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    @media (min-width: @bootstrapLG) {
+        margin-top: @paddingXS - 10;
+        margin-bottom: 50px;
     }
-
-    #site-title {
-        font-family: @mainSiteFont;
-        font-size: 5rem;
-        color: #14A647;
-        padding-left: 0;
-        margin: 0 0 10px 0;
-        position: relative;
-        z-index: 5;
-    }
-
-    .sidebar::-webkit-scrollbar-track {
-        @media (min-width: @bootstrapLG) {
-            margin-top: @paddingXS - 10;
-            margin-bottom: 50px;
-        }
-    }
-
-    .sidebar {
-        background-color: @black;
-        overflow-y: auto;
-        padding-top: 10px;
-        text-align: center;
-
-        .dropdown-menu {
-            z-index: 0;
-            min-height: 90%;
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-
-        .dropdown.open {
-
-            @media (min-width: @bootstrapMD) {
-                margin-top: 20px;
-            }
-        }
-
-        .dropdown-menu > li > a {
-            flex-direction: column;
-            align-items: center;
-        }
-
-        @media (max-width: @bootstrapLG) {
-            min-height: 200px;
-            margin: 20px;
-            box-shadow: 2px 2px 4px 5px #000;
-        }
-
-        @media (min-width: @bootstrapLG) {
-            margin-top: -@paddingXS + 10px;
-            height: 100%;
-            position: absolute;
-            padding-top: 125px;
-
-            .dropdown-menu {
-                width: 100%;
-                margin-top: 0;
-                margin-bottom: 100px;
-            }
-        }
-
-        @media (max-width: @bootstrapSM) {
-            .dropdown-menu {
-                width: 100%;
-            }
-        }
-
-        @media (min-width: @bootstrapSM) and (max-width: @bootstrapLG) {
-            .list-group-item {
-                display: inline-block;
-            }
-        }
-
-        h3 {
-            text-align: center;
-            color: @sidebarHeaderColor;
-            font-size: 3rem;
-            margin-top: 10px;
-            margin-bottom: 20px;
-        }
-
-        h6 {
-            font-size: 1.75rem;
-        }
-    }
-
-    #left-sidebar {
-        @media (min-width: @bootstrapLG) {
-            left: 0;
-        }
-    }
-
-    #right-sidebar {
-        @media (min-width: @bootstrapLG) {
-            right: 0;
-        }
-    }
-
-    #welcome-nav {
-        font-family: @mainSiteFont;
-        font-size: 3rem;
-        margin: 0;
-    }
-    /********************************************
-        Statistics Charts
-********************************************/
-    .stat-chart + h6 {
-        color: white;
-    }
-
-    .stat-chart {
-        width: 95%;
-    }
-
-    .stat-chart-container {
-        width: 100%;
-
-        @media (min-width: @bootstrapSM) {
-            width: 50%;
-        }
-
-        @media (min-width: @bootstrapLG) {
-            width: 100%;
-        }
-
-        .eagle,
-        .chip-in {
-            fill: @orange;
-            color: @orange;
-        }
-
-        .birdie,
-        .one-putt {
-            fill: @lightGreen;
-            color: @lightGreen;
-        }
-
-        .par,
-        .two-putt {
-            fill: @lightBlue;
-            color: @lightBlue;
-        }
-
-        .bogie,
-        .three-putt {
-            fill: @darkYellow;
-            color: @darkYellow;
-        }
-
-        .double-bogie,
-        .four-putt {
-            fill: @lightBrown;
-            color: @lightBrown;
-        }
-
-        .other {
-            fill: @aqua;
-            color: @aqua;
-        }
-    }
-
-    .stat-chart-container-container {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-
-        @media (min-width: @bootstrapSM) {
-            flex-direction: row;
-        }
-
-        @media (min-width: @bootstrapLG) {
-            flex-direction: column;
-            padding-bottom: 75px;
-        }
-    }
-
-    path ~ text {
-        cursor: pointer;
-    }
-    // bootstrap's tooltip incompatible with svg on scroll
-    .svg-tooltip {
-        position: absolute;
-        max-width: 100px;
-        height: auto;
-        padding: 5px;
-        background-color: white;
-        border-radius: 5px;
-        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
-        pointer-events: none;
-    }
-
-
-    .pie-chart-label-container {
-        display: flex;
-        flex-wrap: wrap;
-
-        .pie-chart-label {
-            width: 50%;
-            color: @white;
-        }
-    }
-    /********************************************
-        <LoginLogout> Default
-********************************************/
-    #navbar-toggler {
-        background-color: chocolate;
-    }
-
-    #main-collapsing-navbar {
-        margin: 0;
-    }
-
-    #logout-button {
-        margin-top: 10px;
-    }
-
-    #logout-button-a {
-        color: @redText;
-    }
-    /********************************************
-        Footer
-********************************************/
-    footer {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        height: 60px;
-        background-color: @footerColor;
-        color: @white;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-
-        h5 {
-            margin: 5px 0;
-        }
-
-        a {
-            color: @white;
-        }
-    }
-    /*********************************************************************************************
-                        NAVIGATION & NAV PILLS
-*********************************************************************************************/
-    .navpill-header {
-        padding: 10px 15px 0 15px;
-        margin-right: 5rem;
-    }
-
-    .nav-pills {
-        width: 100%;
-
-        li:last-child {
-            font-weight: bolder;
-        }
-
-        @media (min-width: @bootstrapSM) {
-            display: inline-flex;
-
-            li:last-child {
-                margin-left: auto;
-                margin-right: 6rem;
-            }
-        }
-
-        li {
-            min-height: 6.5rem;
-
-            a {
-                padding-bottom: 0;
-            }
-        }
-    }
-
-    .navbar {
-        -webkit-transition: all 0.5s;
-        transition: all 0.5s;
-    }
-
-    .cbp-af-header-shrink {
-        opacity: 0.9;
-
-        .navbar {
-            margin-bottom: 5px;
-        }
-    }
-
-    .teebox-toggler {
-        color: @white;
-    }
-
-    .teebox-toggler-icon {
-        width: 100%;
-        text-align: center;
-        color: @yellow;
-        font-size: 1.5rem;
-
-        @media (min-width: @bootstrapSM) {
-            font-size: 2rem;
-        }
-    }
-
-    .pager {
-        margin-bottom: 0;
-        margin-top: 0;
-
-        @media (min-width: @bootstrapXS) {
-            margin-top: -40px;
-        }
-    }
-
-    .panel-title {
-        text-align: center;
-        font-size: 2rem;
-
-        @media (min-width: @bootstrapSM) {
-            font-size: 2.5rem;
-        }
-    }
-
-    .panel-primary {
-        background-color: #639A67;
-        border: none;
-
-        .panel-heading {
-            background-color: #205D67;
-        }
-    }
-
-    #display-round {
-        .navbar-default {
-            background-color: #639A67;
-        }
-
-        tr {
-            background-color: #D9BF77;
-        }
-
-        .table-row-striped {
-            background-color: darken(#D9BF77, 20%);
-        }
-
-        .teebox-played,
-        .well {
-            background-color: #D8EBB5;
-        }
-
-        .btn {
-            background-color: @buttonColor;
-        }
-    }
-
-    #display-round:not(:empty) {
-        box-shadow: 2px 2px 4px 5px @black;
-        -webkit-box-shadow: 2px 2px 4px 5px @black; /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-        -moz-box-shadow: 2px 2px 4px 5px @black; /* Firefox 3.5 - 3.6 */
-    }
-
-    .teebox-played {
-        font-weight: bold;
-        background-color: #127C56;
-    }
-
-    .scorecard-form {
-        -webkit-box-shadow: 2px 2px 4px 5px @black; /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-        -moz-box-shadow: 2px 2px 4px 5px @black; /* Firefox 3.5 - 3.6 */
-        box-shadow: 2px 2px 4px 5px @black;
-        background-color: #3A4750;
-
-        .table-striped > tbody > tr:nth-of-type(odd) {
-            background-color: #B7B56E;
-        }
-
-        .table-striped > tbody > tr:nth-of-type(even) {
-            background-color: #E9EAB4;
-        }
-
-        input,
-        textarea,
-        select {
-            background-color: #F2E9D0;
-        }
-
-        label {
-            color: #CDCDCD;
-        }
-    }
-
-    #nine-hole-table,
-    #eighteen-hole-table {
-        td {
-            width: 1px; // Otherwise, empty tds are rendered too wide
-        }
-    }
-
-    .nav .dropdown:hover .dropdown-menu {
-        @media (min-width: @bootstrapSM) {
-            display: block;
-        }
-    }
+}
+
+.sidebar {
+    background-color: @black;
+    overflow-y: auto;
+    padding-top: 10px;
+    text-align: center;
 
     .dropdown-menu {
-        overflow-y: auto;
+        z-index: 0;
+        min-height: 90%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .dropdown.open {
+
+        @media (min-width: @bootstrapMD) {
+            margin-top: 20px;
+        }
     }
 
     .dropdown-menu > li > a {
-        display: flex;
-        padding-left: 0;
-        padding-right: 0;
-        font-size: 1.75rem;
-
-        @media (min-width: @bootstrapSM) {
-            font-size: 2rem;
-        }
-    }
-
-    .dropdown-menu > li > a > span {
-        font-size: 1.5rem;
-        display: flex;
+        flex-direction: column;
         align-items: center;
     }
-    /*********************************************************************************************
-                        SCORECARDS
-*********************************************************************************************/
-    .table {
-        margin-bottom: 1rem;
+
+    @media (max-width: @bootstrapLG) {
+        min-height: 200px;
+        margin: 20px;
+        box-shadow: 2px 2px 4px 5px #000;
     }
 
-    .table-responsive {
-        margin-bottom: 1rem;
-    }
+    @media (min-width: @bootstrapLG) {
+        margin-top: -@paddingXS + 10px;
+        height: 100%;
+        position: absolute;
+        padding-top: 125px;
 
-    .account-form {
-        input[type="text"],
-        input[type="password"],
-        input[type="email"] {
-            max-width: 45rem;
+        .dropdown-menu {
+            width: 100%;
+            margin-top: 0;
+            margin-bottom: 100px;
         }
     }
 
-    .comment-box {
+    @media (max-width: @bootstrapSM) {
+        .dropdown-menu {
+            width: 100%;
+        }
+    }
+
+    @media (min-width: @bootstrapSM) and (max-width: @bootstrapLG) {
+        .list-group-item {
+            display: inline-block;
+        }
+    }
+
+    h3 {
+        text-align: center;
+        color: @sidebarHeaderColor;
+        font-size: 3rem;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    h6 {
+        font-size: 1.75rem;
+    }
+}
+
+#left-sidebar {
+    @media (min-width: @bootstrapLG) {
+        left: 0;
+    }
+}
+
+#right-sidebar {
+    @media (min-width: @bootstrapLG) {
+        right: 0;
+    }
+}
+
+#welcome-nav {
+    font-family: @mainSiteFont;
+    font-size: 3rem;
+    margin: 0;
+}
+/********************************************
+    Statistics Charts
+********************************************/
+.stat-chart + h6 {
+    color: white;
+}
+
+.stat-chart {
+    width: 95%;
+}
+
+.stat-chart-container {
+    width: 100%;
+
+    @media (min-width: @bootstrapSM) {
+        width: 50%;
+    }
+
+    @media (min-width: @bootstrapLG) {
         width: 100%;
     }
 
-    .datepicker {
-        cursor: pointer;
-        width: 25rem;
-        margin-right: 5rem;
+    .eagle,
+    .chip-in {
+        fill: @orange;
+        color: @orange;
     }
 
-    .error-container {
-        padding: 0;
-        color: darken(@redText, 20%);
-        font-size: 2rem;
-
-        p {
-            margin: 0;
-        }
+    .birdie,
+    .one-putt {
+        fill: @lightGreen;
+        color: @lightGreen;
     }
 
-    .scorecard {
-        font-family: 'Suez One', serif;
-
-        @media (min-width: @bootstrapSM) {
-            font-size: 2rem;
-        }
-
-        td:not(:first-child),
-        th:not(:first-child) {
-            text-align: center;
-        }
+    .par,
+    .two-putt {
+        fill: @lightBlue;
+        color: @lightBlue;
     }
 
-    .number-input,
-    .number-input input {
-        width: 5rem;
-        text-align: center;
-        -webkit-appearance: none;
+    .bogie,
+    .three-putt {
+        fill: @darkYellow;
+        color: @darkYellow;
     }
 
-    input::-webkit-inner-spin-button,
-    input::-webkit-outer-spin-button {
-        .remove-number-spinners;
+    .double-bogie,
+    .four-putt {
+        fill: @lightBrown;
+        color: @lightBrown;
     }
 
-    input[type=number] {
-        -moz-appearance: textfield;
+    .other {
+        fill: @aqua;
+        color: @aqua;
     }
+}
 
-    .teebox-to-delete {
-        text-decoration: line-through;
-    }
+.stat-chart-container-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 
-    .delete-teebox,
-    .undo-delete {
-        cursor: pointer;
-
-        &.faded-font {
-            cursor: default;
-        }
-    }
-
-    .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
-        padding: 4px;
-    }
-
-    .eighteen-hole-total {
-        display: flex;
+    @media (min-width: @bootstrapSM) {
         flex-direction: row;
-        justify-content: space-around;
+    }
 
-        div {
-            border: none;
-            margin: 0 6px;
-            display: inline-flex;
-            flex-grow: 0;
-            flex-basis: 50%;
-            justify-content: center;
+    @media (min-width: @bootstrapLG) {
+        flex-direction: column;
+        padding-bottom: 75px;
+    }
+}
+
+path ~ text {
+    cursor: pointer;
+}
+// bootstrap's tooltip incompatible with svg on scroll
+.svg-tooltip {
+    position: absolute;
+    max-width: 100px;
+    height: auto;
+    padding: 5px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+}
+
+
+.pie-chart-label-container {
+    display: flex;
+    flex-wrap: wrap;
+
+    .pie-chart-label {
+        width: 50%;
+        color: @white;
+    }
+}
+/********************************************
+    <LoginLogout> Default
+********************************************/
+#navbar-toggler {
+    background-color: chocolate;
+}
+
+#main-collapsing-navbar {
+    margin: 0;
+}
+
+#logout-button {
+    margin-top: 10px;
+}
+
+#logout-button-a {
+    color: @redText;
+}
+/********************************************
+    Footer
+********************************************/
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: @footerColor;
+    color: @white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    h5 {
+        margin: 5px 0;
+    }
+
+    a {
+        color: @white;
+    }
+}
+/*********************************************************************************************
+                    NAVIGATION & NAV PILLS
+*********************************************************************************************/
+.navpill-header {
+    padding: 10px 15px 0 15px;
+    margin-right: 5rem;
+}
+
+.nav-pills {
+    width: 100%;
+
+    li:last-child {
+        font-weight: bolder;
+    }
+
+    @media (min-width: @bootstrapSM) {
+        display: inline-flex;
+
+        li:last-child {
+            margin-left: auto;
+            margin-right: 6rem;
         }
     }
-    /*********************************************
-            Scorecard Colors and borders
+
+    li {
+        min-height: 6.5rem;
+
+        a {
+            padding-bottom: 0;
+        }
+    }
+}
+
+.navbar {
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.cbp-af-header-shrink {
+    opacity: 0.9;
+
+    .navbar {
+        margin-bottom: 5px;
+    }
+}
+
+.teebox-toggler {
+    color: @white;
+}
+
+.teebox-toggler-icon {
+    width: 100%;
+    text-align: center;
+    color: @yellow;
+    font-size: 1.5rem;
+
+    @media (min-width: @bootstrapSM) {
+        font-size: 2rem;
+    }
+}
+
+.pager {
+    margin-bottom: 0;
+    margin-top: 0;
+
+    @media (min-width: @bootstrapXS) {
+        margin-top: -40px;
+    }
+}
+
+.panel-title {
+    text-align: center;
+    font-size: 2rem;
+
+    @media (min-width: @bootstrapSM) {
+        font-size: 2.5rem;
+    }
+}
+
+.panel-primary {
+    background-color: #639A67;
+    border: none;
+
+    .panel-heading {
+        background-color: #205D67;
+    }
+}
+
+#display-round {
+    .navbar-default {
+        background-color: #639A67;
+    }
+
+    tr {
+        background-color: #D9BF77;
+    }
+
+    .table-row-striped {
+        background-color: darken(#D9BF77, 20%);
+    }
+
+    .teebox-played,
+    .well {
+        background-color: #D8EBB5;
+    }
+
+    .btn {
+        background-color: @buttonColor;
+    }
+}
+
+#display-round:not(:empty) {
+    box-shadow: 2px 2px 4px 5px @black;
+    -webkit-box-shadow: 2px 2px 4px 5px @black; /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow: 2px 2px 4px 5px @black; /* Firefox 3.5 - 3.6 */
+}
+
+.teebox-played {
+    font-weight: bold;
+    background-color: #127C56;
+}
+
+.scorecard-form {
+    -webkit-box-shadow: 2px 2px 4px 5px @black; /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow: 2px 2px 4px 5px @black; /* Firefox 3.5 - 3.6 */
+    box-shadow: 2px 2px 4px 5px @black;
+    background-color: #3A4750;
+
+    .table-striped > tbody > tr:nth-of-type(odd) {
+        background-color: #B7B56E;
+    }
+
+    .table-striped > tbody > tr:nth-of-type(even) {
+        background-color: #E9EAB4;
+    }
+
+    input,
+    textarea,
+    select {
+        background-color: #F2E9D0;
+    }
+
+    label {
+        color: #CDCDCD;
+    }
+}
+
+#nine-hole-table,
+#eighteen-hole-table {
+    td {
+        width: 1px; // Otherwise, empty tds are rendered too wide
+    }
+}
+
+.nav .dropdown:hover .dropdown-menu {
+    @media (min-width: @bootstrapSM) {
+        display: block;
+    }
+}
+
+.dropdown-menu {
+    overflow-y: auto;
+}
+
+.dropdown-menu > li > a {
+    display: flex;
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 1.75rem;
+
+    @media (min-width: @bootstrapSM) {
+        font-size: 2rem;
+    }
+}
+
+.dropdown-menu > li > a > span {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+/*********************************************************************************************
+                    SCORECARDS
+*********************************************************************************************/
+.table {
+    margin-bottom: 1rem;
+}
+
+.table-responsive {
+    margin-bottom: 1rem;
+}
+
+.account-form {
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+        max-width: 45rem;
+    }
+}
+
+.comment-box {
+    width: 100%;
+}
+
+.datepicker {
+    cursor: pointer;
+    width: 25rem;
+    margin-right: 5rem;
+}
+
+.error-container {
+    padding: 0;
+    color: darken(@redText, 20%);
+    font-size: 2rem;
+
+    p {
+        margin: 0;
+    }
+}
+
+.scorecard {
+    font-family: 'Suez One', serif;
+
+    @media (min-width: @bootstrapSM) {
+        font-size: 2rem;
+    }
+
+    td:not(:first-child),
+    th:not(:first-child) {
+        text-align: center;
+    }
+     tr > td:first-child {
+         width: 1px;   // this is necessary or else in IE and Firefox the tables render strangely on full screens
+     }
+}
+
+.number-input,
+.number-input input {
+    width: 5rem;
+    text-align: center;
+    -webkit-appearance: none;
+}
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+    .remove-number-spinners;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.teebox-to-delete {
+    text-decoration: line-through;
+}
+
+.delete-teebox,
+.undo-delete {
+    cursor: pointer;
+
+    &.faded-font {
+        cursor: default;
+    }
+}
+
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    padding: 4px;
+}
+
+.eighteen-hole-total {
+    p, div {
+        display: inline;
+        margin: 0;
+    }
+
+    p:first-child,
+    div:first-child {
+        margin-right: 20px;
+    }
+
+    p:last-child,
+    div:last-child {
+        margin-left: 20px;
+    }
+}
+
+.teebox-display-row > td:not(:first-child) {
+    vertical-align: middle;
+}
+
+.teebox-name-display-round {
+    p:first-child {
+        margin-bottom: 5px;
+    }
+
+    p:last-child {
+        font-size: 1.5rem;
+        margin-bottom: 0;
+    }
+}
+
+/*********************************************
+        Scorecard Colors and borders
 *********************************************/
-    .invalid-score,
-    .invalid-course-name,
-    .invalid-par,
-    .invalid-handicap,
-    .invalid-teebox-name,
-    .invalid-teebox,
-    .invalid-putt,
-    .invalid-course-rating,
-    .invalid-slope-rating {
-        border-color: @redText;
+.invalid-score,
+.invalid-course-name,
+.invalid-par,
+.invalid-handicap,
+.invalid-teebox-name,
+.invalid-teebox,
+.invalid-putt,
+.invalid-course-rating,
+.invalid-slope-rating {
+    border-color: @redText;
+}
+
+.table > tbody > tr > td.hole-score {
+    font-family: @scorecardNumberFont;
+    text-align: center;
+    vertical-align: baseline;
+}
+
+.bogie-box {
+    text-align: center;
+    margin: 0 auto;
+    width: 100%;
+
+    @media (min-width: @bootstrapMD) {
+        width: 75%;
     }
 
-    .table > tbody > tr > td.hole-score {
-        font-family: @scorecardNumberFont;
-        text-align: center;
-        vertical-align: baseline;
+    @media (min-width: @bootstrapLG) {
+        width: 50%;
+    }
+}
+
+.table > tbody > tr {
+    td.birdie-score {
+        color: @redText;
     }
 
-    .bogie-box {
-        text-align: center;
-        margin: 0 auto;
-        width: 100%;
+    td.eagle-score {
+        color: @blueText;
+    }
 
-        @media (min-width: @bootstrapMD) {
-            width: 75%;
-        }
+    td.ablatross-score {
+        color: @purpleText;
+    }
 
-        @media (min-width: @bootstrapLG) {
-            width: 50%;
+    td.bogie-score {
+        .bogie-box {
+            border: 1px black solid;
         }
     }
 
-    .table > tbody > tr {
-        td.birdie-score {
-            color: @redText;
-        }
-
-        td.eagle-score {
-            color: @blueText;
-        }
-
-        td.ablatross-score {
-            color: @purpleText;
-        }
-
-        td.bogie-score {
-            .bogie-box {
-                border: 1px black solid;
-            }
-        }
-
-        td.double-bogie-score {
-            .bogie-box {
-                border: 3px black solid;
-            }
-        }
-
-        td.other-score {
-            .bogie-box {
-                border: 4px black double;
-            }
+    td.double-bogie-score {
+        .bogie-box {
+            border: 3px black solid;
         }
     }
+
+    td.other-score {
+        .bogie-box {
+            border: 4px black double;
+        }
+    }
+}

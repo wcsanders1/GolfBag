@@ -112,8 +112,15 @@
                             int totalYardage = 0;
                             if (teeBox.Id != Model.IdOfTeeBoxPlayed)
                             {
-                                <tr class="@teeBox.Id collapse teebox-not-played" data-teebox-id="@teeBox.Id">
-                                    <td>@teeBox.Name</td>
+                                <tr class="@teeBox.Id collapse teebox-not-played teebox-display-row" data-teebox-id="@teeBox.Id">
+                                    <td class="teebox-name-display-round">
+                                        <p>
+                                            @teeBox.Name
+                                        </p>
+                                        <p>
+                                            @teeBox.CourseRating.ToString("N1") / @teeBox.SlopeRating
+                                        </p>
+                                    </td>
                                     @for (int i = 0; i < 9; i++)
                                     {
                                         <td>@teeBox.Tees[i].Yardage</td>
@@ -124,8 +131,15 @@
                             }
                             else
                             {
-                                <tr>
-                                    <td class="teebox-played">@teeBox.Name</td>
+                                <tr class="teebox-display-row">
+                                    <td class="teebox-played teebox-name-display-round">
+                                        <p>
+                                            @teeBox.Name
+                                        </p>
+                                        <p>
+                                            @teeBox.CourseRating.ToString("N1") / @teeBox.SlopeRating
+                                        </p>
+                                    </td>
                                     @for (int i = 0; i < 9; i++)
                                     {
                                         <td class="teebox-played">@teeBox.Tees[i].Yardage</td>
@@ -238,8 +252,15 @@
                             int totalYardage = 0;
                             if (teeBox.Id != Model.IdOfTeeBoxPlayed)
                             {
-                                <tr class="@teeBox.Id collapse teebox-not-played" data-teebox-id="@teeBox.Id">
-                                    <td>@teeBox.Name</td>
+                                <tr class="@teeBox.Id collapse teebox-not-played teebox-display-row" data-teebox-id="@teeBox.Id">
+                                    <td class="teebox-name-display-round">
+                                        <p>
+                                            @teeBox.Name
+                                        </p>
+                                        <p>
+                                            @teeBox.CourseRating.ToString("N1") / @teeBox.SlopeRating
+                                        </p>
+                                    </td>
                                     @for (int i = 9; i < 18; i++)
                                     {
                                         <td>@teeBox.Tees[i].Yardage</td>
@@ -253,12 +274,12 @@
                                         else
                                         {
                                             <td class="eighteen-hole-total">
-                                                <div>
+                                                <p>
                                                     @totalYardage
-                                                </div>
-                                                <div>
+                                                </p>
+                                                <p>
                                                     @teeBox.TotalYardage
-                                                </div>
+                                                </p>
                                             </td>
                                         }
                                     }
@@ -267,8 +288,15 @@
                             }
                             else
                             {
-                                <tr>
-                                    <td class="teebox-played">@teeBox.Name</td>
+                                <tr class="teebox-display-row">
+                                    <td class="teebox-played teebox-name-display-round">
+                                        <p>
+                                            @teeBox.Name
+                                        </p>
+                                        <p>
+                                            @teeBox.CourseRating.ToString("N1") / @teeBox.SlopeRating
+                                        </p>
+                                    </td>
                                     @for (int i = 9; i < 18; i++)
                                     {
                                         <td class="teebox-played">@teeBox.Tees[i].Yardage</td>
@@ -282,12 +310,12 @@
                                         else
                                         {
                                             <td class="eighteen-hole-total">
-                                                <div>
+                                                <p>
                                                     @totalYardage
-                                                </div>
-                                                <div>
+                                                </p>
+                                                <p>
                                                     @teeBox.TotalYardage
-                                                </div>
+                                                </p>
                                             </td>                                           
                                         }
                                     }

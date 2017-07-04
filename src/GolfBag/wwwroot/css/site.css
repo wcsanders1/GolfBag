@@ -388,7 +388,7 @@ li li a {
   margin: 0;
 }
 /********************************************
-        Statistics Charts
+    Statistics Charts
 ********************************************/
 .stat-chart + h6 {
   color: white;
@@ -476,7 +476,7 @@ path ~ text {
   color: #FFF;
 }
 /********************************************
-        <LoginLogout> Default
+    <LoginLogout> Default
 ********************************************/
 #navbar-toggler {
   background-color: chocolate;
@@ -491,7 +491,7 @@ path ~ text {
   color: #F2112B;
 }
 /********************************************
-        Footer
+    Footer
 ********************************************/
 footer {
   position: absolute;
@@ -512,7 +512,7 @@ footer a {
   color: #FFF;
 }
 /*********************************************************************************************
-                        NAVIGATION & NAV PILLS
+                    NAVIGATION & NAV PILLS
 *********************************************************************************************/
 .navpill-header {
   padding: 10px 15px 0 15px;
@@ -666,7 +666,7 @@ footer a {
   align-items: center;
 }
 /*********************************************************************************************
-                        SCORECARDS
+                    SCORECARDS
 *********************************************************************************************/
 .table {
   margin-bottom: 1rem;
@@ -707,6 +707,9 @@ footer a {
 .scorecard th:not(:first-child) {
   text-align: center;
 }
+.scorecard tr > td:first-child {
+  width: 1px;
+}
 .number-input,
 .number-input input {
   width: 5rem;
@@ -741,21 +744,31 @@ input[type=number] {
 .table > thead > tr > th {
   padding: 4px;
 }
-.eighteen-hole-total {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
+.eighteen-hole-total p,
 .eighteen-hole-total div {
-  border: none;
-  margin: 0 6px;
-  display: inline-flex;
-  flex-grow: 0;
-  flex-basis: 50%;
-  justify-content: center;
+  display: inline;
+  margin: 0;
+}
+.eighteen-hole-total p:first-child,
+.eighteen-hole-total div:first-child {
+  margin-right: 20px;
+}
+.eighteen-hole-total p:last-child,
+.eighteen-hole-total div:last-child {
+  margin-left: 20px;
+}
+.teebox-display-row > td:not(:first-child) {
+  vertical-align: middle;
+}
+.teebox-name-display-round p:first-child {
+  margin-bottom: 5px;
+}
+.teebox-name-display-round p:last-child {
+  font-size: 1.5rem;
+  margin-bottom: 0;
 }
 /*********************************************
-            Scorecard Colors and borders
+        Scorecard Colors and borders
 *********************************************/
 .invalid-score,
 .invalid-course-name,
