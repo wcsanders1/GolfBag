@@ -16,6 +16,16 @@ var getScreenSize = function () {
 };
 
 
+
+/***********************************************************************************
+                ACTIVATE CAROUSEL
+***********************************************************************************/
+
+$(".carousel").carousel({
+    interval: 3000
+});
+
+
 /***********************************************************************************
                 USED TO MAKE TEEBOX NAMES CORRESPOND WHEN ENTERING AND
                 EDITING COURSES
@@ -137,6 +147,3 @@ $(document).ready(function () {
 $(window).resize(function () {
     hideEmptySideBar();
 });
-
-
-// $("#carousel").carousel();  this will activate a carousel

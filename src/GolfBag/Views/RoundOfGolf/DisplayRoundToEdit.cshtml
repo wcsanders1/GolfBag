@@ -201,7 +201,7 @@
         </div>
     }
 
-    <textarea asp-for="@Model.Comment" class="well comment-box"></textarea>
+    <textarea maxlength="500" asp-for="@Model.Comment" class="well comment-box"></textarea>
     <div class="btn-group">
         <button class="btn btn-success custom-submit" type="button">Save Round Changes</button>
         <a href="#delete-dialog" class="btn btn-danger"

@@ -103,7 +103,7 @@
             </table>
         </div>
         <label for="comment-input-2">Enter Comment</label>
-        <textarea asp-for="@Model.Comment" class="well comment-box"></textarea>
+        <textarea maxlength="500" asp-for="@Model.Comment" class="well comment-box"></textarea>
         <div class="btn-group">
             <button class="btn btn-success custom-submit" type="button">Save Round</button>
             <a class="btn btn-default" asp-action="EnterScore" asp-controller="RoundOfGolf">Cancel</a>
@@ -141,7 +141,7 @@ else
             @Html.Partial("_BackNineEnterScore", Model)
         </div>
         <label for="comment-input-2">Enter Comment</label>
-        <textarea asp-for="@Model.Comment" class="well comment-box"></textarea>
+        <textarea maxlength="500" asp-for="@Model.Comment" class="well comment-box"></textarea>
         <div class="btn-group">
             <button class="btn btn-success custom-submit" type="button">Save Round</button>
             <a class="btn btn-default" asp-action="EnterScore" asp-controller="RoundOfGolf">Cancel</a>

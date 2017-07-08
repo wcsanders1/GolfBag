@@ -7,23 +7,51 @@
 <div class="well jumbotron">
     @if (User.Identity.IsAuthenticated && Model.NumberOfHolesPlayedInLastRound > 0)
     {
-        <h1>Welcome, @Model.FirstName @Model.LastName</h1>
-        <h3>Your played your last round on @Model.DateOfLastRound.Date.ToString("MMMM d, yyyy")<span>,</span></h3>
+        <div id="authenticated-carousel" class="carousel slide" data-ride="carousel" data-interval="3000">
+            <ol class="carousel-indicators">
+                <li data-target="#authenticated-carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#authenticated-carousel" data-slide-to="1"></li>
+                <li data-target="#authenticated-carousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="item active">
+                    <h1>Welcome, @Model.FirstName @Model.LastName</h1>
+                    <h3>Your played your last round on @Model.DateOfLastRound.Date.ToString("MMMM d, yyyy")<span>,</span></h3>
+                    @{ 
+                        switch (Model.DaysSinceLastRound)
+                        {
+                            case 0:
+                            <h3>which is today.</h3>
+                                        break;
+                                    case 1:
+                            <h3>which was yesterday.</h3>
+                                        break;
+                                    default:
+                            <h3>which was @Model.DaysSinceLastRound days ago.</h3>
+                                            break;
+                        }
+                    }
+                    <h3>On that day, you played @Model.NumberOfHolesPlayedInLastRound holes at @Model.CourseLastPlayed,</h3>
+                    <h3>and you shot a @Model.ScoreOfLastRound<span>.</span></h3>
+                </div>
 
-        switch (Model.DaysSinceLastRound)
-        {
-            case 0:
-                <h3>which is today.</h3>
-                break;
-            case 1:
-                <h3>which was yesterday.</h3>
-                break;
-            default:
-                <h3>which was @Model.DaysSinceLastRound days ago.</h3>
-                break;
-        }
-        <h3>On that day, you played @Model.NumberOfHolesPlayedInLastRound holes at @Model.CourseLastPlayed,</h3>
-        <h3>and you shot a @Model.ScoreOfLastRound<span>.</span></h3>
+                <div class="item">
+                    <p>Another carousel piece!</p>
+                </div>
+
+                <div class="item">
+                    <p>And another</p>
+                </div>
+
+            </div>
+
+            <a class="left carousel-control" href="#authenticated-carousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#authenticated-carousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
 
         @section leftSidebar {
             <div class="stat-chart-container-container">

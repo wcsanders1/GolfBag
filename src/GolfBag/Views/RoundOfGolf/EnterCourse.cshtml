@@ -82,7 +82,7 @@
                     {
                         <tr class="tee-box-input hidden">
                             <td>
-                                <input type="text" maxlength="30" class="teebox-name teebox-name-input element-to-validate" asp-for="TeeBoxes[i].Name" data-teebox-number="@i" />
+                                <input type="text" class="teebox-name teebox-name-input element-to-validate" asp-for="TeeBoxes[i].Name" data-teebox-number="@i" />
                                 @Html.ValidationMessageFor(m => m.TeeBoxes[i].Name, null, new { style = "display: none" })
                             </td>
                             @for (int x = 0; x < 9; x++)
@@ -99,7 +99,7 @@
                     {
                         <tr class="tee-box-input">
                             <td>
-                                <input type="text" maxlength="30" class="teebox-name teebox-name-input element-to-validate" asp-for="TeeBoxes[i].Name" data-teebox-number="@i" />
+                                <input type="text" class="teebox-name teebox-name-input element-to-validate" asp-for="TeeBoxes[i].Name" data-teebox-number="@i" />
                                 @Html.ValidationMessageFor(m => m.TeeBoxes[i].Name, null, new { style = "display: none" })
                             </td>
                             @for (int x = 0; x < 9; x++)

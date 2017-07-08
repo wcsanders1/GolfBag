@@ -58,7 +58,7 @@ namespace GolfBag.Controllers
         [HttpGet]
         public IActionResult EnterScore()
         {
-            IEnumerable<Course> courses = null;
+            IEnumerable<Course> courses;
             try
             {
                 courses = _roundOfGolf.GetAllCourses(GetCurrentUserAsync().Result.Id);
@@ -130,9 +130,18 @@ namespace GolfBag.Controllers
 
         public IActionResult DisplayCourse(int courseId)
         {
-            Course course = _roundOfGolf.GetCourse(courseId);
+            Course course;
+            try
+            {
+                course = _roundOfGolf.GetCourse(courseId);
+            }
+            catch
+            {
+                ViewBag.Message = "Error displaying course";
+                return View("Error");
+            }
+            
             RoundOfGolfViewModel roundOfGolfViewModel = RoundOfGolfViewModel.MapCourseToRoundOfGolfViewModel(course);
-
             return PartialView("_DisplayCourse", roundOfGolfViewModel);
         }
 
@@ -143,34 +152,72 @@ namespace GolfBag.Controllers
 
         public IActionResult DisplayFrontNineEnterScore(RoundOfGolfViewModel model)
         {
-            Course course = _roundOfGolf.GetCourse(model.IdOfCourse);
+            Course course;
+            try
+            {
+                course = _roundOfGolf.GetCourse(model.IdOfCourse);
+            }
+            catch
+            {
+                ViewBag.Message = "Error getting course";
+                return View("Error");
+            }
+            
             RoundOfGolfViewModel roundOfGolfViewModel = RoundOfGolfViewModel.MapCourseToRoundOfGolfViewModel(course);
-
             return PartialView("_FrontNineEnterScore", roundOfGolfViewModel);
         }
 
         public IActionResult DisplayBackNineEnterScore(RoundOfGolfViewModel model)
         {
-            Course course = _roundOfGolf.GetCourse(model.IdOfCourse);
+            Course course;
+            try
+            {
+                course = _roundOfGolf.GetCourse(model.IdOfCourse);
+            }
+            catch
+            {
+                ViewBag.Message = "Error getting course";
+                return View("Error");
+            }
+         
             RoundOfGolfViewModel roundOfGolfViewModel = RoundOfGolfViewModel.MapCourseToRoundOfGolfViewModel(course);
-
             return PartialView("_BackNineEnterScore", roundOfGolfViewModel);
         }
 
         public IActionResult ViewRounds(int selectedRound = -1)
         {
             var r = _userManager.GetUserId(User);
-            
-            var roundsOfGolfViewModel = new ViewRoundsViewModel();
-            roundsOfGolfViewModel.SelectedRound = selectedRound;
+            var roundsOfGolfViewModel = new ViewRoundsViewModel
+            {
+                SelectedRound = selectedRound
+            };
 
-            IEnumerable<RoundOfGolf> roundsOfGolf = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id);
+            IEnumerable<RoundOfGolf> roundsOfGolf;
+            try
+            {
+                roundsOfGolf = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id);
+            }
+            catch
+            {
+                ViewBag.Message = "Error getting rounds";
+                return View("Error");
+            }
 
             if (roundsOfGolf.Count() > 0)
             {
                 foreach (var round in roundsOfGolf)
                 {
-                    Course course = _roundOfGolf.GetCourse(round.CourseId);
+                    Course course;
+                    try
+                    {
+                        course = _roundOfGolf.GetCourse(round.CourseId);
+                    }
+                    catch
+                    {
+                        ViewBag.Message = "Error getting course";
+                        return View("Error");
+                    }
+
                     roundsOfGolfViewModel.MapViewRounds(round, course);
                 }
 
@@ -186,25 +233,35 @@ namespace GolfBag.Controllers
             try
             {
                 round = _roundOfGolf.GetRound(id);
-                if (round.PlayerId != GetCurrentUserAsync().Result.Id)
-                {
-                    ViewBag.Message = "An Error Occurred";
-                    return PartialView("~/Views/Shared/Error.cshtml");
-                }
-
-                RoundOfGolfViewModel roundOfGolfViewModel = GetRoundOfGolfViewModel(round);
-                return PartialView("_DisplayRound", roundOfGolfViewModel);
             }
             catch
             {
-                ViewBag.Message = "An Error Occurred";
-                return PartialView("~/Views/Shared/Error.cshtml");
+                ViewBag.Message = "Error getting round";
+                return View("Error");
             }
+
+            if (round.PlayerId != GetCurrentUserAsync().Result.Id)
+            {
+                ViewBag.Message = "An Error Occurred";
+                return View("Error");
+            }
+
+            RoundOfGolfViewModel roundOfGolfViewModel = GetRoundOfGolfViewModel(round);
+            return PartialView("_DisplayRound", roundOfGolfViewModel);
         }
 
         public IActionResult EditCourses()
         {
-            IEnumerable<Course> courses = _roundOfGolf.GetAllCourses(GetCurrentUserAsync().Result.Id);
+            IEnumerable<Course> courses;
+            try
+            {
+                courses = _roundOfGolf.GetAllCourses(GetCurrentUserAsync().Result.Id);
+            }
+            catch
+            {
+                ViewBag.Message = "Error getting courses";
+                return View("Error");
+            }
 
             if (courses.Count() > 0)
             {
@@ -224,7 +281,17 @@ namespace GolfBag.Controllers
         [HttpGet]
         public IActionResult EditCourse(int courseId)
         {
-            var course = _roundOfGolf.GetCourse(courseId);
+            Course course;
+            try
+            {
+                course = _roundOfGolf.GetCourse(courseId);
+            }
+            catch
+            {
+                ViewBag.Message = "Error getting course";
+                return View("Error");
+            }
+            
             CourseViewModel courseViewModel = CourseViewModel.MapCourseToCourseViewModel(course);
             courseViewModel.ProduceListOfNewTeeBoxes(course);
             courseViewModel.ProduceListOfDeletedTeeBoxes(course);
@@ -235,8 +302,17 @@ namespace GolfBag.Controllers
         [HttpPost]
         public IActionResult SaveCourseChanges(CourseViewModel model)
         {
-            var courseToSave = _roundOfGolf.GetCourse(model.Id);
-
+            Course courseToSave;
+            try
+            {
+                courseToSave = _roundOfGolf.GetCourse(model.Id);
+            }
+            catch
+            {
+                ViewBag.Message = "Error getting course";
+                return View("Error");
+            }
+            
             courseToSave.CourseName = model.CourseName;
             
             for (int i = 0; i < courseToSave.CourseHoles.Count; i++)
@@ -278,7 +354,16 @@ namespace GolfBag.Controllers
                 }
             }
 
-            _roundOfGolf.SaveCourseEdits(courseToSave, model.ListOfDeletedTeeBoxes);
+            try
+            {
+                _roundOfGolf.SaveCourseEdits(courseToSave, model.ListOfDeletedTeeBoxes);
+            }
+            catch
+            {
+                ViewBag.Message = "Error saving changes";
+                return View("Error");
+            }
+            
             return RedirectToAction("EditCourses");
         }
 
@@ -288,25 +373,36 @@ namespace GolfBag.Controllers
             try
             {
                 round = _roundOfGolf.GetRound(id);
-                if (round.PlayerId != GetCurrentUserAsync().Result.Id)
-                {
-                    ViewBag.Message = "An Error Occurred";
-                    return PartialView("~/Views/Shared/Error.cshtml");
-                }
-                RoundOfGolfViewModel roundOfGolfViewModel = GetRoundOfGolfViewModel(round);
-                return View("DisplayRoundToEdit", roundOfGolfViewModel);
             }
             catch
             {
-                ViewBag.Message = "An Error Occurred";
-                return PartialView("~/Views/Shared/Error.cshtml");
+                ViewBag.Message = "Error getting round";
+                return View("Error");
             }
+
+            if (round.PlayerId != GetCurrentUserAsync().Result.Id)
+            {
+                ViewBag.Message = "An Error Occurred";
+                return View("Error");
+            }
+
+            RoundOfGolfViewModel roundOfGolfViewModel = GetRoundOfGolfViewModel(round);
+            return View("DisplayRoundToEdit", roundOfGolfViewModel);
         }
 
         public IActionResult SaveRoundChanges(RoundOfGolfViewModel round)
         {
-            var roundToSave = _roundOfGolf.GetRound(round.Id);
-
+            RoundOfGolf roundToSave;
+            try
+            {
+                roundToSave = _roundOfGolf.GetRound(round.Id);
+            }
+            catch
+            {
+                ViewBag.Message = "Error getting round";
+                return View("Error");
+            }
+            
             roundToSave.Comment = round.Comment;
             roundToSave.Date = round.DateOfRound;
             roundToSave.TeeBoxPlayed = round.IdOfTeeBoxPlayed;
@@ -339,21 +435,40 @@ namespace GolfBag.Controllers
 
         public IActionResult DeleteRound(int id)
         {
-            var round = _roundOfGolf.GetRound(id);
-            _roundOfGolf.DeleteRound(round);
+            try
+            {
+                var round = _roundOfGolf.GetRound(id);
+                _roundOfGolf.DeleteRound(round);
+            }
+            catch
+            {
+                ViewBag.Message = "Error deleting round";
+                return View("Error");
+            }
+            
             return RedirectToAction("ViewRounds");
         }
 
         public IActionResult DeleteCourse(int courseId)
         {
-            var course = _roundOfGolf.GetCourse(courseId);
-            _roundOfGolf.DeleteCourse(course);
+            try
+            {
+                var course = _roundOfGolf.GetCourse(courseId);
+                _roundOfGolf.DeleteCourse(course);
+            }
+            catch
+            {
+                ViewBag.Message = "Error deleting course";
+                return View("Error");
+            }
+            
             return RedirectToAction("EditCourses");
         }
 
         public string DatesPlayedTeebox(int id)
         {
             var rounds = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id);
+            
             string datesPlayedTeebox = "";
 
             foreach (var round in rounds)
