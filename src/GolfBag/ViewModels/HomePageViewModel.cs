@@ -23,5 +23,7 @@ namespace GolfBag.ViewModels
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+
+        public string Handicap { get; set; }
     }
 }

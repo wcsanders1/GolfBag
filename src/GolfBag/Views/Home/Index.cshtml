@@ -35,11 +35,21 @@
                 </div>
 
                 <div class="item">
-                    <h3>Another carousel piece!</h3>
+                    @{ 
+                        if (Model.Handicap == null)
+                        {
+                            <h3>You've not entered enough rounds to allow your handicap to be calculated.</h3>
+                            <h3>Otherwise, your handicap would appear here.</h3>
+                        }
+                        else
+                        {
+                            <h3>Your handicap is @Model.Handicap</h3>
+                        }
+                    }
                 </div>
 
                 <div class="item">
-                    <h3>And another</h3>
+                    <h3>I have nothing more to say.</h3>
                 </div>
 
             </div>

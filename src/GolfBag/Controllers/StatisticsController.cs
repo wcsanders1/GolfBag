@@ -125,64 +125,6 @@ namespace GolfBag.Controllers
             return Json(CalculatePuttsToTwo(rounds));
         }
 
-        [HttpGet]
-        public IActionResult GetHandicap()
-        {
-            const decimal diffCalc = .96m;
-            var rounds = _roundOfGolf.GetAllRounds(GetCurrentUserAsync().Result.Id);
-            rounds = rounds.Skip(rounds.Count() - 20).ToList();
-
-            if (rounds.Count() < 5)
-            {
-                return Json(0);
-            }
-
-            var courseIds = rounds.Select(t => t.CourseId).ToList().Distinct();
-
-            var courses = new List<Course>();
-            foreach (var id in courseIds)
-            {
-                courses.Add(_roundOfGolf.GetCourse(id));
-            }
-
-            var differentials = new List<decimal>();
-            foreach (var round in rounds)
-            {
-                var course = courses.Where(t => t.Id == round.CourseId).FirstOrDefault();
-                var teebox = course.TeeBoxes.Where(t => t.Id == round.TeeBoxPlayed).FirstOrDefault();
-                decimal slopeRating = 0;
-                decimal courseRating = 0;
-                if (round.Scores.Count == 9 && teebox.Tees.Count > 9)
-                {
-                    slopeRating = teebox.SlopeRating / 2;
-                    courseRating = teebox.CourseRating / 2;
-                }
-                else
-                {
-                    slopeRating = teebox.SlopeRating;
-                    courseRating = teebox.CourseRating;
-                }
-
-                var differential = (round.Scores.Sum(t => t.HoleScore) - courseRating) * (113 / slopeRating);
-                differentials.Add(differential);
-            }
-
-            differentials.Sort();
-
-            if (rounds.Count() < 11)
-            {
-                return Json(differentials[0] * diffCalc);
-            }
-
-            
-            if (rounds.Count() < 20)
-            {
-                return Json(differentials.Take(5).Average() * diffCalc);
-            }
-
-            return Json(differentials.Take(10).Average() * diffCalc);
-        }
-
         private List<BarChartRound> GetBarChartRounds(int holes, List<RoundOfGolf> rounds, int mostRecentScores)
         {
             List<BarChartRound> scores;
