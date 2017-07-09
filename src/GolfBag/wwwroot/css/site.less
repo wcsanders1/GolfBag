@@ -37,19 +37,46 @@
 
 .jumbotron {
     padding: 0;
-    min-height: 50%;
+    min-height: 25%;
 }
 
-.carousel,
-.carousel-inner {
-    min-height: 50%;
+.carousel {
+    min-height: 25%;
+    background-color: @midGreen;
+    padding: 4rem;
+
+    @media (min-width: @bootstrapLG) {
+        padding: 6rem 10rem;
+    }
 }
+
+.carousel-inner {
+    text-align: center;
+    min-height: 25%;
+    color: darken(@white, 20%);
+
+    h3 {
+        margin-bottom: 0;
+
+        @media (min-width: @bootstrapLG) {
+            font-size: 4rem;
+        }
+    }
+
+    h3:nth-child(even) {
+        margin-top: 0;
+    }
+
+    h3:first-child {
+        margin-top: 0;
+    }
+}
+
 
 
 /*********************************************************************************************
                         CUSTOMIZE SCROLL BARS
 *********************************************************************************************/
-
 body::-webkit-scrollbar,
 .sidebar::-webkit-scrollbar,
 .table-responsive::-webkit-scrollbar {
@@ -154,19 +181,19 @@ li {
 
 
 .btn-success {
-    background-color: #127C56;
+    background-color: @btnSuccess;
 }
 
 .btn-default {
-    background-color: #D0DD97;
+    background-color: @btnDefault;
 }
 
 .btn-danger {
-    background-color: #B90B0B;
+    background-color: @btnDanger;
 }
 
 .list-group-item {
-    background-color: #D2D4D6;
+    background-color: @btnColor;
 }
 
 /********************************************
@@ -320,7 +347,7 @@ li {
     @media (max-width: @bootstrapLG) {
         min-height: 500px;
         margin: 20px;
-        box-shadow: 2px 2px 4px 5px #000;
+        box-shadow: 2px 2px 4px 5px @black;
     }
 
     @media (min-width: @bootstrapLG) {
@@ -597,34 +624,34 @@ footer {
 }
 
 .panel-primary {
-    background-color: #639A67;
+    background-color: @midGreen;
     border: none;
 
     .panel-heading {
-        background-color: #205D67;
+        background-color: @darkGreen;
     }
 }
 
 #display-round {
     .navbar-default {
-        background-color: #639A67;
+        background-color: @midGreen;
     }
 
     tr {
-        background-color: #D9BF77;
+        background-color: @lightBrown;
     }
 
     .table-row-striped {
-        background-color: darken(#D9BF77, 20%);
+        background-color: darken(@lightBrown, 20%);
     }
 
     .teebox-played,
     .well {
-        background-color: #D8EBB5;
+        background-color: @lightGreen;
     }
 
     .btn {
-        background-color: @buttonColor;
+        background-color: @btnColor;
     }
 }
 

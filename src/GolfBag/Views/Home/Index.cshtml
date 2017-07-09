@@ -7,7 +7,7 @@
 <div class="well jumbotron">
     @if (User.Identity.IsAuthenticated && Model.NumberOfHolesPlayedInLastRound > 0)
     {
-        <div id="authenticated-carousel" class="carousel slide" data-ride="carousel" data-interval="3000">
+        <div id="authenticated-carousel" class="carousel slide" data-ride="carousel" data-interval="false">
             <ol class="carousel-indicators">
                 <li data-target="#authenticated-carousel" data-slide-to="0" class="active"></li>
                 <li data-target="#authenticated-carousel" data-slide-to="1"></li>
@@ -15,7 +15,6 @@
             </ol>
             <div class="carousel-inner">
                 <div class="item active">
-                    <h1>Welcome, @Model.FirstName @Model.LastName</h1>
                     <h3>Your played your last round on @Model.DateOfLastRound.Date.ToString("MMMM d, yyyy")<span>,</span></h3>
                     @{ 
                         switch (Model.DaysSinceLastRound)
@@ -32,15 +31,15 @@
                         }
                     }
                     <h3>On that day, you played @Model.NumberOfHolesPlayedInLastRound holes at @Model.CourseLastPlayed,</h3>
-                    <h3>and you shot a @Model.ScoreOfLastRound<span>.</span></h3>
+                    <h3>and you shot @Model.ScoreOfLastRound<span>.</span></h3>
                 </div>
 
                 <div class="item">
-                    <p>Another carousel piece!</p>
+                    <h3>Another carousel piece!</h3>
                 </div>
 
                 <div class="item">
-                    <p>And another</p>
+                    <h3>And another</h3>
                 </div>
 
             </div>

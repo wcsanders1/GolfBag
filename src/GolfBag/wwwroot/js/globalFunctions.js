@@ -6,8 +6,8 @@ var stripeRow = function ($teebox) {
     "use strict";
 
     var $selectedTeeBoxId = $teebox.val();
-    $(".table").each(function (i) {
-        $(this).find("tr").each(function (i) {
+    $(".table").each(function () {
+        $(this).find("tr").each(function () {
             $(this).removeClass("teebox-played");
             $(this).children().removeClass("teebox-played");
             if ($(this).data("teebox-id") === parseInt($selectedTeeBoxId)) {
