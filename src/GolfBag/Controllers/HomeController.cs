@@ -142,6 +142,11 @@ namespace GolfBag.Controllers
                     courseRating = teebox.CourseRating;
                 }
 
+                if (slopeRating == 0 || courseRating == 0)
+                {
+                    return null;
+                }
+
                 var differential = (round.Scores.Sum(t => t.HoleScore) - courseRating) * (113 / slopeRating);
                 differentials.Add(differential);
             }
