@@ -1,9 +1,6 @@
-Make sure all inputs have proper limits on length and type of input; i.e., put max and min values in html inputs where possible
-
 Fix icon
 
 Ensure that program won't crash if user screws around with url (wrap calls to repo in try/cathes).
-
-In score bar chart, under the score number, put how much over or under par, e.g., +4.
+	- make sure one user can't access the courses or scores of another user, even through ajax
 
 Add handicap calculation functionality.
