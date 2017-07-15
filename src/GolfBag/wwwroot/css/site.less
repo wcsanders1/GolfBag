@@ -37,26 +37,85 @@
 
 .jumbotron {
     padding: 0;
-    min-height: 25%;
+    min-height: 35%;
+    background-color: lighten(@black, 20%);
+    text-align: center;
+    color: darken(@white, 20%);
 }
 
 .carousel {
-    min-height: 25%;
-    background-color: @midGreen;
+    min-height: 40%;
+    background-color: lighten(@black, 20%);
     padding: 4rem;
 
     @media (min-width: @bootstrapLG) {
         padding: 6rem 10rem;
+        min-height: 50%;
+    }
+}
+
+#unauthenticated-carousel {
+    background-color: lighten(@black, 20%);
+    height: 400px;
+
+    .carousel-inner,
+    .item {
+        height: 400px;
+    }
+
+    img {
+        margin: 3rem auto;
+        max-width: 75%;
+        max-height: 200px;
+    }
+
+    @media (min-width: @bootstrapMD) {
+        height: 600px;
+
+        .carousel-inner,
+        .item {
+            height: 600px;
+        }
+
+        img {
+            max-height: 400px;
+        }
+    }
+}
+
+.carousel-item-wrapper {
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    @media (min-width: @bootstrapLG) {
+        min-height: 400px;
     }
 }
 
 .carousel-inner {
     text-align: center;
-    min-height: 25%;
+    min-height: 40%;
     color: darken(@white, 20%);
+
+    .item {
+        min-height: 40%;
+    }
+
+    @media (min-width: @bootstrapLG) {
+        min-height: 50%;
+
+        .item {
+            min-height: 40%;
+        }
+    }
 
     h3 {
         margin-bottom: 0;
+        margin-left: 2rem;
+        margin-right: 2rem;
 
         @media (min-width: @bootstrapLG) {
             font-size: 4rem;

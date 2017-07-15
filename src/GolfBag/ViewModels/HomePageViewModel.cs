@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace GolfBag.ViewModels
 {
+    public enum PlayLevel
+    {
+        NotGood = 1,
+        AlmostDecent = 2,
+        Decent = 3,
+        Good = 4
+    }
+
     public class HomePageViewModel
     {
         [DataType(DataType.Date)]
@@ -25,5 +33,7 @@ namespace GolfBag.ViewModels
         public string LastName { get; set; }
 
         public string Handicap { get; set; }
+
+        public PlayLevel PlayLevel { get; set; }
     }
 }

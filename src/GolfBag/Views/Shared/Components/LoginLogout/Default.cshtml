@@ -42,7 +42,7 @@
                     <li><a asp-controller="Account" asp-action="ManageAccount">Manage Account</a></li>
                     <li>
                         <form id="logout-button" class="hidden" method="post" asp-controller="Account" asp-action="Logout" asp-antiforgery="true"></form>
-                        <a id="logout-button-a" href="javascript:$('#logout-button').submit();">Logout</a>
+                        <a id="logout-button-a" href="javascript:$('#logout-button').submit();">Log Out</a>
                     </li>
                 </ul>
             </li>
@@ -52,7 +52,7 @@
     {
         <ul class="nav navbar-nav">
             <li><a asp-controller="Account" asp-action="Register">Create New Account</a></li>
-            <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+            <li><a asp-controller="Account" asp-action="Login">Log In</a></li>
         </ul>
     }
 </div>

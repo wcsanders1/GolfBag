@@ -18,10 +18,10 @@ var renderChartsAndGraphs = {
 
         if (screenSize >= SCREEN_SM && screenSize <= SCREEN_MD) {
             svgHeight = 400;
-            differential = 5;
+            differential = 10;
         } else {
             svgHeight = 150;
-            differential = 2;
+            differential = 2.5;
         }
 
         var h = svgHeight,
@@ -130,7 +130,9 @@ var renderChartsAndGraphs = {
                
         var line = d3.line()
             .x(function (d, i) { return i * (w / data.length); })
-            .y(function (d) { return differential * (highestPutts - d.putts); })
+            .y(function (d) {
+                return differential * (highestPutts - d.putts);
+            })
             .curve(d3.curveLinear);
 
         var viz = lnGraph.append("path")
@@ -285,6 +287,11 @@ var statCalculations = {
     getPuttsDifferential: function (data, range) {
         var highestPutts = statCalculations.getHighestPutts(data),
             lowestPutts = statCalculations.getLowestPutts(data);
+
+        if (highestPutts - lowestPutts < 1) {
+            return range;
+        }
+
         return range / (highestPutts - lowestPutts);
     },
     getHighestPutts: function (data) {

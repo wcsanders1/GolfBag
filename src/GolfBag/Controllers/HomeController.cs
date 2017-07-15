@@ -73,8 +73,15 @@ namespace GolfBag.Controllers
                                             .Now
                                             .Subtract(mostRecentRound.Date)
                                             .Days;
-                    
-                    homePageViewModel.Handicap = GetHandicap(rounds);
+
+                    var (handicap, strHandicap) = GetHandicap(rounds);
+
+                    homePageViewModel.Handicap = strHandicap;
+
+                    if (strHandicap != null)
+                    {
+                        homePageViewModel.PlayLevel = GetPlayLevel(handicap);
+                    }
                 }
                 return View(homePageViewModel);
             }
@@ -96,14 +103,14 @@ namespace GolfBag.Controllers
             return currentUser;
         }
 
-        private string GetHandicap(IEnumerable<RoundOfGolf> rounds)
+        private (decimal, string) GetHandicap(IEnumerable<RoundOfGolf> rounds)
         {
             const decimal diffCalc = .96m;
 
             rounds = rounds.Skip(rounds.Count() - 20).ToList();
             if (rounds.Count() < 5)
             {
-                return null;
+                return (0, null);
             }
 
             var courseIds = rounds.Select(t => t.CourseId).ToList().Distinct();
@@ -118,7 +125,7 @@ namespace GolfBag.Controllers
                 }
                 catch
                 {
-                    return null;
+                    return (0, null);
                 }
 
                 courses.Add(course);
@@ -144,7 +151,7 @@ namespace GolfBag.Controllers
 
                 if (slopeRating == 0 || courseRating == 0)
                 {
-                    return null;
+                    return (0, null);
                 }
 
                 var differential = (round.Scores.Sum(t => t.HoleScore) - courseRating) * (113 / slopeRating);
@@ -167,12 +174,33 @@ namespace GolfBag.Controllers
                 handicap = differentials.Take(10).Average() * diffCalc;
             }
 
-            if (handicap < 0)
+            var strHandicap = Math.Abs(handicap);
+            if (handicap >= 0)
             {
-                handicap = Math.Abs(handicap);
+                return (handicap, strHandicap.ToString("N1"));
+            }
+            
+            return (handicap, $"+{strHandicap.ToString("N1")}");
+        }
+
+        private PlayLevel GetPlayLevel(decimal handicap)
+        {
+            if (handicap > 20)
+            {
+                return PlayLevel.NotGood;
+            }
+            
+            if (handicap > 10)
+            {
+                return PlayLevel.AlmostDecent;
             }
 
-            return handicap.ToString("N1");
+            if (handicap > 5)
+            {
+                return PlayLevel.Decent;
+            }
+
+            return PlayLevel.Good;
         }
     }
 }

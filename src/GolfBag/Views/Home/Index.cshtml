@@ -7,7 +7,7 @@
 <div class="well jumbotron">
     @if (User.Identity.IsAuthenticated && Model.NumberOfHolesPlayedInLastRound > 0)
     {
-        <div id="authenticated-carousel" class="carousel slide" data-ride="carousel" data-interval="false">
+        <div id="authenticated-carousel" class="carousel slide" data-ride="carousel" data-interval="5000">
             <ol class="carousel-indicators">
                 <li data-target="#authenticated-carousel" data-slide-to="0" class="active"></li>
                 <li data-target="#authenticated-carousel" data-slide-to="1"></li>
@@ -15,41 +15,79 @@
             </ol>
             <div class="carousel-inner">
                 <div class="item active">
-                    <h3>Your played your last round on @Model.DateOfLastRound.Date.ToString("MMMM d, yyyy")<span>,</span></h3>
-                    @{ 
-                        switch (Model.DaysSinceLastRound)
-                        {
-                            case 0:
-                            <h3>which is today.</h3>
-                                        break;
-                                    case 1:
-                            <h3>which was yesterday.</h3>
-                                        break;
-                                    default:
-                            <h3>which was @Model.DaysSinceLastRound days ago.</h3>
-                                            break;
+                    <div class="carousel-item-wrapper">
+                        <h3>Your played your last round on @Model.DateOfLastRound.Date.ToString("MMMM d, yyyy")<span>,</span></h3>
+                        @{
+                            switch (Model.DaysSinceLastRound)
+                            {
+                                case 0:
+                                    <h3>which is today.</h3>
+                                    break;
+                                case 1:
+                                    <h3>which was yesterday.</h3>
+                                    break;
+                                default:
+                                    <h3>which was @Model.DaysSinceLastRound days ago.</h3>
+                                    break;
+                            }
                         }
-                    }
-                    <h3>On that day, you played @Model.NumberOfHolesPlayedInLastRound holes at @Model.CourseLastPlayed,</h3>
-                    <h3>and you shot @Model.ScoreOfLastRound<span>.</span></h3>
+                        <h3>On that day, you played @Model.NumberOfHolesPlayedInLastRound holes at @Model.CourseLastPlayed,</h3>
+                        <h3>and you shot @Model.ScoreOfLastRound<span>.</span></h3>
+                    </div>
+
                 </div>
 
                 <div class="item">
-                    @{ 
-                        if (Model.Handicap == null)
-                        {
-                            <h3>You've not entered enough rounds to allow your handicap to be calculated.</h3>
-                            <h3>Otherwise, your handicap would appear here.</h3>
+                    <div class="carousel-item-wrapper">
+                        @{
+                            if (Model.Handicap == null)
+                            {
+                                <h3>You've not entered enough rounds to allow your handicap to be calculated.</h3>
+                                <h3>Otherwise, your handicap would appear here.</h3>
+                            }
+                            else
+                            {
+                                <h3>Your handicap is @Model.Handicap</h3>
+                            }
                         }
-                        else
-                        {
-                            <h3>Your handicap is @Model.Handicap</h3>
-                        }
-                    }
+                    </div>
                 </div>
 
                 <div class="item">
-                    <h3>I have nothing more to say.</h3>
+                    <div class="carousel-item-wrapper">
+                        @{
+                            if (Model.Handicap == null)
+                            {
+                                <h3>Your level of play cannot be determine yet.</h3>
+                                <h3>So go out and play some more golf!</h3>
+                            }
+                            else
+                            {
+                                <h3>According to the data, which does not lie,</h3>
+                                if (Model.PlayLevel == PlayLevel.NotGood)
+                                {
+                                    <h3>you're not a very good golfer.</h3>
+                                    <h3>But that's ok. You're probably good at some other things in life.</h3>
+                                }
+                                else if (Model.PlayLevel == PlayLevel.AlmostDecent)
+                                {
+                                    <h3>it looks as though you're sort of a decent golfer.</h3>
+                                    <h3>But you wouldn't be justified in thinking that you were really good.</h3>
+                                }
+                                else if (Model.PlayLevel == PlayLevel.Decent)
+                                {
+                                    <h3>you're a pretty good golfer it seems.</h3>
+                                    <h3>Maybe if you practiced a little more you could be really good.</h3>
+                                }
+                                else if (Model.PlayLevel == PlayLevel.Good)
+                                {
+                                    <h3>you're a good golfer.</h3>
+                                    <h3>However, the extent to which that matters is debatable.</h3>
+                                }
+
+                            }
+                        }
+                    </div>
                 </div>
 
             </div>
@@ -87,9 +125,37 @@
     }
     else
     {
-    <h1>Welcome to it!</h1>
-    <p>This is the page of golf scores and keeping track of them!</p>
-    <p>And getting information about that!</p>
-    <h4>Register to get started!</h4>
+        <div id="unauthenticated-carousel" class="carousel slide" data-ride="carousel" data-interval="5000">
+            <ol class="carousel-indicators">
+                <li data-target="#unauthenticated-carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#unauthenticated-carousel" data-slide-to="1"></li>
+                <li data-target="#unauthenticated-carousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="item active">
+                    <h1>Welcome!</h1>
+                    <h3>This site will organize your golf scores<br>and show you graphical statistics about your game.</h3>
+                    <h3>Log in or create a new account to start using this free service!</h3>
+                </div>
+
+                <div class="item">
+                    <h3>Viewing your golf history is easy and sort of fun.</h3>
+                    <img src="~/images/golfbag2.png" />
+                </div>
+
+                <div class="item">
+                    <h3>Charts and graphs illustrate various aspects of your golf game.</h3>
+                    <img src="~/images/golfbag1.png" />
+                </div>
+
+            </div>
+
+            <a class="left carousel-control" href="#unauthenticated-carousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#unauthenticated-carousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
     }
 </div>
