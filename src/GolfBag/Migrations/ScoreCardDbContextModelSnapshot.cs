@@ -76,7 +76,7 @@ namespace GolfBag.Migrations
                     b.ToTable("RoundsOfGolf");
                 });
 
-            modelBuilder.Entity("GolfBag.Entities.Score", b =>
+            modelBuilder.Entity("GolfBag.Entities.ScoreGolf", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -93,7 +93,7 @@ namespace GolfBag.Migrations
 
                     b.HasIndex("RoundOfGolfId");
 
-                    b.ToTable("Score");
+                    b.ToTable("ScoreGolf");
                 });
 
             modelBuilder.Entity("GolfBag.Entities.Tee", b =>
@@ -301,7 +301,7 @@ namespace GolfBag.Migrations
                         .HasForeignKey("CourseId");
                 });
 
-            modelBuilder.Entity("GolfBag.Entities.Score", b =>
+            modelBuilder.Entity("GolfBag.Entities.ScoreGolf", b =>
                 {
                     b.HasOne("GolfBag.Entities.RoundOfGolf")
                         .WithMany("Scores")

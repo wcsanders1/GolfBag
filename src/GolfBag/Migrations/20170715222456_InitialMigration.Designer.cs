@@ -8,8 +8,8 @@ using GolfBag.Entities;
 namespace GolfBag.Migrations
 {
     [DbContext(typeof(ScoreCardDbContext))]
-    [Migration("20170330000509_March292017")]
-    partial class March292017
+    [Migration("20170715222456_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -77,7 +77,7 @@ namespace GolfBag.Migrations
                     b.ToTable("RoundsOfGolf");
                 });
 
-            modelBuilder.Entity("GolfBag.Entities.Score", b =>
+            modelBuilder.Entity("GolfBag.Entities.ScoreGolf", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -94,7 +94,7 @@ namespace GolfBag.Migrations
 
                     b.HasIndex("RoundOfGolfId");
 
-                    b.ToTable("Score");
+                    b.ToTable("ScoreGolf");
                 });
 
             modelBuilder.Entity("GolfBag.Entities.Tee", b =>
@@ -122,7 +122,11 @@ namespace GolfBag.Migrations
 
                     b.Property<int?>("CourseId");
 
+                    b.Property<decimal>("CourseRating");
+
                     b.Property<string>("Name");
+
+                    b.Property<int>("SlopeRating");
 
                     b.HasKey("Id");
 
@@ -298,7 +302,7 @@ namespace GolfBag.Migrations
                         .HasForeignKey("CourseId");
                 });
 
-            modelBuilder.Entity("GolfBag.Entities.Score", b =>
+            modelBuilder.Entity("GolfBag.Entities.ScoreGolf", b =>
                 {
                     b.HasOne("GolfBag.Entities.RoundOfGolf")
                         .WithMany("Scores")

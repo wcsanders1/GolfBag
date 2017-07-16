@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp1.0</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
+    <RuntimeIdentifiers>win7-x64;win7-x86;ubuntu.16.04-x64;</RuntimeIdentifiers>
+    <SuppressDockerTargets>True</SuppressDockerTargets>
     <AssemblyName>GolfBag</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>GolfBag</PackageId>
@@ -49,8 +51,8 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.0.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.0.1" />
     <PackageReference Include="jQuery-vsdoc" Version="2.1.0" />
-    <PackageReference Include="MailKit" Version="1.10.2" />
-    <PackageReference Include="Google.Apis.Auth" Version="1.21.0" />
+    <PackageReference Include="MailKit" Version="1.16.2" />
+    <PackageReference Include="Google.Apis.Auth" Version="1.27.1" />
     <PackageReference Include="System.ValueTuple" Version="4.3.1" />
   </ItemGroup>
 
@@ -59,6 +61,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Migrations\" />
     <Folder Include="Migrations\" />
     <Folder Include="Views\Shared\Components\RightBottomSidebar\" />
   </ItemGroup>

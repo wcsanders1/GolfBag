@@ -45,7 +45,7 @@ namespace GolfBag
             {
                 if (_env.IsProduction())
                 {
-                    config.Filters.Add(new RequireHttpsAttribute());
+                    //config.Filters.Add(new RequireHttpsAttribute());
                 }
             })
             .AddJsonOptions(config =>
