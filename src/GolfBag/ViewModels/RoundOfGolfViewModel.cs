@@ -223,15 +223,15 @@ namespace GolfBag.ViewModels
             return true;
         }
 
-        private List<ScoreGolf> MapScores()
+        private List<Score> MapScores()
         {
-            var scores = new List<ScoreGolf>();
+            var scores = new List<Score>();
 
             if (FrontNineScores != null)
             {
                 for (int i = 0; i < 9; i++)
                 {
-                    var score = new ScoreGolf();
+                    var score = new Score();
                     score.HoleScore  = FrontNineScores[i];
                     score.HolePutt   = FrontNinePutts[i];
                     score.HoleNumber = i + 1;
@@ -243,7 +243,7 @@ namespace GolfBag.ViewModels
             {
                 for (int i = 0; i < 9; i++)
                 {
-                    var score = new ScoreGolf();
+                    var score = new Score();
                     score.HoleScore  = BackNineScores[i];
                     score.HolePutt   = BackNinePutts[i];
                     score.HoleNumber = i + 10;
@@ -273,7 +273,7 @@ namespace GolfBag.ViewModels
             return handicaps;
         }
 
-        private static List<int> MapPars(List<ScoreGolf> scores, List<CourseHole> courseHoles)
+        private static List<int> MapPars(List<Score> scores, List<CourseHole> courseHoles)
         {
             var pars = new List<int>();
             
@@ -298,7 +298,7 @@ namespace GolfBag.ViewModels
             return pars;
         }
 
-        private static Dictionary<string, List<int>> GetFrontAndBackNineScores(List<ScoreGolf> scores)
+        private static Dictionary<string, List<int>> GetFrontAndBackNineScores(List<Score> scores)
         {
             var frontAndBackNineScores = new Dictionary<string, List<int>>();
             var frontNineScores        = new List<int>();
@@ -322,7 +322,7 @@ namespace GolfBag.ViewModels
             return frontAndBackNineScores;
         }
 
-        private static Dictionary<string, List<int>> GetFrontAndBackNinePutts(List<ScoreGolf> scores)
+        private static Dictionary<string, List<int>> GetFrontAndBackNinePutts(List<Score> scores)
         {
             var frontAndBackNinePutts = new Dictionary<string, List<int>>();
             var frontNinePutts        = new List<int>();
@@ -346,7 +346,7 @@ namespace GolfBag.ViewModels
             return frontAndBackNinePutts;
         }
 
-        private static Dictionary<string, List<string>> GetFrontAndBackNineScoreNames(List<ScoreGolf> scores, List<CourseHole> courseHoles)
+        private static Dictionary<string, List<string>> GetFrontAndBackNineScoreNames(List<Score> scores, List<CourseHole> courseHoles)
         {
             var frontAndBackNineScoreNames = new Dictionary<string, List<string>>();
             var frontNineScoreNames        = new List<string>();

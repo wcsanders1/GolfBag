@@ -1,6 +1,9 @@
 Fix icon
 
-Ensure that program won't crash if user screws around with url (wrap calls to repo in try/cathes).
-	- make sure one user can't access the courses or scores of another user, even through ajax
+Make sure the putts toggle shows up even if there's only one tee.
 
-Add handicap calculation functionality.
+Make the log in cookie last long enough for a round.
+
+Control the backpage so that a non-logged-in user can't go back to a logged in page.
+
+Fix log out so a logged out user won't be able to log out again.

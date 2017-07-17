@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace GolfBag.Entities
 {
-    public class ScoreGolf
+    public class Score
     {
         public int Id { get; set; }
         public int HoleScore { get; set; }
