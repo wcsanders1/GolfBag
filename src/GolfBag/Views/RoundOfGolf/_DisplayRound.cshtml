@@ -1,27 +1,23 @@
 ﻿@model RoundOfGolfViewModel
 
-@if (Model.TeeBoxes.Count > 1)
-{
-    <ul class="nav nav-pills navbar-default">
-        <li class="navpill-header">Show and Hide Tee Boxes and Putts:</li>
-        @foreach (var teeBox in Model.TeeBoxes)
+<ul class="nav nav-pills navbar-default">
+    <li class="navpill-header">Show and Hide Tee Boxes and Putts:</li>
+    @foreach (var teeBox in Model.TeeBoxes)
+    {
+        if (teeBox.Id != Model.IdOfTeeBoxPlayed)
         {
-            if (teeBox.Id != Model.IdOfTeeBoxPlayed)
-            {
-                <li>
-                    <a class="teebox-toggler" href=".@teeBox.Id" data-toggle="collapse">@teeBox.Name</a>
-                    <i class="fa fa-lightbulb-o teebox-toggler-icon hidden" data-teebox-id="@teeBox.Id"></i>
-                </li>
-            }
+            <li>
+                <a class="teebox-toggler" href=".@teeBox.Id" data-toggle="collapse">@teeBox.Name</a>
+                <i class="fa fa-lightbulb-o teebox-toggler-icon hidden" data-teebox-id="@teeBox.Id"></i>
+            </li>
         }
+    }
 
-        <li>
-            <a class="teebox-toggler" href=".putt-row" data-toggle="collapse">Putts</a>
-            <i class="fa fa-lightbulb-o teebox-toggler-icon hidden" data-teebox-id="putt-row"></i>
-        </li>
-
-    </ul>
-}
+    <li>
+        <a class="teebox-toggler" href=".putt-row" data-toggle="collapse">Putts</a>
+        <i class="fa fa-lightbulb-o teebox-toggler-icon hidden" data-teebox-id="putt-row"></i>
+    </li>
+</ul>
 
 @Html.HiddenFor(m => m.IdOfCourse, new { id = "course-id" })
 @Html.HiddenFor(m => m.CourseName, new { id = "course-name" })

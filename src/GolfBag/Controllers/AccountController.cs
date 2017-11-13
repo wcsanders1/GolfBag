@@ -5,14 +5,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MailKit.Net.Smtp;
 using MimeKit;
-using MailKit.Security;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Security.Cryptography.X509Certificates;
-using Google.Apis.Auth.OAuth2;
-using System.Threading;
 using Microsoft.Extensions.Configuration;
 
 namespace GolfBag.Controllers

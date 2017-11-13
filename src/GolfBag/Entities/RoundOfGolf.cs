@@ -11,7 +11,7 @@ namespace GolfBag.Entities
         public int Id { get; set; }
 
         [Required]
-        public List<Score> Scores { get; set; }
+        public List<ScoreGolf> Scores { get; set; }
 
         public string PlayerName { get; set; }
 
